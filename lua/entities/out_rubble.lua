@@ -42,9 +42,7 @@ end
 function ENT:Use(caller, activator)
 	if self.hascodes == nil then DarkRP.notify( activator, 1, 6, "You searched all around the rubble but found nothing of use." ) return end
 	if self.hascodes and table.HasValue( rebeljobs, caller:Team() ) then
-		for k,ply in pairs( player.GetAll() ) do
-			DarkRP.notify( ply, 0, 6, "The codes for the combine portal were found buried in a pile of rubble! "..caller:Nick().." now has them!" )
-		end
+		DarkRP.notifyAll( 0, 6, "The codes for the combine portal were found buried in a pile of rubble! "..caller:Nick().." now has them!" )
 		self.hascodes = nil
 		caller.hascodes = true
 	end

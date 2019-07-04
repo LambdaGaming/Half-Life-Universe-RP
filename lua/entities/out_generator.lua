@@ -42,9 +42,7 @@ local rebeljobs = {
 function ENT:Use(caller, activator)
 	if self.hascodes == nil then DarkRP.notify( caller, 1, 6, "You searched all around the generator but found nothing of use." ) return end
 	if self.hascodes and table.HasValue( rebeljobs, caller:Team() ) then
-		for k,ply in pairs( player.GetAll() ) do
-			DarkRP.notify( ply, 0, 6, "The codes for the combine portal were found tucked away in a generator! "..caller:Nick().." now has them!" )
-		end
+		DarkRP.notifyAll( 0, 6, "The codes for the combine portal were found tucked away in a generator! "..caller:Nick().." now has them!" )
 		self.hascodes = nil
 		caller.hascodes = true
 	end
