@@ -1,6 +1,4 @@
 
-hascodes = nil
-
 --Run command if things go haywire:
 --lua_run for k,v in pairs( ents.FindByClass( [ENTCLASS] ) ) do v.hascodes = true end
 
