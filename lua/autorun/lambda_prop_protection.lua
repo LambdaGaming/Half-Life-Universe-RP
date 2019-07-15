@@ -58,7 +58,9 @@ local defaultblock = { --Blocked for all players including superadmins
 	"func_button",
 	"func_recharge",
 	"func_healthcharger",
-	"func_breakable"
+	"func_breakable",
+	"func_tracktrain",
+	"func_movelinear"
 }
 
 local function PlayerPickup( ply, ent )
