@@ -31,14 +31,14 @@ if game.GetMap() == "rp_city17_district47" then
 	end )
 end
 
-if game.GetMap() == "rp_c24_v1" then
+if game.GetMap() == "rp_city24_v2" then
 		hook.Add( "InitPostEntity", "C17Generator", function()
 		if SERVER then
 			local genpos = {
-				Vector( 7404, -7884, -253 ),
-				Vector( 7871, -10100, -901 ),
-				Vector( 9648, 5153, -243 ),
-				Vector( 11387, 6892, -52 )
+				Vector( 6185, 5506, -311 ),
+				Vector( 6986, 6516, -511 ),
+				Vector( 5277, 3485, -305 ),
+				Vector( 8008, 3820, -274 )
 			}
 			local car = ents.Create( "iron_generator" )
 			car:SetPos( table.Random( genpos ) )
