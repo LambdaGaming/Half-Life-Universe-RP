@@ -16,9 +16,7 @@ function ENT:Initialize()
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
-	--self:SetNoDraw(true)
-	--self:SetNotSolid(true)
- 
+
     local phys = self:GetPhysicsObject()
 	if (phys:IsValid()) then
 		phys:Wake()
@@ -39,13 +37,13 @@ function ENT:Initialize()
 		"ent_jack_turretbattery"
 	}
 	
-	timer.Create( tostring(self:EntIndex()), 60, 0, function()
-		local spawnitem = ents.Create( table.Random(items) )
+	timer.Create( tostring( self:EntIndex() ), 60, 0, function()
+		local spawnitem = ents.Create( table.Random( items ) )
 		spawnitem:SetPos( self:GetPos() + Vector( 0, 0, 20 ) )
 		spawnitem:Spawn()
 	end )
 end
 
 function ENT:OnRemove()
-	timer.Remove(self:EntIndex())
+	timer.Remove( tostring( self:EntIndex() ) )
 end
