@@ -26,13 +26,13 @@ function ENT:Use(caller, activator)
 		timer.Simple( 1, function() DarkRP.notify( caller, 0, 6, "Teleport starting..." ) end )
 		self:EmitSound( "ambient/levels/labs/teleport_mechanism_windup"..math.random( 1,5 )..".wav" )
 		
+		local time = 5
 		timer.Create( "TeleportTimer", 1, 5, function()
-			local time = 5
 			DarkRP.notify( caller, 0, 6, "Teleporting in: "..tostring( time ) )
 			time = time - 1
 		end )
 
-		timer.Simple( 8, function()
+		timer.Simple( 7, function()
 			if game.GetMap() == "rp_city17_build210" then
 				caller:SetPos( city17mapcoords )
 			elseif game.GetMap() == "rp_ineu_valley2_v1a" then
