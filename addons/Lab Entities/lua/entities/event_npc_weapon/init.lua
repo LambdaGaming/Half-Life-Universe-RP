@@ -12,9 +12,6 @@ function ENT:SpawnFunction( ply, tr )
 	return ent
 end
 
-local bye = nil
-local waiting = nil
-
 local weapon = {
 	"weapon_crossbow_hl",
 	"weapon_egon",
@@ -39,17 +36,17 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 
-	bye = false
-	waiting = false
+	self.bye = false
+	self.waiting = false
 	
 	local rand = table.Random( weapon )
-	chosenwep = rand
+	self.chosenwep = rand
 end
 
 function ENT:AcceptInput( ply, caller )
-	if waiting then
+	if self.waiting then
 		for k,v in pairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
-			if v:GetClass() == chosenwep then
+			if v:GetClass() == self.chosenwep then
 				v:Remove()
 				DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Thanks! Here's your cash. (Award +600)" )
 				caller:addMoney( 600 )
@@ -60,7 +57,7 @@ function ENT:AcceptInput( ply, caller )
 	if caller:Team() == TEAM_WEPMAKER then
 		umsg.Start( "WepMenu", caller )
 		umsg.End()
-		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "I need a "..chosenwep.."." )
+		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "I need a "..self.chosenwep.."." )
 	else
 		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "I'm looking for a weapons engineer. Have you seen any?" )
 	end
@@ -91,23 +88,19 @@ end
 
 function ENT:Think()
 	self:SetSequence( "idle_all_02" )
-	if bye then
+	if self.bye then
 		self:TeleportAway()
 	end
-end
-
-function ENT:OnRemove()
-	chosenwep = nil
 end
 
 util.AddNetworkString("WepAccept")
 net.Receive("WepAccept", function(length, ply)
 	DarkRP.talkToPerson( ply, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Thanks! I'll be waiting here for you!" )
-	waiting = true
+	self.waiting = true
 end)
 
 util.AddNetworkString("WepDeny")
 net.Receive("WepDeny", function(length, ply)
 	DarkRP.talkToPerson( ply, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Alright, shame we didn't get to work together." )
-	bye = true
+	self.bye = true
 end)
