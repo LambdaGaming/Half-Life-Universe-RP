@@ -21,61 +21,41 @@ end
 
 function ENT:Use(caller, activator)
 	if self.active then DarkRP.notify( caller, 1, 6, "The teleporter is currently in use." ) return end
-	if IsValid(caller) and caller:Alive() then
+	if IsValid( caller ) and caller:Alive() then
 		self.active = true
-		timer.Simple(1, function() caller:ChatPrint("Teleport starting...") end)
-		self:EmitSound(Sound("ambient/levels/labs/teleport_mechanism_windup"..math.random(1,5)..".wav") )
-		timer.Simple(3, function() caller:ChatPrint("5") end)
-		timer.Simple(4, function() caller:ChatPrint("4") end)
-		timer.Simple(5, function() caller:ChatPrint("3") end)
-		timer.Simple(6, function() caller:ChatPrint("2") end)
-		timer.Simple(7, function() caller:ChatPrint("1") end)
+		timer.Simple( 1, function() DarkRP.notify( caller, 0, 6, "Teleport starting..." ) end )
+		self:EmitSound( "ambient/levels/labs/teleport_mechanism_windup"..math.random( 1,5 )..".wav" )
 		
-		if game.GetMap() == "rp_city17_build210" then
-			timer.Simple(8, function() 
-				caller:SetPos(city17mapcoords)
-				self:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				caller:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				self.active = false
-			end )
+		timer.Create( "TeleportTimer", 1, 5, function()
+			local time = 5
+			DarkRP.notify( caller, 0, 6, "Teleporting in: "..tostring( time ) )
+			time = time - 1
+		end )
 
-		elseif game.GetMap() == "rp_ineu_valley2_v1a" then
-			timer.Simple(8, function() 
-				caller:SetPos(outlandmapcoords)
-				self:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				caller:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				self.active = false
-			end )
-
-		elseif IsValid(caller) and game.GetMap() == "rp_city17_district47" then
-			timer.Simple(8, function() 
-				caller:SetPos(district47mapcoords)
-				self:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				caller:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				self.active = false
-			end )
-
-		elseif IsValid(caller) and game.GetMap() == "rp_city24_v1" then
-			timer.Simple(8, function() 
-				caller:SetPos(city24mapcoords)
-				self:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				caller:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				self.active = false
-			end )
-			
-		elseif IsValid(caller) and game.GetMap() == "rp_industrial17_v1" then
-			timer.Simple(8, function() 
-				caller:SetPos(industrial17mapcoords)
-				self:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				caller:EmitSound("ambient/machines/teleport"..math.random(3,4)..".wav")
-				self.active = false
-			end )
-		end
+		timer.Simple( 8, function()
+			if game.GetMap() == "rp_city17_build210" then
+				caller:SetPos( city17mapcoords )
+			elseif game.GetMap() == "rp_ineu_valley2_v1a" then
+				caller:SetPos( outlandmapcoords )
+			elseif game.GetMap() == "rp_city17_district47" then
+				caller:SetPos( district47mapcoords )
+			elseif game.GetMap() == "rp_city24_v2" then
+				caller:SetPos( city24mapcoords )
+			elseif game.GetMap() == "rp_industrial17_v1" then
+				caller:SetPos( industrial17mapcoords )
+			else
+				DarkRP.notify( caller, 1, 6, "ERROR: Cannot teleport, invalid map." )
+			end
+			self:EmitSound( "ambient/machines/teleport"..math.random( 3,4 )..".wav" )
+			caller:EmitSound( "ambient/machines/teleport"..math.random( 3,4 )..".wav" )
+			self.active = false
+		end )
 	end
 end
 
 function ENT:OnTakeDamage()
-	self:SetHealth( self:Health() - 2 )
+	local dmg = DamageInfo():GetDamage()
+	self:SetHealth( self:Health() - dmg )
 	if self:Health() <= 0 then
 		local explode = ents.Create( "env_explosion" )
 		explode:SetPos( self:GetPos() )
