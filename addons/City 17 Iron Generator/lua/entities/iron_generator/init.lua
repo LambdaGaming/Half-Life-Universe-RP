@@ -51,7 +51,8 @@ function ENT:Use(caller, activator)
 end
 
 function ENT:OnTakeDamage()
-	self:SetHealth( self:Health() - 2 )
+	local dmg = DamageInfo():GetDamage()
+	self:SetHealth( self:Health() - dmg )
 	if self:Health() <= 0 then
 		local explode = ents.Create("env_explosion")
 		explode:SetPos( self:GetPos() )
