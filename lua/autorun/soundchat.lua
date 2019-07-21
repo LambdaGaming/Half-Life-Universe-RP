@@ -130,7 +130,7 @@ local secchats = {
 	{ "mess", "barney/bigmess.wav" },
 	{ "go right on through", "barney/c1a0_ba_hevyes.wav" },
 	{ "stairs", "barney/c1a2_ba_climb.wav" },
-	{ "get in here", "barney/c2a4_ba_steril.wav" },
+	{ "get in", "barney/c2a4_ba_steril.wav" },
 	{ "let me out", "barney/c2a5_ba_letout.wav" },
 	{ "sir", "barney/hayfella.wav" },
 	{ "hi", "barney/hellonicesuit.wav" },
@@ -348,49 +348,49 @@ if SERVER then
 		if ply.chatcooldown and ply.chatcooldown > CurTime() then return end --Doesn't check the tables if the cooldown is still in effect
 		if table.HasValue( scimodels, ply:GetModel() ) then --Sounds play according to what playermodel the player has
 			for _,v in pairs( scichats ) do --Looks over table of words and paths
-				if string.match( v[1], text:lower() ) then --Looks over the first part of the tables to see if the player sent a word that matches a word in the table
-					ply.chatcooldown = CurTime() + 3 --Adds 3 second cooldown to avoid spam
-					ply:EmitSound( v[2] ) --Emits the sound from the path according to what word was typed in, looks in the second part of the table
-					break --A break is needed or else two different sounds may play at once
+				local res1, res2 = string.find( string.lower( text ), v[1] )
+				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then --Credit to DarkRP devs for this
+					ply:EmitSound( v[2], 80, 100 )
+					break
 				end
 			end
 		elseif table.HasValue( secmodels, ply:GetModel() ) then
-			for _,v in pairs( secchats ) do
-				if string.match( v[1], text:lower() ) then
-					ply.chatcooldown = CurTime() + 3
-					ply:EmitSound( v[2] )
+			for k,v in pairs( secchats ) do
+				local res1, res2 = string.find( string.lower( text ), v[1] )
+				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
 		elseif table.HasValue( marinemodels, ply:GetModel() ) then
 			for _,v in pairs( marinechats ) do
-				if string.match( v[1], text:lower() ) then
-					ply.chatcooldown = CurTime() + 3
-					ply:EmitSound( v[2] )
+				local res1, res2 = string.find( string.lower( text ), v[1] )
+				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
 		elseif table.HasValue( cpmodels, ply:GetModel() ) then
 			for _,v in pairs( cpchat ) do
-				if string.match( v[1], text:lower() ) then
-					ply.chatcooldown = CurTime() + 3
-					ply:EmitSound( v[2] )
+				local res1, res2 = string.find( string.lower( text ), v[1] )
+				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
 		elseif table.HasValue( femalemodels, ply:GetModel() ) then
 			for _,v in pairs( femalechat ) do
-				if string.match( v[1], text:lower() ) then
-					ply.chatcooldown = CurTime() + 3
-					ply:EmitSound( v[2] )
+				local res1, res2 = string.find( string.lower( text ), v[1] )
+				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
 		elseif table.HasValue( malemodels, ply:GetModel() ) then
 			for _,v in pairs( malechat ) do
-				if string.match( v[1], text:lower() ) then
-					ply.chatcooldown = CurTime() + 3
-					ply:EmitSound( v[2] )
+				local res1, res2 = string.find( string.lower( text ), v[1] )
+				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
