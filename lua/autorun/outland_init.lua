@@ -41,11 +41,37 @@ hook.Add( "InitPostEntity", "OutlandJeeps", function()
 			Vector( 7320, -3983, 17 ),
 			Vector( -13013, 6372, 1024 )
 		}
+
+		local vehicles = {
+			{ "models/source_vehicles/car001a_hatchback_skin0.mdl", "scripts/vehicles/hl2_hatchback.txt" },
+			{ "models/source_vehicles/car001a_hatchback_skin1.mdl", "scripts/vehicles/hl2_hatchback.txt" },
+			{ "models/source_vehicles/car001b_hatchback/vehicle.mdl", "scripts/vehicles/hl2_hatchback.txt" },
+			{ "models/source_vehicles/car001b_hatchback/vehicle_skin1.mdl", "scripts/vehicles/hl2_hatchback.txt" },
+			{ "models/source_vehicles/car002a.mdl", "scripts/vehicles/hl2_hatchback.txt" },
+			{ "models/source_vehicles/car002b/vehicle.mdl", "scripts/vehicles/hl2_hatchback.txt" },
+			{ "models/source_vehicles/car003a.mdl", "scripts/vehicles/hl2_cars.txt" },
+			{ "models/source_vehicles/car003b/vehicle.mdl", "scripts/vehicles/rubbishcar.txt" },
+			{ "models/source_vehicles/car003b_rebel.mdl", "scripts/vehicles/hl2_cars.txt" },
+			{ "models/source_vehicles/car004a.mdl", "scripts/vehicles/hl2_cars.txt" },
+			{ "models/source_vehicles/car004b/vehicle.mdl", "scripts/vehicles/rubbishcar.txt" },
+			{ "models/source_vehicles/car005a.mdl", "scripts/vehicles/hl2_cars.txt" },
+			{ "models/source_vehicles/car005b/vehicle.mdl", "scripts/vehicles/rubbishcar.txt" },
+			{ "models/source_vehicles/truck001c_01.mdl", "scripts/vehicles/truck001c_01.txt" },
+			{ "models/source_vehicles/truck001c_02.mdl", "scripts/vehicles/truck001c_01.txt" },
+			{ "models/source_vehicles/truck002a_cab.mdl", "scripts/vehicles/truck002a_cab.txt" },
+			{ "models/source_vehicles/truck003a_01.mdl", "scripts/vehicles/truck003a_01.txt" },
+			{ "models/source_vehicles/van001a_01.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
+			{ "models/source_vehicles/van001a_01_nodoor.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
+			{ "models/source_vehicles/van001b_01.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
+			{ "models/source_vehicles/van001b_01_nodoor.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
+			{ "models/buggy.mdl", "scripts/vehicles/jeep_test.txt" }
+		}
 		
 		for k,v in ipairs( carpos ) do
+			local randveh = table.Random( vehicles )
 			local car = ents.Create( "prop_vehicle_jeep" )
-			car:SetModel( "models/buggy.mdl" )
-			car:SetKeyValue( "vehiclescript", "scripts/vehicles/jeep_test.txt" )
+			car:SetModel( randveh[1] )
+			car:SetKeyValue( "vehiclescript", randveh[2] )
 			car:SetPos( v )
 			car:Spawn()
 			car:Activate()
