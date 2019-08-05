@@ -38,6 +38,11 @@ function ENT:Initialize()
 	}
 	
 	timer.Create( tostring( self:EntIndex() ), 60, 0, function()
+		for k,v in pairs( ents.FindInSphere( self:GetPos(), 200 ) ) do
+			if table.HasValue( items, v:GetClass() ) then
+				return
+			end
+		end
 		local spawnitem = ents.Create( table.Random( items ) )
 		spawnitem:SetPos( self:GetPos() + Vector( 0, 0, 20 ) )
 		spawnitem:Spawn()
