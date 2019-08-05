@@ -10,6 +10,14 @@ function ENT:Initialize()
 	self:SetUseType(SIMPLE_USE)
 	local phys = self:GetPhysicsObject()
 	phys:Wake()
+
+	local redlight = ents.Create("light_dynamic")
+	redlight:SetPos( self:GetPos() )
+	redlight:SetOwner( self:GetOwner() )
+	redlight:SetParent(self)
+	redlight:SetKeyValue( "_light", "255 0 0 255" )  
+	redlight:SetKeyValue("distance", "150" )
+	redlight:Spawn()
 end
 
 function ENT:Use( activator, caller )
