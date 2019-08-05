@@ -48,6 +48,13 @@ function ENT:Use(caller, activator)
 			end
 			self:EmitSound( "ambient/machines/teleport"..math.random( 3,4 )..".wav" )
 			caller:EmitSound( "ambient/machines/teleport"..math.random( 3,4 )..".wav" )
+			local ed = EffectData()
+			ed:SetOrigin( caller:GetPos() + Vector( 0, 0, 30 ) )
+			ed:SetNormal(VectorRand())
+			ed:SetMagnitude(3)
+			ed:SetScale(1)
+			ed:SetRadius(3)
+			util.Effect( "Sparks", ed )
 			self.active = false
 		end )
 	end

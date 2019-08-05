@@ -28,6 +28,10 @@ function SWEP:PrimaryAttack()
 	if self.Owner:GetPos():DistToSqr( tr:GetPos() ) > 90000 then return end
     if tr:GetClass() == "two_way_teleporter" then
     	if self.FirstPortal then
+			if tr == self.FirstPortal then
+				DarkRP.notify( self.Owner, 1, 6, "ERROR: This portal is already selected to be linked." )
+				return
+			end
 			self.SecondPortal = tr
 			self.FirstPortal:SetNWEntity( "PairedPortal", self.SecondPortal )
 			self.SecondPortal:SetNWEntity( "PairedPortal", self.FirstPortal )
@@ -51,4 +55,11 @@ function SWEP:SecondaryAttack()
 		DarkRP.notify( self.Owner, 0, 6, "Portal successfully unpaired." )
     end
     self:SetNextPrimaryFire( CurTime() + 1 )
+end
+
+function SWEP:Holser()
+	if IsFirstTimePredicted() and SERVER then
+		self.FirstPortal = nil 
+		self.SecondPortal = nil
+	end
 end

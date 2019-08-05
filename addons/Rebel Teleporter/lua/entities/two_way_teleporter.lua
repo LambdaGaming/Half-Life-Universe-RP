@@ -26,15 +26,14 @@ function ENT:Initialize()
 	if SERVER then
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetUseType(SIMPLE_USE)
+		self:SetHealth( 100 )
+		self:SetMaxHealth( 100 )
 	end
  
     local phys = self:GetPhysicsObject()
 	if (phys:IsValid()) then
 		phys:Wake()
 	end
-
-	self:SetHealth( 100 )
-	self:SetMaxHealth( 100 )
 	self.active = false
 end
 
@@ -57,6 +56,13 @@ function ENT:Use( activator, caller )
 			self:EmitSound( "ambient/machines/teleport"..math.random( 3,4 )..".wav" )
 			caller:EmitSound( "ambient/machines/teleport"..math.random( 3,4 )..".wav" )
 			activator:SetPos( pair:GetPos() + Vector( 0, 0, 10 ) )
+			local ed = EffectData()
+			ed:SetOrigin( activator:GetPos() + Vector( 0, 0, 30 ) )
+			ed:SetNormal(VectorRand())
+			ed:SetMagnitude(3)
+			ed:SetScale(1)
+			ed:SetRadius(3)
+			util.Effect( "Sparks", ed )
 			self.active = false
 		end )
 	end
