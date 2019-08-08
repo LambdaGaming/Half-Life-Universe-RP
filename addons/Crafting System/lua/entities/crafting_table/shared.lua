@@ -491,6 +491,329 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 	}
 end
 
+--Biochemist crafting items
+
+CraftingTable["npc_headcrab_black"] = {
+	Name = "Poison Headcrab",
+	Description = "Requires 2 organic matter.",
+	Materials = {
+		organic_matter = 2
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "npc_headcrab_black" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["npc_headcrab_fast"] = {
+	Name = "Fast Headcrab",
+	Description = "Requires 2 organic matter.",
+	Materials = {
+		organic_matter = 2
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "npc_headcrab_fast" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_agrunt"] = {
+	Name = "Alien Grunt",
+	Description = "Requires 3 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 3,
+		xen_iron = 2
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_agrunt" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_controller"] = {
+	Name = "Alien Controller",
+	Description = "Requires 5 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 5,
+		xen_iron = 2
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_controller" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["weapon_barnacle"] = {
+	Name = "Handheld Barnacle",
+	Description = "Requires 3 organic matter and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 3,
+		crystal_harvested = 1
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_barnacle" )
+		end
+}
+
+CraftingTable["weapon_chumtoad"] = {
+	Name = "Chumtoad",
+	Description = "Requires 3 organic matter, 1 xen iron, and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 3,
+		crystal_harvested = 1,
+		xen_iron = 1
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_chumtoad" )
+		end
+}
+
+CraftingTable["weapon_hornetgun"] = {
+	Name = "Hivehand",
+	Description = "Requires 2 organic matter, 2 xen iron, and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 2,
+		crystal_harvested = 1,
+		xen_iron = 2
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_hornetgun" )
+		end
+}
+
+CraftingTable["weapon_possessor"] = {
+	Name = "Possessor",
+	Description = "Requires 2 organic matter, 2 xen iron, 1 rare organic matter, 1 refined xen iron, and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 2,
+		crystal_harvested = 1,
+		xen_iron = 2
+		organic_matter_rare = 1,
+		xen_iron_refined = 1
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_possessor" )
+		end
+}
+
+CraftingTable["weapon_shockrifle"] = {
+	Name = "Shock Rifle",
+	Description = "Requires 2 organic matter, 3 xen iron, 1 rare organic matter, and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 2,
+		crystal_harvested = 1,
+		xen_iron = 1,
+		organic_matter_rare = 1
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_shockrifle" )
+		end
+}
+
+CraftingTable["weapon_snark"] = {
+	Name = "Snark",
+	Description = "Requires 3 organic matter, 3 xen iron, and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 3,
+		crystal_harvested = 1,
+		xen_iron = 3
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_snark" )
+		end
+}
+
+CraftingTable["weapon_sporelauncher"] = {
+	Name = "Alien Grunt",
+	Description = "Requires 4 organic matter, 2 xen iron, 1 rare organic matter, and 1 harvested crystal.",
+	Materials = {
+		organic_matter = 4,
+		crystal_harvested = 1,
+		xen_iron = 2,
+		organic_matter_rare = 1
+	},
+	Type = 2,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_sporelauncher" )
+		end
+}
+
+--Weapons engineer crafting items
+
+CraftingTable["weapon_357_hl"] = {
+	Name = "357 Magnum",
+	Description = "Requires 4 xen iron.",
+	Materials = {
+		xen_iron = 4
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_357_hl" )
+		end
+}
+
+CraftingTable["weapon_crossbow_hl"] = {
+	Name = "Crossbow",
+	Description = "Requires 4 xen iron and 1 refined xen iron.",
+	Materials = {
+		xen_iron = 4
+		xen_iron_refined = 1
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_crossbow_hl" )
+		end
+}
+
+CraftingTable["weapon_egon"] = {
+	Name = "Gluon Gun",
+	Description = "Requires 2 refined xen iron, 1 harvested crystal, and 1 harvested crystal fragment.",
+	Materials = {
+		xen_iron_refined = 2,
+		crystal_harvested = 1,
+		crystal_fragment = 1
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_egon" )
+		end
+}
+
+CraftingTable["weapon_flechettegrenade"] = {
+	Name = "Flechette Grenade",
+	Description = "Requires 2 refined xen iron and 2 harvested crystal fragments.",
+	Materials = {
+		xen_iron_refined = 2,
+		crystal_fragment = 2
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_flechettegrenade" )
+		end
+}
+
+CraftingTable["weapon_freezinggun"] = {
+	Name = "Freezing Gun",
+	Description = "Requires 2 refined xen iron, 2 xen iron, 1 harvested crystal, and 2 harvested crystal fragments.",
+	Materials = {
+		xen_iron_refined = 2,
+		crystal_fragment = 2,
+		xen_iron = 2,
+		crystal_harvested = 1
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_freezinggun" )
+		end
+}
+
+CraftingTable["weapon_gauss"] = {
+	Name = "Gauss Cannon",
+	Description = "Requires 2 refined xen iron, 2 xen iron, 2 harvested crystals, and 3 harvested crystal fragments.",
+	Materials = {
+		xen_iron_refined = 2,
+		crystal_fragment = 3,
+		xen_iron = 2,
+		crystal_harvested = 2
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_gauss" )
+		end
+}
+
+CraftingTable["weapon_knife"] = {
+	Name = "Flechette Grenade",
+	Description = "Requires 2 xen iron.",
+	Materials = {
+		xen_iron = 2
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_knife" )
+		end
+}
+
+CraftingTable["weapon_penguin"] = {
+	Name = "Penguin",
+	Description = "Requires 2 organic matter, 1 rare organic matter, 2 xen iron, 1 refined xen iron, 1 harvested crystal, and 1 harvested crystal fragment.",
+	Materials = {
+		organic_matter = 2,
+		organic_matter_rare = 1,
+		xen_iron = 2,
+		xen_iron_refined = 1,
+		crystal_harvested = 1,
+		crystal_fragment = 1
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_penguin" )
+		end
+}
+
+CraftingTable["weapon_rpg_hl"] = {
+	Name = "RPG",
+	Description = "Requires 4 refined xen iron, 2 xen iron, and 1 harvested crystal.",
+	Materials = {
+		xen_iron_refined = 4,
+		xen_iron = 2,
+		crystal_harvested = 1
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_rpg_hl" )
+		end
+}
+
+CraftingTable["weapon_tripmine"] = {
+	Name = "Tripmine",
+	Description = "Requires 3 refined xen iron, 1 xen iron, and 2 harvested crystal fragments.",
+	Materials = {
+		xen_iron_refined = 3,
+		xen_iron = 1,
+		crystal_fragment = 2
+	},
+	Type = 3,
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_tripmine" )
+		end
+}
+
 --Combine crafting items
 
 CraftingTable["ent_jack_turret_plinker"] = {

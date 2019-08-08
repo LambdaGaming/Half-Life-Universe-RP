@@ -50,5 +50,11 @@ CRAFT_CONFIG_BUTTON_TEXT_COLOR = color_white --Using a global for optimization, 
 CRAFT_CONFIG_ALLOWED_ENTS = {
     ["ironbar"] = true,
 	["wrench"] = true,
-	["wood"] = true
+	["wood"] = true,
+	["xen_iron"] = true,
+	["xen_iron_refined"] = true,
+	["organic_matter"] = true,
+	["organic_matter_rare"] = true
+	["crystal_harvested"] = true,
+	["crystal_fragment"] = true
 }
