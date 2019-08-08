@@ -54,7 +54,7 @@ CRAFT_CONFIG_ALLOWED_ENTS = {
 	["xen_iron"] = true,
 	["xen_iron_refined"] = true,
 	["organic_matter"] = true,
-	["organic_matter_rare"] = true
+	["organic_matter_rare"] = true,
 	["crystal_harvested"] = true,
 	["crystal_fragment"] = true
 }
