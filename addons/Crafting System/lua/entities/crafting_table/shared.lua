@@ -19,6 +19,129 @@ end
 ]]
 
 CraftingTable = {}
+CraftingCategory = {}
+
+--Template Category
+--[[
+	CraftingCategory[1] = { --Be sure to change the number, the lower the number, the higher up in the list it is
+		Name = "Pistols", --Name of the category
+		Color = Color( 49, 53, 61, 255 ) --Color of the category box
+	}
+]]
+
+--Rebel categories
+CraftingCategory[1] = {
+	Name = "Pistols",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[2] = {
+	Name = "SMGs",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[3] = {
+	Name = "Rifles",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[4] = {
+	Name = "Shotguns",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[5] = {
+	Name = "Tools",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[6] = {
+	Name = "Crafting Ingredients",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[7] = {
+	Name = "Ammo",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[8] = {
+	Name = "Explosives",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+CraftingCategory[9] = {
+	Name = "Traps",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 1
+}
+
+if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
+	CraftingCategory[10] = {
+		Name = "Sentry Tools",
+		Color = Color( 49, 53, 61, 255 ),
+		Type = 1
+	}
+end
+
+--Biochemist categories
+CraftingCategory[1] = {
+	Name = "Creatures",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 2
+}
+
+CraftingCategory[2] = {
+	Name = "Bioweapons",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 2
+}
+
+--Weapons engineer categories
+CraftingCategory[1] = {
+	Name = "Normal Weapons",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 3
+}
+
+CraftingCategory[2] = {
+	Name = "Prototype Weapons",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 3
+}
+
+CraftingCategory[3] = {
+	Name = "Unusual Weapons",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 3
+}
+
+--Combine categories
+CraftingCategory[1] = {
+	Name = "Turrets",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 4
+}
+
+CraftingCategory[2] = {
+	Name = "Turret Ammo",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 4
+}
+
+CraftingCategory[3] = {
+	Name = "Turret Tools",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 4
+}
 
 --Template Item
 --[[
@@ -51,6 +174,7 @@ CraftingTable["weapon_pistol"] = {
 		wrench = 1
 	},
 	Type = 1,
+	Category = "Pistols",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_pistol" )
@@ -64,6 +188,7 @@ CraftingTable["weapon_crowbar"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Tools",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_crowbar" )
@@ -78,9 +203,25 @@ CraftingTable["weapon_smg1"] = {
 		wrench = 2
 	},
 	Type = 1,
+	Category = "SMGs",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_smg1" )
+		end
+}
+
+CraftingTable["weapon_ar2"] = {
+	Name = "AR2",
+	Description = "Requires 4 iron and 2 wrenches.",
+	Materials = {
+		ironbar = 4,
+		wrench = 2
+	},
+	Type = 1,
+	Category = "Rifles",
+	SpawnFunction =
+		function( ply, self )
+			ply:Give( "weapon_ar2" )
 		end
 }
 
@@ -92,6 +233,7 @@ CraftingTable["weapon_crossbow"] = {
 		wrench = 3
 	},
 	Type = 1,
+	Category = "Rifles",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_crossbow" )
@@ -105,6 +247,7 @@ CraftingTable["wrench"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Crafting Ingredients",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "wrench" )
@@ -119,6 +262,7 @@ CraftingTable["weapon_bp_sniper"] = {
 		wrench = 4
 	},
 	Type = 1,
+	Category = "Rifles",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_bp_sniper" )
@@ -132,6 +276,7 @@ CraftingTable["item_ammo_pistol"] = {
 		ironbar = 1
 	},
 	Type = 1,
+	Category = "Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "item_ammo_pistol" )
@@ -147,6 +292,7 @@ CraftingTable["item_ammo_smg1"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "item_ammo_smg1" )
@@ -162,6 +308,7 @@ CraftingTable["item_box_buckshot"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "item_box_buckshot" )
@@ -177,6 +324,7 @@ CraftingTable["item_ammo_crossbow"] = {
 		ironbar = 3
 	},
 	Type = 1,
+	Category = "Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "item_ammo_crossbow" )
@@ -192,6 +340,7 @@ CraftingTable["item_ammo_ar2"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "item_ammo_ar2" )
@@ -207,6 +356,7 @@ CraftingTable["bp_sniper_ammo"] = {
 		ironbar = 3
 	},
 	Type = 1,
+	Category = "Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "bp_sniper_ammo" )
@@ -222,6 +372,7 @@ CraftingTable["lockpick"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Tools",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "lockpick" )
@@ -236,6 +387,7 @@ CraftingTable["weapon_shotgun"] = {
 		wrench = 2
 	},
 	Type = 1,
+	Category = "Shotguns",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_shotgun" )
@@ -250,6 +402,7 @@ CraftingTable["weapon_rpg"] = {
 		wrench = 4
 	},
 	Type = 1,
+	Category = "Explosives",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_rpg" )
@@ -264,6 +417,7 @@ CraftingTable["rebel_teleporter"] = {
 		wrench = 5
 	},
 	Type = 1,
+	Category = "Tools",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "rebel_teleporter" )
@@ -280,6 +434,7 @@ CraftingTable["two_way_teleporter"] = {
 		wrench = 2
 	},
 	Type = 1,
+	Category = "Tools",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "two_way_teleporter" )
@@ -296,6 +451,7 @@ CraftingTable["weapon_frag"] = {
 		wrench = 2
 	},
 	Type = 1,
+	Category = "Explosives",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_frag" )
@@ -310,6 +466,7 @@ CraftingTable["weapon_grenadeplacer"] = {
 		wrench = 1
 	},
 	Type = 1,
+	Category = "Traps",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_grenadeplacer" )
@@ -324,6 +481,7 @@ CraftingTable["bouncingmine"] = {
 		wrench = 4
 	},
 	Type = 1,
+	Category = "Traps",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "bouncingmine" )
@@ -340,6 +498,7 @@ CraftingTable["springgun"] = {
 		wrench = 2
 	},
 	Type = 1,
+	Category = "Traps",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "springgun" )
@@ -355,6 +514,7 @@ CraftingTable["tripwireextender"] = {
 		ironbar = 2
 	},
 	Type = 1,
+	Category = "Traps",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "tripwireextender" )
@@ -363,7 +523,7 @@ CraftingTable["tripwireextender"] = {
 		end
 }
 
-if game.GetMap() == "rp_ineu_valley2_v1a" then
+if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 	CraftingTable["ent_jack_sleepinbag"] = {
 		Name = "Sleeping Bag",
 		Description = "Requires 2 iron and 5 wood.",
@@ -372,6 +532,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			wood = 5
 		},
 		Type = 1,
+		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_sleepinbag" )
@@ -388,6 +549,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			wrench = 3
 		},
 		Type = 1,
+		Category = "Sentry Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_terminal" )
@@ -403,6 +565,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			ironbar = 3
 		},
 		Type = 1,
+		Category = "Ammo",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretammobox_9mm" )
@@ -418,6 +581,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			ironbar = 2
 		},
 		Type = 1,
+		Category = "Ammo",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretammobox_22" )
@@ -434,6 +598,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			wrench = 1
 		},
 		Type = 1,
+		Category = "Ammo",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretammobox_556" )
@@ -450,6 +615,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			wrench = 3
 		},
 		Type = 1,
+		Category = "Ammo",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretammobox_762" )
@@ -466,6 +632,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			wrench = 2
 		},
 		Type = 1,
+		Category = "Sentry Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretbattery" )
@@ -482,6 +649,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" then
 			wrench = 4
 		},
 		Type = 1,
+		Category = "Sentry Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretrepairkit" )
@@ -500,6 +668,7 @@ CraftingTable["npc_headcrab_black"] = {
 		organic_matter = 2
 	},
 	Type = 2,
+	Category = "Creatures",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "npc_headcrab_black" )
@@ -515,6 +684,7 @@ CraftingTable["npc_headcrab_fast"] = {
 		organic_matter = 2
 	},
 	Type = 2,
+	Category = "Creatures",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "npc_headcrab_fast" )
@@ -531,6 +701,7 @@ CraftingTable["monster_agrunt"] = {
 		xen_iron = 2
 	},
 	Type = 2,
+	Category = "Creatures",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "monster_agrunt" )
@@ -547,6 +718,7 @@ CraftingTable["monster_controller"] = {
 		xen_iron = 2
 	},
 	Type = 2,
+	Category = "Creatures",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "monster_controller" )
@@ -563,6 +735,7 @@ CraftingTable["weapon_barnacle"] = {
 		crystal_harvested = 1
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_barnacle" )
@@ -578,6 +751,7 @@ CraftingTable["weapon_chumtoad"] = {
 		xen_iron = 1
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_chumtoad" )
@@ -593,6 +767,7 @@ CraftingTable["weapon_hornetgun"] = {
 		xen_iron = 2
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_hornetgun" )
@@ -605,11 +780,12 @@ CraftingTable["weapon_possessor"] = {
 	Materials = {
 		organic_matter = 2,
 		crystal_harvested = 1,
-		xen_iron = 2
+		xen_iron = 2,
 		organic_matter_rare = 1,
 		xen_iron_refined = 1
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_possessor" )
@@ -626,6 +802,7 @@ CraftingTable["weapon_shockrifle"] = {
 		organic_matter_rare = 1
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_shockrifle" )
@@ -641,6 +818,7 @@ CraftingTable["weapon_snark"] = {
 		xen_iron = 3
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_snark" )
@@ -657,6 +835,7 @@ CraftingTable["weapon_sporelauncher"] = {
 		organic_matter_rare = 1
 	},
 	Type = 2,
+	Category = "Bioweapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_sporelauncher" )
@@ -672,6 +851,7 @@ CraftingTable["weapon_357_hl"] = {
 		xen_iron = 4
 	},
 	Type = 3,
+	Category = "Normal Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_357_hl" )
@@ -682,10 +862,11 @@ CraftingTable["weapon_crossbow_hl"] = {
 	Name = "Crossbow",
 	Description = "Requires 4 xen iron and 1 refined xen iron.",
 	Materials = {
-		xen_iron = 4
+		xen_iron = 4,
 		xen_iron_refined = 1
 	},
 	Type = 3,
+	Category = "Normal Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_crossbow_hl" )
@@ -701,6 +882,7 @@ CraftingTable["weapon_egon"] = {
 		crystal_fragment = 1
 	},
 	Type = 3,
+	Category = "Prototype Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_egon" )
@@ -715,6 +897,7 @@ CraftingTable["weapon_flechettegrenade"] = {
 		crystal_fragment = 2
 	},
 	Type = 3,
+	Category = "Prototype Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_flechettegrenade" )
@@ -731,6 +914,7 @@ CraftingTable["weapon_freezinggun"] = {
 		crystal_harvested = 1
 	},
 	Type = 3,
+	Category = "Unusual Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_freezinggun" )
@@ -747,6 +931,7 @@ CraftingTable["weapon_gauss"] = {
 		crystal_harvested = 2
 	},
 	Type = 3,
+	Category = "Prototype Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_gauss" )
@@ -760,6 +945,7 @@ CraftingTable["weapon_knife"] = {
 		xen_iron = 2
 	},
 	Type = 3,
+	Category = "Normal Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_knife" )
@@ -778,6 +964,7 @@ CraftingTable["weapon_penguin"] = {
 		crystal_fragment = 1
 	},
 	Type = 3,
+	Category = "Unusual Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_penguin" )
@@ -793,6 +980,7 @@ CraftingTable["weapon_rpg_hl"] = {
 		crystal_harvested = 1
 	},
 	Type = 3,
+	Category = "Normal Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_rpg_hl" )
@@ -808,6 +996,7 @@ CraftingTable["weapon_tripmine"] = {
 		crystal_fragment = 2
 	},
 	Type = 3,
+	Category = "Normal Weapons",
 	SpawnFunction =
 		function( ply, self )
 			ply:Give( "weapon_tripmine" )
@@ -824,6 +1013,7 @@ CraftingTable["ent_jack_turret_plinker"] = {
 		wrench = 2
 	},
 	Type = 4,
+	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
 			local spawn = ents.Create("ent_jack_turret_plinker")
@@ -843,6 +1033,7 @@ CraftingTable["ent_jack_turret_pistol"] = {
 		wrench = 3
 	},
 	Type = 4,
+	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
 			local spawn = ents.Create("ent_jack_turret_pistol")
@@ -862,6 +1053,7 @@ CraftingTable["ent_jack_turret_rifle"] = {
 		wrench = 4
 	},
 	Type = 4,
+	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
 			local spawn = ents.Create("ent_jack_turret_rifle")
@@ -881,6 +1073,7 @@ CraftingTable["ent_jack_turret_smg"] = {
 		wrench = 4
 	},
 	Type = 4,
+	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
 			local spawn = ents.Create("ent_jack_turret_smg")
@@ -900,6 +1093,7 @@ CraftingTable["ent_jack_turret_sniper"] = {
 		wrench = 5
 	},
 	Type = 4,
+	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
 			local spawn = ents.Create("ent_jack_turret_sniper")
@@ -919,6 +1113,7 @@ CraftingTable["ent_jack_terminal"] = {
 		wrench = 3
 	},
 	Type = 4,
+	Category = "Turret Tools",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_terminal" )
@@ -934,6 +1129,7 @@ CraftingTable["ent_jack_turretammobox_9mm"] = {
 		ironbar = 3
 	},
 	Type = 4,
+	Category = "Turret Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretammobox_9mm" )
@@ -949,6 +1145,7 @@ CraftingTable["ent_jack_turretammobox_22"] = {
 		ironbar = 2
 	},
 	Type = 4,
+	Category = "Turret Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretammobox_22" )
@@ -965,6 +1162,7 @@ CraftingTable["ent_jack_turretammobox_556"] = {
 		wrench = 1
 	},
 	Type = 4,
+	Category = "Turret Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretammobox_556" )
@@ -981,6 +1179,7 @@ CraftingTable["ent_jack_turretammobox_762"] = {
 		wrench = 3
 	},
 	Type = 4,
+	Category = "Turret Ammo",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretammobox_762" )
@@ -997,6 +1196,7 @@ CraftingTable["ent_jack_turretbattery"] = {
 		wrench = 2
 	},
 	Type = 4,
+	Category = "Turret Tools",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretbattery" )
@@ -1013,6 +1213,7 @@ CraftingTable["ent_jack_turretrepairkit"] = {
 		wrench = 4
 	},
 	Type = 4,
+	Category = "Turret Tools",
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretrepairkit" )
