@@ -84,14 +84,6 @@ CraftingCategory[9] = {
 	Type = 1
 }
 
-if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
-	CraftingCategory[10] = {
-		Name = "Sentry Tools",
-		Color = Color( 49, 53, 61, 255 ),
-		Type = 1
-	}
-end
-
 --Biochemist categories
 CraftingCategory[1] = {
 	Name = "Creatures",
@@ -549,7 +541,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			wrench = 3
 		},
 		Type = 1,
-		Category = "Sentry Tools",
+		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_terminal" )
@@ -632,7 +624,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			wrench = 2
 		},
 		Type = 1,
-		Category = "Sentry Tools",
+		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretbattery" )
@@ -649,7 +641,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			wrench = 4
 		},
 		Type = 1,
-		Category = "Sentry Tools",
+		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
 				local e = ents.Create( "ent_jack_turretrepairkit" )
