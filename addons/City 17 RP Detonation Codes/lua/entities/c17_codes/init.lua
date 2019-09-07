@@ -24,6 +24,11 @@ function ENT:Initialize()
 	end
 end
 
+local randmap = {
+	"rp_ineu_valley2_v1a",
+	"gm_boreas"
+}
+
 function ENT:Use( activator, caller )
 	if GetGlobalBool( "BlowoutActive" ) then
 		DarkRP.notify( activator, 1, 6, "The codes are already being uploaded." )
@@ -34,7 +39,7 @@ function ENT:Use( activator, caller )
 	timer.Create( "blowout", 2, 0, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
 	timer.Create( "changelevel", 150, 0, function()
 		RunConsoleCommand( "gamemode", "outlandrp" )
-		RunConsoleCommand( "changelevel", "rp_ineu_valley2_v1a" )
+		RunConsoleCommand( "changelevel", table.Random( randmap ) )
 	end )
 	DarkRP.notifyAll( 1, 10, "Codes uploading to core......2 minutes until citadel destruction." ) --Global chat announcement
 end
