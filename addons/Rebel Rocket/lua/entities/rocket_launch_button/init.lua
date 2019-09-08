@@ -8,8 +8,6 @@ function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetUseType(SIMPLE_USE)
-	self:SetColor( Color( 255, 255, 255, 0 ) )
-	self:SetRenderMode( RENDERMODE_TRANSALPHA )
 	local phys = self:GetPhysicsObject()
 	phys:Wake()
 	
