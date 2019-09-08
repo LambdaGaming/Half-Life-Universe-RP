@@ -3,16 +3,7 @@ AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
 function ENT:Initialize()
-	local randmodel = {
-		"models/props_debris/concrete_debris128pile001a.mdl",
-		"models/props_debris/concrete_cornerpile01a.mdl",
-		"models/props_debris/concrete_debris128pile001b.mdl",
-		"models/props_debris/concrete_floorpile01a.mdl",
-		"models/props_debris/concrete_spawnplug001a.mdl",
-		"models/props_debris/plaster_ceilingpile001a.mdl"
-	}
-
-    self:SetModel( table.Random(randmodel) )
+    self:SetModel( "models/props_debris/concrete_spawnplug001a.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
