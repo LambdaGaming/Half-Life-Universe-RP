@@ -85,51 +85,51 @@ CraftingCategory[9] = {
 }
 
 --Biochemist categories
-CraftingCategory[1] = {
+CraftingCategory[10] = {
 	Name = "Creatures",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 2
 }
 
-CraftingCategory[2] = {
+CraftingCategory[11] = {
 	Name = "Bioweapons",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 2
 }
 
 --Weapons engineer categories
-CraftingCategory[1] = {
+CraftingCategory[12] = {
 	Name = "Normal Weapons",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 3
 }
 
-CraftingCategory[2] = {
+CraftingCategory[13] = {
 	Name = "Prototype Weapons",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 3
 }
 
-CraftingCategory[3] = {
+CraftingCategory[14] = {
 	Name = "Unusual Weapons",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 3
 }
 
 --Combine categories
-CraftingCategory[1] = {
+CraftingCategory[15] = {
 	Name = "Turrets",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 4
 }
 
-CraftingCategory[2] = {
+CraftingCategory[16] = {
 	Name = "Turret Ammo",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 4
 }
 
-CraftingCategory[3] = {
+CraftingCategory[17] = {
 	Name = "Turret Tools",
 	Color = Color( 49, 53, 61, 255 ),
 	Type = 4
@@ -516,7 +516,7 @@ CraftingTable["tripwireextender"] = {
 }
 
 if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
-	CraftingTable["ent_jack_sleepinbag"] = {
+	CraftingTable["ent_jack_sleepinbag_rebel"] = {
 		Name = "Sleeping Bag",
 		Description = "Requires 2 iron and 5 wood.",
 		Materials = {
@@ -533,7 +533,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_terminal"] = {
+	CraftingTable["ent_jack_terminal_rebel"] = {
 		Name = "Sentry Terminal",
 		Description = "Requires 4 iron and 3 wrenches.",
 		Materials = {
@@ -550,7 +550,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_9mm"] = {
+	CraftingTable["ent_jack_turretammobox_9mm_rebel"] = {
 		Name = "9mm Sentry Ammo",
 		Description = "Requires 3 iron.",
 		Materials = {
@@ -566,7 +566,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_22"] = {
+	CraftingTable["ent_jack_turretammobox_22_rebel"] = {
 		Name = ".22 LR Sentry Ammo",
 		Description = "Requires 2 iron.",
 		Materials = {
@@ -582,7 +582,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_556"] = {
+	CraftingTable["ent_jack_turretammobox_556_rebel"] = {
 		Name = "5.56 Sentry Ammo",
 		Description = "Requires 4 iron and 1 wrench.",
 		Materials = {
@@ -599,7 +599,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_762"] = {
+	CraftingTable["ent_jack_turretammobox_762_rebel"] = {
 		Name = "7.62 Sentry Ammo",
 		Description = "Requires 4 iron and 3 wrenches.",
 		Materials = {
@@ -616,7 +616,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_turretbattery"] = {
+	CraftingTable["ent_jack_turretbattery_rebel"] = {
 		Name = "Sentry Battery",
 		Description = "Requires 2 iron and 2 wrenches.",
 		Materials = {
@@ -633,7 +633,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_turretrepairkit"] = {
+	CraftingTable["ent_jack_turretrepairkit_rebel"] = {
 		Name = "Sentry Repair Kit",
 		Description = "Requires 4 iron and 4 wrenches.",
 		Materials = {
@@ -818,7 +818,7 @@ CraftingTable["weapon_snark"] = {
 }
 
 CraftingTable["weapon_sporelauncher"] = {
-	Name = "Alien Grunt",
+	Name = "Spore Launcher",
 	Description = "Requires 4 organic matter, 2 xen iron, 1 rare organic matter, and 1 harvested crystal.",
 	Materials = {
 		organic_matter = 4,
