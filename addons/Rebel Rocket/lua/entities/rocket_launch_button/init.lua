@@ -33,8 +33,15 @@ function ENT:Use(caller, activator)
 	end
 	if activator:Team() != TEAM_RESISTANCELEADER then DarkRP.notify( caller, 1, 8, "ERROR: Only resistance leaders can launch the rocket!" ) return end
 	if timer.Exists("rocket_timer") then DarkRP.notify(activator, 1, 8, "Wait "..string.ToMinutesSeconds(math.Round (timer.TimeLeft("rocket_timer"))).." minutes before activating the rocket again.") return end
+	if game.GetMap() == "rp_ineu_valley2_v1a" then
 		local rocketspawn = ents.Create("gb5_proj_icbm_big")
 		rocketspawn:SetPos( Vector( -13185, 8374, -1216 ) )
 		rocketspawn:SetAngles( Angle( -90, 0, 0 ) )
 		rocketspawn:Spawn()
+	else
+		local rocketspawn = ents.Create("gb5_proj_icbm_big")
+		rocketspawn:SetPos( Vector( -79, 5578, -6102 ) )
+		rocketspawn:SetAngles( Angle( -90, 0, 0 ) )
+		rocketspawn:Spawn()
+	end
 end
