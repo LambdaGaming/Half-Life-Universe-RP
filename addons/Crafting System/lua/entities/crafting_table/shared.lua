@@ -931,7 +931,7 @@ CraftingTable["weapon_gauss"] = {
 }
 
 CraftingTable["weapon_knife"] = {
-	Name = "Flechette Grenade",
+	Name = "Knife",
 	Description = "Requires 2 xen iron.",
 	Materials = {
 		xen_iron = 2
