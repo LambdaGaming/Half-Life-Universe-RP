@@ -68,3 +68,7 @@ concommand.Add( "xenspawn", function()
 		end
 	end
 end )
+
+hook.Add( "InitPostEntity", "SpawnXenNPCs", function()
+	RunConsoleCommand( "xenspawn" )
+end )
