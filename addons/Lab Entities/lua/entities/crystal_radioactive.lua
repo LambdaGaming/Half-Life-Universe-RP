@@ -178,7 +178,7 @@ function ENT:Think()
 			if SERVER then
 				v:TakeDamage( 5 )
 			end
-			hurtcooldown = hurtcooldown + 1
+			hurtcooldown = hurtcooldown + 3
 		end
 	end
 end
