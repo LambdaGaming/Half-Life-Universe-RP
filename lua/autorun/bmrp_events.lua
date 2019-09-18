@@ -1,12 +1,46 @@
 
+local function PickRandomEvent()
+	local rand2 = math.random( 1, 10 )
+	if rand2 == 1 then
+		PortalBreakDown()
+	elseif rand2 == 2 then
+		DoorFailure()
+	elseif rand2 == 3 then
+		MedicRevive()
+	elseif rand2 == 4 then
+		XenBreach()
+	elseif rand2 == 5 then
+		Biohazard()
+	elseif rand2 == 6 then
+		Crystal()
+	elseif rand2 == 7 then
+		MarineWeapon()
+	elseif rand2 == 8 then
+		ServerFailure()
+	elseif rand2 == 9 then
+		Boss()
+	else
+		FIRE_Event()
+	end
+end
+
+timer.Create( "EventLoop", 300, 0, function()
+	local rand = math.random( 1, 10 )
+	if GetGlobalBool( "EventActive" ) then return end --Doesn't activate another event if there's one active already
+	if player.GetCount() == team.NumPlayers( TEAM_VISITOR ) then return end --Doesn't activate an event if all players are visitors
+	if rand <= 2 then
+		PickRandomEvent()
+	end
+end )
+
 local map = game.GetMap()
 local sectorc = "rp_sectorc_beta"
 local laboratory = "rp_blackmesa_laboratory"
 local complex = "rp_blackmesa_complex_fixed"
-local play = player.GetAll()
 
 -----------------------------------------------------------------
 function PortalBreakDown()
+	if team.NumPlayers( TEAM_SURVEY ) + team.NumPlayers( TEAM_SURVEYBOSS ) == 0 or team.NumPlayers( TEAM_SERVICE ) == 0 then return end
 	if map == sectorc then
 		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
 			if v:EntIndex() == 1207 then
@@ -29,10 +63,13 @@ function PortalBreakDown()
 	for k,v in pairs( ents.FindByClass( "event_portal_fix" ) ) do
 		v.broke = true
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "The portal has malfunctioned! It won't be able to start up again until a service official fixes it!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "The portal has malfunctioned! It won't be able to start up again until a service official fixes it!" )
+		end
 	end
 	RunConsoleCommand( "vox", "deeoo deeoo alert main portal control failure" )
+	SetGlobalBool( "EventActive", true )
 end
 
 function PortalFix()
@@ -56,6 +93,7 @@ function PortalFix()
 		end
 	end
 	RunConsoleCommand( "vox", "dadeda maintenance reports main portal control inspection nominal" )
+	SetGlobalBool( "EventActive", false )
 end
 -----------------------------------------------------------------
 local sectorcindex = { 1481, 1480, 1514, 1515, 1040, 1021, 1056, 1041, 442, 455, 537, 518, 461, 462, 479, 465 }
@@ -65,6 +103,7 @@ local laboratoryindex = { 40, 41, 626, 627, 125, 126, 124, 123, 255, 256, 82, 81
 local complexindex = { 377, 378, 140, 165, 166, 167, 168, 170, 171, 1014, 520, 521, 330, 966, 967, 1112, 108, 474, 659, 660, 759 }
 
 function DoorFailure()
+	if team.NumPlayers( TEAM_SERVICE ) == 0 then return end
 	if map == sectorc then
 		for k,v in pairs( ents.GetAll() ) do
 			if table.HasValue( sectorcindex, v:EntIndex() ) then
@@ -88,10 +127,13 @@ function DoorFailure()
 		v.broke = true
 		v:EmitSound("vehicles/Airboat/fan_motor_shut_off1.wav")
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "The secondary generator powering some electric doors has stalled!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "The secondary generator powering some electric doors has stalled!" )
+		end
 	end
 	RunConsoleCommand( "vox", "bizwarn warning secondary _comma door power system failure" )
+	SetGlobalBool( "EventActive", true )
 end
 
 function DoorFix()
@@ -114,10 +156,13 @@ function DoorFix()
 			end
 		end
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 64, 255, 35 ), "The secondary generator has been restarted!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 64, 255, 35 ), "The secondary generator has been restarted!" )
+		end
 	end
 	RunConsoleCommand( "vox", "dadeda maintenance reports secondary _comma door power system inspection nominal" )
+	SetGlobalBool( "EventActive", false )
 end
 -----------------------------------------------------------------
 
@@ -146,6 +191,7 @@ local complex_revive = {
 }
 
 function MedicRevive()
+	if team.NumPlayers( TEAM_MEDICBM ) == 0 then return end
 	if SERVER then
 		local victim = ents.Create( "event_revive" )
 		if map == sectorc then
@@ -159,8 +205,10 @@ function MedicRevive()
 		end
 		victim:Spawn()
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "A medical emergency has been reported! Current location unknown!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "A medical emergency has been reported! Current location unknown!" )
+		end
 	end
 	RunConsoleCommand( "vox", "bizwarn bizwarn medical emergency reported " )
 end
@@ -211,6 +259,7 @@ local complex_breach = {
 }
 
 function XenBreach()
+	if team.NumPlayers( TEAM_SECURITY ) + team.NumPlayers( TEAM_SECURITYBOSS ) == 0 then return end
 	if SERVER then
 		local npc = ents.Create( table.Random( xenbreach_npcs ) )
 		if map == sectorc then
@@ -236,8 +285,10 @@ function XenBreach()
 		timer.Simple( 1, function() npc:EmitSound( "debris/beamstart7.wav" ) end )
 		timer.Simple( 3, function() portal:Remove() end )
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "Security breach detected! Alien life has been spotted loose in the facility!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "Security breach detected! Alien life has been spotted loose in the facility!" )
+		end
 	end
 	RunConsoleCommand( "vox", "bizwarn bizwarn warning _comma security _comma breach _comma unauthorized biological _comma forms detected" )
 end
@@ -268,6 +319,7 @@ local complex_bio = {
 }
 
 function Biohazard()
+	if team.NumPlayers( TEAM_BIO ) == 0 then return end
 	if SERVER then
 		if map == sectorc then
 			for i=1, math.random( 1, 6 ) do
@@ -294,8 +346,10 @@ function Biohazard()
 			end
 		end
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "A hazardous waste leak has been detected!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "A hazardous waste leak has been detected!" )
+		end
 	end
 	RunConsoleCommand( "vox", "bizwarn bizwarn biohazard _comma warning _comma biological _comma team report to location immediately" )
 end
@@ -330,6 +384,7 @@ local complex_crystal = {
 }
 
 function Crystal()
+	if team.NumPlayers( TEAM_SURVEY ) + team.NumPlayers( TEAM_SURVEYBOSS ) == 0 then return end
 	if SERVER then
 		if map == sectorc then
 			local crystal = ents.Create( "event_crystal" )
@@ -347,56 +402,17 @@ function Crystal()
 			crystal:Spawn()
 		end
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "A crystal has been accidently teleported to a random location in the facility!" )
-		DarkRP.talkToPerson( l, Color( 255, 64, 35 ), "The survey team should find it before it gets into the wrong hands!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "A crystal has been accidently teleported to a random location in the facility!" )
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "The survey team should find it before it gets into the wrong hands!" )
+		end
 	end
 	RunConsoleCommand( "vox", "bizwarn _comma alert _comma containment _comma crew detain target delta alpha bravo immediately" )
 end
 -----------------------------------------------------------------
-local sectorc_loot = {
-	Vector( -4629, -10680, 65 ),
-	Vector( -4294, -8463, -674 ),
-	Vector( -5857, -7929, -2086 ),
-	Vector( -5733, -8359, -1439 ),
-	Vector( -8609, -7924, -2420 ),
-	Vector( -10800, -7937, -2611 )
-}
-
-local laboratory_loot = {
-	Vector( -4045, 1933, -300 ),
-	Vector( -4462, 2409, -300 ),
-	Vector( -4510, 179, -300 )
-}
-
-local complex_loot = {
-	Vector( 8950, -3322, 1472 ),
-	Vector( 7788, -3833, 1472 ),
-	Vector( 9492, -4119, 1648 ),
-	Vector( 8324, -2658, 1160 )
-}
-
-function SpawnLoot()
-	if SERVER then
-		if map == sectorc then
-			local loot = ents.Create( "mgs_loot" )
-			loot:SetPos( table.Random( sectorc_loot ) )
-			loot:Spawn()
-		end
-		if map == laboratory then
-			local loot = ents.Create( "mgs_loot" )
-			loot:SetPos( table.Random( laboratory_loot ) )
-			loot:Spawn()
-		end
-		if map == complex then
-			local loot = ents.Create( "mgs_loot" )
-			loot:SetPos( table.Random( complex_loot ) )
-			loot:Spawn()
-		end
-	end
-end
------------------------------------------------------------------
 function ReviveGman()
+	if team.NumPlayers( TEAM_ADMIN ) == 0 then return end
 	if SERVER then
 		if map == sectorc then
 			local loot = ents.Create( "event_npc_base" )
@@ -417,8 +433,10 @@ function ReviveGman()
 			loot:Spawn()
 		end
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 64, 255, 35 ), "Government officials are requesting to see administration personnel at sector D." )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 64, 255, 35 ), "Government officials are requesting to see administration personnel at sector D." )
+		end
 	end
 	RunConsoleCommand( "vox", "dadeda _comma administration personnel report to sector d please" )
 end
@@ -426,6 +444,7 @@ end
 chosenwep = nil
 
 function MarineWeapon()
+	if team.NumPlayers( TEAM_WEPMAKER ) == 0 then return end
 	if SERVER then
 		if map == sectorc then
 			local loot = ents.Create( "event_npc_weapon" )
@@ -446,8 +465,10 @@ function MarineWeapon()
 			loot:Spawn()
 		end
 	end
-	for p,l in pairs( play ) do
-		DarkRP.talkToPerson( l, Color( 64, 255, 35 ), "A Corporal has arrived at sector D. He is requesting that a weapons engineer speak with him ASAP." )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 64, 255, 35 ), "A Corporal has arrived at sector D. He is requesting that a weapons engineer speak with him ASAP." )
+		end
 	end
 	RunConsoleCommand( "vox", "dadeda _comma weapon science team report to sector d immediately" )
 end
@@ -455,9 +476,12 @@ end
 computerbroke = false
 
 function ServerFailure()
+	if team.NumPlayers( TEAM_TECH ) == 0 then return end
 	computerbroke = true
-	for k,v in pairs( play ) do
-		DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "The main server has overheated! Computers will not be able to be used until it is fixed!" )
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "The main server has overheated! Computers will not be able to be used until it is fixed!" )
+		end
 	end
 	RunConsoleCommand( "vox", "deeoo _comma superconducting _comma _comma dual core systems high temperature _comma warning" )
 end
@@ -470,7 +494,10 @@ local bosses = {
 	"monster_alien_nihilanth"
 }
 
+local bossplycount = team.NumPlayers( TEAM_MARINE ) + team.NumPlayers( TEAM_MARINEBOSS ) + team.NumPlayers( TEAM_SECURITY ) + team.NumPlayers( TEAM_SECURITYBOSS ) + team.NumPlayers( TEAM_WEPBOSS )
+
 function Boss()
+	if bossplycount < 2 then return end
 	if SERVER then
 		if map == sectorc then
 			local bos = ents.Create( table.Random( bosses ) )
@@ -489,5 +516,11 @@ function Boss()
 			bos:Spawn()
 		end
 	end
+	for k,v in pairs( player.GetAll() ) do
+		if SERVER then
+			DarkRP.talkToPerson( v, Color( 255, 64, 35 ), "All hands on deck! A large hostile life form has teleported into the facility!" )
+		end
+	end
+	RunConsoleCommand( "vox", "bizwarn bizwarn bizwarn attention _comma all personnel report _comma to containment zone immediately" )
 end
 -----------------------------------------------------------------
