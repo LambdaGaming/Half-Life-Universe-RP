@@ -1,10 +1,25 @@
 
-if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
-	timer.Create( "OutlandTimer", 1800, 1, function() for k,v in pairs( player.GetAll() ) do if SERVER then DarkRP.notify( v, 0, 6, "The ceasefire has ended!" ) end end end )
+if SERVER then
+	if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
+		timer.Create( "OutlandTimer", 1800, 1, function()
+			local endmessage = "The ceasefire has ended!"
+			for k,v in pairs( player.GetAll() ) do
+				v:ChatPrint( "NOTICE: "..endmessage )
+			end
+			DarkRP.notifyAll( 0, 6, endmessage )
+		end )
 
-	hook.Add( "InitPostEntity", "OutlandItems", function()
-		print("outland init loaded")
-		if SERVER then
+		hook.Add( "PlayerInitialSpawn", "OutlandCeasefireNotice", function( ply )
+			if timer.Exists( "OutlandTimer" ) then
+				timer.Simple( 10, function()
+					local ceasefiremessage = "The ceasefire is currently in effect. Use this time to set up a base."
+					ply:ChatPrint( "NOTICE: "..ceasefiremessage )
+					DarkRP.notify( ply, 0, 6, ceasefiremessage )
+				end )
+			end
+		end )
+
+		local function SpawnVehicles()
 			local carpos = {}
 			if game.GetMap() == "rp_ineu_valley2_v1a" then
 				carpos = {
@@ -71,37 +86,45 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 		end
 
-		local position = {}
-		if game.GetMap() == "rp_ineu_valley2_v1a" then
-			position = {
-				Vector( 11904, 8654, 384 ),
-				Vector( 11472, 9826, 384 ),
-				Vector( 12744, 7863, 384 ),
-				Vector( 14085, 563, -1483 ),
-				Vector( 14319, 3859, -448 ),
-				Vector( 15200, 6006, -448 ),
-				Vector( 13377, 6642, -448 ),
-				Vector( 14345, 7908, -435 ),
-				Vector( 11692, 7969, -448 ),
-				Vector( 13880, 3822, -448 )
-			}
-		else
-			position = {
-				Vector( -9144, -12037, -10471 ),
-				Vector( -4462, -7715, -6373 ),
-				Vector( -449, 4337, -6399 ),
-				Vector( 1134, 2854, -6639 ),
-				Vector( 1129, -14054, -7999 ),
-				Vector( -14002, -6118, -7822 ),
-				Vector( -361, 5257, -6631 ),
-				Vector( 1737, 6007, -6743 )
-			}
+
+		local function SpawnItems()
+			local position = {}
+			if game.GetMap() == "rp_ineu_valley2_v1a" then
+				position = {
+					Vector( 11904, 8654, 384 ),
+					Vector( 11472, 9826, 384 ),
+					Vector( 12744, 7863, 384 ),
+					Vector( 14085, 563, -1483 ),
+					Vector( 14319, 3859, -448 ),
+					Vector( 15200, 6006, -448 ),
+					Vector( 13377, 6642, -448 ),
+					Vector( 14345, 7908, -435 ),
+					Vector( 11692, 7969, -448 ),
+					Vector( 13880, 3822, -448 )
+				}
+			else
+				position = {
+					Vector( -9144, -12037, -10471 ),
+					Vector( -4462, -7715, -6373 ),
+					Vector( -449, 4337, -6399 ),
+					Vector( 1134, 2854, -6639 ),
+					Vector( 1129, -14054, -7999 ),
+					Vector( -14002, -6118, -7822 ),
+					Vector( -361, 5257, -6631 ),
+					Vector( 1737, 6007, -6743 )
+				}
+			end
+			for k,v in ipairs( position ) do
+				local e = ents.Create("outland_item_spawner")
+				e:SetPos( v )
+				e:Spawn()
+				e:SetMoveType( MOVETYPE_NONE )
+			end
 		end
-		for k,v in ipairs( position ) do
-			local o1 = ents.Create("outland_item_spawner")
-			o1:SetPos( v )
-			o1:Spawn()
-			o1:SetMoveType( MOVETYPE_NONE )
-		end
-	end )
+
+		hook.Add( "InitPostEntity", "OutlandItems", function()
+			SpawnVehicles()
+			SpawnItems()
+		end )
+	end
 end
