@@ -30,6 +30,10 @@ local randmap = {
 }
 
 function ENT:Use( activator, caller )
+	if activator:Team() != TEAM_SCIENTIST then
+		DarkRP.notify( activator, 1, 6, "Only scientists can upload the detonation codes!" )
+		return
+	end
 	if GetGlobalBool( "BlowoutActive" ) then
 		DarkRP.notify( activator, 1, 6, "The codes are already being uploaded." )
 		return
