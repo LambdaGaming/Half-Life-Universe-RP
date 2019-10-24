@@ -135,6 +135,12 @@ CraftingCategory[17] = {
 	Type = 4
 }
 
+CraftingCategory[18] = {
+	Name = "Other",
+	Color = Color( 49, 53, 61, 255 ),
+	Type = 4
+}
+
 --Template Item
 --[[
 	CraftingTable["weapon_crowbar"] = { --Add the entity name of the item in the brackets with quotes
@@ -1209,6 +1215,22 @@ CraftingTable["ent_jack_turretrepairkit"] = {
 	SpawnFunction =
 		function( ply, self )
 			local e = ents.Create( "ent_jack_turretrepairkit" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["locker_key"] = {
+	Name = "Combine Science Locker Key",
+	Description = "Requires 10 iron.",
+	Materials = {
+		ironbar = 10
+	},
+	Type = 4,
+	Category = "Other",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "locker_key" )
 			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 			e:Spawn()
 		end
