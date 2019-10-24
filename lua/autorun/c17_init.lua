@@ -18,6 +18,29 @@ if SERVER then
 		end
 	end )
 
+	hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
+		RestrictedJobs = {
+			[TEAM_METROCOPMANHACK] = true,
+			[TEAM_COMBINEGUARD] = true,
+			[TEAM_CREMATOR] = true,
+			[TEAM_COMBINEELITE] = true,
+			[TEAM_COMBINEGUARDSHOTGUN] = true
+		}
+	end )
+
+	hook.Add( "playerCanChangeTeam", "City17RestrictUnits", function( ply, team )
+		local restrictedteams = {
+			TEAM_METROCOPMANHACK,
+			TEAM_COMBINEGUARD,
+			TEAM_CREMATOR,
+			TEAM_COMBINEELITE,
+			TEAM_COMBINEGUARDSHOTGUN
+		}
+		if restrictedteams[team] and RestrictedJobs[team] then
+			return false, "This job must be unlocked via the Combine science locker."
+		end
+	end )
+
 	if game.GetMap() == "rp_city17_build210" then
 		hook.Add( "InitPostEntity", "C17Generator", function()
 			local genpos = {
