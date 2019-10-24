@@ -41,6 +41,30 @@ if SERVER and GAMEMODE_NAME == "city17rp" then
 		end
 	end )
 
+	hook.Add( "OnPlayerChangedTeam", "City17ScientistChange", function( ply, before, after )
+		if after == TEAM_SCIENTIST then
+			local map = game.GetMap()
+			local c17 = "rp_city17_build210"
+			local district = "rp_city17_district47"
+			local c24 = "rp_city24_v2"
+			local industrial = "rp_industrial17_v1"
+			if map == c17 then
+				ply:SetPos( Vector( 4371, -270, 76 ) )
+			elseif map == district then
+				ply:SetPos( Vector( -179, -2592, 384 ) )
+			elseif map == c24 then
+				ply:SetPos( Vector( -626, 9549, -31 ) )
+			elseif map == industrial then
+				ply:SetPos( Vector( 2182, 3226, -543 ) )
+			else
+				DarkRP.notify( ply, 1, 6, "Something went wrong. The current map wasn't detected as valid." )
+				return
+			end
+			DarkRP.notify( ply, 0, 15, "You are under Combine control until the resistance is able to free you." )
+			timer.Simple( 0.3, function() DarkRP.notify( ply, 0, 15, "Visit the website for guidelines on how this job works if you are confused." ) end )
+		end
+	end )
+
 	if game.GetMap() == "rp_city17_build210" then
 		hook.Add( "InitPostEntity", "C17Generator", function()
 			local genpos = {
