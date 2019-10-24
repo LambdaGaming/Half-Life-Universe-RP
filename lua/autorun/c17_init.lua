@@ -1,5 +1,5 @@
 
-if SERVER then
+if SERVER and GAMEMODE_NAME == "city17rp" then
 	timer.Create( "City17Timer", 1800, 1, function()
 		local endmessage = "The ceasefire has ended!"
 		for k,v in pairs( player.GetAll() ) do
