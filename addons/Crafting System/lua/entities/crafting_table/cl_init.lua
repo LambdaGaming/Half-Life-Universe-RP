@@ -54,7 +54,7 @@ DrawItems = function( ent ) --Panel that draws the list of materials that are on
 		if ent:GetNWInt( "Craft_"..v.Name ) == nil then --If networked int doesn't exist then just set it's value to 0 until it does
 			scrollbutton:SetText( v.Name..": 0" )
 		else
-			scrollbutton:SetText( v.Name..": "..ent:GetNWInt( "Craft_"..v.Name ) )
+			scrollbutton:SetText( v.Name..": "..ent:GetNWInt( "Craft_"..k ) )
 		end
 		scrollbutton:SetTextColor( CRAFT_CONFIG_BUTTON_TEXT_COLOR )
 		scrollbutton:Dock( TOP )
@@ -63,7 +63,7 @@ DrawItems = function( ent ) --Panel that draws the list of materials that are on
 			draw.RoundedBox( 0, 0, 0, w, h, CRAFT_CONFIG_BUTTON_COLOR )
 		end
 		scrollbutton.DoClick = function()
-			if ent:GetNWInt( "Craft_"..v.Name ) == nil or ent:GetNWInt( "Craft_"..v.Name ) == 0 then
+			if ent:GetNWInt( "Craft_"..k ) == nil or ent:GetNWInt( "Craft_"..k ) == 0 then
 				surface.PlaySound( CRAFT_CONFIG_FAIL_SOUND )
 				return --Prevents players from having negative ingredients
 			end
