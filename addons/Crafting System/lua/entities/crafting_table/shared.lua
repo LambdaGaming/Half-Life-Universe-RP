@@ -20,6 +20,60 @@ end
 
 CraftingTable = {}
 CraftingCategory = {}
+CraftingIngredient = {}
+
+--Template Ingredient
+--[[
+	CraftingIngredient["iron"] = {
+		Name = "Iron",
+		Type = 1
+	}
+]]
+
+CraftingIngredient["iron"] = {
+	Name = "Iron",
+	Type = { 1, 4 }
+}
+
+CraftingIngredient["wrench"] = {
+	Name = "Wrench",
+	Type = { 1, 4 }
+}
+
+CraftingIngredient["wood"] = {
+	Name = "Wood",
+	Type = { 1 }
+}
+
+CraftingIngredient["xen_iron"] = {
+	Name = "Xen Iron",
+	Type = { 2, 3 }
+}
+
+CraftingIngredient["xen_iron_refined"] = {
+	Name = "Refined Xen Iron",
+	Type = { 2, 3 }
+}
+
+CraftingIngredient["organic_matter"] = {
+	Name = "Organic Matter",
+	Type = { 2, 3 }
+}
+
+CraftingIngredient["organic_matter_rare"] = {
+	Name = "Rare Organic Matter",
+	Type = { 3 }
+}
+
+CraftingIngredient["crystal_harvested"] = {
+	Name = "Harvested Crystal",
+	Type = { 2, 3 }
+}
+
+CraftingIngredient["crystal_fragment"] = {
+	Name = "Crystal Fragment",
+	Type = { 3 }
+}
 
 --Template Category
 --[[
@@ -159,8 +213,6 @@ CraftingCategory[18] = {
 		end
 	}
 ]]
-
---On top of configuring your item here, don't forget to add the entity name to the list of allowed ents in craft_config.lua! Failure to do so will result in errors!
 
 --Rebel crafting items
 

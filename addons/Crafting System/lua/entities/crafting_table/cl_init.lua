@@ -33,44 +33,50 @@ DrawItems = function( ent ) --Panel that draws the list of materials that are on
 
 	local mainframescroll = vgui.Create( "DScrollPanel", mainframe )
 	mainframescroll:Dock( FILL )
-	for k,v in pairs( CraftingTable ) do
+	for k,v in pairs( CraftingIngredient ) do
 		if ent:GetTableType() == 0 then
-			if v.Type != 1 then continue end
-		else
-			if v.Type != ent:GetTableType() then continue end --I dont think this is supposed to work like this, but it does anyway, wouldn't this theoretically allow anything BUT the table type instead of ONLY the table type?
-		end
-		for a,b in pairs( v.Materials ) do --Looks over the keys inside the materials table, luckily Lua is fine converting them to strings
-			if table.HasValue( itemtable, a ) then 
-				continue --Prevents two or more of the same materials from being listed if they are used in more than one recipe
-			end
-			local scrollbutton = vgui.Create( "DButton", mainframescroll )
-			if ent:GetNWInt( "Craft_"..a ) == nil then --If networked int doesn't exist then just set it's value to 0 until it does
-				scrollbutton:SetText( a..": 0" )
+			if type( v.Type ) == "Number" then
+				if v.Type != 1 then continue end
 			else
-				scrollbutton:SetText( a..": "..ent:GetNWInt( "Craft_"..a ) )
+				if !table.HasValue( v.Type, 1 ) then continue end
 			end
-			scrollbutton:SetTextColor( CRAFT_CONFIG_BUTTON_TEXT_COLOR )
-			scrollbutton:Dock( TOP )
-			scrollbutton:DockMargin( 0, 0, 0, 5 )
-			scrollbutton.Paint = function( self, w, h )
-				draw.RoundedBox( 0, 0, 0, w, h, CRAFT_CONFIG_BUTTON_COLOR )
+		else
+			if type( v.Type ) == "Number" then
+				if v.Type != ent:GetTableType() then continue end
+			else
+				if !table.HasValue( v.Type, ent:GetTableType() ) then continue end
 			end
-			scrollbutton.DoClick = function()
-				if ent:GetNWInt( "Craft_"..a ) == nil or ent:GetNWInt( "Craft_"..a ) == 0 then
-					surface.PlaySound( CRAFT_CONFIG_FAIL_SOUND )
-					return --Prevents players from having negative ingredients
-				end
-				net.Start( "DropItem" )
-				net.WriteEntity( ent )
-				net.WriteString( a )
-				net.SendToServer() --Sends the net message to drop the specified item and remove it from the table
-				timer.Simple( 0.3, function() --Small timer to let the net message go through
-					mainframe:Close()
-					DrawItems( ent ) --Refreshes the panel so it updates the number of materials
-				end )
-			end
-			table.insert( itemtable, a )
 		end
+		if table.HasValue( itemtable, k ) then 
+			continue --Prevents two or more of the same materials from being listed if they are used in more than one recipe
+		end
+		local scrollbutton = vgui.Create( "DButton", mainframescroll )
+		if ent:GetNWInt( "Craft_"..v.Name ) == nil then --If networked int doesn't exist then just set it's value to 0 until it does
+			scrollbutton:SetText( v.Name..": 0" )
+		else
+			scrollbutton:SetText( v.Name..": "..ent:GetNWInt( "Craft_"..v.Name ) )
+		end
+		scrollbutton:SetTextColor( CRAFT_CONFIG_BUTTON_TEXT_COLOR )
+		scrollbutton:Dock( TOP )
+		scrollbutton:DockMargin( 0, 0, 0, 5 )
+		scrollbutton.Paint = function( self, w, h )
+			draw.RoundedBox( 0, 0, 0, w, h, CRAFT_CONFIG_BUTTON_COLOR )
+		end
+		scrollbutton.DoClick = function()
+			if ent:GetNWInt( "Craft_"..v.Name ) == nil or ent:GetNWInt( "Craft_"..v.Name ) == 0 then
+				surface.PlaySound( CRAFT_CONFIG_FAIL_SOUND )
+				return --Prevents players from having negative ingredients
+			end
+			net.Start( "DropItem" )
+			net.WriteEntity( ent )
+			net.WriteString( k )
+			net.SendToServer() --Sends the net message to drop the specified item and remove it from the table
+			timer.Simple( 0.3, function() --Small timer to let the net message go through
+				mainframe:Close()
+				DrawItems( ent ) --Refreshes the panel so it updates the number of materials
+			end )
+		end
+		table.insert( itemtable, k )
 	end
 end
 
@@ -183,7 +189,7 @@ end
 DrawMainMenu = function( ent ) --Panel that draws the main menu
 	local mainframe = vgui.Create( "DFrame" )
 	mainframe:SetTitle( "Crafting Table - Main Menu" )
-	mainframe:SetSize( 500, 300 )
+	mainframe:SetSize( 300, 150 )
 	mainframe:Center()
 	mainframe:MakePopup()
 	mainframe.Paint = function( self, w, h )
@@ -214,19 +220,6 @@ DrawMainMenu = function( ent ) --Panel that draws the main menu
 	end
 	itemsbutton.DoClick = function() --Button to open the current ingredients panel
 		DrawItems( ent )
-		mainframe:Close()
-		surface.PlaySound( CRAFT_CONFIG_UI_SOUND )
-	end
-	local closebutton = vgui.Create( "DButton", mainframe )
-	closebutton:SetText( "Exit Table" )
-	closebutton:SetTextColor( CRAFT_CONFIG_BUTTON_TEXT_COLOR )
-	closebutton:SetPos( 25, 150 )
-	closebutton:SetSize( 150, 15 )
-	closebutton:CenterHorizontal()
-	closebutton.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, CRAFT_CONFIG_BUTTON_COLOR )
-	end
-	closebutton.DoClick = function() --Button to close the menu, probably not needed since all of the panels have a close button at the top but i'm leaving it here to make it look less empty
 		mainframe:Close()
 		surface.PlaySound( CRAFT_CONFIG_UI_SOUND )
 	end
