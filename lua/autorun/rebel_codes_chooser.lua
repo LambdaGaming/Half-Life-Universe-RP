@@ -3,17 +3,15 @@
 --lua_run for k,v in pairs( ents.FindByClass( [ENTCLASS] ) ) do v.hascodes = true end
 
 local combinejobs = {
-	TEAM_COMBINESOLDIER,
-	TEAM_COMBINEGUARD,
-	TEAM_COMBINEELITE
+	[TEAM_COMBINESOLDIER] = true,
+	[TEAM_COMBINEGUARD] = true,
+	[TEAM_COMBINEELITE] = true
 }
 
 local outlandents = {
 	"out_crate",
-	"out_computer",
 	"out_generator",
-	"out_log",
-	"out_rubble"
+	"out_log"
 }
 
 hook.Add( "InitPostEntity", "OutlandPostEnt", function()
@@ -38,7 +36,7 @@ end )
 
 hook.Add( "OnPlayerChangedTeam", "OutlandPlayerChange", function(ply, before, after)
 	if GAMEMODE_NAME != "outlandrp" then return end
-	if ply.hascodes == true and table.HasValue( combinejobs, after ) then
+	if ply.hascodes == true and combinejobs[after] then
 		ply.hascodes = nil
 		for k,v in pairs( ents.FindByClass( table.Random( outlandents ) ) ) do
 			v.hascodes = true
