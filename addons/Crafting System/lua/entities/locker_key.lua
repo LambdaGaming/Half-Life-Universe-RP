@@ -9,10 +9,10 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "Science Locker"
 
-function ENT:SpawnFunction( ply, tr )
+function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
 	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "locker_key" )
+	local ent = ents.Create( name )
 	ent:SetPos( SpawnPos )
 	ent:Spawn()
 	ent:Activate()
@@ -29,13 +29,13 @@ function ENT:Initialize()
 	end
  
     local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
+	if phys:IsValid() then
 		phys:Wake()
 	end
 end
 
 function ENT:Use( activator, caller )
-	DarkRP.notify( activator, 0, 6, "Touch this key with a combine science locker to research something." )
+	DarkRP.notify( activator, 0, 6, "Place this near a science locker and press your use key on the locker to research something." )
 end
 
 if CLIENT then
