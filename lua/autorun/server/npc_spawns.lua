@@ -38,8 +38,8 @@ hook.Add( "InitPostEntity", "ItemNPCSpawns", function()
 		end
 		if map == "gm_boreas" then
 			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -3112, -7864, -6399 ) )
-			e:SetAngles( Angle( 0, 0, 0 ) )
+			e:SetPos( Vector( 1694, -14736, -6575 ) )
+			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )
 
