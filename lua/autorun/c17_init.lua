@@ -1,5 +1,11 @@
 
-if SERVER and GAMEMODE_NAME == "city17rp" then
+local c17maps = {
+	["rp_city17_build210"] = true,
+	["rp_city17_district47"] = true,
+	["rp_industrial17_v1"] = true,
+	["rp_city24_v2"] = true
+}
+if SERVER and c17maps[game.GetMap()] then
 	timer.Create( "City17Timer", 1800, 1, function()
 		local endmessage = "The ceasefire has ended!"
 		for k,v in pairs( player.GetAll() ) do
@@ -21,7 +27,6 @@ if SERVER and GAMEMODE_NAME == "city17rp" then
 	hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
 		RestrictedJobs = {
 			[TEAM_METROCOPMANHACK] = true,
-			[TEAM_COMBINEGUARD] = true,
 			[TEAM_CREMATOR] = true,
 			[TEAM_COMBINEELITE] = true,
 			[TEAM_COMBINEGUARDSHOTGUN] = true
@@ -29,14 +34,7 @@ if SERVER and GAMEMODE_NAME == "city17rp" then
 	end )
 
 	hook.Add( "playerCanChangeTeam", "City17RestrictUnits", function( ply, team )
-		local restrictedteams = {
-			TEAM_METROCOPMANHACK,
-			TEAM_COMBINEGUARD,
-			TEAM_CREMATOR,
-			TEAM_COMBINEELITE,
-			TEAM_COMBINEGUARDSHOTGUN
-		}
-		if restrictedteams[team] and RestrictedJobs[team] then
+		if RestrictedJobs[team] then
 			return false, "This job must be unlocked via the Combine science locker."
 		end
 	end )
