@@ -2,6 +2,13 @@
 concommand.Add( "xenspawn", function()
 	if SERVER then
 		if GAMEMODE_NAME == "bmrphlu" then
+			for k,v in pairs( ents.FindByClass( "npc_*" ) ) do
+				if v.IsXenNPC then v:Remove() end
+			end
+			for k,v in pairs( ents.FindByClass( "monster_*" ) ) do
+				if v.IsXenNPC then v:Remove() end
+			end
+
 			local monsters = {
 				"monster_alien_slv",
 				"monster_agrunt",
@@ -51,18 +58,21 @@ concommand.Add( "xenspawn", function()
 					local e = ents.Create( table.Random( monsters ) )
 					e:SetPos( v )
 					e:Spawn()
+					e.IsXenNPC = true
 				end
 			elseif game.GetMap() == "rp_blackmesa_complex_fixed" then
 				for k,v in ipairs( complexpos ) do
 					local e = ents.Create( table.Random( monsters ) )
 					e:SetPos( v )
 					e:Spawn()
+					e.IsXenNPC = true
 				end
 			elseif game.GetMap() == "rp_blackmesa_laboratory" then
 				for k,v in ipairs( laboratorypos ) do
 					local e = ents.Create( table.Random( monsters ) )
 					e:SetPos( v )
 					e:Spawn()
+					e.IsXenNPC = true
 				end
 			end
 		end
