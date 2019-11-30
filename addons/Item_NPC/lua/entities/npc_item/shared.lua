@@ -13,20 +13,6 @@ function ENT:SetupDataTables()
 	self:NetworkVar( "Int", 0, "NPCType" )
 end
 
-local function SpawnVehicle( ply, class, model, script, pos, ang, spawnfunc )
-	if SERVER then
-		local e = ents.Create( "prop_vehicle_jeep" )
-		e:SetKeyValue( "vehiclescript", script )
-		e:SetPos( pos )
-		e:SetAngles( ang )
-		e:SetModel( model )
-		e:Spawn()
-		e:Activate()
-		e.VehicleTable = list.Get( "Vehicles" )[class]
-		ply:EnterVehicle( e )
-	end
-end
-
 ItemNPC = {} --Initializes the item table, don't touch
 ItemNPCType = {} --Initializes the type table, don't touch
 
@@ -160,7 +146,7 @@ ItemNPC["aw2_hunterchopper"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "aw2_hunterchopper" )
-				e:SetPos( Vector( -3375, -6574, -6232 ) )
+				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
 		end
@@ -169,8 +155,8 @@ ItemNPC["aw2_hunterchopper"] = {
 ItemNPC["aw2_dropship2"] = {
 	Name = "Dropship",
 	Description = "Troop transporter, seats two people in main vehicle.",
-	Model = "models/Combine_Helicopter.mdl",
-	Price = 1000,
+	Model = "models/Combine_dropship.mdl",
+	Price = 800,
 	Type = 2,
 	SpawnFunction =
 		function( ply, self )
@@ -180,7 +166,7 @@ ItemNPC["aw2_dropship2"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "aw2_dropship2" )
-				e:SetPos( Vector( -3375, -6574, -6232 ) )
+				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
 		end
@@ -200,7 +186,7 @@ ItemNPC["aw2_gunship"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "aw2_gunship" )
-				e:SetPos( Vector( -3375, -6574, -6232 ) )
+				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
 		end
@@ -220,7 +206,7 @@ ItemNPC["aw2_manhack"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "aw2_manhack" )
-				e:SetPos( Vector( -3375, -6574, -6232 ) )
+				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
 		end
@@ -240,7 +226,7 @@ ItemNPC["gw_hunter"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "gw_hunter" )
-				e:SetPos( Vector( 2675, -14518, -6257 ) )
+				e:SetPos( Vector( 2749, -14444, -6632 ) )
 				e:Spawn()
 			end
 		end
@@ -260,7 +246,7 @@ ItemNPC["gw_strider"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "gw_strider" )
-				e:SetPos( Vector( 2675, -14518, -6057 ) )
+				e:SetPos( Vector( 2749, -14444, -6632 ) )
 				e:Spawn()
 			end
 		end
@@ -280,7 +266,7 @@ ItemNPC["prop_vehicle_zapc"] = {
 				e:Spawn()
 			else
 				local e = ents.Create( "prop_vehicle_zapc" )
-				e:SetPos( Vector( 2675, -14518, -6257 ) )
+				e:SetPos( Vector( 2749, -14444, -6632 ) )
 				e:Spawn()
 			end
 		end
