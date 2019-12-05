@@ -20,7 +20,7 @@ end
 
 function GM:PlayerLoadout( ply )
 	if ply:Team() == medic then
-		ply:Give( "med_kit" )
+		ply:Give( "weapon_medkit" )
 	elseif ply:Team() == scientist then
 		ply:Give( "gmod_tool" )
 		ply:Give( "weapon_physgun" )
@@ -33,7 +33,7 @@ function GM:PlayerLoadout( ply )
 			"weapon_m249"
 		}
 		ply:Give( table.Random( randwep ) )
-		ply:Give( "door_ram" )
+		--ply:Give( "door_ram" )
 	elseif ply:Team() == security then
 		local randwep = {
 			"weapon_eagle",
@@ -41,7 +41,7 @@ function GM:PlayerLoadout( ply )
 			"weapon_357_hl"
 		}
 		ply:Give( table.Random( randwep ) )
-		ply:Give( "door_ram" )
+		--ply:Give( "door_ram" )
 	elseif ply:Team() == zombie then
 		ply:Give( "weapon_weapons_zombie" )
 	elseif ply:Team() == vort then
@@ -66,12 +66,13 @@ end
 function GM:PlayerSpawn( ply )
 	ply:SetWalkSpeed( 180 )
 	ply:SetRunSpeed( 240 )
+	ply:AllowFlashlight( true )
 end
 
 function GM:PlayerInitialSpawn( ply )
 	timer.Simple( 5, function()
 		ChangeTeam( ply, TEAM_VISITOR, false )
-		ply:ChatPrint("Welcome to BMRP:Cascade! If you are new here, press F1 for the basic rundown of this gamemode.")
+		ply:ChatPrint("Welcome to BMRP:Cascade! If you are new here, ask an admin to give you a rundown of this gamemode.")
 	end )
 end
 

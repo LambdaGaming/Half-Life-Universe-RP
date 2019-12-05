@@ -6,8 +6,6 @@ GM.Website 	= "N/A"
 
 DeriveGamemode( "sandbox" )
 
-print( "Loading cascade shared..." )
-
 TEAM_VISITOR = {
 	ID = 1,
 	Playermodel = {

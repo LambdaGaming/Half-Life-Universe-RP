@@ -133,7 +133,6 @@ CASCADE_SECONDARYPOS = {
 --Class names for special weapons
 CASCADE_SPECIALCLASS = {
 	"weapon_barnacle",
-	"weapon_chumtoad",
 	"weapon_displacer",
 	"weapon_egon",
 	"weapon_flechettegrenade",
@@ -200,20 +199,6 @@ CASCADE_ARMORPOS = {
 	Vector( 4677, 195, -27 ),
 	Vector( 4274, 97, -45 ),
 	Vector( 4474, 111, -39 )
-}
-
---Positions for the GTerminal PC
-CASCADE_PCPOS = {
-	Vector( -5953, -271, -112 ),
-	Vector( -5945, -327, -16 ),
-	Vector( -2242, 3058, 8 ),
-	Vector( -2091, 3026, -40 ),
-	Vector( 778, 2183, -64 ),
-	Vector( 777, 2244, -64 ),
-	Vector( -1360, -1537, 352 ),
-	Vector( -1359, -1596, 352 ),
-	Vector( 6992, -6251, 388 ),
-	Vector( -798, -5181, 392 )
 }
 
 MONSTER_POS = {

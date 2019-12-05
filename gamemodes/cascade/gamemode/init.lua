@@ -8,8 +8,6 @@ include( "cascade_positions.lua" )
 include( "cascade_round.lua" )
 include( "cascade_hooks.lua" )
 
-print( "Loading cascade init..." )
-
 RunConsoleCommand( "sbox_maxprops", "30" )
 
 function GM:InitPostEntity() --Removes original map spawns and creates new ones in the waiting room

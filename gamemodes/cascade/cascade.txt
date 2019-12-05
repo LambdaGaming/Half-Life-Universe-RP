@@ -3,5 +3,5 @@
 	"base"		"sandbox"
 	"title"		"Half-Life Universe RP"
 	"menusystem"	"1"
-	"version" 	"2.0"
+	"version" 	"2.1"
 }

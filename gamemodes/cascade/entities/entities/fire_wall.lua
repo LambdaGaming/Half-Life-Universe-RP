@@ -32,10 +32,12 @@ function ENT:Initialize()
 	end
 end
 
-function ENT:Think()
-	if !IsValid( self ) then return end
-	if vFiresCount == 0 then
-		self:Remove()
+if SERVER then
+	function ENT:Think()
+		if !IsValid( self ) then return end
+		if vFiresCount == 0 then
+			self:Remove()
+		end
 	end
 end
 

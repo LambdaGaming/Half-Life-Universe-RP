@@ -1,6 +1,4 @@
 
-print( "Loading cascade round..." )
-
 local scientist = TEAM_SCIENTIST.ID
 local admin = TEAM_ADMIN.ID
 local visitor = TEAM_VISITOR.ID
@@ -112,19 +110,19 @@ end
 function SetupWeapons()
 	for k,v in ipairs( CASCADE_PRIMARYPOS ) do
 		spawnprimary = ents.Create( table.Random( CASCADE_PRIMARYCLASS ) )
-		spawnprimary:SetPos( v )
+		spawnprimary:SetPos( v + Vector( 0, 0, 5 ) )
 		spawnprimary:Spawn()
 	end
 	
-	for a,b in ipairs( CASCADE_SECONDARYPOS ) do
+	for k,v in ipairs( CASCADE_SECONDARYPOS ) do
 		spawnsecondary = ents.Create( table.Random( CASCADE_SECONDARYCLASS ) )
-		spawnsecondary:SetPos( b )
+		spawnsecondary:SetPos( v + Vector( 0, 0, 5 ) )
 		spawnsecondary:Spawn()
 	end
 	
 	for i=1, 3 do --Limits special weapon spawn to 3
 		spawnspecial = ents.Create( table.Random( CASCADE_SPECIALCLASS ) )
-		spawnspecial:SetPos( table.Random( CASCADE_SPECIALPOS ) )
+		spawnspecial:SetPos( table.Random( CASCADE_SPECIALPOS ) + Vector( 0, 0, 5 ) )
 		spawnspecial:Spawn()
 	end
 	
@@ -139,28 +137,21 @@ function SetupWeapons()
 	spawnescape:SetPos( randescape )
 	spawnescape:Spawn()
 	
-	for c,d in ipairs( CASCADE_ARMORPOS ) do
+	for k,v in ipairs( CASCADE_ARMORPOS ) do
 		spawnarmor = ents.Create( "item_battery" ) --And armor batteries
-		spawnarmor:SetPos( d )
+		spawnarmor:SetPos( v )
 		spawnarmor:Spawn()
-	end
-	
-	for e,f in ipairs( CASCADE_PCPOS ) do
-		terminal = ents.Create( "sent_computer" ) --Almost forgot the gterminals
-		terminal:SetPos( f )
-		terminal:Spawn()
 	end
 end
 
 function RemoveWeapons() --Removes weapons after the round ends
 	for k,v in pairs( ents.GetAll() ) do
 		local otherents = {
-			"tram_controller",
-			"cascade_escape",
-			"item_battery",
-			"sent_computer"
+			["tram_controller"] = true,
+			["cascade_escape"] = true,
+			["item_battery"] = true
 		}
-		if table.HasValue( otherents, v:GetClass() ) then
+		if otherents[v:GetClass()] then
 			v:Remove()
 		end
 	end
@@ -176,15 +167,14 @@ function RemoveNPCS()
 	for k,v in pairs( ents.FindByClass( "npc_*" ) ) do
 		v:Remove()
 	end
-	game.RemoveRagdolls()
 end
 
 function SetupObstructions() --Spawns random obstructions that force players to take alternate paths
 	local function FireBlock() --If all of the fires are put out, the obstruction will clear
 		local randomfire = math.random( 1, 3 )
 		if randomfire == 1 then
-			for a,b in ipairs( CASCADE_FIREBLOCK1 ) do
-				CreateVFireBall( 1200, 10, b + Vector( 0, 0, 50 ), Vector( 0, 0, 0 ), nil )
+			for k,v in ipairs( CASCADE_FIREBLOCK1 ) do
+				CreateVFireBall( 1200, 10, v + Vector( 0, 0, 50 ), Vector( 0, 0, 0 ), nil )
 			end
 			for k,v in ipairs( CASCADE_FIREWALLPOS1 ) do
 				timer.Simple( 0.5, function()
@@ -195,8 +185,8 @@ function SetupObstructions() --Spawns random obstructions that force players to 
 				end )
 			end
 		elseif randomfire == 2 then
-			for a,b in ipairs( CASCADE_FIREBLOCK2 ) do
-				CreateVFireBall( 1200, 10, b + Vector( 0, 0, 50 ), Vector( 0, 0, 0 ), nil )
+			for k,v in ipairs( CASCADE_FIREBLOCK2 ) do
+				CreateVFireBall( 1200, 10, v + Vector( 0, 0, 50 ), Vector( 0, 0, 0 ), nil )
 			end
 			for k,v in ipairs( CASCADE_FIREWALLPOS2 ) do
 				timer.Simple( 0.5, function()
@@ -207,8 +197,8 @@ function SetupObstructions() --Spawns random obstructions that force players to 
 				end )
 			end
 		elseif randomfire == 3 then
-			for a,b in ipairs( CASCADE_FIREBLOCK3 ) do
-				CreateVFireBall( 1200, 10, b + Vector( 0, 0, 50 ), Vector( 0, 0, 0 ), nil )
+			for k,v in ipairs( CASCADE_FIREBLOCK3 ) do
+				CreateVFireBall( 1200, 10, v + Vector( 0, 0, 50 ), Vector( 0, 0, 0 ), nil )
 			end
 			for k,v in ipairs( CASCADE_FIREWALLPOS3 ) do
 				timer.Simple( 0.5, function()
@@ -358,13 +348,20 @@ function Cascade()
 		v:ChatPrint( "Teams selected. Starting round in 5 seconds." )
 	end
 	timer.Simple( 5, function()
+		local fastmode = GetGlobalBool( "FastMode" )
 		for k,v in pairs( player.GetAll() ) do
 			v:ConCommand( "say /setr 42.0" ) --Sets radio channel every round, players will have to manually change it if they want to keep their conversations private
 		end
 		CascadePreRound()
 		SetupWeapons()
 		SetupObstructions()
-		timer.Create( "HECULoop", 300, 0, function() --Creates timer loop for respawning dead players as HECU
+		local hecutimer = 0
+		if fastmode then
+			hecutimer = 150
+		else
+			hecutimer = 300
+		end
+		timer.Create( "HECULoop", hecutimer, 0, function() --Creates timer loop for respawning dead players as HECU
 			for k,v in pairs( player.GetAll() ) do
 				if v:Team() == visitor and v:Alive() then
 					ChangeTeam( v, TEAM_MARINE, false )
@@ -373,13 +370,23 @@ function Cascade()
 				end
 			end
 		end	)
-		timer.Create( "MainRoundStart", 180, 1, function() CascadeMainRound() end )
-		timer.Create( "MainLoop", 1200, 1, function() ResetRound() end )
-		timer.Create( "MainLoopHalf", 600, 1, function()
-			for k,v in pairs( player.GetAll() ) do
-				v:ChatPrint( "10 minute warning, the round is half way over." )
-			end
-		end )
+		if fastmode then
+			timer.Create( "MainRoundStart", 90, 1, function() CascadeMainRound() end )
+			timer.Create( "MainLoop", 600, 1, function() ResetRound() end )
+			timer.Create( "MainLoopHalf", 300, 1, function()
+				for k,v in pairs( player.GetAll() ) do
+					v:ChatPrint( "10 minute warning, the round is half way over." )
+				end
+			end )
+		else
+			timer.Create( "MainRoundStart", 180, 1, function() CascadeMainRound() end )
+			timer.Create( "MainLoop", 1200, 1, function() ResetRound() end )
+			timer.Create( "MainLoopHalf", 600, 1, function()
+				for k,v in pairs( player.GetAll() ) do
+					v:ChatPrint( "5 minute warning, the round is half way over." )
+				end
+			end )
+		end
 		PressAlarm()
 		LockDoors()
 		SpawnMonsters()

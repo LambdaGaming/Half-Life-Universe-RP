@@ -1,27 +1,21 @@
 
-print( "Loading cascade hooks..." )
-
 if SERVER then
-	hook.Add( "PlayerSay", "playersayremovetimer", function( ply, text, public )
+	hook.Add( "PlayerSay", "CascadeChatCommands", function( ply, text, public )
 		if text == "!disabletimer" then
+			if !ply:IsSuperAdmin() then
+				ply:ChatPrint( "Cannot disable round timer. You are not a superadmin." )
+				return ""
+			end
 			if timer.Exists( "MainLoop" ) then timer.Remove( "MainLoop" ) end
 			if timer.Exists( "MainLoopHalf" ) then timer.Remove( "MainLoopHalf" ) end
 			for k,v in pairs( player.GetAll() ) do
 				v:ChatPrint( "The timer for this round has been disabled." )
 			end
 			return ""
-        end
-	end )
-
-	hook.Add( "PlayerSay", "playersaycascade", function( ply, text, public )
-		if text == "!cascade" then
-			if GAMEMODE_NAME != "cascade" then
-				ply:ChatPrint( "Cannot start round. Incorrect gamemode." )
-				return
-			end
+		elseif text == "!cascade" then
 			if !ply:IsSuperAdmin() then
 				ply:ChatPrint( "Cannot change round. You are not a superadmin." )
-				return
+				return ""
 			end
 			if !GetGlobalBool( "PreRound" ) and !GetGlobalBool( "MainRound" ) then
 				Cascade()
@@ -29,20 +23,29 @@ if SERVER then
 				ResetRound()
 			end
 			return ""
-        end
-	end )
-	
-	hook.Add( "PlayerSay", "playersayreset", function( ply, text, public )
-		if text == "!teleplayers" then
-			if GAMEMODE_NAME != "cascade" then
-				ply:ChatPrint( "Cannot teleport players to start. Incorrect gamemode." )
-				return
-			end
+		elseif text == "!teleplayers" then
 			if !ply:IsSuperAdmin() then
 				ply:ChatPrint( "Cannot teleport players to start. You are not a superadmin." )
-				return
+				return ""
 			end
 			TelePlayers()
+			return ""
+		elseif text == "!fastmode" then
+			if !ply:IsSuperAdmin() then
+				ply:ChatPrint( "Cannot teleport players to start. You are not a superadmin." )
+				return ""
+			end
+			if GetGlobalBool( "FastMode" ) then
+				SetGlobalBool( "FastMode", false )
+				for k,v in pairs( player.GetAll() ) do
+					v:ChatPrint( "Fast mode has been disabled. Timers will now have their default times." )
+				end
+			else
+				SetGlobalBool( "FastMode", true )
+				for k,v in pairs( player.GetAll() ) do
+					v:ChatPrint( "The gamemode is now running in fast mode. All timers have been cut in half." )
+				end
+			end
 			return ""
         end
 	end )
