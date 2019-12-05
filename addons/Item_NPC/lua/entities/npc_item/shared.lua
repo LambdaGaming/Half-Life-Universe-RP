@@ -138,6 +138,18 @@ ItemNPC["aw2_hunterchopper"] = {
 	Model = "models/Combine_Helicopter.mdl",
 	Price = 1000,
 	Type = 2,
+	SpawnCheck =
+		function( ply, self )
+			if timer.Exists( "OutlandTimer" ) then
+				DarkRP.notify( ply, 1, 6, "You cannot buy areal units while the ceasefire is in effect!" )
+				return false
+			end
+			if timer.Exists( "ArealCooldown" ) then
+				DarkRP.notify( ply, 1, 6, "Please wait for the areal unit cooldown to end before spawning another one." )
+				return false
+			end
+			return true
+		end,
 	SpawnFunction =
 		function( ply, self )
 			if map == valley then
@@ -149,6 +161,7 @@ ItemNPC["aw2_hunterchopper"] = {
 				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
+			timer.Create( "ArealCooldown", 1, 600, function() end )
 		end
 }
 
@@ -158,6 +171,18 @@ ItemNPC["aw2_dropship2"] = {
 	Model = "models/Combine_dropship.mdl",
 	Price = 800,
 	Type = 2,
+	SpawnCheck =
+		function( ply, self )
+			if timer.Exists( "OutlandTimer" ) then
+				DarkRP.notify( ply, 1, 6, "You cannot buy areal units while the ceasefire is in effect!" )
+				return false
+			end
+			if timer.Exists( "ArealCooldown" ) then
+				DarkRP.notify( ply, 1, 6, "Please wait for the areal unit cooldown to end before spawning another one." )
+				return false
+			end
+			return true
+		end,
 	SpawnFunction =
 		function( ply, self )
 			if map == valley then
@@ -169,6 +194,7 @@ ItemNPC["aw2_dropship2"] = {
 				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
+			timer.Create( "ArealCooldown", 1, 600, function() end )
 		end
 }
 
@@ -178,6 +204,18 @@ ItemNPC["aw2_gunship"] = {
 	Model = "models/gunship.mdl",
 	Price = 2000,
 	Type = 2,
+	SpawnCheck =
+		function( ply, self )
+			if timer.Exists( "OutlandTimer" ) then
+				DarkRP.notify( ply, 1, 6, "You cannot buy areal units while the ceasefire is in effect!" )
+				return false
+			end
+			if timer.Exists( "ArealCooldown" ) then
+				DarkRP.notify( ply, 1, 6, "Please wait for the areal unit cooldown to end before spawning another one." )
+				return false
+			end
+			return true
+		end,
 	SpawnFunction =
 		function( ply, self )
 			if map == valley then
@@ -189,6 +227,7 @@ ItemNPC["aw2_gunship"] = {
 				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
+			timer.Create( "ArealCooldown", 1, 600, function() end )
 		end
 }
 
