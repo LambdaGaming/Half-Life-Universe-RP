@@ -18,12 +18,6 @@ function ENT:SpawnFunction( ply, tr, name )
 	return ent
 end
 
-local rebeljobs = {
-	[TEAM_REBEL] = true,
-	[TEAM_REBELMEDIC] = true,
-	[TEAM_RESISTANCELEADER] = true
-}
-
 function ENT:Initialize()
     self:SetModel( "models/props_foliage/driftwood_01a.mdl" )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
@@ -39,14 +33,22 @@ function ENT:Initialize()
 	end
 end
 
-function ENT:Use( caller, activator )
-	if self.hascodes and rebeljobs[caller:Team()] then
-		DarkRP.notifyAll( 0, 6, "The codes for the combine portal were found tucked away inside a log! "..caller:Nick().." now has them!" )
-		self.hascodes = nil
-		caller.hascodes = true
-		return
+if GAMEMODE_NAME == "outlandrp" then --Prevents script errors on other gamemodes that don't have the jobs in the table below
+	local rebeljobs = {
+		[TEAM_REBEL] = true,
+		[TEAM_REBELMEDIC] = true,
+		[TEAM_RESISTANCELEADER] = true
+	}
+
+	function ENT:Use( caller, activator )
+		if self.hascodes and rebeljobs[caller:Team()] then
+			DarkRP.notifyAll( 0, 6, "The codes for the combine portal were found tucked away inside a log! "..caller:Nick().." now has them!" )
+			self.hascodes = nil
+			caller.hascodes = true
+			return
+		end
+		DarkRP.notify( caller, 1, 6, "You searched around and inside of the log but found nothing of use." )
 	end
-	DarkRP.notify( caller, 1, 6, "You searched around and inside of the log but found nothing of use." )
 end
 
 if CLIENT then
