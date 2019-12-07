@@ -2,7 +2,6 @@
 local c17maps = {
 	["rp_city17_build210"] = true,
 	["rp_city17_district47"] = true,
-	["rp_industrial17_v1"] = true,
 	["rp_city24_v2"] = true
 }
 if SERVER and c17maps[game.GetMap()] then
@@ -45,15 +44,12 @@ if SERVER and c17maps[game.GetMap()] then
 			local c17 = "rp_city17_build210"
 			local district = "rp_city17_district47"
 			local c24 = "rp_city24_v2"
-			local industrial = "rp_industrial17_v1"
 			if map == c17 then
 				ply:SetPos( Vector( 4371, -270, 76 ) )
 			elseif map == district then
 				ply:SetPos( Vector( -179, -2592, 384 ) )
 			elseif map == c24 then
 				ply:SetPos( Vector( -626, 9549, -31 ) )
-			elseif map == industrial then
-				ply:SetPos( Vector( 2182, 3226, -543 ) )
 			else
 				DarkRP.notify( ply, 1, 6, "Something went wrong. The current map wasn't detected as valid." )
 				return
@@ -178,20 +174,6 @@ if SERVER and c17maps[game.GetMap()] then
 				Vector( 6986, 6516, -511 ),
 				Vector( 5277, 3485, -305 ),
 				Vector( 8008, 3820, -274 )
-			}
-			local e = ents.Create( "iron_generator" )
-			e:SetPos( table.Random( genpos ) )
-			e:Spawn()
-		end )
-	end
-
-	if game.GetMap() == "rp_industrial17_v1" then
-		hook.Add( "InitPostEntity", "C17Generator", function()
-			local genpos = {
-				Vector( 2925, -1120, -166 ),
-				Vector( 3499, 1116, 3 ),
-				Vector( 3165, 2524, -133 ),
-				Vector( 909, 4636, -132 )
 			}
 			local e = ents.Create( "iron_generator" )
 			e:SetPos( table.Random( genpos ) )

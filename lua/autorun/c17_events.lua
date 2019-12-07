@@ -52,20 +52,6 @@ if GAMEMODE_NAME == "city17rp" then
 					Vector( 10328, 8471, 9 )
 				}
 			end
-			if game.GetMap() == "rp_industrial17_v1" then
-				zombiepos = {
-					Vector( 3153, 2467, -136 ),
-					Vector( 3527, 1387, -136 ),
-					Vector( -194, 1849, -271 ),
-					Vector( 2806, -275, -168 ),
-					Vector( 3338, 720, 0 ),
-					Vector( 3431, 4601, -136 ),
-					Vector( 1089, 4645, -136 ),
-					Vector( 3906, 5470, -136 ),
-					Vector( 4501, 7098, 166 ),
-					Vector( 4507, 8326, 320 )
-				}
-			end
 			local zombies = {
 				"npc_zombie",
 				"npc_poisonzombie",
@@ -125,17 +111,6 @@ if GAMEMODE_NAME == "city17rp" then
 				1513
 			}
 		end
-		if game.GetMap() == "rp_industrial17_v1" then
-			indexnum = {
-				2780,
-				2781,
-				2782,
-				2970,
-				2778,
-				2779,
-				3640
-			}
-		end
 		for k,v in pairs( ents.GetAll() ) do
 			if table.HasValue( indexnum, v:EntIndex() ) then
 				v:Fire("Unlock")
@@ -175,15 +150,6 @@ if GAMEMODE_NAME == "city17rp" then
 					Vector( -887, 8319, 857 ),
 					Vector( -663, 6911, 867 ),
 					Vector( -1342, 8835, -32 )
-				}
-			end
-			if game.GetMap() == "rp_industrial17_v1" then
-				racexpos = {
-					Vector( 2990, 3587, 256 ),
-					Vector( 2760, 2920, 568 ),
-					Vector( 2705, 3810, 1672 ),
-					Vector( 2723, 3828, 3408 ),
-					Vector( 2751, 3674, 2176 )
 				}
 			end
 			local racexnpcs = {
@@ -226,14 +192,6 @@ if GAMEMODE_NAME == "city17rp" then
 					Vector( 6511, 4641, 0 ),
 					Vector( 3276, 8984, 520 ),
 					Vector( 5658, 9785, 520 )
-				}
-			end
-			if game.GetMap() == "rp_industrial17_v1" then
-				canpos = {
-					Vector( 1536, 3601, 128 ),
-					Vector( 3098, 8773, 320 ),
-					Vector( 636, 2172, 128 ),
-					Vector( 4591, 4611, 328 )
 				}
 			end
 			for k,v in ipairs( canpos ) do
