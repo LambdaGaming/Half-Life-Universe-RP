@@ -30,7 +30,7 @@ CraftingIngredient = {}
 	}
 ]]
 
-CraftingIngredient["iron"] = {
+CraftingIngredient["ironbar"] = {
 	Name = "Iron",
 	Type = { 1, 4 }
 }
@@ -218,10 +218,9 @@ CraftingCategory[18] = {
 
 CraftingTable["weapon_pistol"] = {
 	Name = "Civil Protection Pistol",
-	Description = "Requires 2 iron and 1 wrench.",
+	Description = "Requires 3 iron.",
 	Materials = {
-		ironbar = 2,
-		wrench = 1
+		ironbar = 3
 	},
 	Type = 1,
 	Category = "Pistols",
@@ -247,10 +246,10 @@ CraftingTable["weapon_crowbar"] = {
 
 CraftingTable["weapon_smg1"] = {
 	Name = "Combine SMG",
-	Description = "Requires 2 iron and 2 wrenches.",
+	Description = "Requires 2 iron and 1 wrench.",
 	Materials = {
 		ironbar = 2,
-		wrench = 2
+		wrench = 1
 	},
 	Type = 1,
 	Category = "SMGs",
@@ -262,9 +261,9 @@ CraftingTable["weapon_smg1"] = {
 
 CraftingTable["weapon_ar2"] = {
 	Name = "AR2",
-	Description = "Requires 4 iron and 2 wrenches.",
+	Description = "Requires 3 iron and 2 wrenches.",
 	Materials = {
-		ironbar = 4,
+		ironbar = 3,
 		wrench = 2
 	},
 	Type = 1,
@@ -277,9 +276,9 @@ CraftingTable["weapon_ar2"] = {
 
 CraftingTable["weapon_crossbow"] = {
 	Name = "Makeshift Crossbow",
-	Description = "Requires 6 iron and 3 wrenches.",
+	Description = "Requires 4 iron and 3 wrenches.",
 	Materials = {
-		ironbar = 6,
+		ironbar = 4,
 		wrench = 3
 	},
 	Type = 1,
@@ -306,9 +305,9 @@ CraftingTable["wrench"] = {
 
 CraftingTable["weapon_bp_sniper"] = {
 	Name = "Combine Sniper Rifle",
-	Description = "Requires 5 iron and 4 wrenches.",
+	Description = "Requires 4 iron and 4 wrenches.",
 	Materials = {
-		ironbar = 5,
+		ironbar = 4,
 		wrench = 4
 	},
 	Type = 1,
@@ -431,9 +430,9 @@ CraftingTable["lockpick"] = {
 
 CraftingTable["weapon_shotgun"] = {
 	Name = "Shotgun",
-	Description = "Requires 3 iron and 2 wrenches.",
+	Description = "Requires 2 iron and 2 wrenches.",
 	Materials = {
-		ironbar = 3,
+		ironbar = 2,
 		wrench = 2
 	},
 	Type = 1,
@@ -446,9 +445,9 @@ CraftingTable["weapon_shotgun"] = {
 
 CraftingTable["weapon_rpg"] = {
 	Name = "RPG",
-	Description = "Requires 6 iron and 4 wrenches.",
+	Description = "Requires 5 iron and 4 wrenches.",
 	Materials = {
-		ironbar = 6,
+		ironbar = 5,
 		wrench = 4
 	},
 	Type = 1,
@@ -461,9 +460,9 @@ CraftingTable["weapon_rpg"] = {
 
 CraftingTable["rebel_teleporter"] = {
 	Name = "Resistance Teleporter",
-	Description = "Requires 10 iron and 5 wrenches.",
+	Description = "Requires 8 iron and 5 wrenches.",
 	Materials = {
-		ironbar = 10,
+		ironbar = 8,
 		wrench = 5
 	},
 	Type = 1,
@@ -478,9 +477,9 @@ CraftingTable["rebel_teleporter"] = {
 
 CraftingTable["two_way_teleporter"] = {
 	Name = "Two-Way Teleporter",
-	Description = "Requires 5 iron and 2 wrenches. (2 need to be crafted for them to work.)",
+	Description = "Requires 4 iron and 2 wrenches. (2 need to be crafted for them to work.)",
 	Materials = {
-		ironbar = 5,
+		ironbar = 4,
 		wrench = 2
 	},
 	Type = 1,
@@ -495,9 +494,9 @@ CraftingTable["two_way_teleporter"] = {
 
 CraftingTable["weapon_frag"] = {
 	Name = "Frag Grenade",
-	Description = "Requires 4 iron and 2 wrenches.",
+	Description = "Requires 3 iron and 2 wrenches.",
 	Materials = {
-		ironbar = 4,
+		ironbar = 3,
 		wrench = 2
 	},
 	Type = 1,
@@ -510,9 +509,9 @@ CraftingTable["weapon_frag"] = {
 
 CraftingTable["weapon_grenadeplacer"] = {
 	Name = "Tripwire Grenade",
-	Description = "Requires 4 iron and 1 wrench.",
+	Description = "Requires 3 iron and 1 wrench.",
 	Materials = {
-		ironbar = 4,
+		ironbar = 3,
 		wrench = 1
 	},
 	Type = 1,
@@ -525,9 +524,9 @@ CraftingTable["weapon_grenadeplacer"] = {
 
 CraftingTable["bouncingmine"] = {
 	Name = "Anti-Personnel Mine",
-	Description = "Requires 6 iron and 4 wrenches.",
+	Description = "Requires 5 iron and 4 wrenches.",
 	Materials = {
-		ironbar = 6,
+		ironbar = 5,
 		wrench = 4
 	},
 	Type = 1,
@@ -542,9 +541,9 @@ CraftingTable["bouncingmine"] = {
 
 CraftingTable["springgun"] = {
 	Name = "Tripwire Spring Gun",
-	Description = "Requires 6 iron and 4 wrenches.",
+	Description = "Requires 5 iron and 4 wrenches.",
 	Materials = {
-		ironbar = 4,
+		ironbar = 5,
 		wrench = 2
 	},
 	Type = 1,
@@ -576,10 +575,10 @@ CraftingTable["tripwireextender"] = {
 if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 	CraftingTable["ent_jack_sleepinbag_rebel"] = {
 		Name = "Sleeping Bag",
-		Description = "Requires 2 iron and 5 wood.",
+		Description = "Requires 2 iron and 4 wood.",
 		Materials = {
 			ironbar = 2,
-			wood = 5
+			wood = 4
 		},
 		Type = 1,
 		Category = "Tools",
@@ -593,9 +592,9 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 
 	CraftingTable["ent_jack_terminal_rebel"] = {
 		Name = "Sentry Terminal",
-		Description = "Requires 4 iron and 3 wrenches.",
+		Description = "Requires 3 iron and 3 wrenches.",
 		Materials = {
-			ironbar = 4,
+			ironbar = 3,
 			wrench = 3
 		},
 		Type = 1,
