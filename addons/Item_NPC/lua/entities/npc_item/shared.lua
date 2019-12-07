@@ -141,11 +141,11 @@ ItemNPC["aw2_hunterchopper"] = {
 	SpawnCheck =
 		function( ply, self )
 			if timer.Exists( "OutlandTimer" ) then
-				DarkRP.notify( ply, 1, 6, "You cannot buy areal units while the ceasefire is in effect!" )
+				DarkRP.notify( ply, 1, 6, "You cannot buy aerial units while the ceasefire is in effect!" )
 				return false
 			end
-			if timer.Exists( "ArealCooldown" ) then
-				DarkRP.notify( ply, 1, 6, "Please wait for the areal unit cooldown to end before spawning another one." )
+			if timer.Exists( "aerialCooldown" ) then
+				DarkRP.notify( ply, 1, 6, "Please wait for the aerial unit cooldown to end before spawning another one." )
 				return false
 			end
 			return true
@@ -161,7 +161,7 @@ ItemNPC["aw2_hunterchopper"] = {
 				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
-			timer.Create( "ArealCooldown", 1, 600, function() end )
+			timer.Create( "aerialCooldown", 1, 600, function() end )
 		end
 }
 
@@ -174,11 +174,11 @@ ItemNPC["aw2_dropship2"] = {
 	SpawnCheck =
 		function( ply, self )
 			if timer.Exists( "OutlandTimer" ) then
-				DarkRP.notify( ply, 1, 6, "You cannot buy areal units while the ceasefire is in effect!" )
+				DarkRP.notify( ply, 1, 6, "You cannot buy aerial units while the ceasefire is in effect!" )
 				return false
 			end
-			if timer.Exists( "ArealCooldown" ) then
-				DarkRP.notify( ply, 1, 6, "Please wait for the areal unit cooldown to end before spawning another one." )
+			if timer.Exists( "aerialCooldown" ) then
+				DarkRP.notify( ply, 1, 6, "Please wait for the aerial unit cooldown to end before spawning another one." )
 				return false
 			end
 			return true
@@ -194,7 +194,7 @@ ItemNPC["aw2_dropship2"] = {
 				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
-			timer.Create( "ArealCooldown", 1, 600, function() end )
+			timer.Create( "aerialCooldown", 1, 600, function() end )
 		end
 }
 
@@ -207,11 +207,11 @@ ItemNPC["aw2_gunship"] = {
 	SpawnCheck =
 		function( ply, self )
 			if timer.Exists( "OutlandTimer" ) then
-				DarkRP.notify( ply, 1, 6, "You cannot buy areal units while the ceasefire is in effect!" )
+				DarkRP.notify( ply, 1, 6, "You cannot buy aerial units while the ceasefire is in effect!" )
 				return false
 			end
-			if timer.Exists( "ArealCooldown" ) then
-				DarkRP.notify( ply, 1, 6, "Please wait for the areal unit cooldown to end before spawning another one." )
+			if timer.Exists( "aerialCooldown" ) then
+				DarkRP.notify( ply, 1, 6, "Please wait for the aerial unit cooldown to end before spawning another one." )
 				return false
 			end
 			return true
@@ -227,7 +227,7 @@ ItemNPC["aw2_gunship"] = {
 				e:SetPos( Vector( 1587, -15003, -6320 ) )
 				e:Spawn()
 			end
-			timer.Create( "ArealCooldown", 1, 600, function() end )
+			timer.Create( "aerialCooldown", 1, 600, function() end )
 		end
 }
 
