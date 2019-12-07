@@ -4,36 +4,27 @@ include( 'shared.lua' )
 local setmap = {
 	"rp_city17_build210",
 	"rp_city17_district47",
-	"rp_city24_v2",
-	"rp_industrial17_v1"
+	"rp_city24_v2"
 }
 
 local random = table.Random(setmap)
 
-function ENT:SpawnFunction( ply, tr )
-	
+function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
-
 	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-
-	local ent = ents.Create( "bm_nuke" )
+	local ent = ents.Create( name )
 	ent:SetPos( SpawnPos )
 	ent:Spawn()
 	ent:Activate()
-	
 	return ent
 end
 
 function ENT:Initialize()
-
 	self:SetModel("models/opfor/props/nukecase.mdl")
- 
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
 	self:SetUseType(SIMPLE_USE)
-	
-	self.Index = self:EntIndex()
 	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
