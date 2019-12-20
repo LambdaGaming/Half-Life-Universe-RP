@@ -1,85 +1,85 @@
 
 local scimodels = {
-	"models/player/sgg/hev_helmet.mdl",
-	"models/player/hdpp/gordon.mdl",
-	"models/player/hdpp/male_01.mdl",
-	"models/player/hdpp/male_02.mdl",
-	"models/player/hdpp/male_03.mdl",
-	"models/player/hdpp/male_05.mdl",
-	"models/player/hdpp/male_06.mdl",
-	"models/player/hdpp/male_09.mdl",
-	"models/Player/hdpp/barney.mdl",
-	"models/player/hdpp/kleiner.mdl",
-	"models/hazmat/bmhaztechs.mdl"
+	["models/player/sgg/hev_helmet.mdl"] = true,
+	["models/player/hdpp/gordon.mdl"] = true,
+	["models/player/hdpp/male_01.mdl"] = true,
+	["models/player/hdpp/male_02.mdl"] = true,
+	["models/player/hdpp/male_03.mdl"] = true,
+	["models/player/hdpp/male_05.mdl"] = true,
+	["models/player/hdpp/male_06.mdl"] = true,
+	["models/player/hdpp/male_09.mdl"] = true,
+	["models/Player/hdpp/barney.mdl"] = true,
+	["models/player/hdpp/kleiner.mdl"] = true,
+	["models/hazmat/bmhaztechs.mdl"] = true
 }
 
 local secmodels = {
-	"models/player/hdpp/security/male_05.mdl",
-	"models/player/hdpp/security/male_06.mdl",
-	"models/player/hdpp/security/male_09.mdl",
-	"models/player/hdpp/security/barney.mdl"
+	["models/player/hdpp/security/male_05.mdl"] = true,
+	["models/player/hdpp/security/male_06.mdl"] = true,
+	["models/player/hdpp/security/male_09.mdl"] = true,
+	["models/player/hdpp/security/barney.mdl"] = true
 }
 
-local marinemodels = { "models/player/gasmask_hecu.mdl" }
+local marinemodels = { ["models/player/gasmask_hecu.mdl"] = true }
 
 local cpmodels = {
-	"models/player/police.mdl",
-	"models/player/police_fem.mdl",
-	"models/player/ElitePolice.mdl",
-	"models/player/combine_soldier.mdl",
-	"models/player/betacmb_soldier_pm.mdl",
-	"models/player/combine_soldier_prisonguard.mdl",
-	"models/player/betacmb_soldier_prisonguard_pm.mdl",
-	"models/player/combine_super_soldier.mdl",
-	"models/player/betacmb_super_soldier_pm.mdl"
+	["models/player/police.mdl"] = true,
+	["models/player/police_fem.mdl"] = true,
+	["models/player/ElitePolice.mdl"] = true,
+	["models/player/combine_soldier.mdl"] = true,
+	["models/player/betacmb_soldier_pm.mdl"] = true,
+	["models/player/combine_soldier_prisonguard.mdl"] = true,
+	["models/player/betacmb_soldier_prisonguard_pm.mdl"] = true,
+	["models/player/combine_super_soldier.mdl"] = true,
+	["models/player/betacmb_super_soldier_pm.mdl"] = true
 }
 
 local femalemodels = {
-	"models/player/group01/female_01.mdl",
-	"models/player/group01/female_02.mdl",
-	"models/player/group01/female_03.mdl",
-	"models/player/group01/female_04.mdl",
-	"models/player/group01/female_06.mdl",
-	"models/player/group03/female_01.mdl",
-	"models/player/group03/female_02.mdl",
-	"models/player/group03/female_03.mdl",
-	"models/player/group03/female_04.mdl",
-	"models/player/group03/female_05.mdl",
-	"models/player/group03/female_06.mdl"
+	["models/player/group01/female_01.mdl"] = true,
+	["models/player/group01/female_02.mdl"] = true,
+	["models/player/group01/female_03.mdl"] = true,
+	["models/player/group01/female_04.mdl"] = true,
+	["models/player/group01/female_06.mdl"] = true,
+	["models/player/group03/female_01.mdl"] = true,
+	["models/player/group03/female_02.mdl"] = true,
+	["models/player/group03/female_03.mdl"] = true,
+	["models/player/group03/female_04.mdl"] = true,
+	["models/player/group03/female_05.mdl"] = true,
+	["models/player/group03/female_06.mdl"] = true
 }
 
 local malemodels = {
-	"models/player/group01/male_01.mdl",
-	"models/player/group01/male_02.mdl",
-	"models/player/group01/male_03.mdl",
-	"models/player/group01/male_04.mdl",
-	"models/player/group01/male_05.mdl",
-	"models/player/group01/male_06.mdl",
-	"models/player/group01/male_07.mdl",
-	"models/player/group01/male_08.mdl",
-	"models/player/group01/male_09.mdl",
-	"models/player/group03/male_01.mdl",
-	"models/player/group03/male_02.mdl",
-	"models/player/group03/male_03.mdl",
-	"models/player/group03/male_04.mdl",
-	"models/player/group03/male_05.mdl",
-	"models/player/group03/male_06.mdl",
-	"models/player/group03/male_07.mdl",
-	"models/player/group03/male_08.mdl",
-	"models/player/group03/male_09.mdl"
+	["models/player/group01/male_01.mdl"] = true,
+	["models/player/group01/male_02.mdl"] = true,
+	["models/player/group01/male_03.mdl"] = true,
+	["models/player/group01/male_04.mdl"] = true,
+	["models/player/group01/male_05.mdl"] = true,
+	["models/player/group01/male_06.mdl"] = true,
+	["models/player/group01/male_07.mdl"] = true,
+	["models/player/group01/male_08.mdl"] = true,
+	["models/player/group01/male_09.mdl"] = true,
+	["models/player/group03/male_01.mdl"] = true,
+	["models/player/group03/male_02.mdl"] = true,
+	["models/player/group03/male_03.mdl"] = true,
+	["models/player/group03/male_04.mdl"] = true,
+	["models/player/group03/male_05.mdl"] = true,
+	["models/player/group03/male_06.mdl"] = true,
+	["models/player/group03/male_07.mdl"] = true,
+	["models/player/group03/male_08.mdl"] = true,
+	["models/player/group03/male_09.mdl"] = true
 }
 
 local scichats = {
 	{ "absolutely", "scientist/absolutely.wav" },
-	{ "absolutely not", "scientist/absolutelynot.wav" },
+	{ "not", "scientist/absolutelynot.wav" },
 	{ "appeal", "scientist/alienappeal.wav" },
 	{ "administrator", "scientist/administrator.wav" },
 	{ "fellow", "scientist/afellowsci.wav" },
 	{ "nominal", "scientist/allnominal.wav" },
 	{ "alright", "scientist/alright.wav" },
-	{ "looking forward", "scientist/analysis.wav" },
+	{ "looking", "scientist/analysis.wav" },
 	{ "analysis", "scientist/analysis.wav" },
-	{ "are you thinking", "scientist/areyouthink.wav" },
+	{ "thinking", "scientist/areyouthink.wav" },
 	{ "expect", "scientist/asexpected.wav" },
 	{ "beverage", "scientist/beverage.wav" },
 	{ "blood", "scientist/bloodsample.wav" },
@@ -88,7 +88,7 @@ local scichats = {
 	{ "ahem", "scientist/c1a0_sci_stall.wav" },
 	{ "run", "scientist/c1a2_sci_1zomb.wav" },
 	{ "shoot", "scientist/c1a2_sci_6zomb.wav" },
-	{ "thank god", "scientist/c1a3_sci_rescued.wav" },
+	{ "rescued", "scientist/c1a3_sci_rescued.wav" },
 	{ "doomed", "scientist/c1a3_sci_silo2a.wav" },
 	{ "don't shoot", "scientist/c1a3_sci_team.wav" },
 	{ "dont shoot", "scientist/c1a3_sci_team.wav" },
@@ -130,7 +130,7 @@ local scichats = {
 	{ "facinating", "scientist/neverseen.wav" },
 	{ "amazing", "scientist/neverseen.wav" },
 	{ "sample", "scientist/newsample.wav" },
-	{ "no doubt", "scientist/nodoubt.wav" },
+	{ "doubt", "scientist/nodoubt.wav" },
 	{ "no", "scientist/noo.wav" },
 	{ "noo", "scientist/nooo.wav" },
 	{ "smell", "scientist/odorfromyou.wav" },
@@ -149,7 +149,7 @@ local scichats = {
 	{ "wait", "scientist/waithere.wav" },
 	{ "tie", "scientist/weartie.wav" },
 	{ "now what", "scientist/whatnext.wav" },
-	{ "what are you doing", "scientist/whatareyoudoing.wav" },
+	{ "what", "scientist/whatareyoudoing.wav" },
 	{ "yes?", "scientist/yees.wav" },
 	{ "yes", "scientist/yes.wav" },
 	{ "yea", "scientist/yes.wav" },
@@ -161,7 +161,7 @@ local scichats = {
 }
 
 local secchats = {
-	{ "aim for the head", "barney/aimforhead.wav" },
+	{ "aim", "barney/aimforhead.wav" },
 	{ "not going", "barney/aintgoing.wav" },
 	{ "scared", "barney/aintscared.wav" },
 	{ "ambush", "barney/ambush.wav" },
@@ -415,25 +415,26 @@ if SERVER then
 	hook.Add( "PlayerSay", "SoundChat", function( ply, text, team )
 		if team then return end
 		local prefixlist = { "/", "!", "@" }
+		local model = ply:GetModel()
     	if table.HasValue( prefixlist, string.sub( text, 0, 1 ) ) then return end --Doesn't check the tables if a prefix was entered, for example /ooc or !addons
 		if ply.chatcooldown and ply.chatcooldown > CurTime() then return end --Doesn't check the tables if the cooldown is still in effect
-		if table.HasValue( scimodels, ply:GetModel() ) then --Sounds play according to what playermodel the player has
+		if scimodels[model] then --Sounds play according to what playermodel the player has
 			for _,v in pairs( scichats ) do --Looks over table of words and paths
 				local res1, res2 = string.find( string.lower( text ), v[1] )
-				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then --Credit to DarkRP devs for this
+				if res1 and ( !text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( !text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then --Credit to DarkRP devs for this
 					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
-		elseif table.HasValue( secmodels, ply:GetModel() ) then
+		elseif secmodels[model] then
 			for k,v in pairs( secchats ) do
 				local res1, res2 = string.find( string.lower( text ), v[1] )
-				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+				if res1 and ( !text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( !text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
 					ply:EmitSound( v[2], 80, 100 )
 					break
 				end
 			end
-		elseif table.HasValue( marinemodels, ply:GetModel() ) then
+		elseif marinemodels[model] then
 			for _,v in pairs( marinechats ) do
 				local res1, res2 = string.find( string.lower( text ), v[1] )
 				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
@@ -441,7 +442,7 @@ if SERVER then
 					break
 				end
 			end
-		elseif table.HasValue( cpmodels, ply:GetModel() ) then
+		elseif cpmodels[model] then
 			for _,v in pairs( cpchat ) do
 				local res1, res2 = string.find( string.lower( text ), v[1] )
 				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
@@ -449,7 +450,7 @@ if SERVER then
 					break
 				end
 			end
-		elseif table.HasValue( femalemodels, ply:GetModel() ) then
+		elseif femalemodels[model] then
 			for _,v in pairs( femalechat ) do
 				local res1, res2 = string.find( string.lower( text ), v[1] )
 				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
@@ -457,7 +458,7 @@ if SERVER then
 					break
 				end
 			end
-		elseif table.HasValue( malemodels, ply:GetModel() ) then
+		elseif malemodels[model] then
 			for _,v in pairs( malechat ) do
 				local res1, res2 = string.find( string.lower( text ), v[1] )
 				if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
