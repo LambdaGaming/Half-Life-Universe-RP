@@ -377,6 +377,7 @@ function ResetRound() --Places everyone in the waiting room, resets everyone's s
 	RemoveObstructions()
 	RemoveNPCS()
 	ResetDoors()
+	RemoveClientTimers()
 end
 
 function Cascade()
@@ -406,6 +407,7 @@ function Cascade()
 					v:SetPos( table.Random( CASCADE_HECUPOS ) )
 					v:ChatPrint( "You are a HECU Marine. Your objective is to kill anyone who isn't a medic, and ensure medics escape safely." )
 				end
+				SyncCascadeTimers( v )
 			end
 		end	)
 		if fastmode then
@@ -428,5 +430,8 @@ function Cascade()
 		PressAlarm()
 		LockDoors()
 		SpawnMonsters()
+		for k,v in pairs( player.GetAll() ) do
+			SyncCascadeTimers( v )
+		end
 	end )
 end

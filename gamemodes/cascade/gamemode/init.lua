@@ -23,3 +23,34 @@ function GM:InitPostEntity() --Removes original map spawns and creates new ones 
 		end
 	end )
 end
+
+function SyncCascadeTimers( ply )
+	net.Start( "SyncCascadeTimer" )
+	if timer.Exists( "MainLoop" ) then
+		net.WriteString( tostring( timer.TimeLeft( "MainLoop" ) ) )
+	else
+		net.WriteString( tostring( 0 ) )
+	end
+	if timer.Exists( "MainRoundStart" ) then
+		net.WriteString( tostring( timer.TimeLeft( "MainRoundStart" ) ) )
+	else
+		net.WriteString( tostring( 0 ) )
+	end
+	if timer.Exists( "HECULoop" ) then
+		net.WriteString( tostring( timer.TimeLeft( "HECULoop" ) ) )
+	else
+		net.WriteString( tostring( 0 ) )
+	end
+	net.Send( ply )
+end
+
+util.AddNetworkString( "SyncCascadeTimer" )
+hook.Add( "PlayerInitialSpawn", "SyncCascadeTimer", function( ply )
+	SyncCascadeTimers( ply )
+end )
+
+util.AddNetworkString( "RemoveClientTimers" )
+function RemoveClientTimers()
+	net.Start( "RemoveClientTimers" )
+	net.Broadcast()
+end
