@@ -90,20 +90,34 @@ function TelePlayers()
 	end
 end
 
-function LockDoors() --Might need changed since we don't have ownable doors anymore
-	--[[ local lockabledoors = { 1968, 619, 620, 2091, 621, 622, 1933, 1657, 1656, 1737, 669, 659, 660, 148, 147, 1748, 1750, 1751, 1047, 1050, 1046, 1052, 55, 56, 65, 125, 124, 253, 213, 214, 1253, 71, 1252, 70,
-	1199, 1192, 2055, 2059, 103, 131, 876, 875, 826, 827, 2174, 2175, 1756, 1755, 1757, 1614, 1596, 2065, 2093, 1627, 1526, 1626, 114, 1309, 98, 226, 1324, 1326 }
-	for k,v in pairs( ents.GetAll() ) do
-		if table.HasValue( lockabledoors, v:EntIndex() ) then
+function LockDoors()
+	local allowed = {
+		["prop_door"] = true,
+		["prop_door_rotating"] = true,
+		["func_door"] = true,
+		["func_door_rotating"] = true
+	}
+	local allowednums = {
+		[2] = true,
+		[3] = true,
+		[4] = true,
+		[5] = true
+	}
+	for k,v in pairs( ents.FindByClass( "prop_*" ) ) do
+		if allowed[v:GetClass()] then
 			v:Fire( "Close" )
-			v:Fire( "Lock" )
+			if allowednums[DoorTable[v:EntIndex()]] then
+				v:Fire( "lock", "", 0 )
+			end
 		end
-	end ]]
-	for k,v in pairs( ents.FindByClass( "prop_door*" ) ) do
-		v:Fire( "Close" )
 	end
-	for k,v in pairs( ents.FindByClass( "func_door*" ) ) do
-		v:Fire( "Close" )
+	for k,v in pairs( ents.FindByClass( "func_*" ) ) do
+		if allowed[v:GetClass()] then
+			v:Fire( "Close" )
+			if allowednums[DoorTable[v:EntIndex()]] then
+				v:Fire( "lock", "", 0 )
+			end
+		end
 	end
 end
 
@@ -246,29 +260,52 @@ function RemoveObstructions() --Removes obstructions after the round ends
 end
 
 function PressAlarm() --Turns on alarms, disables the trams, and closes the fire doors (sometimes this doesnt work?)
-	for p,l in pairs( ents.FindByClass( "func_button" ) ) do
-		if l:EntIndex() == 1153 then
-			l:Fire( "Press" )
+	for k,v in pairs( ents.FindByClass( "func_button" ) ) do
+		if v:EntIndex() == 1153 then
+			v:Fire( "Press" )
 		end
-		if l:EntIndex() == 1151 then
-			l:Fire( "Press" )
+		if v:EntIndex() == 1151 then
+			v:Fire( "Press" )
 		end
-		if l:EntIndex() == 1272 then
-			l:Fire( "Press" )
+		if v:EntIndex() == 1272 then
+			v:Fire( "Press" )
 		end
 	end
 end
 
 function UnpressAlarm() --Turns off the alarm, starts up the trams, and lifts the fire doors
-	for p,l in pairs( ents.FindByClass( "func_button" ) ) do
-		if l:EntIndex() == 1153 then
-			l:Fire( "Press" )
+	for k,v in pairs( ents.FindByClass( "func_button" ) ) do
+		if v:EntIndex() == 1153 then
+			v:Fire( "Press" )
 		end
-		if l:EntIndex() == 1151 then
-			l:Fire( "PressOut" ) --Using PressOut here incase the trams were re-activated during the round
+		if v:EntIndex() == 1151 then
+			v:Fire( "PressOut" ) --Using PressOut here incase the trams were re-activated during the round
 		end
-		if l:EntIndex() == 1272 then
-			l:Fire( "Press" )
+		if v:EntIndex() == 1272 then
+			v:Fire( "Press" )
+		end
+	end
+end
+
+local function ResetDoors()
+	local allowed = {
+		["prop_door"] = true,
+		["prop_door_rotating"] = true,
+		["func_door"] = true,
+		["func_door_rotating"] = true
+	}
+	for k,v in pairs( ents.FindByClass( "prop_*" ) ) do
+		if allowed[v:GetClass()] then
+			v:Fire( "Close" )
+			v:Fire( "unlock", "", 0 )
+			v:SetNWEntity( "DoorOwner", NULL )
+		end
+	end
+	for k,v in pairs( ents.FindByClass( "func_*" ) ) do
+		if allowed[v:GetClass()] then
+			v:Fire( "Close" )
+			v:Fire( "unlock", "", 0 )
+			v:SetNWEntity( "DoorOwner", NULL )
 		end
 	end
 end
@@ -339,6 +376,7 @@ function ResetRound() --Places everyone in the waiting room, resets everyone's s
 	RemoveWeapons()
 	RemoveObstructions()
 	RemoveNPCS()
+	ResetDoors()
 end
 
 function Cascade()

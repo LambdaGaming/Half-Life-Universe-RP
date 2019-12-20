@@ -19,6 +19,7 @@ function ChangeTeam( ply, team, respawn )
 end
 
 function GM:PlayerLoadout( ply )
+	ply:Give( "weapon_keys" )
 	if ply:Team() == medic then
 		ply:Give( "weapon_medkit" )
 	elseif ply:Team() == scientist then
@@ -33,7 +34,7 @@ function GM:PlayerLoadout( ply )
 			"weapon_m249"
 		}
 		ply:Give( table.Random( randwep ) )
-		--ply:Give( "door_ram" )
+		ply:Give( "weapon_ram" )
 	elseif ply:Team() == security then
 		local randwep = {
 			"weapon_eagle",
@@ -41,7 +42,7 @@ function GM:PlayerLoadout( ply )
 			"weapon_357_hl"
 		}
 		ply:Give( table.Random( randwep ) )
-		--ply:Give( "door_ram" )
+		ply:Give( "weapon_ram" )
 	elseif ply:Team() == zombie then
 		ply:Give( "weapon_weapons_zombie" )
 	elseif ply:Team() == vort then
