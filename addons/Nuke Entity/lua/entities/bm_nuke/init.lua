@@ -7,7 +7,7 @@ local setmap = {
 	"rp_city24_v2"
 }
 
-local random = table.Random(setmap)
+local random = table.Random( setmap )
 
 function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
@@ -20,11 +20,11 @@ function ENT:SpawnFunction( ply, tr, name )
 end
 
 function ENT:Initialize()
-	self:SetModel("models/opfor/props/nukecase.mdl")
+	self:SetModel( "models/opfor/props/nukecase.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
-	self:SetUseType(SIMPLE_USE)
+	self:SetUseType( SIMPLE_USE )
 	
 	local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
@@ -33,17 +33,20 @@ function ENT:Initialize()
 end
 
 function ENT:Use(activator)
-	for k, v in pairs(ents.FindInSphere(self:GetPos(), 300)) do
-		if not v:GetClass() == "nuke_key" then activator:ChatPrint("You must take the nuke to the detonator terminal before it can be activated!") return end
+	for k,v in pairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
+		if !v:GetClass() == "nuke_key" then activator:ChatPrint("You must take the nuke to the detonator terminal before it can be activated!") return end
 		if v:GetClass() == "nuke_key" then
-			self.Entity:Remove()
+			self:Remove()
 			activator:EmitSound("buttons/button3.wav", 50, 100)
 	
 			timer.Simple( 1, function() RunConsoleCommand( "blowout_enabled", 1 ) end )
 			timer.Simple( 2, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
-			timer.Simple( 150, function() RunConsoleCommand ( "gamemode", "city17rp" ); RunConsoleCommand ( "changelevel", random ) end )
+			timer.Simple( 150, function()
+				RunConsoleCommand ( "gamemode", "city17rp" )
+				RunConsoleCommand ( "changelevel", random )
+			end )
 	
-			for k, ply in pairs( player.GetAll() ) do
+			for k,ply in pairs( player.GetAll() ) do
 				ply:ChatPrint( "Nuke Activated. 2 Minutes until detonation." )
 			end
 		end
@@ -53,10 +56,8 @@ end
 function ENT:Think()
 	if game.GetMap() == "gm_atomic" then
 		self:Remove()
-		if CLIENT then
-			self.Owner:ChatPrint("ERROR: Black Mesa has already been vaporized. No need for more nukes.")
-			self.Owner:ChatPrint("You have been refunded $300 for the removed nuke.")
-		end
-		self.Owner:addMoney(300)
+		self.Owner:ChatPrint( "ERROR: Black Mesa has already been vaporized. No need for more nukes." )
+		self.Owner:ChatPrint( "You have been refunded $300 for the removed nuke." )
+		self.Owner:addMoney( 300 )
 	end
 end
