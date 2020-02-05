@@ -8,10 +8,10 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "Superadmin Only"
 
-function ENT:SpawnFunction( ply, tr )
+function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
 	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "event_revive" )
+	local ent = ents.Create( name )
 	ent:SetPos( SpawnPos + ent:GetUp() * 10 )
 	ent:Spawn()
 	ent:Activate()
@@ -39,7 +39,7 @@ function ENT:Initialize()
 	end
  
     local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
+	if phys:IsValid() then
 		phys:Wake()
 	end
 	self.revive = false
@@ -53,8 +53,11 @@ end
 
 function ENT:AcceptInput( ply, caller )
 	if self.revive then return end
-	if caller:Team() != TEAM_MEDICBM then DarkRP.notify( caller, 0, 6, "You check for a pulse but can't seem to find one. A medic has the tools to help this person." ) return end
-	if caller:Team() == TEAM_MEDICBM then DarkRP.notify( caller, 0, 6, "You check for a pulse but can't seem to find one. You may have to use your med kit to revive this person." ) end
+	if caller:Team() == TEAM_MEDICBM then
+		DarkRP.notify( caller, 0, 6, "You check for a pulse but can't seem to find one. You may have to use your med kit to revive this person." )
+	else
+		DarkRP.notify( caller, 0, 6, "You check for a pulse but can't seem to find one. A medic has the tools to help this person." )
+	end
 end
 
 function ENT:Think()

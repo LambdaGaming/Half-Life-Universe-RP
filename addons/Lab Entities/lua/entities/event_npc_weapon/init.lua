@@ -2,10 +2,10 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
-function ENT:SpawnFunction( ply, tr )
+function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
 	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "event_npc_weapon" )
+	local ent = ents.Create( name )
 	ent:SetPos( SpawnPos )
 	ent:Spawn()
 	ent:Activate()
@@ -26,17 +26,16 @@ local weapon = {
 
 function ENT:Initialize()
     self:SetModel( "models/player/gasmask_hecu.mdl" )
-	self:SetMoveType(MOVETYPE_NONE)
+	self:SetMoveType( MOVETYPE_NONE )
 	self:SetSolid( SOLID_BBOX )
-	self:SetCollisionGroup(COLLISION_GROUP_PLAYER)
+	self:SetCollisionGroup( COLLISION_GROUP_PLAYER )
 	self:SetUseType( SIMPLE_USE )
  
     local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
+	if phys:IsValid() then
 		phys:Wake()
 	end
 
-	self.bye = false
 	self.waiting = false
 	
 	local rand = table.Random( weapon )
@@ -48,25 +47,26 @@ function ENT:AcceptInput( ply, caller )
 		for k,v in pairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
 			if v:GetClass() == self.chosenwep then
 				v:Remove()
-				DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Thanks! Here's your cash. (Award +600)" )
+				DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", color_white, "Thanks! Here's your cash. (Award +600)" )
 				caller:addMoney( 600 )
 				self:TeleportAway()
+				return
 			end
 		end
-	return end
+	end
 	if caller:Team() == TEAM_WEPMAKER then
 		umsg.Start( "WepMenu", caller )
 		umsg.End()
-		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "I need a "..self.chosenwep.."." )
+		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", color_white, "I need a "..self.chosenwep.."." )
 	else
-		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "I'm looking for a weapons engineer. Have you seen any?" )
+		DarkRP.talkToPerson( caller, Color( 56, 118, 29 ), "Corporal Shepard", color_white, "I'm looking for a weapons engineer. Have you seen any?" )
 	end
 end
 
 function ENT:OnTakeDamage( dmg )
 	if dmg:GetAttacker():IsPlayer() then
 		dmg:GetAttacker():Kill()
-		DarkRP.talkToPerson( dmg:GetAttacker(), Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Really? What was that for?" )
+		DarkRP.talkToPerson( dmg:GetAttacker(), Color( 56, 118, 29 ), "Corporal Shepard", color_white, "Really? What was that for?" )
 	end
 end
 
@@ -88,19 +88,16 @@ end
 
 function ENT:Think()
 	self:SetSequence( "idle_all_02" )
-	if self.bye then
-		self:TeleportAway()
-	end
 end
 
 util.AddNetworkString("WepAccept")
 net.Receive("WepAccept", function(length, ply)
-	DarkRP.talkToPerson( ply, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Thanks! I'll be waiting here for you!" )
+	DarkRP.talkToPerson( ply, Color( 56, 118, 29 ), "Corporal Shepard", color_white, "Thanks! I'll be waiting here for you!" )
 	self.waiting = true
 end)
 
 util.AddNetworkString("WepDeny")
 net.Receive("WepDeny", function(length, ply)
-	DarkRP.talkToPerson( ply, Color( 56, 118, 29 ), "Corporal Shepard", Color( 255, 255, 255 ), "Alright, shame we didn't get to work together." )
-	self.bye = true
+	DarkRP.talkToPerson( ply, Color( 56, 118, 29 ), "Corporal Shepard", color_white, "Alright, shame we didn't get to work together." )
+	self:TeleportAway()
 end)
