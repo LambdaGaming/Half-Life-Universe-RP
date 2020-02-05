@@ -1,10 +1,10 @@
 AddCSLuaFile( "shared.lua" )
 include( 'shared.lua' )
 
-function ENT:SpawnFunction( ply, tr )
+function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
 	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "c17_codes" )
+	local ent = ents.Create( name )
 	ent:SetPos( SpawnPos )
 	ent:Spawn()
 	ent:Activate()
@@ -12,7 +12,7 @@ function ENT:SpawnFunction( ply, tr )
 end
 
 function ENT:Initialize()
-	self:SetModel("models/props_combine/breenconsole.mdl")
+	self:SetModel( "models/props_combine/breenconsole.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
