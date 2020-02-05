@@ -33,9 +33,7 @@ hook.Add( "PlayerDeath", "OutlandPlayerDeath", function(victim, inflictor, attac
 		for k,v in pairs( ents.FindByClass( table.Random( outlandents ) ) ) do
 			v.hascodes = true
 		end
-		for k,ply in pairs(player.GetAll()) do
-			DarkRP.notify( ply, 1, 6, victim:Nick().." has been killed and the portal codes are lost again!" )
-		end
+		DarkRP.notifyAll( 1, 6, victim:Nick().." has been killed and the portal codes are lost again!" )
 	end
 end )
 
@@ -45,10 +43,6 @@ hook.Add( "OnPlayerChangedTeam", "OutlandPlayerChange", function(ply, before, af
 		for k,v in pairs( ents.FindByClass( table.Random( outlandents ) ) ) do
 			v.hascodes = true
 		end
-		for k,l in pairs(player.GetAll()) do
-			if SERVER then
-				DarkRP.notify( l, 1, 6, ply:Nick().." has changed jobs and the portal codes are lost again!" )
-			end
-		end
+		DarkRP.notifyAll( 1, 6, ply:Nick().." has changed jobs and the portal codes are lost again!" )
 	end
 end )
