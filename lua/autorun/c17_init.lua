@@ -66,23 +66,23 @@ if SERVER and c17maps[game.GetMap()] then
 		}
 
 		local cmd = {
-			"/person",
-			"/anticiv",
-			"/evadeciv",
-			"/civreport",
-			"/position",
-			"/failure",
-			"/capitalmal",
-			"/socifive",
-			"/violation",
-			"/unrest",
-			"/evasion",
-			"/block",
-			"/socione",
-			"/check",
-			"/miscount",
-			"/relocation",
-			"/exogen"
+			{ "/person", "npc/overwatch/cityvoice/f_confirmcivilstatus_1_spkr.wav" },
+			{ "/anticiv", "npc/overwatch/cityvoice/f_anticivilevidence_3_spkr.wav" },
+			{ "/evadeciv", "npc/overwatch/cityvoice/f_evasionbehavior_2_spkr.wav" },
+			{ "/civreport", "npc/overwatch/cityvoice/f_innactionisconspiracy_spkr.wav" },
+			{ "/position", "npc/overwatch/cityvoice/f_trainstation_assumepositions_spkr.wav" },
+			{ "/failure", "npc/overwatch/cityvoice/fprison_missionfailurereminder.wav" },
+			{ "/capitalmal", "npc/overwatch/cityvoice/f_capitalmalcompliance_spkr.wav" },
+			{ "/socifive", "npc/overwatch/cityvoice/f_ceaseevasionlevelfive_spkr.wav" },
+			{ "/violation", "npc/overwatch/cityvoice/f_citizenshiprevoked_6_spkr.wav" },
+			{ "/unrest", "npc/overwatch/cityvoice/f_localunrest_spkr.wav" },
+			{ "/evasion", "npc/overwatch/cityvoice/f_protectionresponse_1_spkr.wav" },
+			{ "/block", "npc/overwatch/cityvoice/f_rationunitsdeduct_3_spkr.wav" },
+			{ "/socione", "npc/overwatch/cityvoice/f_sociolevel1_4_spkr.wav" },
+			{ "/check", "npc/overwatch/cityvoice/f_trainstation_assemble_spkr.wav" },
+			{ "/miscount", "npc/overwatch/cityvoice/f_trainstation_cooperation_spkr.wav" },
+			{ "/relocation", "npc/overwatch/cityvoice/f_trainstation_offworldrelocation_spkr.wav" },
+			{ "/exogen", "npc/overwatch/cityvoice/fprison_nonstandardexogen.wav" }
 		}
 
 		local function SendSound( player, sound )
@@ -91,51 +91,19 @@ if SERVER and c17maps[game.GetMap()] then
 			end
 		end
 
-		if table.HasValue( cmd, text ) then
-			if !allowedjobs[ply:Team()] then
-				DarkRP.notify( ply, 1, 6, "You do not have the right job to use these commands." )
+		for k,v in pairs( cmd ) do
+			if text == v[1] then
+				if !allowedjobs[ply:Team()] then
+					DarkRP.notify( ply, 1, 6, "You do not have the right job to use these commands." )
+					return ""
+				end
+				if ply:Team() == TEAM_COMBINEELITE and player.GetCount() > 5 then
+					DarkRP.notify( ply, 1, 6, "There are too many players for you to take the Earth Admin's role." )
+					return ""
+				end
+				SendSound( ply, v[2] )
 				return ""
 			end
-			if ply:Team() == TEAM_COMBINEELITE and player.GetCount() > 5 then
-				DarkRP.notify( ply, 1, 6, "There are too many players for you to take the Earth Admin's role." )
-				return ""
-			end
-			if text == cmd[1] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_confirmcivilstatus_1_spkr.wav" )
-			elseif text == cmd[2] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_anticivilevidence_3_spkr.wav" )
-			elseif text == cmd[3] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_evasionbehavior_2_spkr.wav" )
-			elseif text == cmd[4] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_innactionisconspiracy_spkr.wav" )
-			elseif text == cmd[5] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_trainstation_assumepositions_spkr.wav" )
-			elseif text == cmd[6] then
-				SendSound( ply, "npc/overwatch/cityvoice/fprison_missionfailurereminder.wav" )
-			elseif text == cmd[7] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_capitalmalcompliance_spkr.wav" )
-			elseif text == cmd[8] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_ceaseevasionlevelfive_spkr.wav" )
-			elseif text == cmd[9] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_citizenshiprevoked_6_spkr.wav" )
-			elseif text == cmd[10] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_localunrest_spkr.wav" )
-			elseif text == cmd[11] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_protectionresponse_1_spkr.wav" )
-			elseif text == cmd[12] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_rationunitsdeduct_3_spkr.wav" )
-			elseif text == cmd[13] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_sociolevel1_4_spkr.wav" )
-			elseif text == cmd[14] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_trainstation_assemble_spkr.wav" )
-			elseif text == cmd[15] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_trainstation_cooperation_spkr.wav" )
-			elseif text == cmd[16] then
-				SendSound( ply, "npc/overwatch/cityvoice/f_trainstation_offworldrelocation_spkr.wav" )
-			elseif text == cmd[17] then
-				SendSound( ply, "npc/overwatch/cityvoice/fprison_nonstandardexogen.wav" )
-			end
-			return ""
 		end
 	end )
 
