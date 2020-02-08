@@ -1,5 +1,11 @@
 
-if GAMEMODE_NAME == "bmrphlu" then
+local allowedmap = {
+	["rp_sectorc_beta"] = true,
+	["rp_blackmesa_laboratory"] = true,
+	["rp_blackmesa_complex_fixed"] = true
+}
+
+if SERVER and allowedmap[game.GetMap()] then
 	local function PickRandomEvent()
 		local rand2 = math.random( 1, 10 )
 		if rand2 == 1 then
@@ -442,8 +448,6 @@ if GAMEMODE_NAME == "bmrphlu" then
 		RunConsoleCommand( "vox", "dadeda _comma administration personnel report to sector d please" )
 	end
 	-----------------------------------------------------------------
-	chosenwep = nil
-
 	function MarineWeapon()
 		if team.NumPlayers( TEAM_WEPMAKER ) == 0 then return end
 		if SERVER then
