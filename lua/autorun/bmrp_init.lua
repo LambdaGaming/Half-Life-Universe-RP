@@ -16,7 +16,6 @@ if SERVER and allowedmap[game.GetMap()] then
         { "/scientistevacuate", "buzwarn attention _comma any sector c science personnel evacuate _comma area immediately" },
         { "/securityreport", "deeoo deeoo attention security personnel _comma to sector d" },
         { "/biohazard", "bizwarn bizwarn bizwarn biohazard _comma warning in sector b and c" },
-        { "/safereport", "dadeda cryogenic safety crew report status _comma at eleven hundred please" },
         { "/servicereport", "dadeda inspection _comma team to radioactive materials handling bay" },
         { "/hallaccess", "bloop maintenance _comma area access granted" },
         { "/reportams", "dadeda sector c science personnel report _comma to anomalous materials test lab" },
