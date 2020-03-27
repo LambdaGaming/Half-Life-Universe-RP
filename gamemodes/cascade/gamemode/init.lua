@@ -21,6 +21,9 @@ function GM:InitPostEntity() --Removes original map spawns and creates new ones 
 			e:SetAngles( Angle( 0, 90, 0 ) )
 			e:Spawn()
 		end
+		for k,v in pairs( ents.FindByClass( "ambient_generic" ) ) do
+			v:Fire( "Volume", 1 ) --Reduces the volume of the vox announcements since they can get annoying during long rounds
+		end
 	end )
 end
 
