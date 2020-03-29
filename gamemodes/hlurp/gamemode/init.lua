@@ -18,6 +18,22 @@ include( "sv_outland.lua" )
 
 RunConsoleCommand( "sv_alltalk", "2" )
 
+function GM:PlayerSpawnNPC( ply )
+	return ply:IsSuperAdmin()
+end
+
+function GM:PlayerSpawnSENT( ply )
+	return ply:IsSuperAdmin()
+end
+
+function GM:PlayerSpawnSWEP( ply )
+	return ply:IsSuperAdmin()
+end
+
+function GM:PlayerSpawnVehicle( ply )
+	return ply:IsSuperAdmin()
+end
+
 function GM:PlayerLoadout( ply )
 	local PlyTeam = ply:Team()
     local DefaultWeps = {

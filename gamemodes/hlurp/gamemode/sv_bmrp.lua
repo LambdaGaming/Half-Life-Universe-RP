@@ -35,7 +35,7 @@ local BMRPCommandsHECU = {
 local function CommandSound( ply, text )
 	if ply:Team() == TEAM_ADMIN or ply:Team() == TEAM_MARINEBOSS then
 		if cooldown and cooldown > CurTime() then
-			DarkRP.notify( ply, 1, 6, "Please wait before using this command again." )
+			HLU_Notify( ply, "Please wait before using this command again.", 1, 6 )
 			return ""
 		end
 		if ply:Team() == TEAM_ADMIN then
