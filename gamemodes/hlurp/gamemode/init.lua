@@ -34,6 +34,13 @@ function GM:PlayerSpawnVehicle( ply )
 	return ply:IsSuperAdmin()
 end
 
+function GM:PlayerNoClip( ply, on )
+	if !on then
+		return true
+	end
+	return ply:IsSuperAdmin()
+end
+
 function GM:PlayerLoadout( ply )
 	local PlyTeam = ply:Team()
     local DefaultWeps = {
@@ -115,10 +122,24 @@ end )
 function DropWeapon( ply )
 	if IsValid( ply ) then
 		local wep = ply:GetActiveWeapon()
+		local forward = ply:GetForward()
+		local DefaultWeps = {
+			["weapon_physgun"] = true,
+			["weapon_physcannon"] = true,
+			["weapon_keys"] = true,
+			["gmod_tool"] = true,
+			["gmod_camera"] = true
+		}
 		if IsValid( wep ) then
-			local e = ents.Create( wep:GetClass() )
-			e:SetPos( ply:GetPos() + Vector( 30, 30, 50 ) )
+			if DefaultWeps[wep:GetClass()] then
+				HLU_Notify( ply, "You can't drop this weapon.", 1, 6 )
+				return
+			end
+			local e = ents.Create( "hlu_dropped_weapon" )
+			e:SetPos( ply:GetPos() - Vector( forward.x, forward.y, -50 ) )
+			e:SetModel( wep:GetModel() )
 			e:Spawn()
+			e.DroppedClass = wep:GetClass()
 			wep:Remove()
 		end
 	end

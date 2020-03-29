@@ -9,7 +9,7 @@ DeriveGamemode( "sandbox" )
 local bmrpmaps = {
 	["rp_sectorc_beta"] = true,
 	["rp_blackmesa_laboratory"] = true,
-	["rp_blackmesa_complex"] = true,
+	["rp_blackmesa_complex_fixed"] = true,
 	["gm_atomic"] = true
 }
 

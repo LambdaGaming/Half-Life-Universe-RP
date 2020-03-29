@@ -139,7 +139,7 @@ function DrawJobMenu()
 	ply.MenuOpen = true
 end
 
-local function HLUButtons()
+local function HLUButtons( ply, button )
 	local f4 = KEY_F4
 	local f3 = KEY_F3
 	if !IsFirstTimePredicted() then return end

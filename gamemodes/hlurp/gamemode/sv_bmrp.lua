@@ -63,6 +63,7 @@ hook.Add( "PlayerSay", "BMRPCommandSounds", CommandSound )
 
 --Console command for spawning NPCs in Xen
 local function XenSpawn()
+	if game.GetMap() == "gm_atomic" then return end
 	for k,v in pairs( ents.FindByClass( "npc_*" ) ) do
 		if v.IsXenNPC then v:Remove() end
 	end
@@ -202,11 +203,20 @@ local function BMRPVehicleSpawn()
 
 		if game.GetMap() == "rp_sectorc_beta" then
 			spawnpos = {
-				{ Vector( 0, 0, 0 ), Angle( 0, 0, 0 ) }
+				{ Vector( -8857, -870, 570 ), Angle( 0, 180, 0 ) },
+				{ Vector( -8996, -866, 570 ), Angle( 0, 180, 0 ) },
+				{ Vector( -6250, -1590, 557 ), Angle( 0, 118, 0 ) }
 			}
 		else
 			spawnpos = {
-				{ Vector( 0, 0, 0 ), Angle( 0, 0, 0 ) }
+				{ Vector( -10676, 7944, -12294 ), angle_zero },
+				{ Vector( -5513, 1928, -12240 ), angle_zero },
+				{ Vector( 4352, 2820, -12260 ), angle_zero },
+				{ Vector( 937, -2617, -12216 ), angle_zero },
+				{ Vector( -8851, -2524, -12258 ), angle_zero },
+				{ Vector( -11590, -9063, -11137 ), angle_zero },
+				{ Vector( -2264, -7373, -12548 ), angle_zero },
+				{ Vector( 9171, -9176, -12262 ), angle_zero }
 			}
 		end
 
@@ -215,13 +225,47 @@ local function BMRPVehicleSpawn()
 			local car = ents.Create( "prop_vehicle_jeep" )
 			car:SetModel( randveh[1] )
 			car:SetKeyValue( "vehiclescript", randveh[2] )
-			car:SetPos( v )
+			car:SetPos( v[1] )
+			car:SetAngles( v[2] )
 			car:Spawn()
 			car:Activate()
 		end
 	end
 end
 hook.Add( "InitPostEntity", "BMRP_VehicleSpawn", BMRPVehicleSpawn )
+
+--Forklift spawn function
+local function BMRPForkliftSpawn()
+	if game.GetMap() == "gm_atomic" then return end
+	local ForkPos = {
+		["rp_sectorc_beta"] = {
+			{ Vector( 3179, -1326, -377 ), Angle( 0, 180, 0 ) },
+			{ Vector( 3385, -1326, -377 ), Angle( 0, 180, 0 ) },
+			{ Vector( 3616, -1326, -377 ), Angle( 0, 180, 0 ) }
+		},
+		["rp_blackmesa_laboratory"] = {
+			{ Vector( -381, -5922, -349 ), angle_zero },
+			{ Vector( -240, -5924, -349 ), angle_zero },
+			{ Vector( -65, -5925, -349 ), angle_zero }
+		},
+		["rp_blackmesa_complex_fixed"] = {
+			{ Vector( -1854, 727, 288 ), angle_zero },
+			{ Vector( -1143, -931, 432 ), angle_zero },
+			{ Vector( -930, 1226, 288 ), angle_zero }
+		}
+	}
+
+	for k,v in ipairs( ForkPos[game.GetMap()] ) do
+		local car = ents.Create( "prop_vehicle_jeep" )
+		car:SetModel( "models/sligwolf/forklift_truck/forklift_truck.mdl" )
+		car:SetKeyValue( "vehiclescript", "scripts/vehicles/sligwolf/sw_forklift_truck.txt" )
+		car:SetPos( v[1] )
+		car:SetAngles( v[2] )
+		car:Spawn()
+		car:Activate()
+	end
+end
+hook.Add( "InitPostEntity", "BMRP_ForkliftSpawn", BMRPForkliftSpawn )
 
 --Budget management function
 function ChangeBudget( amount )

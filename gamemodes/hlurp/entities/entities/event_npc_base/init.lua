@@ -25,7 +25,7 @@ function ENT:AcceptInput( ply, caller )
 		net.Start( "ReviveGovMenu" )
 		net.Send( caller )
 	elseif caller:Team() == TEAM_SECURITY or caller:Team() == TEAM_SECURITYBOSS and self.detained then
-		HLU_ChatNotify( caller, "Government Man", , "Alright fine, I'm leaving. But you haven't seen the last of me..." )
+		HLU_ChatNotify( caller, "Government Man", "Alright fine, I'm leaving. But you haven't seen the last of me..." )
 		self:TeleportAway()
 	elseif self.detained then
 		HLU_ChatNotify( caller, "Government Man", textcolor, "Security was called on me...I'll leave once they're here...." )
