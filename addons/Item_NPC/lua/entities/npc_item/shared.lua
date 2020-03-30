@@ -53,10 +53,9 @@ ItemNPC["weapon_9mmar"] = {
 	Model = "models/weapons/half-life/w_9mmar.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_9mmar" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_9mmar" )
+	end
 }
 
 ItemNPC["weapon_eagle"] = {
@@ -65,10 +64,9 @@ ItemNPC["weapon_eagle"] = {
 	Model = "models/weapons/opfor/w_desert_eagle.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_eagle" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_eagle" )
+	end
 }
 
 ItemNPC["weapon_shotgun_hl"] = {
@@ -77,10 +75,9 @@ ItemNPC["weapon_shotgun_hl"] = {
 	Model = "models/weapons/half-life/w_shotgun.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_shotgun_hl" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_shotgun_hl" )
+	end
 }
 
 ItemNPC["weapon_handgrenade"] = {
@@ -89,10 +86,9 @@ ItemNPC["weapon_handgrenade"] = {
 	Model = "models/weapons/half-life/w_grenade.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_handgrenade" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_handgrenade" )
+	end
 }
 
 ItemNPC["weapon_sniperrifle"] = {
@@ -101,10 +97,9 @@ ItemNPC["weapon_sniperrifle"] = {
 	Model = "models/weapons/opfor/w_m40a1.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_sniperrifle" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_sniperrifle" )
+	end
 }
 
 ItemNPC["weapon_satchel"] = {
@@ -113,10 +108,9 @@ ItemNPC["weapon_satchel"] = {
 	Model = "models/weapons/half-life/w_satchel.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_satchel" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_satchel" )
+	end
 }
 
 ItemNPC["weapon_m249"] = {
@@ -125,10 +119,28 @@ ItemNPC["weapon_m249"] = {
 	Model = "models/opfor/items/w_saw.mdl",
 	Price = 0,
 	Type = 1,
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_m249" )
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_m249" )
+	end
+}
+
+ItemNPC["bm_nuke"] = {
+	Name = "Thermonuclear Device",
+	Description = "For when the cascade event reaches it's peak.",
+	Model = "models/opfor/props/nukecase.mdl",
+	Price = 0,
+	Type = 1,
+	SpawnCheck = function( ply, self )
+		if TEAM_MARINEBOSS and ply:Team() == TEAM_MARINEBOSS then
+			return true
 		end
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "bm_nuke" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 30 ) )
+		e:Spawn()
+	end
 }
 
 -----COMBINE VEHICLE NPC ITEMS-----
