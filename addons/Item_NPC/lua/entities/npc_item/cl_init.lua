@@ -115,7 +115,7 @@ local function DrawItemMenu( ent ) --Panel that draws the main menu
 		if v.Price <= 0 then
 			itemprice:SetText( "Price: Free" )
 		else
-			itemprice:SetText( "Price: "..DarkRP.formatMoney( v.Price ) )
+			itemprice:SetText( "Price: "..v.Price )
 		end
 		itemprice:SizeToContents()
 

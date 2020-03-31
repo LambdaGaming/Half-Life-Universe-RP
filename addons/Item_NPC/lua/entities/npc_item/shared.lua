@@ -46,6 +46,16 @@ ItemNPCType[3] = {
 	Allowed = {}
 }
 
+ItemNPCType[4] = {
+	Name = "Black Mesa Item Shop",
+	Model = "",
+	MenuColor = ColorAlpha( color_orange, 30 ),
+	MenuTextColor = color_white,
+	ButtonColor = color_black,
+	ButtonTextColor = color_white,
+	Allowed = {}
+}
+
 -----HECU WEAPON CRATE ITEMS-----
 ItemNPC["weapon_9mmar"] = {
 	Name = "9mm SMG",
@@ -148,119 +158,116 @@ ItemNPC["aw2_hunterchopper"] = {
 	Name = "Hunter Chopper",
 	Description = "Armed helicopter, seats one person.",
 	Model = "models/Combine_Helicopter.mdl",
-	Price = 1000,
+	Price = 0,
 	Type = 2,
-	SpawnCheck =
-		function( ply, self )
-			if timer.Exists( "OutlandTimer" ) then
-				DarkRP.notify( ply, 1, 6, "You cannot buy aerial units while the ceasefire is in effect!" )
-				return false
-			end
-			if timer.Exists( "aerialCooldown" ) then
-				DarkRP.notify( ply, 1, 6, "Please wait for the aerial unit cooldown to end before spawning another one." )
-				return false
-			end
-			return true
-		end,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "aw2_hunterchopper" )
-				e:SetPos( Vector( 8649, 15023, 1392 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "aw2_hunterchopper" )
-				e:SetPos( Vector( 1587, -15003, -6320 ) )
-				e:Spawn()
-			end
-			timer.Create( "aerialCooldown", 1, 600, function() end )
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if timer.Exists( "OutlandTimer" ) then
+			HLU_Notify( ply, "You cannot buy aerial units while the ceasefire is in effect!", 1, 6 )
+			return false
 		end
+		if timer.Exists( "aerialCooldown" ) then
+			HLU_Notify( ply, "Please wait for the aerial unit cooldown to end before spawning another one.", 1, 6 )
+			return false
+		end
+		return true
+	end,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "aw2_hunterchopper" )
+			e:SetPos( Vector( 8649, 15023, 1392 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "aw2_hunterchopper" )
+			e:SetPos( Vector( 1587, -15003, -6320 ) )
+			e:Spawn()
+		end
+		timer.Create( "aerialCooldown", 1, 600, function() end )
+	end
 }
 
 ItemNPC["aw2_dropship2"] = {
 	Name = "Dropship",
 	Description = "Troop transporter, seats two people in main vehicle.",
 	Model = "models/Combine_dropship.mdl",
-	Price = 800,
+	Price = 0,
 	Type = 2,
-	SpawnCheck =
-		function( ply, self )
-			if timer.Exists( "OutlandTimer" ) then
-				DarkRP.notify( ply, 1, 6, "You cannot buy aerial units while the ceasefire is in effect!" )
-				return false
-			end
-			if timer.Exists( "aerialCooldown" ) then
-				DarkRP.notify( ply, 1, 6, "Please wait for the aerial unit cooldown to end before spawning another one." )
-				return false
-			end
-			return true
-		end,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "aw2_dropship2" )
-				e:SetPos( Vector( 7416, 14760, 1420 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "aw2_dropship2" )
-				e:SetPos( Vector( 1587, -15003, -6320 ) )
-				e:Spawn()
-			end
-			timer.Create( "aerialCooldown", 1, 600, function() end )
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if timer.Exists( "OutlandTimer" ) then
+			HLU_Notify( ply, "You cannot buy aerial units while the ceasefire is in effect!", 1, 6 )
+			return false
 		end
+		if timer.Exists( "aerialCooldown" ) then
+			HLU_Notify( ply, "Please wait for the aerial unit cooldown to end before spawning another one.", 1, 6 )
+			return false
+		end
+		return true
+	end,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "aw2_dropship2" )
+			e:SetPos( Vector( 7416, 14760, 1420 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "aw2_dropship2" )
+			e:SetPos( Vector( 1587, -15003, -6320 ) )
+			e:Spawn()
+		end
+		timer.Create( "aerialCooldown", 1, 600, function() end )
+	end
 }
 
 ItemNPC["aw2_gunship"] = {
 	Name = "Gunship",
 	Description = "Fast moving gunship, seats one person.",
 	Model = "models/gunship.mdl",
-	Price = 2000,
+	Price = 0,
 	Type = 2,
-	SpawnCheck =
-		function( ply, self )
-			if timer.Exists( "OutlandTimer" ) then
-				DarkRP.notify( ply, 1, 6, "You cannot buy aerial units while the ceasefire is in effect!" )
-				return false
-			end
-			if timer.Exists( "aerialCooldown" ) then
-				DarkRP.notify( ply, 1, 6, "Please wait for the aerial unit cooldown to end before spawning another one." )
-				return false
-			end
-			return true
-		end,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "aw2_gunship" )
-				e:SetPos( Vector( 7989, 15117, 1392 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "aw2_gunship" )
-				e:SetPos( Vector( 1587, -15003, -6320 ) )
-				e:Spawn()
-			end
-			timer.Create( "aerialCooldown", 1, 600, function() end )
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if timer.Exists( "OutlandTimer" ) then
+			HLU_Notify( ply, "You cannot buy aerial units while the ceasefire is in effect!", 1, 6 )
+			return false
 		end
+		if timer.Exists( "aerialCooldown" ) then
+			HLU_Notify( ply, "Please wait for the aerial unit cooldown to end before spawning another one.", 1, 6 )
+			return false
+		end
+		return true
+	end,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "aw2_gunship" )
+			e:SetPos( Vector( 7989, 15117, 1392 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "aw2_gunship" )
+			e:SetPos( Vector( 1587, -15003, -6320 ) )
+			e:Spawn()
+		end
+		timer.Create( "aerialCooldown", 1, 600, function() end )
+	end
 }
 
 ItemNPC["aw2_manhack"] = {
 	Name = "Manhack",
 	Description = "Small flying device armed with spinning blades.",
 	Model = "models/manhack.mdl",
-	Price = 300,
+	Price = 0,
 	Type = 2,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "aw2_manhack" )
-				e:SetPos( Vector( 9468, 14501, 1389 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "aw2_manhack" )
-				e:SetPos( Vector( 1587, -15003, -6320 ) )
-				e:Spawn()
-			end
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "aw2_manhack" )
+			e:SetPos( Vector( 9468, 14501, 1389 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "aw2_manhack" )
+			e:SetPos( Vector( 1587, -15003, -6320 ) )
+			e:Spawn()
 		end
+	end
 }
 
 ItemNPC["gw_hunter"] = {
@@ -269,58 +276,58 @@ ItemNPC["gw_hunter"] = {
 	Model = "models/hunter.mdl",
 	Price = 0,
 	Type = 2,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "gw_hunter" )
-				e:SetPos( Vector( 14672, -14462, 44 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "gw_hunter" )
-				e:SetPos( Vector( 2749, -14444, -6632 ) )
-				e:Spawn()
-			end
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "gw_hunter" )
+			e:SetPos( Vector( 14672, -14462, 44 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "gw_hunter" )
+			e:SetPos( Vector( 2749, -14444, -6632 ) )
+			e:Spawn()
 		end
+	end
 }
 
 ItemNPC["gw_strider"] = {
 	Name = "Strider",
 	Description = "Ground unit, fires high-energy rounds and is eqipped with a high-powered cannon to destroy vehicles and buildings.",
 	Model = "models/Combine_Strider.mdl",
-	Price = 2000,
+	Price = 0,
 	Type = 2,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "gw_strider" )
-				e:SetPos( Vector( 14450, -14100, 100 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "gw_strider" )
-				e:SetPos( Vector( 2749, -14444, -6632 ) )
-				e:Spawn()
-			end
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "gw_strider" )
+			e:SetPos( Vector( 14450, -14100, 100 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "gw_strider" )
+			e:SetPos( Vector( 2749, -14444, -6632 ) )
+			e:Spawn()
 		end
+	end
 }
 
 ItemNPC["prop_vehicle_zapc"] = {
 	Name = "APC",
 	Description = "Ground unit, seats 3 people, armed with a pulse turret and rocket launcher.",
 	Model = "models/combine_apc.mdl",
-	Price = 1500,
+	Price = 0,
 	Type = 2,
-	SpawnFunction =
-		function( ply, self )
-			if map == valley then
-				local e = ents.Create( "prop_vehicle_zapc" )
-				e:SetPos( Vector( 14450, -14100, 100 ) )
-				e:Spawn()
-			else
-				local e = ents.Create( "prop_vehicle_zapc" )
-				e:SetPos( Vector( 2749, -14444, -6632 ) )
-				e:Spawn()
-			end
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		if map == valley then
+			local e = ents.Create( "prop_vehicle_zapc" )
+			e:SetPos( Vector( 14450, -14100, 100 ) )
+			e:Spawn()
+		else
+			local e = ents.Create( "prop_vehicle_zapc" )
+			e:SetPos( Vector( 2749, -14444, -6632 ) )
+			e:Spawn()
 		end
+	end
 }
 
 -----TURRET NPC ITEMS-----
@@ -330,81 +337,152 @@ ItemNPC["ent_jack_turret_plinker"] = {
 	Model = "models/Combine_turrets/Floor_turret.mdl",
 	Price = 0,
 	Type = 3,
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create( "ent_jack_turret_plinker" )
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity( "Owenur", ply )
-			spawn.TargetingGroup = { 1, 3, 6 }
-			spawn:Spawn()
-			spawn:Activate()
-		end
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_turret_plinker" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		spawn:SetNetworkedEntity( "Owenur", ply )
+		spawn.TargetingGroup = { 1, 3, 6 }
+		spawn:Spawn()
+		spawn:Activate()
+	end
 }
 
 ItemNPC["ent_jack_turret_pistol"] = {
 	Name = "Pistol Sentry",
 	Description = "Chambered in 9mm , does a small amount of damage.",
 	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Price = 400,
+	Price = 0,
 	Type = 3,
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create( "ent_jack_turret_pistol" )
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity( "Owenur", ply )
-			spawn.TargetingGroup = { 1, 3, 6 }
-			spawn:Spawn()
-			spawn:Activate()
-		end
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_turret_pistol" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		spawn:SetNetworkedEntity( "Owenur", ply )
+		spawn.TargetingGroup = { 1, 3, 6 }
+		spawn:Spawn()
+		spawn:Activate()
+	end
 }
 
 ItemNPC["ent_jack_turret_rifle"] = {
 	Name = "Rifle Sentry",
 	Description = "Chambered in 5.56, does high amounts of damage at short-med range.",
 	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Price = 800,
+	Price = 0,
 	Type = 3,
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create( "ent_jack_turret_rifle" )
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity( "Owenur", ply )
-			spawn.TargetingGroup = { 1, 3, 6 }
-			spawn:Spawn()
-			spawn:Activate()
-		end
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_turret_rifle" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		spawn:SetNetworkedEntity( "Owenur", ply )
+		spawn.TargetingGroup = { 1, 3, 6 }
+		spawn:Spawn()
+		spawn:Activate()
+	end
 }
 
 ItemNPC["ent_jack_turret_smg"] = {
 	Name = "SMG Sentry",
 	Description = "Chambered in 9mm, same as pistol sentry but has a higher rate of fire.",
 	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Price = 600,
+	Price = 0,
 	Type = 3,
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create( "ent_jack_turret_smg" )
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity( "Owenur", ply )
-			spawn.TargetingGroup = { 1, 3, 6 }
-			spawn:Spawn()
-			spawn:Activate()
-		end
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_turret_smg" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		spawn:SetNetworkedEntity( "Owenur", ply )
+		spawn.TargetingGroup = { 1, 3, 6 }
+		spawn:Spawn()
+		spawn:Activate()
+	end
 }
 
 ItemNPC["ent_jack_turret_sniper"] = {
 	Name = "Sniper Sentry",
 	Description = "Chambered in 7.62, does high amounts of damage at long ranges.",
 	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Price = 1000,
+	Price = 0,
 	Type = 3,
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create( "ent_jack_turret_sniper" )
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity( "Owenur", ply )
-			spawn.TargetingGroup = { 1, 3, 6 }
-			spawn:Spawn()
-			spawn:Activate()
-		end
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_turret_sniper" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		spawn:SetNetworkedEntity( "Owenur", ply )
+		spawn.TargetingGroup = { 1, 3, 6 }
+		spawn:Spawn()
+		spawn:Activate()
+	end
+}
+
+-----BLACK MESA ITEM SHOP ITEMS-----
+ItemNPC["sent_computer"] = {
+	Name = "Black Mesa Standard Office Terminal",
+	Description = "Terminal-based computer that allows for private messaging and file transfer through virtual servers.",
+	Model = "models/props_lab/monitor01a.mdl",
+	Price = 50,
+	Type = 4,
+	Max = 20,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "sent_computer" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_healthcharger"] = {
+	Name = "Mounted Healing Unit",
+	Description = "Health unit that heals up to 75 HP. Recharges after 5 minutes when empty.",
+	Model = "models/props_combine/health_charger001.mdl",
+	Price = 100,
+	Type = 4,
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_healthcharger" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_healthkit"] = {
+	Name = "Health Kit",
+	Description = "Small, one-time-use health kit that heals up to 25 HP.",
+	Model = "models/Items/HealthKit.mdl",
+	Price = 50,
+	Type = 4,
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_healthkit" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_battery"] = {
+	Name = "Armor Battery",
+	Description = "Battery for HEV suits. Charges up to 25 AP.",
+	Model = "models/Items/battery.mdl",
+	Price = 75,
+	Type = 4,
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_battery" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_suitcharger"] = {
+	Name = "Mounted Armor Charging Unit",
+	Description = "Charging unit for HEV suits. Charges up to 75 AP.",
+	Model = "models/props_combine/suit_charger001.mdl",
+	Price = 125,
+	Type = 4,
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_suitcharger" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
 }

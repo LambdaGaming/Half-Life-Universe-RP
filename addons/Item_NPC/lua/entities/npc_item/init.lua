@@ -27,7 +27,7 @@ function ENT:Initialize()
 	self:SetUseType( SIMPLE_USE )
 	
     local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
+	if phys:IsValid() then
 		phys:Wake()
 	end
 end
@@ -37,11 +37,11 @@ function ENT:AcceptInput( input, activator )
 	local allowed = ItemNPCType[self:GetNPCType()].Allowed
 	if !activator:IsPlayer() then return end
 	if self:GetNPCType() == 0 then
-		DarkRP.notify( activator, 1, 6, "ERROR: NPC isn't fully initialized." )
+		HLU_Notify( activator, "ERROR: NPC isn't fully initialized.", 1, 6 )
 		return
 	end
 	if allowed and !table.IsEmpty( allowed ) and !allowed[activator:Team()] then
-		DarkRP.notify( activator, 1, 6, "You cannot use this NPC as your current job." )
+		HLU_Notify( activator, "You cannot use this NPC as your current job.", 1, 6 )
 		return
 	end
 	net.Start( "ItemNPCMenu" )
@@ -55,20 +55,36 @@ net.Receive( "CreateItem", function( len, ply )
 	local ent = net.ReadString()
 	local SpawnCheck = ItemNPC[ent].SpawnCheck
 	local SpawnItem = ItemNPC[ent].SpawnFunction
-	local money = ply:getDarkRPVar( "money" )
+	local money = GetGlobalInt( "BMRP_Budget" )
 	local name = ItemNPC[ent].Name
 	local price = ItemNPC[ent].Price
-	if money >= price then
-		if SpawnCheck and SpawnCheck( ply, self ) == false then return end
-		if SpawnItem then
-			SpawnItem( ply, self )
-			DarkRP.notify( ply, 0, 6, "You have purchased a "..name.."." )
+	local max = ItemNPC[ent].Max
+	if max and max > 0 and #ents.FindByClass( ent ) >= max then
+		HLU_Notify( ply, "Global limit reached. Remove some instances of this entity to spawn it again." )
+		return
+	end
+	if GetGlobalInt( "CurrentGamemode" ) == 1 then
+		if money >= price then
+			if SpawnCheck and SpawnCheck( ply, self ) == false then return end
+			if SpawnItem then
+				SpawnItem( ply, self )
+				HLU_Notify( ply, "You have purchased a "..name..".", 0, 6 )
+			else
+				HLU_Notify( ply, "ERROR: SpawnFunction for this item not detected!", 1, 6 )
+				return
+			end
+			ChangeBudget( -price )
 		else
-			DarkRP.notify( ply, 1, 6, "ERROR: SpawnFunction for this item not detected!" )
-			return
+			HLU_Notify( ply, "The facility budget isn't high enough to purchase this item!", 1, 6 )
 		end
-		ply:addMoney( -price )
+		return
+	end
+	if SpawnCheck and SpawnCheck( ply, self ) == false then return end
+	if SpawnItem then
+		SpawnItem( ply, self )
+		HLU_Notify( ply, "You have purchased a "..name..".", 0, 6 )
 	else
-		DarkRP.notify( ply, 1, 6, "You don't have enough money to purchase this item!" )
+		HLU_Notify( ply, "ERROR: SpawnFunction for this item not detected!", 1, 6 )
+		return
 	end
 end )
