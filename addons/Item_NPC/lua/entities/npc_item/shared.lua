@@ -438,6 +438,11 @@ ItemNPC["item_healthcharger"] = {
 	Price = 100,
 	Type = 4,
 	Max = 5,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_MEDIC then return true end
+		HLU_Notify( ply, "Only medics can purchase this item.", 1, 6 )
+		return false
+	end,
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "item_healthcharger" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
@@ -452,6 +457,11 @@ ItemNPC["item_healthkit"] = {
 	Price = 50,
 	Type = 4,
 	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_MEDIC then return true end
+		HLU_Notify( ply, "Only medics can purchase this item.", 1, 6 )
+		return false
+	end,
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "item_healthkit" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
@@ -466,6 +476,11 @@ ItemNPC["item_battery"] = {
 	Price = 75,
 	Type = 4,
 	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_MEDIC then return true end
+		HLU_Notify( ply, "Only medics can purchase this item.", 1, 6 )
+		return false
+	end,
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "item_battery" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
@@ -480,8 +495,205 @@ ItemNPC["item_suitcharger"] = {
 	Price = 125,
 	Type = 4,
 	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_MEDIC then return true end
+		HLU_Notify( ply, "Only medics can purchase this item.", 1, 6 )
+		return false
+	end,
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "item_suitcharger" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["crafting_table"] = {
+	Name = "Biochemist Crafting Table",
+	Description = "Allows the biochemist to summon Xen creatures.",
+	Model = "models/props_wasteland/controlroom_desk001b.mdl",
+	Price = 400,
+	Type = 4,
+	Max = 2,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_BIO then return true end
+		HLU_Notify( ply, "Only biochemists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "crafting_table" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:SetTableType( 2 )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["crafting_tablewep"] = {
+	Name = "Weapons Engineer Crafting Table",
+	Description = "Allows the weapons engineer to craft weapons, both normal and rare.",
+	Model = "models/props_wasteland/controlroom_desk001b.mdl",
+	Price = 400,
+	Type = 4,
+	Max = 2,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPMAKER then return true end
+		HLU_Notify( ply, "Only weapons engineers can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "crafting_table" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:SetTableType( 3 )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["lab_burner"] = {
+	Name = "Bunsen Burner",
+	Description = "Common scientific tool, emits a small flame from a metal tube.",
+	Model = "models/labware/burner.mdl",
+	Price = 200,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_DEV then return true end
+		HLU_Notify( ply, "Only research and development can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "lab_burner" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["lab_laser"] = {
+	Name = "High-Powered Laser Emitter",
+	Description = "Contains a high-powered laser that can cut through just about anything.",
+	Model = "models/props_lab/surgical_laser.mdl",
+	Price = 200,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPMAKER then return true end
+		HLU_Notify( ply, "Only weapons engineers can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "lab_laser" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["lab_generator"] = {
+	Name = "Electric Generator",
+	Description = "Gasoline engine built to produce large amounts of electricity.",
+	Model = "models/props/portedprops1/battery.mdl",
+	Price = 200,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_DEV or ply:Team() == TEAM_TECH then return true end
+		HLU_Notify( ply, "Only research and development and technicians can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "lab_generator" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["lab_reactor"] = {
+	Name = "Nuclear Reactor",
+	Description = "Produces extreme amounts of energy. Relatively safe by itself.",
+	Model = "models/props/hl16props/generator00.mdl",
+	Price = 200,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_BIO then return true end
+		HLU_Notify( ply, "Only biochemists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "lab_reactor" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["lab_nitrogen"] = {
+	Name = "Liquid Nitrogen Capsule",
+	Description = "Contains liquid nitrogen, which is extremely cold in normal conditions.",
+	Model = "models/props_lab/sterilizer.mdl",
+	Price = 200,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_DEV then return true end
+		HLU_Notify( ply, "Only research and development can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "lab_nitrogen" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["lab_chemical"] = {
+	Name = "Chemical Container",
+	Description = "Contains an unknown and highly reactive chemical.",
+	Model = "models/czeror/models/biohazard_container.mdl",
+	Price = 200,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_BIO then return true end
+		HLU_Notify( ply, "Only biochemists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "lab_chemical" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["container_ent"] = {
+	Name = "Radioactive Material Barrel",
+	Description = "Used to safely store radioactive materials.",
+	Model = "models/props_c17/oildrum001.mdl",
+	Price = 100,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_BIO then return true end
+		HLU_Notify( ply, "Only biochemists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "container_ent" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["announcement_speaker"] = {
+	Name = "Announcement Speaker",
+	Description = "Used with the announcement SWEP to broadcast voice.",
+	Model = "models/props_wasteland/speakercluster01a.mdl",
+	Price = 50,
+	Type = 4,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_ADMIN then return true end
+		HLU_Notify( ply, "Only the facility administrator can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "announcement_speaker" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
 		spawn:Spawn()
 	end

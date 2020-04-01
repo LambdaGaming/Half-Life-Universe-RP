@@ -23,8 +23,8 @@ if SERVER then
 	end
 
 	function ENT:Use( caller, activator )
-		HLU_ChatNotify( caller, "Nuke Key", color_black, "Welcome to NukaSys version 42.0. Please place a nuclear device nearby to continue." )
-		HLU_ChatNotify( caller, "Nuke Key", color_black, "Once a nuclear device is in place, press your use key on the device to activate it." )
+		HLU_ChatNotifySystem( "Nuke Key", color_black, "Welcome to NukaSys version 42.0. Please place a nuclear device nearby to continue.", true, caller )
+		HLU_ChatNotifySystem( "Nuke Key", color_black, "Once a nuclear device is in place, press your use key on the device to activate it.", true, caller )
 	end
 end
 

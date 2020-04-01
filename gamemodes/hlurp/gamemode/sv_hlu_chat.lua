@@ -27,66 +27,69 @@ function HLU_ChatNotify( ply, header, headercolor, text, broadcast )
 end
 
 util.AddNetworkString( "HLU_ChatNotifySystem" )
-function HLU_ChatNotifySystem( header, headercolor, text )
-	net.Start( "HLU_ChatNotify" )
+function HLU_ChatNotifySystem( header, headercolor, text, private, ply )
+	net.Start( "HLU_ChatNotifySystem" )
 	net.WriteString( header )
 	net.WriteColor( headercolor )
 	net.WriteString( text )
-	net.Broadcast()
+	if private and ply then
+		net.Send( ply )
+	else
+		net.Broadcast()
+	end
 end
 
-function CheckChatArea( ply, text )
+local function GetSameCategory( ply, v )
+	local job = HLU_JOB[GetGlobalInt( "CurrentGamemode" )]
+	if job[ply:Team()].Category == job[v:Team()].Category then
+		return true
+	end
+	return false
+end
+
+local function CheckTeamPlayers( ply, text )
 	for k,v in pairs( player.GetHumans() ) do
-		if v == ply or v:GetPos():DistToSqr( ply:GetPos() ) <= 10000 then
-			return text
+		if GetSameCategory( ply, v ) or ply:Team() == v:Team() or v == ply then
+			return true
 		end
 	end
-	return ""
+	return false
 end
-
---[[ function GM:PlayerSay( ply, text )
-	local split = string.Split( text, " " )
-	local trimmedtext = string.gsub( text, split[1], "" )
-	if split[1] == "/ooc" or split[1] == "//" then
-		
-	end
-	if split[1] == "/advert" then
-		HLU_ChatNotify( ply, "Announcement", color_red, trimmedtext, true )
-		return ""
-	end
-	CheckChatArea( ply, text )
-	return ""
-end ]]
 
 local chatcommands = {
 	["/ooc"] = function( ply, text )
-		HLU_ChatNotify( ply, "OOC", color_red, trimmedtext, true )
-		return ""
+		HLU_ChatNotify( ply, "OOC", color_red, text, true )
+		return false
 	end,
 	["//"] = function( ply, text )
-		HLU_ChatNotify( ply, "OOC", color_red, trimmedtext, true )
-		return ""
+		HLU_ChatNotify( ply, "OOC", color_red, text, true )
+		return false
 	end,
 	["/advert"] = function( ply, text )
-		HLU_ChatNotify( ply, "Announcement", color_red, trimmedtext, true )
-		return ""
+		HLU_ChatNotify( ply, "Announcement", color_red, text, true )
+		return false
 	end,
-	["/drop"] = function( ply, text )
+	["/drop"] = function()
 		DropWeapon( ply )
-		return ""
+		return false
 	end
 }
-hook.Add( "PlayerSay", "HLU_ChatOverride", function( ply, text )
-	local split = string.Split( text, " " )
+
+function GM:PlayerCanSeePlayersChat( text, teamOnly, listener, speaker )
+    local dist = listener:GetPos():DistToSqr( speaker:GetPos() )
+    local split = string.Split( text, " " )
+	if teamOnly then
+		return CheckTeamPlayers( speaker, text )
+	end
 	if chatcommands[split[1]] then
 		local trimmedtext = string.gsub( text, split[1], "" )
-		return chatcommands[split[1]]( ply, trimmedtext )
+		return chatcommands[split[1]]( speaker, trimmedtext )
 	end
-	return CheckChatArea( ply, text )
-end )
+    return dist <= 90000
+end
 
 --[[ function GM:PlayerCanHearPlayersVoice( listener, talker ) --Only use as a last resort if sv_alltalk 2 doesn't work
-	local dist = 40000
+	local dist = 250000
 	local listenpos = listener:GetPos()
 	local talkpos = talker:GetPos()
 	if listenpos:DistToSqr( talkpos ) <= dist then return true end

@@ -77,7 +77,6 @@ local civimodels = {
 }
 
 local securitymodels = {
-	"models/player/gasmask_hecu.mdl",
 	"models/player/hdpp/security/barney.mdl",
 	"models/player/hdpp/security/male_05.mdl",
 	"models/player/hdpp/security/male_06.mdl",
@@ -312,7 +311,7 @@ HLU_JOB = {
 			Description = "As a weapons engineer, your job is to make, test, and modify weapons for the H.E.C.U. to use. If you are not assigned to a specific weapon to work on, have a talk with the H.E.C.U. Weapon Specialist and they will tell you what to work on. A general skill with wiremod turrets is recommended for this job.",
 			Color = Color( 128, 0, 128, 255 ),
 			Models = sciencemodels,
-			Weapons = { "weapon_shotgun_hl", "weapon_9mmhandgun" },
+			Weapons = {},
 			Max = 1,
 			Category = "Science"
 		},
@@ -585,6 +584,14 @@ function FindTeamByName( name )
 		local outputlower = string.lower( v.Name )
 		if outputlower == inputlower then return k end
 	end
+end
+
+local meta = FindMetaTable( "Player" )
+function meta:IsJobCategory( category )
+	local curgame = GetGlobalInt( "CurrentGamemode" )
+	local job = self:Team()
+	local jobtable = HLU_JOB[curgame][job]
+	return jobtable.Category == category
 end
 
 function GM:Initialize()

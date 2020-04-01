@@ -272,3 +272,9 @@ function ChangeBudget( amount )
 	local budget = GetGlobalInt( "BMRP_Budget" )
 	SetGlobalInt( "BMRP_Budget", budget + amount )
 end
+
+--Set players radio when spawning
+local function SetSpawnRadio( ply )
+	ply:ConCommand( "say /setr 42.0" )
+end
+hook.Add( "PlayerInitialSpawn", "BMRP_SetRadio", SetSpawnRadio )
