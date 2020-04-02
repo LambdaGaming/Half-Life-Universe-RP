@@ -59,7 +59,8 @@ net.Receive( "CreateItem", function( len, ply )
 	local name = ItemNPC[ent].Name
 	local price = ItemNPC[ent].Price
 	local max = ItemNPC[ent].Max
-	if max and max > 0 and #ents.FindByClass( ent ) >= max then
+	local realclass = ItemNPC[ent].RealClass or ent --Fix for having 2 different items with the same class name
+	if max and max > 0 and #ents.FindByClass( realclass ) >= max then
 		HLU_Notify( ply, "Global limit reached. Remove some instances of this entity to spawn it again." )
 		return
 	end

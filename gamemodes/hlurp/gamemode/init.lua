@@ -105,7 +105,7 @@ function GM:PlayerInitialSpawn( ply )
 	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Name.." gamemode." )
 end
 
-hook.Add( "PlayerSpawn", "HLU_SpawnHook", function( ply )
+local function HLU_SpawnHook( ply )
 	timer.Simple( 0, function()
 		ply:SetModel( table.Random( HLU_JOB[GetGlobalInt( "CurrentGamemode" )][ply:Team()].Models ) )
 		if HLU_JOB[GetGlobalInt( "CurrentGamemode" )][ply:Team()].IsCop then
@@ -117,7 +117,8 @@ hook.Add( "PlayerSpawn", "HLU_SpawnHook", function( ply )
 		end
 		ply:SetJumpPower( 180 )
 	end )
-end )
+end
+hook.Add( "PlayerSpawn", "HLU_SpawnHook", HLU_SpawnHook )
 
 function DropWeapon( ply )
 	if IsValid( ply ) then
@@ -144,3 +145,22 @@ function DropWeapon( ply )
 		end
 	end
 end
+
+local function HLU_DropWeaponDeath( ply )
+	local wep = ply:GetActiveWeapon()
+	local DefaultWeps = {
+		["weapon_physgun"] = true,
+		["weapon_physcannon"] = true,
+		["weapon_keys"] = true,
+		["gmod_tool"] = true,
+		["gmod_camera"] = true
+	}
+	if IsValid( wep ) and !DefaultWeps[wep:GetClass()] then
+		local e = ents.Create( "hlu_dropped_weapon" )
+		e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )
+		e:SetModel( wep:GetModel() )
+		e:Spawn()
+		e.DroppedClass = wep:GetClass()
+	end
+end
+hook.Add( "DoPlayerDeath", "HLU_DropWeaponDeath", HLU_DropWeaponDeath )

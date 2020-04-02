@@ -529,6 +529,7 @@ ItemNPC["crafting_table"] = {
 
 ItemNPC["crafting_tablewep"] = {
 	Name = "Weapons Engineer Crafting Table",
+	RealClass = "crafting_table",
 	Description = "Allows the weapons engineer to craft weapons, both normal and rare.",
 	Model = "models/props_wasteland/controlroom_desk001b.mdl",
 	Price = 400,
@@ -693,8 +694,50 @@ ItemNPC["announcement_speaker"] = {
 		return false
 	end,
 	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "announcement_speaker" )
+		ply:Give( "announcement_speaker" )
+	end
+}
+
+ItemNPC["weapon_satchel"] = {
+	Name = "Satchel Charge",
+	RealClass = "hlu_shipment",
+	Description = "Remotely detonated plastic explosive.",
+	Model = "models/props_wasteland/speakercluster01a.mdl",
+	Price = 300,
+	Type = 4,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPBOSS then return true end
+		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
 		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Satchel Charge" )
+		spawn.WepClass = "weapon_satchel"
+	end
+}
+
+ItemNPC["weapon_9mmar"] = {
+	Name = "9mm SMG",
+	RealClass = "hlu_shipment",
+	Description = "Automatic rifle chambered in 9mm with a grenade launcher attachment.",
+	Model = "models/weapons/half-life/w_9mmar.mdl",
+	Price = 300,
+	Type = 4,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPBOSS then return true end
+		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "9mm SMG" )
+		spawn.WepClass = "weapon_9mmar"
 	end
 }
