@@ -10,7 +10,8 @@ local bmrpmaps = {
 	["rp_sectorc_beta"] = true,
 	["rp_blackmesa_laboratory"] = true,
 	["rp_blackmesa_complex_fixed"] = true,
-	["gm_atomic"] = true
+	["gm_atomic"] = true,
+	["rp_bmrf"] = true
 }
 
 local city17maps = {

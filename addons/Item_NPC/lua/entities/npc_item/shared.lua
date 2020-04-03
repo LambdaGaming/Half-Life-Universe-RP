@@ -19,7 +19,7 @@ ItemNPCType = {} --Initializes the type table, don't touch
 ItemNPCType[1] = {
 	Name = "HECU Weapon Crate",
 	Model = "models/props/fifties/wep_crate.mdl",
-	MenuColor = Color( 1, 22, 0, 200 ),
+	MenuColor = ColorAlpha( color_orange, 30 ),
 	MenuTextColor = color_white,
 	ButtonColor = color_white,
 	ButtonTextColor = color_black,
@@ -48,7 +48,7 @@ ItemNPCType[3] = {
 
 ItemNPCType[4] = {
 	Name = "Black Mesa Item Shop",
-	Model = "",
+	Model = "models/props/halflifeoneprops1/crate00.mdl",
 	MenuColor = ColorAlpha( color_orange, 30 ),
 	MenuTextColor = color_white,
 	ButtonColor = color_black,
@@ -699,13 +699,13 @@ ItemNPC["announcement_speaker"] = {
 }
 
 ItemNPC["weapon_satchel"] = {
-	Name = "Satchel Charge",
+	Name = "Satchel Charge (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Remotely detonated plastic explosive.",
 	Model = "models/props_wasteland/speakercluster01a.mdl",
 	Price = 300,
 	Type = 4,
-	Max = 20,
+	Max = 10,
 	SpawnCheck = function( ply, self )
 		if ply:Team() == TEAM_WEPBOSS then return true end
 		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
@@ -721,13 +721,13 @@ ItemNPC["weapon_satchel"] = {
 }
 
 ItemNPC["weapon_9mmar"] = {
-	Name = "9mm SMG",
+	Name = "9mm SMG (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Automatic rifle chambered in 9mm with a grenade launcher attachment.",
 	Model = "models/weapons/half-life/w_9mmar.mdl",
 	Price = 300,
 	Type = 4,
-	Max = 20,
+	Max = 10,
 	SpawnCheck = function( ply, self )
 		if ply:Team() == TEAM_WEPBOSS then return true end
 		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
@@ -739,5 +739,71 @@ ItemNPC["weapon_9mmar"] = {
 		spawn:Spawn()
 		spawn:SetNWString( "WepName", "9mm SMG" )
 		spawn.WepClass = "weapon_9mmar"
+	end
+}
+
+ItemNPC["weapon_shotgun_hl"] = {
+	Name = "SPAS-12 (Box)",
+	RealClass = "hlu_shipment",
+	Description = "Semi-automatic 12 gauge shotgun with folding stock.",
+	Model = "models/halflife/weapons/scigun.mdl",
+	Price = 300,
+	Type = 4,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPBOSS then return true end
+		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "SPAS-12" )
+		spawn.WepClass = "weapon_shotgun_hl"
+	end
+}
+
+ItemNPC["weapon_eagle"] = {
+	Name = "Desert Eagle (Box)",
+	RealClass = "hlu_shipment",
+	Description = "Powerful pistol with laser sight.",
+	Model = "models/opfor/items/w_desert_eagle.mdl",
+	Price = 300,
+	Type = 4,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPBOSS then return true end
+		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Desert Eagle" )
+		spawn.WepClass = "weapon_eagle"
+	end
+}
+
+ItemNPC["weapon_sniperrifle"] = {
+	Name = "M40A1 Sniper (Box)",
+	RealClass = "hlu_shipment",
+	Description = "Bolt-action rifle with long range scope.",
+	Model = "models/opfor/items/w_m40a1.mdl",
+	Price = 300,
+	Type = 4,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_WEPBOSS then return true end
+		HLU_Notify( ply, "Only weapon specialists can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "M40A1 Sniper" )
+		spawn.WepClass = "weapon_sniperrifle"
 	end
 }

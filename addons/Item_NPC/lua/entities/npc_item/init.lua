@@ -10,7 +10,7 @@ function ENT:SpawnFunction( ply, tr )
 	ent:SetPos( SpawnPos )
 	ent:Spawn()
 	ent:Activate()
-	ent:ApplyType( 1 )
+	ent:ApplyType( 4 )
 	return ent
 end
 
@@ -86,6 +86,5 @@ net.Receive( "CreateItem", function( len, ply )
 		HLU_Notify( ply, "You have purchased a "..name..".", 0, 6 )
 	else
 		HLU_Notify( ply, "ERROR: SpawnFunction for this item not detected!", 1, 6 )
-		return
 	end
 end )
