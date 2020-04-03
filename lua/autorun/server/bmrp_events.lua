@@ -2,10 +2,11 @@
 local allowedmap = {
 	["rp_sectorc_beta"] = true,
 	["rp_blackmesa_laboratory"] = true,
-	["rp_blackmesa_complex_fixed"] = true
+	["rp_blackmesa_complex_fixed"] = true,
+	["rp_bmrf"] = true
 }
 
-if allowedmap[game.GetMap()] then
+if allowedmap[game.GetMap()] and GetGlobalInt( "CurrentGamemode" ) == 1 then
 	local function PickRandomEvent()
 		local rand2 = math.random( 1, 10 )
 		if rand2 == 1 then
@@ -44,27 +45,23 @@ if allowedmap[game.GetMap()] then
 	local sectorc = "rp_sectorc_beta"
 	local laboratory = "rp_blackmesa_laboratory"
 	local complex = "rp_blackmesa_complex_fixed"
-
+	local bmrf = "rp_bmrf"
 	-----------------------------------------------------------------
 	function PortalBreakDown()
 		if team.NumPlayers( TEAM_SURVEY ) + team.NumPlayers( TEAM_SURVEYBOSS ) == 0 or team.NumPlayers( TEAM_SERVICE ) == 0 then return end
+		local button
 		if map == sectorc then
-			for k,v in pairs( ents.FindByClass( "func_button" ) ) do
-				if v:EntIndex() == 1207 then
-					v:Fire( "Lock" )
-				end
-			end
+			button = 1207
 		elseif map == laboratory then
-			for k,v in pairs( ents.FindByClass( "func_button" ) ) do
-				if v:EntIndex() == 90 then
-					v:Fire( "Lock" )
-				end
-			end
+			button = 90
 		elseif map == complex then
-			for k,v in pairs( ents.FindByClass( "func_button" ) ) do
-				if v:EntIndex() == 977 then
-					v:Fire( "Lock" )
-				end
+			button = 977
+		elseif map == bmrf then
+			button = 1523
+		end
+		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
+			if v:EntIndex() == button then
+				v:Fire( "Lock" )
 			end
 		end
 		for k,v in pairs( ents.FindByClass( "event_portal_fix" ) ) do
@@ -76,23 +73,19 @@ if allowedmap[game.GetMap()] then
 	end
 
 	function PortalFix()
+		local button
 		if map == sectorc then
-			for k,v in pairs( ents.FindByClass( "func_button" ) ) do
-				if v:EntIndex() == 1207 then
-					v:Fire( "Unlock" )
-				end
-			end
+			button = 1207
 		elseif map == laboratory then
-			for k,v in pairs( ents.FindByClass( "func_button" ) ) do
-				if v:EntIndex() == 90 then
-					v:Fire( "Unlock" )
-				end
-			end
+			button = 90
 		elseif map == complex then
-			for k,v in pairs( ents.FindByClass( "func_button" ) ) do
-				if v:EntIndex() == 977 then
-					v:Fire( "Unlock" )
-				end
+			button = 977
+		elseif map == bmrf then
+			button = 1523
+		end
+		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
+			if v:EntIndex() == button then
+				v:Fire( "Unlock" )
 			end
 		end
 		RunConsoleCommand( "vox", "dadeda maintenance reports main portal control inspection nominal" )
@@ -153,17 +146,25 @@ if allowedmap[game.GetMap()] then
 		Vector( 1213, 271, -264 )
 	}
 
+	local bmrf_revive = {
+		Vector( -613, -4786, 352 ),
+		Vector( -1752, -1357, 352 ),
+		Vector( -7512, -2001, -63 ),
+		Vector( -5173, 98, -111 ),
+		Vector( 4235, -519, -63 )
+	}
+
 	function MedicRevive()
 		if team.NumPlayers( TEAM_MEDIC ) == 0 then return end
 		local victim = ents.Create( "event_revive" )
 		if map == sectorc then
 			victim:SetPos( table.Random( sectorc_revive ) )
-		end
-		if map == laboratory then
+		elseif map == laboratory then
 			victim:SetPos( table.Random( laboratory_revive ) )
-		end
-		if map == complex then
+		elseif map == complex then
 			victim:SetPos( table.Random( complex_revive ) )
+		elseif map == bmrf then
+			victim:SetPos( table.Random( bmrf_revive ) )
 		end
 		victim:Spawn()
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A medical emergency has been reported! Current location unknown!" )
@@ -213,6 +214,19 @@ if allowedmap[game.GetMap()] then
 		Vector( -3581, 6876, 2262 ),
 		Vector( -3779, 7578, 2262 ),
 		Vector( -1863, 5118, 2230 )
+	}
+
+	local bmrf_breach = {
+		Vector( -10421, -1535, -63 ),
+		Vector( -3623, 2157, -39 ),
+		Vector( -3269, 1560, -39 ),
+		Vector( -763, 756, -1087 ),
+		Vector( -461, 1700, -63 ),
+		Vector( 770, -2010, 64 ),
+		Vector( -957, -1037, 64 ),
+		Vector( -1288, -1914, 352 ),
+		Vector( -1693, -3340, 352 ),
+		Vector( -1011, -3203, -1439 )
 	}
 
 	function XenBreach()
@@ -269,31 +283,29 @@ if allowedmap[game.GetMap()] then
 		Vector( -3846, 7020, 2262 )
 	}
 
+	local bmrf_bio = {
+		Vector( 2236, -4998, -1439 ),
+		Vector( 289, -2657, 96 ),
+		Vector( 894, -1411, 61 )
+	}
+
 	function Biohazard()
 		if team.NumPlayers( TEAM_BIO ) == 0 then return end
+		local biopos
 		if map == sectorc then
-			for i=1, math.random( 1, 6 ) do
-				local waste = ents.Create( table.Random( hazard ) )
-				waste:SetPos( table.Random( sectorc_bio ) )
-				waste:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
-				waste:Spawn()
-			end
+			biopos = sectorc_bio
+		elseif map == laboratory then
+			biopos = laboratory_bio
+		elseif map == complex then
+			biopos = complex_bio
+		elseif map == bmrf then
+			biopos = bmrf_bio
 		end
-		if map == laboratory then
-			for i=1, math.random( 1, 6 ) do
-				local waste = ents.Create( table.Random( hazard ) )
-				waste:SetPos( table.Random( laboratory_bio ) )
-				waste:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
-				waste:Spawn()
-			end
-		end
-		if map == complex then
-			for i=1, math.random( 1, 6 ) do
-				local waste = ents.Create( table.Random( hazard ) )
-				waste:SetPos( table.Random( complex_bio ) )
-				waste:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
-				waste:Spawn()
-			end
+		for i=1, math.random( 1, 6 ) do
+			local waste = ents.Create( table.Random( hazard ) )
+			waste:SetPos( table.Random( biopos ) )
+			waste:SetCollisionGroup( COLLISION_GROUP_DEBRIS )
+			waste:Spawn()
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A hazardous waste leak has been detected!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn biohazard _comma warning _comma biological _comma team report to location immediately" )
@@ -328,23 +340,30 @@ if allowedmap[game.GetMap()] then
 		Vector( 883, 1374, -32 )
 	}
 
+	local bmrf_crystal = {
+		Vector( -1204, -1393, 64 ),
+		Vector( -4221, 623, -111 ),
+		Vector( -4269, 2578, -63 ),
+		Vector( -446, 2721, -63 ),
+		Vector( 4608, -544, -63 ),
+		Vector( 2484, -4879, 192 )
+	}
+
 	function Crystal()
 		if team.NumPlayers( TEAM_SURVEY ) + team.NumPlayers( TEAM_SURVEYBOSS ) == 0 then return end
+		local crystalpos
 		if map == sectorc then
-			local crystal = ents.Create( "event_crystal" )
-			crystal:SetPos( table.Random( sectorc_crystal ) )
-			crystal:Spawn()
+			crystalpos = sectorc_crystal
+		elseif map == laboratory then
+			crystalpos = laboratory_crystal
+		elseif map == complex then
+			crystalpos = complex_crystal
+		elseif map == bmrf then
+			crystalpos = bmrf_crystal
 		end
-		if map == laboratory then
-			local crystal = ents.Create( "event_crystal" )
-			crystal:SetPos( table.Random( laboratory_crystal ) )
-			crystal:Spawn()
-		end
-		if map == complex then
-			local crystal = ents.Create( "event_crystal" )
-			crystal:SetPos( table.Random( complex_crystal ) )
-			crystal:Spawn()
-		end
+		local crystal = ents.Create( "event_crystal" )
+		crystal:SetPos( table.Random( crystalpos ) )
+		crystal:Spawn()
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A crystal has been accidently teleported to a random location in the facility!" )
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The survey team should find it before it gets into the wrong hands!" )
 		RunConsoleCommand( "vox", "bizwarn _comma alert _comma containment _comma crew detain target delta alpha bravo immediately" )
@@ -352,57 +371,47 @@ if allowedmap[game.GetMap()] then
 	-----------------------------------------------------------------
 	function ReviveGman()
 		if team.NumPlayers( TEAM_ADMIN ) == 0 then return end
-		if SERVER then
-			if map == sectorc then
-				local loot = ents.Create( "event_npc_base" )
-				loot:SetPos( Vector( 496, -4210, -253 ) )
-				loot:SetAngles( Angle( 0, 180, 0 ) )
-				loot:Spawn()
-			end
-			if map == laboratory then
-				local loot = ents.Create( "event_npc_base" )
-				loot:SetPos( Vector( 2443, 939, -32 ) )
-				loot:SetAngles( Angle( 0, 180, 0 ) )
-				loot:Spawn()
-			end
-			if map == complex then
-				local loot = ents.Create( "event_npc_base" )
-				loot:SetPos( Vector( 987, 1134, -32 ) )
-				loot:SetAngles( Angle( 0, -90, 0 ) )
-				loot:Spawn()
-			end
+		local gmanpos
+		if map == sectorc then
+			gmanpos = { Vector( 496, -4210, -253 ), Angle( 0, 180, 0 ) }
+		elseif map == laboratory then
+			gmanpos = { Vector( 2443, 939, -32 ), Angle( 0, 180, 0 ) }
+		elseif map == complex then
+			gmanpos = { Vector( 987, 1134, -32 ), Angle( 0, -90, 0 ) }
+		elseif map == bmrf then
+			gmanpos = { Vector( 358, 2368, -63 ), Angle( 0, 180, 0 ) }
 		end
+		local loot = ents.Create( "event_npc_base" )
+		loot:SetPos( gmanpos[1] )
+		loot:SetAngles( gmanpos[2] )
+		loot:Spawn()
 		HLU_ChatNotifySystem( "BMRP", color_orange, "Government officials are requesting to see administration personnel at sector D." )
 		RunConsoleCommand( "vox", "dadeda _comma administration personnel report to sector d please" )
 	end
 	-----------------------------------------------------------------
 	function MarineWeapon()
 		if team.NumPlayers( TEAM_WEPMAKER ) == 0 then return end
+		local marinepos
 		if map == sectorc then
-			local loot = ents.Create( "event_npc_weapon" )
-			loot:SetPos( Vector( 491, -4574, -253 ) )
-			loot:SetAngles( Angle( 0, 180, 0 ) )
-			loot:Spawn()
+			marinepos = { Vector( 491, -4574, -253 ), Angle( 0, 180, 0 ) }
+		elseif map == laboratory then
+			marinepos = { Vector( 2445, 1028, -32 ), Angle( 0, 180, 0 ) }
+		elseif map == complex then
+			marinepos = { Vector( 784, 1139, -32 ), Angle( 0, -90, 0 ) }
+		elseif map == bmrf then
+			marinepos = { Vector( -844, 2631, -63 ), Angle( 0, 180, 0 ) }
 		end
-		if map == laboratory then
-			local loot = ents.Create( "event_npc_weapon" )
-			loot:SetPos( Vector( 2445, 1028, -32 ) )
-			loot:SetAngles( Angle( 0, 180, 0 ) )
-			loot:Spawn()
-		end
-		if map == complex then
-			local loot = ents.Create( "event_npc_weapon" )
-			loot:SetPos( Vector( 784, 1139, -32 ) )
-			loot:SetAngles( Angle( 0, -90, 0 ) )
-			loot:Spawn()
-		end
+		local loot = ents.Create( "event_npc_weapon" )
+		loot:SetPos( marinepos[1] )
+		loot:SetAngles( marinepos[2] )
+		loot:Spawn()
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A Corporal has arrived at sector D. He is requesting that a weapons engineer speak with him ASAP." )
 		RunConsoleCommand( "vox", "dadeda _comma weapon science team report to sector d immediately" )
 	end
 	-----------------------------------------------------------------
 	computerbroke = false
 	function ServerFailure()
-		if team.NumPlayers( TEAM_TECH ) == 0 then return end
+		if team.NumPlayers( TEAM_TECH ) == 0 or computerbroke then return end
 		computerbroke = true
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The main server has overheated! Computers will not be able to be used until it is fixed!" )
 		RunConsoleCommand( "vox", "deeoo _comma superconducting _comma _comma dual core systems high temperature _comma warning" )
@@ -425,15 +434,17 @@ if allowedmap[game.GetMap()] then
 			bos:SetPos( Vector( -10245, -6811, -2661 ) )
 			bos:SetAngles( Angle( 0, -55, 0 ) )
 			bos:Spawn()
-		end
-		if map == laboratory then
+		elseif map == laboratory then
 			local bos = ents.Create( "monster_alien_tentacle" )
 			bos:SetPos( Vector( -4331, 1734, -350 ) )
 			bos:Spawn()
-		end
-		if map == complex then
+		elseif map == complex then
 			local bos = ents.Create( "monster_alien_voltigore" )
 			bos:SetPos( Vector( 8388, -3671, 1360 ) )
+			bos:Spawn()
+		elseif map == bmrf then
+			local bos = ents.Create( "monster_pitworm_up" )
+			bos:SetPos( Vector( 2664, -2547, -255 ) )
 			bos:Spawn()
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "All hands on deck! A large hostile life form has teleported into the facility!" )
@@ -471,6 +482,16 @@ if allowedmap[game.GetMap()] then
 				Vector( -3729, 5684, 2262 ),
 				Vector( 3732, 4550, 1576 ),
 				Vector( -758, 1550, 288 )
+			},
+			[bmrf] = {
+				Vector( -946, -4747, 352 ),
+				Vector( 804, -3761, 400 ),
+				Vector( -2369, -3044, -1119 ),
+				Vector( -4095, 689, -111 ),
+				Vector( -929, 3211, -63 ),
+				Vector( -799, -1478, 64 ),
+				Vector( -1605, -2404, 352 ),
+				Vector( -9192, -1772, 704 )
 			}
 		}
 

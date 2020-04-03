@@ -174,6 +174,9 @@ function ENT:Think()
 			if SERVER then
 				v:TakeDamage( 5 )
 			end
+			if CLIENT then
+				surface.PlaySound( "player/geiger"..math.random( 1, 3 )..".wav" )
+			end
 			hurtcooldown = hurtcooldown + 3
 		end
 	end

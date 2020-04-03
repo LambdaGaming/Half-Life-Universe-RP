@@ -117,18 +117,29 @@ local function XenSpawn()
 		Vector( -4567, 2252, -350 )
 	}
 
+	local bmrfpos = {
+		Vector( -14609, -14482, -14952 ),
+		Vector( -14309, -14713, -15006 ),
+		Vector( -13876, -14545, -14941 ),
+		Vector( -14381, -14138, -14950 ),
+		Vector( -14321, -14431, -15017 )
+	}
+
 	if game.GetMap() == "rp_sectorc_beta" then
 		NPCPosTable = sectorcpos
 	elseif game.GetMap() == "rp_blackmesa_complex_fixed" then
 		NPCPosTable = complexpos
 	elseif game.GetMap() == "rp_blackmesa_laboratory" then
 		NPCPosTable = laboratorypos
+	elseif game.GetMap() == "rp_bmrf" then
+		NPCPosTable = bmrfpos
 	end
 
 	for k,v in ipairs( NPCPosTable ) do
 		local e = ents.Create( table.Random( monsters ) )
 		e:SetPos( v )
 		e:Spawn()
+		e:EmitSound( "debris/beamstart7.wav" )
 		e.IsXenNPC = true
 	end
 end
@@ -172,7 +183,8 @@ hook.Add( "InitPostEntity", "BMRP_HairLoss", HairLoss )
 local alarmindex = {
 	["rp_sectorc_beta"] = 1990,
 	["rp_blackmesa_laboratory"] = 712,
-	["rp_blackmesa_complex_fixed"] = 1104
+	["rp_blackmesa_complex_fixed"] = 1104,
+	["rp_bmrf"] = 1151
 }
 
 local function AdminAlarm( ply, text )
@@ -189,7 +201,8 @@ local function BMRPVehicleSpawn()
 	local spawnpos
 	local allowedmaps = {
 		["rp_sectorc_beta"] = true,
-		["gm_atomic"] = true
+		["gm_atomic"] = true,
+		["rp_bmrf"] = true
 	}
 
 	if allowedmaps[game.GetMap()] then
@@ -207,7 +220,7 @@ local function BMRPVehicleSpawn()
 				{ Vector( -8996, -866, 570 ), Angle( 0, 180, 0 ) },
 				{ Vector( -6250, -1590, 557 ), Angle( 0, 118, 0 ) }
 			}
-		else
+		elseif game.GetMap() == "gm_atomic" then
 			spawnpos = {
 				{ Vector( -10676, 7944, -12294 ), angle_zero },
 				{ Vector( -5513, 1928, -12240 ), angle_zero },
@@ -217,6 +230,12 @@ local function BMRPVehicleSpawn()
 				{ Vector( -11590, -9063, -11137 ), angle_zero },
 				{ Vector( -2264, -7373, -12548 ), angle_zero },
 				{ Vector( 9171, -9176, -12262 ), angle_zero }
+			}
+		else
+			spawnpos = {
+				{ Vector( 4289, -1954, 704 ), Angle( 0, -90, 0 ) },
+				{ Vector( 2173, -5337, 192 ), Angle( 0, 180, 0 ) },
+				{ Vector( -7263, -2217, 704 ), Angle( 0, 180, 0 ) }
 			}
 		end
 
@@ -252,6 +271,11 @@ local function BMRPForkliftSpawn()
 			{ Vector( -1854, 727, 288 ), angle_zero },
 			{ Vector( -1143, -931, 432 ), angle_zero },
 			{ Vector( -930, 1226, 288 ), angle_zero }
+		},
+		["rp_bmrf"] = {
+			{ Vector( -223, -2680, 96 ), Angle( 0, 90, 0 ) },
+			{ Vector( -223, -2830, 96 ), Angle( 0, 90, 0 ) },
+			{ Vector( -223, -2911, 96 ), Angle( 0, 90, 0 ) }
 		}
 	}
 
