@@ -51,6 +51,7 @@ net.Receive( "StartCrafting", function( len, ply )
 	local entname = net.ReadString()
 	local CraftMaterials = CraftingTable[ent].Materials
 	local SpawnItem = CraftingTable[ent].SpawnFunction
+	local craftsound = self.CraftSound or CRAFT_CONFIG_CRAFT_SOUND
 	if CraftMaterials then
 		for k,v in pairs( CraftMaterials ) do
 			if self:GetNWInt( "Craft_"..k ) < v then
@@ -64,7 +65,7 @@ net.Receive( "StartCrafting", function( len, ply )
 		if SpawnItem then
 			local validfunction = true
 			SpawnItem( ply, self )
-			self:EmitSound( CRAFT_CONFIG_CRAFT_SOUND )
+			self:EmitSound( craftsound )
 			net.Start( "CraftMessage" )
 			net.WriteBool( validfunction )
 			net.WriteString( entname )

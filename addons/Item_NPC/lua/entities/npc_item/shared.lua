@@ -510,7 +510,7 @@ ItemNPC["item_suitcharger"] = {
 ItemNPC["crafting_table"] = {
 	Name = "Biochemist Crafting Table",
 	Description = "Allows the biochemist to summon Xen creatures.",
-	Model = "models/props_wasteland/controlroom_desk001b.mdl",
+	Model = "models/props_phx/construct/windows/window_angle360.mdl",
 	Price = 400,
 	Type = 4,
 	Max = 2,
@@ -524,6 +524,18 @@ ItemNPC["crafting_table"] = {
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
 		spawn:SetTableType( 2 )
 		spawn:Spawn()
+		spawn:SetModel( "models/props_phx/construct/windows/window_angle360.mdl" )
+		spawn.CraftSound = "debris/beamstart7.wav"
+		local portal = ents.Create("env_sprite")
+		portal:SetPos( spawn:GetPos() + Vector( 0, 0, 35 ) )
+		portal:SetKeyValue("model", "sprites/exit1_anim.vmt")
+		portal:SetKeyValue("rendermode", "5") 
+		portal:SetKeyValue("rendercolor", "255 255 255") 
+		portal:SetKeyValue("scale", "0.5") 
+		portal:SetKeyValue("spawnflags", "1") 
+		portal:SetParent(spawn)
+		portal:Spawn()
+		portal:Activate()
 	end
 }
 

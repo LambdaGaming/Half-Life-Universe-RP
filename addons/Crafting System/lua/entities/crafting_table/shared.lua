@@ -776,6 +776,141 @@ CraftingTable["monster_controller"] = {
 		end
 }
 
+CraftingTable["npc_bullsquid"] = {
+	Name = "Bullsquid",
+	Description = "Requires 4 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 4,
+		xen_iron = 2
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "npc_bullsquid" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_babyheadcrab"] = {
+	Name = "Baby Headcrab",
+	Description = "Requires 1 organic matter.",
+	Materials = {
+		organic_matter = 1
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_babyheadcrab" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_hound_eye"] = {
+	Name = "Houndeye",
+	Description = "Requires 3 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 3,
+		xen_iron = 2
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_hound_eye" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_zombie_scientist"] = {
+	Name = "Zombie Scientist",
+	Description = "Requires 2 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 2,
+		xen_iron = 2
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_zombie_scientist" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_zombie_barney"] = {
+	Name = "Zombie Security Officer",
+	Description = "Requires 2 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 2,
+		xen_iron = 2
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_zombie_barney" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_zombie_soldier"] = {
+	Name = "Zombie Marine",
+	Description = "Requires 2 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 2,
+		xen_iron = 2
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_zombie_soldier" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_alien_snark"] = {
+	Name = "Snark",
+	Description = "Requires 1 organic matter and 2 xen iron.",
+	Materials = {
+		organic_matter = 1,
+		xen_iron = 2
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_alien_snark" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
+CraftingTable["monster_alien_slv"] = {
+	Name = "Vortigaunt",
+	Description = "Requires 4 organic matter and 3 xen iron.",
+	Materials = {
+		organic_matter = 4,
+		xen_iron = 3
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction =
+		function( ply, self )
+			local e = ents.Create( "monster_alien_slv" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+		end
+}
+
 CraftingTable["weapon_barnacle"] = {
 	Name = "Handheld Barnacle",
 	Description = "Requires 3 organic matter and 1 harvested crystal.",
