@@ -29,12 +29,6 @@ hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
 	}
 end )
 
-hook.Add( "playerCanChangeTeam", "City17RestrictUnits", function( ply, team )
-	if RestrictedJobs[team] then
-		return false, "This job must be unlocked via the Combine science locker."
-	end
-end )
-
 --Scientist job management
 local function City17ScientistChange( ply, before, after )
 	if after == TEAM_SCIENTIST then

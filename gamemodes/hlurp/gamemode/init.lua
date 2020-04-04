@@ -73,6 +73,10 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		HLU_Notify( ply, "All slots are filled for this job.", 1, 6 )
 		return
 	end
+	if RestrictedJobs and RestrictedJobs[newteam] then
+		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
+		return
+	end
 	ply:StripWeapons()
 	ply:SetTeam( newteam )
 	ply:SetModel( table.Random( tbl.Models ) )
