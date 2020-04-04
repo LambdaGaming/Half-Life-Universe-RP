@@ -25,12 +25,12 @@ function ENT:AcceptInput( ply, caller )
 		net.Start( "ReviveGovMenu" )
 		net.Send( caller )
 	elseif caller:Team() == TEAM_SECURITY or caller:Team() == TEAM_SECURITYBOSS and self.detained then
-		HLU_ChatNotify( caller, "Government Man", "Alright fine, I'm leaving. But you haven't seen the last of me..." )
+		HLU_ChatNotifySystem( "Government Man", textcolor, "Alright fine, I'm leaving. But you haven't seen the last of me...", true, caller )
 		self:TeleportAway()
 	elseif self.detained then
-		HLU_ChatNotify( caller, "Government Man", textcolor, "Security was called on me...I'll leave once they're here...." )
+		HLU_ChatNotifySystem( "Government Man", textcolor, "Security was called on me...I'll leave once they're here....", true, caller )
 	else
-		HLU_ChatNotify( caller, "Government Man", textcolor, "You have no business being here. Leave." )
+		HLU_ChatNotifySystem( "Government Man", textcolor, "You have no business being here. Leave.", true, caller )
 	end
 end
 
@@ -38,7 +38,7 @@ function ENT:OnTakeDamage( dmg )
 	local ply = dmg:GetAttacker()
 	if IsValid( ply ) and ply:IsPlayer() then
 		ply:Kill()
-		HLU_ChatNotify( ply, "Government Man", textcolor, "This violence isn't necessary." )
+		HLU_ChatNotifySystem( "Government Man", textcolor, "This violence isn't necessary.", true, ply )
 	end
 end
 
@@ -61,7 +61,7 @@ util.AddNetworkString("ReviveFireAdmin")
 net.Receive("ReviveFireAdmin", function(length, ply)
 	if ply:Team() == TEAM_ADMIN then
 		ChangeTeam( ply, 1 )
-		HLU_ChatNotify( ply, "Government Man", textcolor, "Cash would have been preferred, but my employers will be glad to hear of your resignation." )
+		HLU_ChatNotifySystem( "Government Man", textcolor, "Cash would have been preferred, but my employers will be glad to hear of your resignation.", true, ply )
 		self:TeleportAway()
 	end
 end)
@@ -71,7 +71,7 @@ net.Receive("ReviveRemoveCash", function(length, ply)
 	if ply:Team() == TEAM_ADMIN then
 		ChangeBudget( -5000 )
 		HLU_Notify( ply, "You have paid your $5,000 fine to the government.", 0, 6 )
-		HLU_ChatNotify( ply, "Government Man", textcolor, "I'm glad we could settle this the easy way. Thanks for the cash." )
+		HLU_ChatNotifySystem( "Government Man", textcolor, "I'm glad we could settle this the easy way. Thanks for the cash.", true, ply )
 		self:TeleportAway()
 	end
 end)
@@ -88,7 +88,7 @@ net.Receive("ReviveSecurity", function(length, ply)
 			timer.Simple( 0.5, function()
 				ply:EmitSound( "weapons/shotgun/shotgun_fire6.wav" )
 				ply:Kill()
-				HLU_ChatNotify( ply, "Government Man", textcolor, "Well, it looks like we won't be working together." )
+				HLU_ChatNotifySystem( "Government Man", textcolor, "Well, it looks like we won't be working together.", true, ply )
 				ChangeTeam( ply, 1 )
 				self:TeleportAway()
 			end )

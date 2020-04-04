@@ -55,13 +55,13 @@ function ENT:AcceptInput( ply, caller )
 		end
 		if foundwep then
 			v:Remove()
-			HLU_ChatNotify( caller, "Corporal Shepard", textcolor, "Thanks! Here's your cash. (Award +600)" )
+			HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "Thanks! Here's your cash. (Award +600)", true, caller )
 			ChangeBudget( 600 )
 			self:TeleportAway()
 			return
 		else
 			if caller:Team() == TEAM_WEPMAKER then
-				HLU_ChatNotify( caller, "Corporal Shepard", textcolor, "You were supposed to bring me a "..self.chosenwepname..".....where is it?" )
+				HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "You were supposed to bring me a "..self.chosenwepname..".....where is it?", true, caller )
 				return
 			end
 		end
@@ -69,17 +69,17 @@ function ENT:AcceptInput( ply, caller )
 	if caller:Team() == TEAM_WEPMAKER then
 		net.Start( "WepMenu" )
 		net.Send( caller )
-		HLU_ChatNotify( caller, "Corporal Shepard", textcolor, "I need a "..self.chosenwepname.."." )
+		HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "I need a "..self.chosenwepname..".", true, caller )
 		return
 	end
-	HLU_ChatNotify( caller, "Corporal Shepard", textcolor, "I'm looking for a weapons engineer. Have you seen one?" )
+	HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "I'm looking for a weapons engineer. Have you seen one?", true, caller )
 end
 
 function ENT:OnTakeDamage( dmg )
 	local ply = dmg:GetAttacker()
 	if IsValid( ply ) and ply:IsPlayer() then
 		ply:Kill()
-		HLU_ChatNotify( ply, "Corporal Shepard", textcolor, "Really? What was that for?" )
+		HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "Really? What was that for?", true, ply )
 	end
 end
 
@@ -104,12 +104,12 @@ end
 
 util.AddNetworkString("WepAccept")
 net.Receive("WepAccept", function(length, ply)
-	HLU_ChatNotify( ply, "Corporal Shepard", textcolor, "Thanks! I'll be waiting here for you!" )
+	HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "Thanks! I'll be waiting here for you!", true, ply )
 	self.waiting = true
 end)
 
 util.AddNetworkString("WepDeny")
 net.Receive("WepDeny", function(length, ply)
-	HLU_ChatNotify( ply, "Corporal Shepard", textcolor, "Alright, shame we didn't get to work together." )
+	HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "Alright, shame we didn't get to work together.", true, ply )
 	self:TeleportAway()
 end)
