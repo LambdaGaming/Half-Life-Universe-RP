@@ -61,7 +61,7 @@ net.Receive( "CreateItem", function( len, ply )
 	local max = ItemNPC[ent].Max
 	local realclass = ItemNPC[ent].RealClass or ent --Fix for having 2 different items with the same class name
 	if max and max > 0 and #ents.FindByClass( realclass ) >= max then
-		HLU_Notify( ply, "Global limit reached. Remove some instances of this entity to spawn it again." )
+		HLU_Notify( ply, "Global limit reached. Remove some instances of this entity to spawn it again.", 1, 6 )
 		return
 	end
 	if GetGlobalInt( "CurrentGamemode" ) == 1 then

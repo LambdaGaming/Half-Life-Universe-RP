@@ -819,3 +819,22 @@ ItemNPC["weapon_sniperrifle"] = {
 		spawn.WepClass = "weapon_sniperrifle"
 	end
 }
+
+ItemNPC["vending_resupply"] = {
+	Name = "Vending Machine Resupply",
+	Description = "Touch with a vending machine to restock it.",
+	Model = "models/opfor/items/w_m40a1.mdl",
+	Price = 50,
+	Type = 4,
+	Max = 5,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_SERVICE then return true end
+		HLU_Notify( ply, "Only service officials can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "vending_resupply" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}

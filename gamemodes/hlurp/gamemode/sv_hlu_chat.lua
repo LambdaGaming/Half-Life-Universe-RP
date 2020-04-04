@@ -59,34 +59,38 @@ end
 local chatcommands = {
 	["/ooc"] = function( ply, text )
 		HLU_ChatNotify( ply, "OOC", color_red, text, true )
-		return false
+		return ""
 	end,
 	["//"] = function( ply, text )
 		HLU_ChatNotify( ply, "OOC", color_red, text, true )
-		return false
+		return ""
 	end,
 	["/advert"] = function( ply, text )
 		HLU_ChatNotify( ply, "Announcement", color_red, text, true )
-		return false
+		return ""
 	end,
-	["/drop"] = function()
+	["/drop"] = function( ply )
 		DropWeapon( ply )
-		return false
+		return ""
 	end
 }
 
 function GM:PlayerCanSeePlayersChat( text, teamOnly, listener, speaker )
     local dist = listener:GetPos():DistToSqr( speaker:GetPos() )
-    local split = string.Split( text, " " )
 	if teamOnly then
 		return CheckTeamPlayers( speaker, text )
 	end
-	if chatcommands[split[1]] then
-		local trimmedtext = string.gsub( text, split[1], "" )
-		return chatcommands[split[1]]( speaker, trimmedtext )
-	end
     return dist <= 90000
 end
+
+local function DetectChatCommand( ply, text )
+	local split = string.Split( text, " " )
+	if chatcommands[split[1]] then
+		local trimmedtext = string.gsub( text, split[1], "" )
+		return chatcommands[split[1]]( ply, trimmedtext )
+	end
+end
+hook.Add( "PlayerSay", "DetectChatCommand", DetectChatCommand )
 
 --[[ function GM:PlayerCanHearPlayersVoice( listener, talker ) --Only use as a last resort if sv_alltalk 2 doesn't work
 	local dist = 250000
