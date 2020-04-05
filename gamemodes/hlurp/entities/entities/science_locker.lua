@@ -42,33 +42,33 @@ local function ChooseResearch( ply )
 	if rand == 1 then
 		if !RestrictedJobs[TEAM_METROCOPMANHACK] then ChooseResearch( ply ) return end
 		RestrictedJobs[TEAM_METROCOPMANHACK] = false
-		DarkRP.notifyAll( 0, 6, "The Combine has researched the Manhack Civil Protection job!" )
+		HLU_Notify( nil, "The Combine has researched the Manhack Civil Protection job!", 0, 6, true )
 	elseif rand == 2 then
 		if !RestrictedJobs[TEAM_CREMATOR] then ChooseResearch( ply ) return end
 		RestrictedJobs[TEAM_CREMATOR] = false
-		DarkRP.notifyAll( 0, 6, "The Combine has researched the Cremator job!" )
+		HLU_Notify( nil, "The Combine has researched the Cremator job!", 0, 6, true )
 	elseif rand == 3 then
 		if !RestrictedJobs[TEAM_COMBINEELITE] then ChooseResearch( ply ) return end
 		RestrictedJobs[TEAM_COMBINEELITE] = false
-		DarkRP.notifyAll( 0, 6, "The Combine has researched the Overwatch Elite job!" )
+		HLU_Notify( nil, "The Combine has researched the Overwatch Elite job!", 0, 6, true )
 	elseif rand == 4 then
 		if !RestrictedJobs[TEAM_COMBINEGUARDSHOTGUN] then ChooseResearch( ply ) return end
 		RestrictedJobs[TEAM_COMBINEGUARDSHOTGUN] = false
-		DarkRP.notifyAll( 0, 6, "The Combine has researched the Overwatch Shotgun Guard job!" )
+		HLU_Notify( nil, "The Combine has researched the Overwatch Shotgun Guard job!", 0, 6, true )
 	elseif rand == 5 then
 		if ply:HasWeapon( "weapon_egon" ) then ChooseResearch( ply ) return end
 		ply:Give( "weapon_egon" )
-		DarkRP.notify( ply, 0, 6, "You have researched the Gluon Gun!" )
+		HLU_Notify( ply, "You have researched the Gluon Gun!", 0, 6 )
 	else
 		if ply:HasWeapon( "weapon_gauss" ) then ChooseResearch( ply ) return end
 		ply:Give( "weapon_gauss" )
-		DarkRP.notify( ply, 0, 6, "You have researched the Tau Cannon!" )
+		HLU_Notify( ply, "You have researched the Tau Cannon!", 0, 6 )
 	end
 end
 
 function ENT:Use( activator, caller )
 	if activator:Team() != TEAM_SCIENTIST then
-		DarkRP.notify( activator, 1, 6, "Only scientists can access this locker!" )
+		HLU_Notify( activator, "Only scientists can access this locker!", 0, 6 )
 		return
 	end
 	for k,v in pairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
@@ -80,12 +80,12 @@ function ENT:Use( activator, caller )
 	end
 	if self:GetNWBool( "HasKey" ) then
 		if !pcall( ChooseResearch, activator ) then --Prevents stack overflows if all items have been researched
-			DarkRP.notify( activator, 1, 6, "All items have been researched!" )
+			HLU_Notify( activator, "All items have been researched!", 0, 6 )
 			return
 		end
 		self:SetNWBool( "HasKey", false )
 	else
-		DarkRP.notify( activator, 1, 6, "You need to craft a key to open the locker! Ask the Earth Administrator for a combine crafting table." )
+		HLU_Notify( activator, "You need to craft a key to open the locker! Ask the Earth Administrator for a combine crafting table.", 1, 6 )
 	end
 end
 
