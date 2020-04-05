@@ -205,6 +205,10 @@ local function HLU_SpawnNPCs()
 			itemshopd:SetAngles( Angle( 0, 90, 0 ) )
 			itemshopd:Spawn()
 			itemshopd:ApplyType( 4 )
+			local budget = ents.Create( "budget_npc" )
+			budget:SetPos( Vector( -123, -3703, -252 ) )
+			budget:SetAngles( angle_zero )
+			budget:Spawn()
 		end
 		if map == "rp_blackmesa_laboratory" then
 			local e = ents.Create( "npc_item" )
@@ -217,6 +221,10 @@ local function HLU_SpawnNPCs()
 			itemshopd:SetAngles( Angle( 0, 180, 0 ) )
 			itemshopd:Spawn()
 			itemshopd:ApplyType( 4 )
+			local budget = ents.Create( "budget_npc" )
+			budget:SetPos( Vector( 2533, -58, -31 ) )
+			budget:SetAngles( Angle( 0, 180, 0 ) )
+			budget:Spawn()
 		end
 		if map == "rp_blackmesa_complex_fixed" then
 			local e = ents.Create( "npc_item" )
@@ -234,6 +242,10 @@ local function HLU_SpawnNPCs()
 			itemshop2:SetAngles( angle_zero )
 			itemshop2:Spawn()
 			itemshop2:ApplyType( 4 )
+			local budget = ents.Create( "budget_npc" )
+			budget:SetPos( Vector( 952, 602, -31 ) )
+			budget:SetAngles( Angle( 0, 90, 0 ) )
+			budget:Spawn()
 		end
 		if map == "rp_bmrf" then
 			local e = ents.Create( "npc_item" )
@@ -256,6 +268,10 @@ local function HLU_SpawnNPCs()
 			itemshop3:SetAngles( Angle( 0, -90, 0 ) )
 			itemshop3:Spawn()
 			itemshop3:ApplyType( 4 )
+			local budget = ents.Create( "budget_npc" )
+			budget:SetPos( Vector( -404, 2374, -63 ) )
+			budget:SetAngles( Angle( 0, 90, 0 ) )
+			budget:Spawn()
 		end
 		if map == "rp_ineu_valley2_v1a" then
 			local e = ents.Create( "npc_item" )

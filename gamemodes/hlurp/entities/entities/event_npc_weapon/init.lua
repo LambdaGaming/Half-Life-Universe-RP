@@ -25,6 +25,7 @@ local weapon = {
 	{"weapon_tripmine", "Tripmine"}
 }
 
+local waiting = false
 function ENT:Initialize()
     self:SetModel( "models/player/gasmask_hecu.mdl" )
 	self:SetMoveType( MOVETYPE_NONE )
@@ -36,8 +37,6 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
-
-	self.waiting = false
 	
 	local rand = table.Random( weapon )
 	self.chosenwep = rand[1]
@@ -46,7 +45,7 @@ end
 
 util.AddNetworkString( "WepMenu" )
 function ENT:AcceptInput( ply, caller )
-	if self.waiting then
+	if waiting then
 		local foundwep = false
 		for k,v in pairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
 			if v:GetClass() == self.chosenwep then
@@ -68,6 +67,7 @@ function ENT:AcceptInput( ply, caller )
 	end
 	if caller:Team() == TEAM_WEPMAKER then
 		net.Start( "WepMenu" )
+		net.WriteEntity( self )
 		net.Send( caller )
 		HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "I need a "..self.chosenwepname..".", true, caller )
 		return
@@ -105,11 +105,12 @@ end
 util.AddNetworkString("WepAccept")
 net.Receive("WepAccept", function(length, ply)
 	HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "Thanks! I'll be waiting here for you!", true, ply )
-	self.waiting = true
+	waiting = true
 end)
 
 util.AddNetworkString("WepDeny")
 net.Receive("WepDeny", function(length, ply)
+	local self = net.ReadEntity()
 	HLU_ChatNotifySystem( "Corporal Shepard", textcolor, "Alright, shame we didn't get to work together.", true, ply )
 	self:TeleportAway()
 end)

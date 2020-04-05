@@ -23,6 +23,7 @@ util.AddNetworkString( "ReviveGovMenu" )
 function ENT:AcceptInput( ply, caller )
 	if caller:Team() == TEAM_ADMIN and !self.detained then
 		net.Start( "ReviveGovMenu" )
+		net.WriteEntity( self )
 		net.Send( caller )
 	elseif caller:Team() == TEAM_SECURITY or caller:Team() == TEAM_SECURITYBOSS and self.detained then
 		HLU_ChatNotifySystem( "Government Man", textcolor, "Alright fine, I'm leaving. But you haven't seen the last of me...", true, caller )
@@ -59,6 +60,7 @@ end
 
 util.AddNetworkString("ReviveFireAdmin")
 net.Receive("ReviveFireAdmin", function(length, ply)
+	local self = net.ReadEntity()
 	if ply:Team() == TEAM_ADMIN then
 		ChangeTeam( ply, 1 )
 		HLU_ChatNotifySystem( "Government Man", textcolor, "Cash would have been preferred, but my employers will be glad to hear of your resignation.", true, ply )
@@ -68,6 +70,7 @@ end)
 
 util.AddNetworkString("ReviveRemoveCash")
 net.Receive("ReviveRemoveCash", function(length, ply)
+	local self = net.ReadEntity()
 	if ply:Team() == TEAM_ADMIN then
 		ChangeBudget( -5000 )
 		HLU_Notify( ply, "You have paid your $5,000 fine to the government.", 0, 6 )
@@ -78,6 +81,7 @@ end)
 
 util.AddNetworkString("ReviveSecurity")
 net.Receive("ReviveSecurity", function(length, ply)
+	local self = net.ReadEntity()
 	local rand = math.random( 0, 1 )
 	if ply:Team() == TEAM_ADMIN then
 		if rand == 0 then

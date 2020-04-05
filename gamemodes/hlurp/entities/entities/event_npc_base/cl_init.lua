@@ -1,6 +1,7 @@
 include('shared.lua')
 
 local function Menu()
+	local ent = net.ReadEntity()
 	local Frame = vgui.Create( "DFrame" )
 	Frame:SetTitle( "Government Man" )
 	Frame:SetSize( 300, 300 )
@@ -27,6 +28,7 @@ local function Menu()
 	Button.DoClick = function()
 		Frame:Close()
 		net.Start( "ReviveFireAdmin" )
+		net.WriteEntity( ent )
 		net.SendToServer()
 	end
 	
@@ -50,6 +52,7 @@ local function Menu()
 	Button2.DoClick = function()
 		Frame:Close()
 		net.Start( "ReviveRemoveCash" )
+		net.WriteEntity( ent )
 		net.SendToServer()
 	end
 	
@@ -65,6 +68,7 @@ local function Menu()
 	Button3.DoClick = function()
 		Frame:Close()
 		net.Start( "ReviveSecurity" )
+		net.WriteEntity( ent )
 		net.SendToServer()
 	end
 end

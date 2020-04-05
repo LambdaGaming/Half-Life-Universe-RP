@@ -53,7 +53,7 @@ end
 
 function ENT:AcceptInput( ply, caller )
 	if self.revive then return end
-	if caller:Team() == TEAM_MEDICBM then
+	if caller:Team() == TEAM_MEDIC then
 		HLU_Notify( caller, "You check for a pulse but can't seem to find one. You may have to use your med kit to revive this person.", 0, 6 )
 	else
 		HLU_Notify( caller, "You check for a pulse but can't seem to find one. A medic has the tools to help this person.", 0, 6 )
