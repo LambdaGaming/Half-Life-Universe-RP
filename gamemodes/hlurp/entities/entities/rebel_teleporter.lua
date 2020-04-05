@@ -14,7 +14,7 @@ if SERVER then
 		["rp_ineu_valley2_v1a"] = Vector( 7121, 14434, 1328 ),
 		["rp_city17_district47"] = Vector( -623, -2533, 704 ),
 		["rp_city24_v2"] = Vector( -790, 8901, 32 ),
-		["gm_boreas"] = vector_origin
+		["gm_boreas"] = Vector( 1734, -14423, -6575 )
 	}
 
 	function ENT:Initialize()
