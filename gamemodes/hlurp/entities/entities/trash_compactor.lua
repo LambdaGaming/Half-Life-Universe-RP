@@ -33,16 +33,10 @@ if SERVER then
 		end
 	end
 
-	local validbags = {
-		["models/sligwolf/garbagetruck/sw_trashbag_1.mdl"] = true,
-		["models/sligwolf/garbagetruck/sw_trashbag_2.mdl"] = true,
-		["models/sligwolf/garbagetruck/sw_trashbag_3.mdl"] = true
-	}
-
 	function ENT:Use( activator, caller )
 		local totalbags = 0
 		for k,v in pairs( ents.FindInSphere( self:GetPos(), 500 ) ) do
-			if v:GetClass() == "prop_physics" and validbags[v:GetModel()] then
+			if v:GetClass() == "trash_ent" then
 				v:Remove()
 				totalbags = totalbags + 1
 			end
@@ -59,7 +53,7 @@ if SERVER then
 				self.greenlight:SetKeyValue( "brightness", "2" )
 				self.greenlight:Spawn()
 			end )
-			timer.Simple( 5, function() greenlight:Remove() end )
+			timer.Simple( 5, function() self.greenlight:Remove() end )
 			self:EmitSound( "HL1/ambience/particle_suck2.wav" )
 			ChangeBudget( totalmoney )
 			HLU_Notify( caller, "You have made $"..totalmoney.." disposing of "..totalbags.." trash bag(s).", 0, 6 )
