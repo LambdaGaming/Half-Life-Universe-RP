@@ -51,12 +51,10 @@ if SERVER then
 		if game.GetMap() == "rp_ineu_valley2_v1a" then
 			local rocketspawn = ents.Create("gb5_proj_icbm_big")
 			rocketspawn:SetPos( Vector( -13185, 8374, -1216 ) )
-			rocketspawn:SetAngles( Angle( -90, 0, 0 ) )
 			rocketspawn:Spawn()
 		else
 			local rocketspawn = ents.Create("gb5_proj_icbm_big")
 			rocketspawn:SetPos( Vector( -79, 5578, -6102 ) )
-			rocketspawn:SetAngles( Angle( -90, 0, 0 ) )
 			rocketspawn:Spawn()
 		end
 	end
