@@ -213,7 +213,7 @@ local function HLU_SpawnNPCs()
 		if map == "rp_blackmesa_laboratory" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 10808, -4008, 922 ) )
-			e:SetAngles( Angle( 0, 0, 0 ) )
+			e:SetAngles( angle_zero )
 			e:Spawn()
 			e:ApplyType( 1 )
 			local itemshopd = ents.Create( "npc_item" )
@@ -229,7 +229,7 @@ local function HLU_SpawnNPCs()
 		if map == "rp_blackmesa_complex_fixed" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( -1251, 6766, 2160 ) )
-			e:SetAngles( Angle( 0, 0, 0 ) )
+			e:SetAngles( angle_zero )
 			e:Spawn()
 			e:ApplyType( 1 )
 			local itemshop = ents.Create( "npc_item" )
@@ -250,7 +250,7 @@ local function HLU_SpawnNPCs()
 		if map == "rp_bmrf" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( -1251, 6766, 2160 ) )
-			e:SetAngles( Angle( 0, 0, 0 ) )
+			e:SetAngles( angle_zero )
 			e:Spawn()
 			e:ApplyType( 1 )
 			local itemshop = ents.Create( "npc_item" )
@@ -273,6 +273,27 @@ local function HLU_SpawnNPCs()
 			budget:SetAngles( Angle( 0, 90, 0 ) )
 			budget:Spawn()
 		end
+		if map == "rp_city17_build210" then
+			local e = ents.Create( "npc_item" )
+			e:SetPos( Vector( 4860, 193, 76 ) )
+			e:SetAngles( Angle( 0, 180, 0 ) )
+			e:Spawn()
+			e:ApplyType( 5 )
+		end
+		if map == "rp_city17_district47" then
+			local e = ents.Create( "npc_item" )
+			e:SetPos( Vector( -382, -3027, 384 ) )
+			e:SetAngles( Angle( 0, 90, 0 ) )
+			e:Spawn()
+			e:ApplyType( 5 )
+		end
+		if map == "rp_city24_v2" then
+			local e = ents.Create( "npc_item" )
+			e:SetPos( Vector( -742, 9112, -663 ) )
+			e:SetAngles( Angle( 0, -90, 0 ) )
+			e:Spawn()
+			e:ApplyType( 5 )
+		end
 		if map == "rp_ineu_valley2_v1a" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 9543, 14860, 1277 ) )
@@ -282,7 +303,7 @@ local function HLU_SpawnNPCs()
 
 			local e2 = ents.Create( "npc_item" )
 			e2:SetPos( Vector( -11046, 6843, 1024 ) )
-			e2:SetAngles( Angle( 0, 0, 0 ) )
+			e2:SetAngles( angle_zero )
 			e2:Spawn()
 			e2:ApplyType( 3 )
 		end

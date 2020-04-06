@@ -79,9 +79,9 @@ local function City17AdminCommands( ply, text )
 		{ "/exogen", "npc/overwatch/cityvoice/fprison_nonstandardexogen.wav" }
 	}
 
-	local function SendSound( player, sound )
-		if IsValid( player ) then
-			player:ConCommand( "play "..sound )
+	local function SendSound( sound )
+		for k,v in pairs( player.GetHumans() ) do
+			v:ConCommand( "play "..sound )
 		end
 	end
 
@@ -95,7 +95,7 @@ local function City17AdminCommands( ply, text )
 				HLU_Notify( ply, "There are too many players for you to take the Earth Admin's role.", 1, 6 )
 				return ""
 			end
-			SendSound( ply, v[2] )
+			SendSound( v[2] )
 			return ""
 		end
 	end
@@ -133,3 +133,122 @@ local function C17Generator()
 	e:Spawn()
 end
 hook.Add( "InitPostEntity", "C17Generator", C17Generator )
+
+--Rebel crafting table spawns
+local function C17Crafting()
+	local craftpos
+	local map = game.GetMap()
+	if map == "rp_city17_build210" then
+		craftpos = {
+			{ Vector( 1455, 3949, 92 ), Angle( 0, 171, 0 ) },
+			{ Vector( 2881, -2660, 96 ), Angle( 0, -145, 0 ) },
+			{ Vector( -949, -2725, 96 ), Angle( 0, 94, 0 ) },
+			{ Vector( -923, 1825, 96 ), Angle( 0, 90, 0 ) },
+			{ Vector( -1803, 6954, -449 ), Angle( 0, -90, 0 ) }
+		}
+	elseif map == "rp_city17_district47" then
+		craftpos = {
+			{ Vector( -587, 444, 400 ), Angle( 0, 180, 0 ) },
+			{ Vector( -1872, -970, 400 ), Angle( 0, 180, 0 ) },
+			{ Vector( 3859, 76, 80 ), angle_zero },
+			{ Vector( 1186, 683, 345 ), angle_zero },
+			{ Vector( -2968, -1306, 80 ), Angle( 0, 90, 0 ) }
+		}
+	else
+		craftpos = {
+			{ Vector( 6565, 9456, 536 ), angle_zero },
+			{ Vector( 6885, 5955, -496 ), angle_zero },
+			{ Vector( 7884, 2892, 24 ), Angle( 0, 180, 0 ) },
+			{ Vector( 10039, 8811, 25 ), Angle( 2, -146, 0 ) },
+			{ Vector( 4301, 11454, 536 ), Angle( 0, -90, 0 ) }
+		}
+	end
+	for k,v in pairs( craftpos ) do
+		local e = ents.Create( "crafting_table" )
+		e:SetPos( v[1] )
+		e:SetAngles( v[2] )
+		e:Spawn()
+	end
+end
+hook.Add( "InitPostEntity", "C17Crafting", C17Crafting )
+
+--Rebel crafting table spawns
+local function APCSpawn()
+	local map = game.GetMap()
+	if map != "rp_city24_v2" then return end
+	local pos = {
+		{ Vector( 473, 8517, 520 ), Angle( 0, 180, 0 ) },
+		{ Vector( 473, 8970, 520 ), Angle( 0, 180, 0 ) },
+		{ Vector( 473, 9401, 520 ), Angle( 0, 180, 0 ) }
+	}
+	for k,v in pairs( pos ) do
+		local e = ents.Create( "prop_vehicle_zapc" )
+		e:SetPos( v[1] )
+		e:SetAngles( v[2] )
+		e:Spawn()
+	end
+end
+hook.Add( "InitPostEntity", "APCSpawn", APCSpawn )
+
+--Player death management
+local function PlayerDeathDemote( ply )
+	local plyteam = ply:Team()
+	if plyteam == TEAM_EARTHADMIN then
+		ChangeTeam( ply, 1 )
+		HLU_Notify( nil, "The earth admin has been killed!", 0, 6, true )
+	elseif plyteam == TEAM_GMANCITY then
+		ChangeTeam( ply, 1 )
+		HLU_Notify( nil, "The government man was caught spying and has been killed!", 0, 6, true )
+	elseif plyteam == TEAM_RESISTANCELEADER then
+		ChangeTeam( ply, 1 )
+		HLU_Notify( nil, "A resistance leader has been killed!", 0, 6, true )
+	end
+end
+hook.Add( "PlayerDeath", "PlayerDeathDemote", PlayerDeathDemote )
+
+--Player spawn management
+local function CombineSpawn( ply )
+	local map = game.GetMap()
+	local allowed = {
+		[TEAM_COMBINEELITE] = true,
+		[TEAM_CREMATOR] = true,
+		[TEAM_COMBINEGUARD] = true,
+		[TEAM_COMBINEGUARDSHOTGUN] = true,
+		[TEAM_COMBINESOLDIER] = true,
+		[TEAM_METROCOPMANHACK] = true,
+		[TEAM_METROCOP] = true
+	}
+	local randpos
+	if map == "rp_city17_build210" then
+		randpos = {
+			Vector( 4024, -1877, -179 ),
+			Vector( 4132, -1877, -179 ),
+			Vector( 4132, -2003, -179 ),
+			Vector( 4024, -2003, -179 ),
+			Vector( 4024, -2069, -179 ),
+			Vector( 4164, -2068, -179 )
+		}
+	elseif map == "rp_city17_district47" then
+		randpos = {
+			Vector( -1192, -2266, 640 ),
+			Vector( -1192, -2364, 640 ),
+			Vector( -1103, -2364, 640 ),
+			Vector( -1103, -2254, 640 ),
+			Vector( -1005, -2255, 640 ),
+			Vector( -1007, -2376, 640 )
+		}
+	else
+		randpos = {
+			Vector( -812, 9107, -663 ),
+			Vector( -812, 8999, -663 ),
+			Vector( -922, 8998, -663 ),
+			Vector( -923, 9079, -663 ),
+			Vector( -1030, 9088, -663 ),
+			Vector( -1029, 8994, -663 )
+		}
+	end
+	if allowed[ply:Team()] then
+		ply:SetPos( table.Random( randpos ) )
+	end
+end
+hook.Add( "PlayerSpawn", "CombineSpawn", CombineSpawn )

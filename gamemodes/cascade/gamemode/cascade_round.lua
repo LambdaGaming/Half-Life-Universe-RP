@@ -349,20 +349,22 @@ function CascadeMainRound()
 end
 
 function ResetRound() --Places everyone in the waiting room, resets everyone's scores, and removes the HECU timer
+	local WinnerTable = {}
 	for k,v in pairs( player.GetAll() ) do
-		--[[ if v:Team() == admin then --Disabled for now, might use MySQL at some point to tap into the player's DarkRP wallet
-			v:addMoney( v:Frags() * 200 )
-			v:ChatPrint( "You have been awarded $"..( v:Frags() * 200 ).." for getting "..v:Frags().." kills as the facility administrator." )
-		end
-		if v:Team() != visitor and v:Team() != marine then
-			v:addMoney( 1000 )
+		if v:Team() == admin then
+			local amount = v:Frags() * 200
+			v:ChatPrint( "You have been awarded $"..amount.." for getting "..v:Frags().." kills as the facility administrator." )
+			WinnerTable[v:SteamID()] = amount
+		elseif v:Team() != visitor and v:Team() != marine then
 			v:ChatPrint( "You have been awarded $1000 for staying alive in the facility until the end of the round." )
-		end ]]
+			WinnerTable[v:SteamID()] = 1000
+		end
 		v:SetDeaths( 0 )
 		v:SetFrags( 0 )
 		ChangeTeam( v, TEAM_VISITOR, true )
 		v:ChatPrint( "The round has ended." )
 	end
+	file.Write( "CascadeWinners_"..os.clock()..".txt", util.TableToJSON( WinnerTable, true ) )
 	for k,v in pairs( ents.FindByClass( "extinguisher_case" ) ) do
 		v.used = false --Resets all extinguisher cases so they can be used again next round
 	end

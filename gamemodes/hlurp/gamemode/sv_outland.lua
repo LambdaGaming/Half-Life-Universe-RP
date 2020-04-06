@@ -168,3 +168,54 @@ hook.Add( "OnPlayerChangedTeam", "OutlandPlayerChange", function( ply, before, a
 		HLU_ChatNotifySystem( "Outland RP", color_green, ply:Nick().." has changed jobs and the portal codes are lost again!" )
 	end
 end )
+
+--Player spawn management
+local function CombineSpawn( ply )
+	local combine = {
+		[TEAM_COMBINEELITE] = true,
+		[TEAM_COMBINEGUARD] = true,
+		[TEAM_COMBINEGUARDSHOTGUN] = true,
+		[TEAM_COMBINESOLDIER] = true
+	}
+	local rebels = {
+		[TEAM_RESISTANCELEADER] = true,
+		[TEAM_REBEL] = true,
+		[TEAM_REBELMEDIC] = true
+	}
+	local randcombine
+	local randrebel
+	if game.GetMap() == "rp_ineu_valley2_v1a" then
+		randcombine = {
+			Vector( 15205, -14367, 147 ),
+			Vector( 15173, -14147, 183 ),
+			Vector( 14918, -14182, 125 ),
+			Vector( 14959, -14454, 101 )
+		}
+		randrebel = {
+			Vector( -13301, 6816, 128 ),
+			Vector( -13150, 6818, 128 ),
+			Vector( -13150, 6716, 128 ),
+			Vector( -13294, 6716, 128 )
+		}
+	else
+		randcombine = {
+			Vector( 858, -14100, -7999 ),
+			Vector( 863, -13998, -7999 ),
+			Vector( 953, -14000, -7999 ),
+			Vector( 954, -14091, -7999 )
+		}
+		randrebel = {
+			Vector( -4, 5008, -6399 ),
+			Vector( 96, 4893, -6399 ),
+			Vector( 409, 4993, -6399 ),
+			Vector( 435, 5226, -6399 )
+		}
+	end
+	if combine[ply:Team()] then
+		ply:SetPos( table.Random( randcombine ) )
+	end
+	if rebels[ply:Team()] then
+		ply:SetPos( table.Random( randrebel ) )
+	end
+end
+hook.Add( "PlayerSpawn", "CombineSpawn", CombineSpawn )

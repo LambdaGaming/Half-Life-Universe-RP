@@ -44,7 +44,7 @@ local function CommandSound( ply, text )
 			Commands = BMRPCommandsHECU
 		end
 		if text == "/fatboy" and ply:Team() == TEAM_ADMIN then
-			for k,v in pairs( player.GetAll() ) do
+			for k,v in pairs( player.GetHumans() ) do
 				v:ConCommand( "play admin/fat_boy.ogg" )
 				cooldown = CurTime() + 5
 			end

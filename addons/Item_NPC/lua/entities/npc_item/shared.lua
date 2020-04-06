@@ -27,7 +27,7 @@ ItemNPCType[1] = {
 }
 
 ItemNPCType[2] = {
-	Name = "Combine Vehicle NPC",
+	Name = "Combine Vehicle Shop",
 	Model = "models/combine_soldier_prisonguard.mdl",
 	MenuColor = Color( 230, 93, 80, 200 ),
 	MenuTextColor = color_white,
@@ -37,7 +37,7 @@ ItemNPCType[2] = {
 }
 
 ItemNPCType[3] = {
-	Name = "Turret NPC",
+	Name = "Rebel Item Shop",
 	Model = "models/humans/group03/male_04.mdl",
 	MenuColor = Color( 1, 22, 0, 200 ),
 	MenuTextColor = color_white,
@@ -50,6 +50,16 @@ ItemNPCType[4] = {
 	Name = "Black Mesa Item Shop",
 	Model = "models/props/halflifeoneprops1/crate00.mdl",
 	MenuColor = ColorAlpha( color_orange, 30 ),
+	MenuTextColor = color_white,
+	ButtonColor = color_black,
+	ButtonTextColor = color_white,
+	Allowed = {}
+}
+
+ItemNPCType[5] = {
+	Name = "Combine Weapon Dispenser",
+	Model = "models/props_combine/combine_interface001.mdl",
+	MenuColor = ColorAlpha( color_theme, 220 ),
 	MenuTextColor = color_white,
 	ButtonColor = color_black,
 	ButtonTextColor = color_white,
@@ -416,6 +426,111 @@ ItemNPC["ent_jack_turret_sniper"] = {
 	end
 }
 
+ItemNPC["item_healthcharger"] = {
+	Name = "Mounted Healing Unit",
+	Description = "Health unit that heals up to 75 HP. Recharges after 5 minutes when empty.",
+	Model = "models/props_combine/health_charger001.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 5,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_REBELMEDIC then return true end
+		HLU_Notify( ply, "Only rebel medics can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_healthcharger" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_healthkit"] = {
+	Name = "Health Kit",
+	Description = "Small, one-time-use health kit that heals up to 25 HP.",
+	Model = "models/Items/HealthKit.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_REBELMEDIC then return true end
+		HLU_Notify( ply, "Only rebel medics can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_healthkit" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_battery"] = {
+	Name = "Armor Battery",
+	Description = "Battery for HEV suits. Charges up to 25 AP.",
+	Model = "models/Items/battery.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_REBELMEDIC then return true end
+		HLU_Notify( ply, "Only rebel medics can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_battery" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_suitcharger"] = {
+	Name = "Mounted Armor Charging Unit",
+	Description = "Charging unit for HEV suits. Charges up to 75 AP.",
+	Model = "models/props_combine/suit_charger001.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_REBELMEDIC then return true end
+		HLU_Notify( ply, "Only rebel medics can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_suitcharger" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["crafting_tablerebel"] = {
+	Name = "Rebel Crafting Table",
+	RealClass = "crafting_table",
+	Description = "Used to craft weapons to help the resistance defeat the Combine.",
+	Model = "models/props_wasteland/controlroom_desk001b.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "crafting_table" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["ent_jack_ifftag"] = {
+	Name = "IFF Tag",
+	Description = "Link with a turret to prevent the turret from firing at you.",
+	Model = "models/Items/AR2_Grenade.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_ifftag" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
 -----BLACK MESA ITEM SHOP ITEMS-----
 ItemNPC["sent_computer"] = {
 	Name = "Black Mesa Standard Office Terminal",
@@ -710,7 +825,7 @@ ItemNPC["announcement_speaker"] = {
 	end
 }
 
-ItemNPC["weapon_satchel"] = {
+ItemNPC["weapon_satchelbm"] = {
 	Name = "Satchel Charge (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Remotely detonated plastic explosive.",
@@ -732,7 +847,7 @@ ItemNPC["weapon_satchel"] = {
 	end
 }
 
-ItemNPC["weapon_9mmar"] = {
+ItemNPC["weapon_9mmarbm"] = {
 	Name = "9mm SMG (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Automatic rifle chambered in 9mm with a grenade launcher attachment.",
@@ -754,7 +869,7 @@ ItemNPC["weapon_9mmar"] = {
 	end
 }
 
-ItemNPC["weapon_shotgun_hl"] = {
+ItemNPC["weapon_shotgun_hlbm"] = {
 	Name = "SPAS-12 (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Semi-automatic 12 gauge shotgun with folding stock.",
@@ -776,7 +891,7 @@ ItemNPC["weapon_shotgun_hl"] = {
 	end
 }
 
-ItemNPC["weapon_eagle"] = {
+ItemNPC["weapon_eaglebm"] = {
 	Name = "Desert Eagle (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Powerful pistol with laser sight.",
@@ -798,7 +913,7 @@ ItemNPC["weapon_eagle"] = {
 	end
 }
 
-ItemNPC["weapon_sniperrifle"] = {
+ItemNPC["weapon_sniperriflecombine"] = {
 	Name = "M40A1 Sniper (Box)",
 	RealClass = "hlu_shipment",
 	Description = "Bolt-action rifle with long range scope.",
@@ -836,5 +951,336 @@ ItemNPC["vending_resupply"] = {
 		local spawn = ents.Create( "vending_resupply" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
 		spawn:Spawn()
+	end
+}
+
+--Combine weapon dispenser items
+ItemNPC["item_battery"] = {
+	Name = "Armor Battery",
+	Description = "Battery for powered suits. Charges up to 25 AP.",
+	Model = "models/Items/battery.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		local allowed = {
+			[TEAM_COMBINESOLIER] = true,
+			[TEAM_COMBINEGUARD] = true,
+			[TEAM_COMBINEGUARDSHOTGUN] = true,
+			[TEAM_COMBINEELITE] = true
+		}
+		if allowed[ply:Team()] then return true end
+		HLU_Notify( ply, "Only Overwatch soldiers, guards, and elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_battery" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["item_suitcharger"] = {
+	Name = "Mounted Armor Charging Unit",
+	Description = "Charging unit for powered suits. Charges up to 75 AP.",
+	Model = "models/props_combine/suit_charger001.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		local allowed = {
+			[TEAM_COMBINESOLIER] = true,
+			[TEAM_COMBINEGUARD] = true,
+			[TEAM_COMBINEGUARDSHOTGUN] = true,
+			[TEAM_COMBINEELITE] = true
+		}
+		if allowed[ply:Team()] then return true end
+		HLU_Notify( ply, "Only overwatch soldiers, guards, and elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "item_suitcharger" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["weapon_smg1"] = {
+	Name = "SMG (Small Box)",
+	RealClass = "hlu_shipment",
+	Description = "Automatic 9mm SMG with grenade launcher.",
+	Model = "models/weapons/w_smg1.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_COMBINEELITE then return true end
+		HLU_Notify( ply, "Only overwatch elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "SMG" )
+		spawn.WepClass = "weapon_smg1"
+		spawn:SetNWInt( "NumWeapons", 5 )
+	end
+}
+
+ItemNPC["weapon_ar2"] = {
+	Name = "AR2 (Small Box)",
+	RealClass = "hlu_shipment",
+	Description = "Automatic pulse rifle with energy ball launcher.",
+	Model = "models/weapons/w_IRifle.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_COMBINEELITE then return true end
+		HLU_Notify( ply, "Only overwatch elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "AR2" )
+		spawn.WepClass = "weapon_ar2"
+		spawn:SetNWInt( "NumWeapons", 5 )
+	end
+}
+
+ItemNPC["weapon_shotgun"] = {
+	Name = "Shotgun (Small Box)",
+	RealClass = "hlu_shipment",
+	Description = "12 gauge shotgun with double fire mode.",
+	Model = "models/weapons/w_shotgun.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_COMBINEELITE then return true end
+		HLU_Notify( ply, "Only overwatch elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Shotgun" )
+		spawn.WepClass = "weapon_shotgun"
+		spawn:SetNWInt( "NumWeapons", 5 )
+	end
+}
+
+ItemNPC["weapon_frag"] = {
+	Name = "Frag Grenade (Small Box)",
+	RealClass = "hlu_shipment",
+	Description = "Standard frag grenade.",
+	Model = "models/weapons/w_grenade.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_COMBINEELITE then return true end
+		HLU_Notify( ply, "Only overwatch elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Frag Grenade" )
+		spawn.WepClass = "weapon_frag"
+		spawn:SetNWInt( "NumWeapons", 5 )
+	end
+}
+
+ItemNPC["weapon_bp_sniper"] = {
+	Name = "Sniper Rifle (Small Box)",
+	RealClass = "hlu_shipment",
+	Description = "Sniper rifle with high accuracy and a 2-4x scope.",
+	Model = "models/rtb_weapons/w_sniper.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_COMBINEELITE then return true end
+		HLU_Notify( ply, "Only overwatch elites can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Sniper Rifle" )
+		spawn.WepClass = "weapon_bp_sniper"
+		spawn:SetNWInt( "NumWeapons", 5 )
+	end
+}
+
+ItemNPC["weapon_smg1"] = {
+	Name = "SMG (Large Box)",
+	RealClass = "hlu_shipment",
+	Description = "Automatic 9mm SMG with grenade launcher.",
+	Model = "models/weapons/w_smg1.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "SMG" )
+		spawn.WepClass = "weapon_smg1"
+	end
+}
+
+ItemNPC["weapon_ar2"] = {
+	Name = "AR2 (Large Box)",
+	RealClass = "hlu_shipment",
+	Description = "Automatic pulse rifle with energy ball launcher.",
+	Model = "models/weapons/w_IRifle.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "AR2" )
+		spawn.WepClass = "weapon_ar2"
+	end
+}
+
+ItemNPC["weapon_shotgun"] = {
+	Name = "Shotgun (Large Box)",
+	RealClass = "hlu_shipment",
+	Description = "12 gauge shotgun with double fire mode.",
+	Model = "models/weapons/w_shotgun.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Shotgun" )
+		spawn.WepClass = "weapon_shotgun"
+	end
+}
+
+ItemNPC["weapon_frag"] = {
+	Name = "Frag Grenade (Large Box)",
+	RealClass = "hlu_shipment",
+	Description = "Standard frag grenade.",
+	Model = "models/weapons/w_grenade.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Frag Grenade" )
+		spawn.WepClass = "weapon_frag"
+	end
+}
+
+ItemNPC["weapon_bp_sniper"] = {
+	Name = "Sniper Rifle (Large Box)",
+	RealClass = "hlu_shipment",
+	Description = "Sniper rifle with high accuracy and a 2-4x scope.",
+	Model = "models/rtb_weapons/w_sniper.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 20,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetNWString( "WepName", "Sniper Rifle" )
+		spawn.WepClass = "weapon_bp_sniper"
+	end
+}
+
+ItemNPC["crafting_tablecombine"] = {
+	Name = "Combine Crafting Table",
+	RealClass = "crafting_table",
+	Description = "Allows players to craft turrets and keys for the science locker.",
+	Model = "models/props_wasteland/controlroom_desk001b.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 10,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "hlu_shipment" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+		spawn:SetTableType( 4 )
+        spawn:SetMaterial( "phoenix_storms/FuturisticTrackRamp_1-2" )
+	end
+}
+
+ItemNPC["ent_jack_ifftagcmb"] = {
+	Name = "IFF Tag",
+	RealClass = "ent_jack_ifftag",
+	Description = "Link with a turret to prevent the turret from firing at you.",
+	Model = "models/Items/AR2_Grenade.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_ifftag" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
+ItemNPC["announcement_speakercmd"] = {
+	Name = "Announcement Speaker",
+	RealClass = "announcement_speaker",
+	Description = "Used with the announcement SWEP to broadcast voice.",
+	Model = "models/props_wasteland/speakercluster01a.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 4,
+	SpawnCheck = function( ply, self )
+		if ply:Team() == TEAM_EARTHADMIN then return true end
+		HLU_Notify( ply, "Only the earth admin can purchase this item.", 1, 6 )
+		return false
+	end,
+	SpawnFunction = function( ply, self )
+		ply:Give( "announcement_speaker" )
 	end
 }
