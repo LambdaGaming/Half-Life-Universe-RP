@@ -30,7 +30,8 @@ if SERVER then
 		["XBowBolt"] = "item_ammo_crossbow",
 		["AR2"] = "item_ammo_ar2_large",
 		["AR2AltFire"] = "item_ammo_ar2_altfire",
-		["SMG1_Grenade"] = "item_ammo_smg1_grenade"
+		["SMG1_Grenade"] = "item_ammo_smg1_grenade",
+		["bp_sniper"] = "bp_sniper_ammo"
 	}
 
 	function ENT:Use( ply )

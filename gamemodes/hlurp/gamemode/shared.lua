@@ -53,10 +53,6 @@ local sciencemodels = {
 	"models/player/hdpp/male_01.mdl",
 	"models/player/hdpp/male_02.mdl",
 	"models/player/hdpp/male_03.mdl",
-	"models/player/hdpp/male_05.mdl",
-	"models/player/hdpp/male_06.mdl",
-	"models/player/hdpp/male_09.mdl",
-	"models/Player/hdpp/barney.mdl",
 	"models/player/hdpp/kleiner.mdl"
 }
 
@@ -107,8 +103,6 @@ local cpmodels = {
 	"models/DPFilms/Metropolice/Playermodels/pm_skull_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_hl2beta_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_hl2concept.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_HD_Barney.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_HD_Barney_ep1.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_HDpolice.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_hunter_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_phoenix_police.mdl",
@@ -211,7 +205,10 @@ HLU_JOB = {
 			Models = { "models/jheviv/jhevmk4.mdl" },
 			Weapons = { "weapon_stunstick", "weapon_9mmar", "mgs_pickaxe" },
 			Max = 1,
-			Category = "Science"
+			Category = "Science",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "SMG1" )
+			end
 		},
 		{
 			Name = "Survey Member",
@@ -220,7 +217,10 @@ HLU_JOB = {
 			Models = { "models/jheviv/jhevmk4.mdl" },
 			Weapons = { "weapon_stunstick", "weapon_9mmhandgun", "mgs_pickaxe" },
 			Max = 3,
-			Category = "Science"
+			Category = "Science",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Research and Development",
@@ -244,7 +244,7 @@ HLU_JOB = {
 			Name = "Biochemist",
 			Description = "Your main job is to study the crystals the Survey Team brings back from Xen. If you have the time, you can study other biological and living things. You can study living things by using your NPC spawner tool. This tool is known throughout Black Mesa as a mobile-mini-dimensional-portal. It allows you to spawn any NPC in the game. Don't abuse it by spamming the NPC count though; you may be banned from this job for doing so.",
 			Color = Color( 128, 0, 128, 255 ),
-			Models = sciencemodels,
+			Models = { "models/hazmat/bmhaztechs.mdl" },
 			Weapons = {},
 			Max = 2,
 			Category = "Science"
@@ -287,7 +287,11 @@ HLU_JOB = {
 			Models = { "models/player/gasmask_hecu.mdl" },
 			Weapons = { "weapon_shotgun_hl", "weapon_9mmhandgun", "weapon_ram" },
 			Max = 3,
-			Category = "Military"
+			Category = "Military",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "Buckshot" )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "HECU Captain",
@@ -296,7 +300,11 @@ HLU_JOB = {
 			Models = { "models/player/gasmask_hecu.mdl" },
 			Weapons = { "weapon_9mmar", "weapon_eagle", "weapon_ram" },
 			Max = 1,
-			Category = "Military"
+			Category = "Military",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "SMG1" )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Weapon Specialist",
@@ -305,7 +313,11 @@ HLU_JOB = {
 			Models = securitymodels,
 			Weapons = { "weapon_shotgun_hl", "weapon_9mmhandgun" },
 			Max = 1,
-			Category = "Military"
+			Category = "Military",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "Buckshot" )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Weapons Engineer",
@@ -324,7 +336,11 @@ HLU_JOB = {
 			Weapons = { "weapon_357_hl", "weapon_shotgun_hl", "weapon_leash_police", "weapon_ram" },
 			Max = 1,
 			Category = "Security",
-			IsCop = true
+			IsCop = true,
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "Buckshot" )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Security Officer",
@@ -334,7 +350,10 @@ HLU_JOB = {
 			Weapons = { "weapon_9mmhandgun", "weapon_leash_police", "weapon_ram" },
 			Max = 3,
 			Category = "Security",
-			IsCop = true
+			IsCop = true,
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		}
 	},
 	[2] = { --City 17 RP Jobs
@@ -404,11 +423,14 @@ HLU_JOB = {
 		{
 			Name = "Overwatch Elite",
 			Description = "Elites are tougher, achieve better accuracy with their weapons, and inflict more overall damage than regular soldiers do. They typically carry Overwatch Standard Issue Pulse Rifles, and are able to use the weapon's secondary fire Energy Ball. They use this advantage without hesitation and with deadly accuracy. Elites also may be picked to protect the Earth's Admin's office.",
-			Color = Color( 255, 255, 187, 255 ),
+			Color = Color( 128, 128, 128, 255 ),
 			Models = { "models/player/combine_super_soldier.mdl" },
 			Weapons = { "weapon_ar2", "weapon_frag", "weapon_ram", "weapon_leash_police" },
 			Max = 2,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "AR2" )
+			end
 		},
 		{
 			Name = "Cremator",
@@ -417,34 +439,50 @@ HLU_JOB = {
 			Models = { "models/player/cremator_player.mdl" },
 			Weapons = { "weapon_bp_flamethrower" },
 			Max = 1,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 500, "bp_flame" )
+			end
 		},
 		{
 			Name = "Overwatch Guard",
 			Description = "The Overwatch Guard is in charge of guarding and maintaining the Citadel and any other places that may have a major Overwatch presence. Guards can also use Combine sniper rifles and stand guard on top of a building.",
 			Color = Color( 60, 90, 126, 255 ),
-			Models = { "models/player/combine_super_soldier.mdl" },
+			Models = { "models/player/combine_soldier_prisonguard.mdl" },
 			Weapons = { "weapon_frag", "weapon_bp_binoculars", "weapon_ram", "weapon_bp_sniper", "weapon_leash_police", "weapon_pistol", "weapon_medkit" },
 			Max = 3,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "bp_sniper" )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Overwatch Shotgunner Guard",
 			Description = "The Overwatch Guard is in charge of guarding and maintaining the Citadel and any other places that may have a major Overwatch presence. This is a special sub-class of guard that replaces the sniper rifle and pistol with a shotgun. It needs to be unlocked via the Combine science locker to be used.",
 			Color = Color( 30, 0, 0, 255 ),
-			Models = { "models/player/combine_super_soldier.mdl" },
+			Models = { "models/player/combine_soldier.mdl" },
 			Weapons = { "weapon_frag", "weapon_bp_binoculars", "weapon_ram", "weapon_shotgun", "weapon_leash_police", "weapon_pistol", "weapon_medkit" },
 			Max = 3,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "Buckshot" )
+				ply:GiveAmmo( 25, "Pistol" )
+				ply:SetSkin( 1 )
+			end
 		},
 		{
 			Name = "Overwatch Soldier",
 			Description = "Overwatch Soldiers are the basic trans-human infantry units of the Combine Overwatch, composing the backbone of the Combine's military presence on Earth. In contrast to Civil Protection, whose duties are to enforce order within suppressed population centers, soldiers of the Overwatch are tasked with more hazardous actions requiring skill and tact: from patrolling the treacherous borders of Combine-controlled territory to raiding Resistance-held strongholds.",
 			Color = Color( 128, 128, 128, 255 ),
-			Models = { "models/player/combine_super_soldier.mdl" },
+			Models = { "models/player/combine_soldier.mdl" },
 			Weapons = { "weapon_smg1", "weapon_frag", "weapon_bp_flaregun", "weapon_ram", "weapon_leash_police" },
 			Max = 4,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "SMG1" )
+				ply:SetSkin( 0 )
+			end
 		},
 		{
 			Name = "Manhack Civil Protection",
@@ -454,7 +492,10 @@ HLU_JOB = {
 			Weapons = { "weapon_pistol", "weapon_stunstick", "weapon_bp_flaregun", "weapon_ram", "weapon_leash_police", "weapon_controllable_manhack" },
 			Max = 1,
 			Category = "Combine",
-			IsCop = true
+			IsCop = true,
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Civil Protection",
@@ -464,7 +505,10 @@ HLU_JOB = {
 			Weapons = { "weapon_pistol", "weapon_stunstick", "weapon_bp_flaregun", "weapon_ram", "weapon_leash_police" },
 			Max = 0,
 			Category = "Combine",
-			IsCop = true
+			IsCop = true,
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		}
 	},
 	[3] = { --Outland RP Jobs
@@ -475,8 +519,7 @@ HLU_JOB = {
 			Models = civimodels,
 			Weapons = { "rphands", "mgs_pickaxe" },
 			Max = 0,
-			Category = "Rebels",
-			IsCop = true
+			Category = "Rebels"
 		},
 		{
 			Name = "Resistance Leader",
@@ -486,7 +529,10 @@ HLU_JOB = {
 			Weapons = { "weapon_smg1", "weapon_portal_pair", "weapon_agent" },
 			Max = 1,
 			Category = "Rebels",
-			IsCop = true
+			IsCop = true,
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "SMG1" )
+			end
 		},
 		{
 			Name = "Rebel",
@@ -512,7 +558,10 @@ HLU_JOB = {
 			Weapons = { "rphands", "weapon_smg1", "mgs_pickaxe" },
 			Max = 0,
 			Category = "Rebels",
-			IsCop = true
+			IsCop = true,
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "SMG1" )
+			end
 		},
 		{
 			Name = "Rebel Medic",
@@ -537,43 +586,61 @@ HLU_JOB = {
 			},
 			Weapons = { "weapon_pistol", "rphands", "mgs_pickaxe", "weapon_medkit" },
 			Max = 3,
-			Category = "Rebels"
+			Category = "Rebels",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Overwatch Elite",
 			Description = "Elites are tougher, achieve better accuracy with their weapons, and inflict more overall damage than regular soldiers do. They typically carry Overwatch Standard Issue Pulse Rifles, and are able to use the weapon's secondary fire Energy Ball. They use this advantage without hesitation and with deadly accuracy. Elites also may be picked to protect the Earth's Admin's office.",
-			Color = Color( 255, 255, 187, 255 ),
+			Color = Color( 128, 128, 128, 255 ),
 			Models = { "models/player/combine_super_soldier.mdl" },
 			Weapons = { "weapon_ar2", "weapon_frag", "weapon_ram", "weapon_leash_police" },
 			Max = 2,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "AR2" )
+			end
 		},
 		{
 			Name = "Overwatch Guard",
 			Description = "The Overwatch Guard is in charge of guarding and maintaining the Citadel and any other places that may have a major Overwatch presence. Guards can also use Combine sniper rifles and stand guard on top of a building.",
 			Color = Color( 60, 90, 126, 255 ),
-			Models = { "models/player/combine_super_soldier.mdl" },
+			Models = { "models/player/combine_soldier_prisonguard.mdl" },
 			Weapons = { "weapon_frag", "weapon_bp_binoculars", "weapon_ram", "weapon_bp_sniper", "weapon_leash_police", "weapon_pistol", "weapon_medkit" },
 			Max = 3,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "bp_sniper" )
+				ply:GiveAmmo( 25, "Pistol" )
+			end
 		},
 		{
 			Name = "Overwatch Soldier",
 			Description = "Overwatch Soldiers are the basic trans-human infantry units of the Combine Overwatch, composing the backbone of the Combine's military presence on Earth. In contrast to Civil Protection, whose duties are to enforce order within suppressed population centers, soldiers of the Overwatch are tasked with more hazardous actions requiring skill and tact: from patrolling the treacherous borders of Combine-controlled territory to raiding Resistance-held strongholds.",
 			Color = Color( 128, 128, 128, 255 ),
-			Models = { "models/player/combine_super_soldier.mdl" },
+			Models = { "models/player/combine_soldier.mdl" },
 			Weapons = { "weapon_smg1", "weapon_frag", "weapon_bp_flaregun", "weapon_ram", "weapon_leash_police" },
 			Max = 0,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "SMG1" )
+				ply:SetSkin( 0 )
+			end
 		},
 		{
 			Name = "Overwatch Shotgunner Guard",
 			Description = "The Overwatch Guard is in charge of guarding and maintaining the Citadel and any other places that may have a major Overwatch presence. This is a special sub-class of guard that replaces the sniper rifle and pistol with a shotgun. It needs to be unlocked via the Combine science locker to be used.",
 			Color = Color( 30, 0, 0, 255 ),
-			Models = { "models/player/combine_super_soldier.mdl" },
+			Models = { "models/player/combine_soldier.mdl" },
 			Weapons = { "weapon_ram", "weapon_shotgun", "weapon_leash_police" },
 			Max = 1,
-			Category = "Combine"
+			Category = "Combine",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "Buckshot" )
+				ply:SetSkin( 1 )
+			end
 		}
 	}
 }

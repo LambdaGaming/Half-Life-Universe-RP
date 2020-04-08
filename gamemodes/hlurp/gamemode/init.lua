@@ -48,7 +48,8 @@ function GM:PlayerLoadout( ply )
         "weapon_physcannon",
         "weapon_keys",
         "gmod_tool",
-        "gmod_camera"
+        "gmod_camera",
+		"pocket"
     }
     for k,v in pairs( DefaultWeps ) do
         ply:Give( v )
@@ -78,11 +79,15 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		return
 	end
 	ply:StripWeapons()
+	ply:StripAmmo()
 	ply:SetTeam( newteam )
 	ply:SetModel( table.Random( tbl.Models ) )
 	if !silent then
 		HLU_Notify( ply, "You have changed your job to "..tbl.Name..".", 0, 6 )
 		HLU_Notify( nil, ply:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
+	end
+	if tbl.SpawnFunction then
+		tbl.SpawnFunction( ply )
 	end
 	hook.Run( "PlayerLoadout", ply )
 	if respawn then
@@ -110,9 +115,11 @@ function GM:PlayerInitialSpawn( ply )
 end
 
 local function HLU_SpawnHook( ply )
+	local curmode = GetGlobalInt( "CurrentGamemode" )
 	timer.Simple( 0, function()
-		ply:SetModel( table.Random( HLU_JOB[GetGlobalInt( "CurrentGamemode" )][ply:Team()].Models ) )
-		if HLU_JOB[GetGlobalInt( "CurrentGamemode" )][ply:Team()].IsCop then
+		local jobtable = HLU_JOB[curmode][ply:Team()]
+		ply:SetModel( table.Random( jobtable.Models ) )
+		if jobtable.IsCop then
 			ply:SetWalkSpeed( 200 )
 			ply:SetRunSpeed( 260 )
 		else
@@ -120,23 +127,30 @@ local function HLU_SpawnHook( ply )
 			ply:SetRunSpeed( 240 )
 		end
 		ply:SetJumpPower( 180 )
+		if jobtable.SpawnFunction then
+			jobtable.SpawnFunction( ply )
+		end
 	end )
 end
 hook.Add( "PlayerSpawn", "HLU_SpawnHook", HLU_SpawnHook )
+
+local DropBlacklist = {
+	["weapon_physgun"] = true,
+	["weapon_physcannon"] = true,
+	["weapon_keys"] = true,
+	["gmod_tool"] = true,
+	["gmod_camera"] = true,
+	["weapon_cuffed"] = true,
+	["swep_vortigaunt_beam"] = true,
+	["pocket"] = true
+}
 
 function DropWeapon( ply )
 	if IsValid( ply ) then
 		local wep = ply:GetActiveWeapon()
 		local forward = ply:GetForward()
-		local DefaultWeps = {
-			["weapon_physgun"] = true,
-			["weapon_physcannon"] = true,
-			["weapon_keys"] = true,
-			["gmod_tool"] = true,
-			["gmod_camera"] = true
-		}
 		if IsValid( wep ) then
-			if DefaultWeps[wep:GetClass()] then
+			if DropBlacklist[wep:GetClass()] then
 				HLU_Notify( ply, "You can't drop this weapon.", 1, 6 )
 				return
 			end
@@ -158,20 +172,24 @@ function DropWeapon( ply )
 end
 
 local function HLU_DropWeaponDeath( ply )
-	local wep = ply:GetActiveWeapon()
-	local DefaultWeps = {
-		["weapon_physgun"] = true,
-		["weapon_physcannon"] = true,
-		["weapon_keys"] = true,
-		["gmod_tool"] = true,
-		["gmod_camera"] = true
-	}
-	if IsValid( wep ) and !DefaultWeps[wep:GetClass()] then
-		local e = ents.Create( "hlu_dropped_weapon" )
-		e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )
-		e:SetModel( wep:GetModel() )
-		e:Spawn()
-		e.DroppedClass = wep:GetClass()
+	if IsValid( ply ) then
+		local wep = ply:GetActiveWeapon()
+		if IsValid( wep ) then
+			if DropBlacklist[wep:GetClass()] then return end
+			local model
+			local phys = wep:GetPhysicsObject()
+			if IsValid( phys ) then
+				model = wep:GetModel()
+			else
+				model = "models/weapons/w_rif_m4a1.mdl"
+			end
+			local e = ents.Create( "hlu_dropped_weapon" )
+			e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )
+			e:SetModel( model )
+			e:Spawn()
+			e.DroppedClass = wep:GetClass()
+			wep:Remove()
+		end
 	end
 end
 hook.Add( "DoPlayerDeath", "HLU_DropWeaponDeath", HLU_DropWeaponDeath )
@@ -249,8 +267,8 @@ local function HLU_SpawnNPCs()
 		end
 		if map == "rp_bmrf" then
 			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -1251, 6766, 2160 ) )
-			e:SetAngles( angle_zero )
+			e:SetPos( Vector( 5615, -374, -63 ) )
+			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 1 )
 			local itemshop = ents.Create( "npc_item" )
@@ -268,10 +286,27 @@ local function HLU_SpawnNPCs()
 			itemshop3:SetAngles( Angle( 0, -90, 0 ) )
 			itemshop3:Spawn()
 			itemshop3:ApplyType( 4 )
+			local itemshop4 = ents.Create( "npc_item" )
+			itemshop4:SetPos( Vector( 509, 2912, -63 ) )
+			itemshop4:SetAngles( Angle( 0, 180, 0 ) )
+			itemshop4:Spawn()
+			itemshop4:ApplyType( 4 )
 			local budget = ents.Create( "budget_npc" )
 			budget:SetPos( Vector( -404, 2374, -63 ) )
 			budget:SetAngles( Angle( 0, 90, 0 ) )
 			budget:Spawn()
+		end
+		if map == "gm_atomic" then
+			local e = ents.Create( "npc_item" )
+			e:SetPos( Vector( -8407, -1818, -12639 ) )
+			e:SetAngles( Angle( 0, 90, 0 ) )
+			e:Spawn()
+			e:ApplyType( 1 )
+			local e2 = ents.Create( "npc_item" )
+			e2:SetPos( Vector( 4046, 3826, -12271 ) )
+			e2:SetAngles( Angle( 0, -90, 0 ) )
+			e2:Spawn()
+			e2:ApplyType( 1 )
 		end
 		if map == "rp_city17_build210" then
 			local e = ents.Create( "npc_item" )

@@ -39,19 +39,17 @@ function HLU_ChatNotifySystem( header, headercolor, text, private, ply )
 	end
 end
 
-local function GetSameCategory( ply, v )
+local function GetSameCategory( ply, listener )
 	local job = HLU_JOB[GetGlobalInt( "CurrentGamemode" )]
-	if job[ply:Team()].Category == job[v:Team()].Category then
+	if job[ply:Team()].Category == job[listener:Team()].Category then
 		return true
 	end
 	return false
 end
 
-local function CheckTeamPlayers( ply, text )
-	for k,v in pairs( player.GetHumans() ) do
-		if GetSameCategory( ply, v ) or ply:Team() == v:Team() or v == ply then
-			return true
-		end
+local function CheckTeamPlayers( listener, ply, text )
+	if listener == ply or ply:Team() == listener:Team() or GetSameCategory( ply, listener ) then
+		return true
 	end
 	return false
 end
@@ -78,7 +76,7 @@ local chatcommands = {
 function GM:PlayerCanSeePlayersChat( text, teamOnly, listener, speaker )
     local dist = listener:GetPos():DistToSqr( speaker:GetPos() )
 	if teamOnly then
-		return CheckTeamPlayers( speaker, text )
+		return CheckTeamPlayers( listener, speaker, text )
 	end
     return dist <= 90000
 end
@@ -92,10 +90,11 @@ local function DetectChatCommand( ply, text )
 end
 hook.Add( "PlayerSay", "DetectChatCommand", DetectChatCommand )
 
---[[ function GM:PlayerCanHearPlayersVoice( listener, talker ) --Only use as a last resort if sv_alltalk 2 doesn't work
-	local dist = 250000
+local function ShortenVoiceRange( listener, talker ) --Using this along with sv_alltalk 2 since all voice chats emit sound at 0,0,0 on the map for some reason
+	local dist = 562500
 	local listenpos = listener:GetPos()
 	local talkpos = talker:GetPos()
 	if listenpos:DistToSqr( talkpos ) <= dist then return true end
 	return false
-end ]]
+end
+hook.Add( "PlayerCanHearPlayersVoice", "ShortenVoiceRange", ShortenVoiceRange )

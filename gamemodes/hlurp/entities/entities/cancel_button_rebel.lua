@@ -45,6 +45,7 @@ if SERVER then
 			timer.Create( "rocket_timer", cooldown, 1, function() end )
 			HLU_Notify( nil, "Rocket failed to successfully launch, emergency cancellation button was activated.", 0, 6, true )
 			HLU_Notify( nil, "There were "..string.ToMinutesSeconds( math.Round( timer.TimeLeft( "rocketinit" ) ) ).." minutes left until the rocket launched.", 0, 6, true )
+			timer.Remove( "KickTimer" )
 			for k,v in pairs( ents.FindByClass( "gb5_proj_icbm_big" ) ) do
 				v:Remove()
 			end

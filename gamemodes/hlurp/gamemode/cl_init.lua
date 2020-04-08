@@ -123,9 +123,14 @@ function DrawJobMenu()
 				draw.RoundedBox( 0, 0, 0, w, h, v.Color )
 			end
 			mainbuttons.DoClick = function()
+				if ply.JobSelectCooldown and ply.JobSelectCooldown > CurTime() then
+					HLU_Notify( "Please wait a few seconds before changing jobs.", 1, 6 )
+					return
+				end
 				net.Start( "HLU_ChangeJob" )
 				net.WriteInt( k, 32 )
 				net.SendToServer()
+				ply.JobSelectCooldown = CurTime() + 5
 				mainframe:Close()
 			end
 			local buttontext = vgui.Create( "DLabel", mainbuttons )

@@ -12,8 +12,8 @@ hook.Add( "PlayerInitialSpawn", "OutlandCeasefireNotice", function( ply )
 	if timer.Exists( "OutlandTimer" ) then
 		timer.Simple( 10, function()
 			local ceasefiremessage = "The ceasefire is currently in effect. Use this time to set up a base."
-			HLU_ChatNotifySystem( "Outland RP", color_green, ceasefiremessage )
-			HLU_Notify( nil, ceasefiremessage, 0, 6, true )
+			HLU_ChatNotifySystem( "Outland RP", color_green, ceasefiremessage, true, ply )
+			HLU_Notify( ply, ceasefiremessage, 0, 6 )
 		end )
 	end
 end )

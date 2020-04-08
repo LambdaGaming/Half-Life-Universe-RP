@@ -18,6 +18,7 @@ net.Receive( "HLU_ChatNotify", function()
 	local header = net.ReadString()
 	local headercolor = net.ReadColor()
 	local text = net.ReadString()
+	if !ply:IsPlayer() then return end
 	HLU_ChatNotify( ply, header, headercolor, text )
 end )
 

@@ -64,7 +64,7 @@ net.Receive( "CreateItem", function( len, ply )
 		HLU_Notify( ply, "Global limit reached. Remove some instances of this entity to spawn it again.", 1, 6 )
 		return
 	end
-	if GetGlobalInt( "CurrentGamemode" ) == 1 then
+	if GetGlobalInt( "CurrentGamemode" ) == 1 and game.GetMap() != "gm_atomic" then
 		if money >= price then
 			if SpawnCheck and SpawnCheck( ply, self ) == false then return end
 			if SpawnItem then

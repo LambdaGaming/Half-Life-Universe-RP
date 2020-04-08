@@ -954,6 +954,22 @@ ItemNPC["vending_resupply"] = {
 	end
 }
 
+
+ItemNPC["mediaplayer_tv"] = {
+	Name = "Media Player",
+	RealClass = "mediaplayer_tv",
+	Description = "Used to watch youtube.",
+	Model = "models/gmod_tower/suitetv_large.mdl",
+	Price = 50,
+	Type = 4,
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "mediaplayer_tv" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
+	end
+}
+
 --Combine weapon dispenser items
 ItemNPC["item_battery"] = {
 	Name = "Armor Battery",
@@ -1244,7 +1260,7 @@ ItemNPC["crafting_tablecombine"] = {
 		return false
 	end,
 	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "hlu_shipment" )
+		local spawn = ents.Create( "crafting_table" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
 		spawn:Spawn()
 		spawn:SetTableType( 4 )
@@ -1282,5 +1298,20 @@ ItemNPC["announcement_speakercmd"] = {
 	end,
 	SpawnFunction = function( ply, self )
 		ply:Give( "announcement_speaker" )
+	end
+}
+
+ItemNPC["mediaplayer_tvcmb"] = {
+	Name = "Media Player",
+	RealClass = "mediaplayer_tv",
+	Description = "Used to watch youtube.",
+	Model = "models/gmod_tower/suitetv_large.mdl",
+	Price = 0,
+	Type = 5,
+	Max = 10,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "mediaplayer_tv" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
+		spawn:Spawn()
 	end
 }

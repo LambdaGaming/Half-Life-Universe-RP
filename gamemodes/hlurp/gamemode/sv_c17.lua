@@ -8,12 +8,12 @@ timer.Create( "City17Timer", 1800, 1, function()
 	HLU_Notify( nil, endmessage, 0, 6, true )
 end )
 
-local function City17CeasefireNotice()
+local function City17CeasefireNotice( ply )
 	if timer.Exists( "City17Timer" ) then
 		timer.Simple( 10, function() --Small timer since players tend to freeze for a few seconds after spawning in
 			local ceasefiremessage = "The ceasefire is currently in effect. Use this time to set up a base."
-			HLU_ChatNotifySystem( "City 17 RP", color_theme, ceasefiremessage )
-			HLU_Notify( nil, ceasefiremessage, 0, 6, true )
+			HLU_ChatNotifySystem( "City 17 RP", color_theme, ceasefiremessage, true, ply )
+			HLU_Notify( ply, ceasefiremessage, 0, 6 )
 		end )
 	end
 end
@@ -47,7 +47,7 @@ local function City17ScientistChange( ply, before, after )
 			return
 		end
 		HLU_Notify( ply, "You are under Combine control until the resistance is able to free you.", 0, 15 )
-		timer.Simple( 0.3, function() HLU_Notify( ply, 0, 15, "Visit the website for guidelines on how this job works if you are confused." ) end )
+		timer.Simple( 0.3, function() HLU_Notify( ply, "Visit the website for guidelines on how this job works if you are confused.", 0, 15 ) end )
 	end
 end
 hook.Add( "PlayerChangedTeam", "City17ScientistChange", City17ScientistChange ) --Thx gmod devs for finally fixing this hook
@@ -194,13 +194,13 @@ hook.Add( "InitPostEntity", "APCSpawn", APCSpawn )
 local function PlayerDeathDemote( ply )
 	local plyteam = ply:Team()
 	if plyteam == TEAM_EARTHADMIN then
-		ChangeTeam( ply, 1 )
+		ChangeTeam( ply, 1, false, true )
 		HLU_Notify( nil, "The earth admin has been killed!", 0, 6, true )
 	elseif plyteam == TEAM_GMANCITY then
-		ChangeTeam( ply, 1 )
+		ChangeTeam( ply, 1, false, true )
 		HLU_Notify( nil, "The government man was caught spying and has been killed!", 0, 6, true )
 	elseif plyteam == TEAM_RESISTANCELEADER then
-		ChangeTeam( ply, 1 )
+		ChangeTeam( ply, 1, false, true )
 		HLU_Notify( nil, "A resistance leader has been killed!", 0, 6, true )
 	end
 end
