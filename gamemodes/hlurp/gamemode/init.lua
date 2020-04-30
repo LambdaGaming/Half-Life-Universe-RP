@@ -62,6 +62,7 @@ end
 
 function ChangeTeam( ply, newteam, respawn, silent )
     local tbl = HLU_JOB[GetGlobalInt( "CurrentGamemode" )][newteam]
+	local model = ply:GetNWString( "SetPlayermodel_"..newteam )
 	if !HLU_JOB[GetGlobalInt( "CurrentGamemode" )] or !HLU_JOB[GetGlobalInt( "CurrentGamemode" )][newteam] then
 		HLU_Notify( ply, "Error changing jobs. Job does not exist.", 1, 6 )
 		return
@@ -81,7 +82,11 @@ function ChangeTeam( ply, newteam, respawn, silent )
 	ply:StripWeapons()
 	ply:StripAmmo()
 	ply:SetTeam( newteam )
-	ply:SetModel( table.Random( tbl.Models ) )
+	if model == "" then
+		ply:SetModel( table.Random( tbl.Models ) )
+	else
+		ply:SetModel( model )
+	end
 	if !silent then
 		HLU_Notify( ply, "You have changed your job to "..tbl.Name..".", 0, 6 )
 		HLU_Notify( nil, ply:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
@@ -358,3 +363,10 @@ local function HLU_SpawnNPCs()
 	end )
 end
 hook.Add( "InitPostEntity", "HLU_SpawnNPCs", HLU_SpawnNPCs )
+
+util.AddNetworkString( "SetPlayermodel" )
+net.Receive( "SetPlayermodel", function( len, ply )
+	local model = net.ReadString()
+	local job = net.ReadInt( 32 )
+	ply:SetNWString( "SetPlayermodel_"..job, model )
+end )

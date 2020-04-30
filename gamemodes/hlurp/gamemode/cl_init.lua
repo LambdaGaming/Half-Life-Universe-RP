@@ -71,6 +71,46 @@ local function textWrap(text, font, maxWidth)
     return text
 end
 
+local function SelectPlayermodel( num, job )
+	local ply = LocalPlayer()
+	local mainframe = vgui.Create( "DFrame" )
+	mainframe:SetTitle( "Choose a Playermodel:" )
+	mainframe:SetSize( ScrW() * 0.1, ScrH() * 0.5 )
+	mainframe:Center()
+	mainframe:MakePopup()
+	mainframe.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, themecolor )
+	end
+	mainframe.OnClose = function()
+		ply.MenuOpen = false
+	end
+	local listframe = vgui.Create( "DScrollPanel", mainframe )
+	listframe:Dock( FILL )
+	for k,v in pairs( job.Models ) do
+		local itembackground = vgui.Create( "DPanel", listframe )
+		itembackground:SetPos( 0, 10 )
+		itembackground:SetSize( 450, 100 )
+		itembackground:Dock( TOP )
+		itembackground:Center()
+		itembackground.Paint = function()
+			draw.RoundedBox( 0, 0, 0, itembackground:GetWide(), itembackground:GetTall(), color_transparent )
+		end
+		local itemicon = vgui.Create( "SpawnIcon", itembackground )
+		itemicon:SetPos( 10, 30 )
+		itemicon:SetModel( v )
+		itemicon:SetToolTip( false )
+		itemicon:SetSize( 60, 60 )
+		itemicon.DoClick = function()
+			net.Start( "SetPlayermodel" )
+			net.WriteString( v )
+			net.WriteInt( num, 32 )
+			net.SendToServer()
+			mainframe:Close()
+		end
+	end
+	ply.MenuOpen = true
+end
+
 function DrawJobMenu()
 	local ply = LocalPlayer()
 	local mainframe = vgui.Create( "DFrame" )
@@ -139,6 +179,23 @@ function DrawJobMenu()
 			buttontext:SetSize( mainbuttons:GetSize() )
 			buttontext:SetText( textWrap( "Description: "..v.Description, "JobDesc", ScrW() * 0.75 ) )
 			buttontext:SizeToContents()
+			if #v.Models > 1 then
+				local playermodel = vgui.Create( "DButton", mainbuttons )
+				local width, height = mainbuttons:GetSize()
+				playermodel:SetSize( 200, nil )
+				playermodel:SetPos( 0, height )
+				playermodel:SetText( "Select Playermodel" )
+				playermodel:SetFont( "JobTitle" )
+				playermodel:SetTextColor( color_white )
+				playermodel:Dock( RIGHT )
+				playermodel.Paint = function( self, w, h )
+					draw.RoundedBox( 0, 0, 0, w, h, color_transparent )
+				end
+				playermodel.DoClick = function()
+					mainframe:Close()
+					SelectPlayermodel( k, v )
+				end
+			end
 		end
 	end
 	ply.MenuOpen = true
