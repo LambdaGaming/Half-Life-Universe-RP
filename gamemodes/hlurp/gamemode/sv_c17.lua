@@ -172,24 +172,6 @@ local function C17Crafting()
 end
 hook.Add( "InitPostEntity", "C17Crafting", C17Crafting )
 
---Rebel crafting table spawns
-local function APCSpawn()
-	local map = game.GetMap()
-	if map != "rp_city24_v2" then return end
-	local pos = {
-		{ Vector( 473, 8517, 520 ), Angle( 0, 180, 0 ) },
-		{ Vector( 473, 8970, 520 ), Angle( 0, 180, 0 ) },
-		{ Vector( 473, 9401, 520 ), Angle( 0, 180, 0 ) }
-	}
-	for k,v in pairs( pos ) do
-		local e = ents.Create( "prop_vehicle_zapc" )
-		e:SetPos( v[1] )
-		e:SetAngles( v[2] )
-		e:Spawn()
-	end
-end
-hook.Add( "InitPostEntity", "APCSpawn", APCSpawn )
-
 --Player death management
 local function PlayerDeathDemote( ply )
 	local plyteam = ply:Team()

@@ -320,26 +320,6 @@ ItemNPC["gw_strider"] = {
 	end
 }
 
-ItemNPC["prop_vehicle_zapc"] = {
-	Name = "APC",
-	Description = "Ground unit, seats 3 people, armed with a pulse turret and rocket launcher.",
-	Model = "models/combine_apc.mdl",
-	Price = 0,
-	Type = 2,
-	Max = 10,
-	SpawnFunction = function( ply, self )
-		if map == valley then
-			local e = ents.Create( "prop_vehicle_zapc" )
-			e:SetPos( Vector( 14450, -14100, 100 ) )
-			e:Spawn()
-		else
-			local e = ents.Create( "prop_vehicle_zapc" )
-			e:SetPos( Vector( 2749, -14444, -6632 ) )
-			e:Spawn()
-		end
-	end
-}
-
 -----TURRET NPC ITEMS-----
 ItemNPC["ent_jack_turret_plinker"] = {
 	Name = "Plinker Sentry",
