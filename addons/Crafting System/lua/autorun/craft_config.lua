@@ -28,3 +28,28 @@ CRAFT_CONFIG_MENU_COLOR = Color( 49, 53, 61, 200 )
 CRAFT_CONFIG_BUTTON_COLOR = Color( 230, 93, 80, 255 )
 
 CRAFT_CONFIG_BUTTON_TEXT_COLOR = color_white
+
+CRAFT_CONFIG_BUTTON_TEXT_COLOR_CLOSE = Color( 255, 255, 0 )
+
+CRAFT_CONFIG_BUTTON_TEXT_COLOR_NONE = Color( 255, 0, 0 )
+
+--List of entities that can be dropped from mining a rock
+CRAFT_CONFIG_ROCK_INGREDIENTS = {
+	"ironbar"
+}
+
+--List of models the trees can have
+CRAFT_CONFIG_TREE_MODELS = {
+	"models/props/CS_militia/tree_large_militia.mdl"
+}
+
+--List of entities that can be dropped from mining a tree
+CRAFT_CONFIG_TREE_INGREDIENTS = {
+	"wood"
+}
+
+--List of allowed weapons to be used to mine rocks and trees
+CRAFT_CONFIG_MINE_WHITELIST = {
+	["weapon_crowbar"] = true,
+	["mgs_pickaxe"] = true
+}

@@ -36,13 +36,13 @@ DrawItems = function( ent ) --Panel that draws the list of materials that are on
 	mainframescroll:Dock( FILL )
 	for k,v in pairs( CraftingIngredient ) do
 		if ent:GetTableType() == 0 then
-			if type( v.Type ) == "Number" then
+			if isnumber( v.Type ) then
 				if v.Type != 1 then continue end
 			else
 				if !table.HasValue( v.Type, 1 ) then continue end
 			end
 		else
-			if type( v.Type ) == "Number" then
+			if isnumber( v.Type ) then
 				if v.Type != ent:GetTableType() then continue end
 			else
 				if !table.HasValue( v.Type, ent:GetTableType() ) then continue end
@@ -133,9 +133,19 @@ DrawRecipes = function( ent ) --Panel that draws the list of recipes
 			else
 				if v.Type != ent:GetTableType() then continue end
 			end
+			local changedtextcolor
+			for c,d in pairs( v.Materials ) do
+				if ent:GetNWInt( "Craft_"..c ) >= d then
+					changedtextcolor = CRAFT_CONFIG_BUTTON_TEXT_COLOR
+				elseif ent:GetNWInt( "Craft_"..c ) < d and ent:GetNWInt( "Craft_"..c ) >= d - math.Round( d * 0.25 ) then
+					changedtextcolor = CRAFT_CONFIG_BUTTON_TEXT_COLOR_CLOSE
+				elseif ent:GetNWInt( "Craft_"..c ) < d then
+					changedtextcolor = CRAFT_CONFIG_BUTTON_TEXT_COLOR_NONE
+				end
+			end
 			local mainbuttons = vgui.Create( "DButton", mainframescroll )
 			mainbuttons:SetText( v.Name )
-			mainbuttons:SetTextColor( CRAFT_CONFIG_BUTTON_TEXT_COLOR )
+			mainbuttons:SetTextColor( changedtextcolor )
 			mainbuttons:Dock( TOP )
 			mainbuttons:DockMargin( 0, 0, 0, 5 )
 			mainbuttons.Paint = function( self, w, h )
