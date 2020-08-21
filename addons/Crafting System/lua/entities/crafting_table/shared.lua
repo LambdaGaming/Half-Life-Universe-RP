@@ -1173,9 +1173,9 @@ CraftingTable["weapon_tripmine"] = {
 
 --Combine crafting items
 
-CraftingTable["ent_jack_turret_plinker"] = {
-	Name = ".22 LR Sentry",
-	Description = "Requires 2 iron and 2 wrenches.",
+CraftingTable["ent_jack_gmod_ezsentry"] = {
+	Name = "Sentry",
+	Description = "Requires 4 iron and 2 wrenches.",
 	Materials = {
 		ironbar = 2,
 		wrench = 2
@@ -1184,207 +1184,59 @@ CraftingTable["ent_jack_turret_plinker"] = {
 	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
-			local spawn = ents.Create("ent_jack_turret_plinker")
+			local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
 			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity("Owenur",ply)
-			spawn.TargetingGroup={1,3,6}
+			JMod_Owner( spawn, ply )
 			spawn:Spawn()
 			spawn:Activate()
 		end
 }
 
-CraftingTable["ent_jack_turret_pistol"] = {
-	Name = "9mm Pistol Sentry",
-	Description = "Requires 2 iron and 3 wrenches.",
+CraftingTable["ent_jack_gmod_ezammo"] = {
+	Name = "Turret Ammo",
+	Description = "Requires 4 iron.",
 	Materials = {
-		ironbar = 2,
-		wrench = 3
+		ironbar = 4
 	},
 	Type = 4,
 	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
-			local spawn = ents.Create("ent_jack_turret_pistol")
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity("Owenur",ply)
-			spawn.TargetingGroup={1,3,6}
-			spawn:Spawn()
-			spawn:Activate()
+			local e = ents.Create( "ent_jack_gmod_ezammo" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
 		end
 }
 
-CraftingTable["ent_jack_turret_rifle"] = {
-	Name = "5.56 Rifle Sentry",
-	Description = "Requires 3 iron and 4 wrenches.",
+CraftingTable["ent_jack_gmod_ezbattery"] = {
+	Name = "Battery",
+	Description = "Requires 3 iron and 1 wrench.",
 	Materials = {
 		ironbar = 3,
-		wrench = 4
+		wrench = 1
 	},
-	Type = 4,
+	Type = 1,
 	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
-			local spawn = ents.Create("ent_jack_turret_rifle")
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity("Owenur",ply)
-			spawn.TargetingGroup={1,3,6}
-			spawn:Spawn()
-			spawn:Activate()
-		end
-}
-
-CraftingTable["ent_jack_turret_smg"] = {
-	Name = "9mm SMG Sentry",
-	Description = "Requires 2 iron and 4 wrenches.",
-	Materials = {
-		ironbar = 2,
-		wrench = 4
-	},
-	Type = 4,
-	Category = "Turrets",
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create("ent_jack_turret_smg")
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity("Owenur",ply)
-			spawn.TargetingGroup={1,3,6}
-			spawn:Spawn()
-			spawn:Activate()
-		end
-}
-
-CraftingTable["ent_jack_turret_sniper"] = {
-	Name = "7.62 Sniper Sentry",
-	Description = "Requires 5 iron and 5 wrenches.",
-	Materials = {
-		ironbar = 5,
-		wrench = 5
-	},
-	Type = 4,
-	Category = "Turrets",
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create("ent_jack_turret_sniper")
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			spawn:SetNetworkedEntity("Owenur",ply)
-			spawn.TargetingGroup={1,3,6}
-			spawn:Spawn()
-			spawn:Activate()
-		end
-}
-
-CraftingTable["ent_jack_terminal"] = {
-	Name = "Sentry Terminal",
-	Description = "Requires 4 iron and 3 wrenches.",
-	Materials = {
-		ironbar = 4,
-		wrench = 3
-	},
-	Type = 4,
-	Category = "Turret Tools",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_terminal" )
+			local e = ents.Create( "ent_jack_gmod_ezbattery" )
 			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 			e:Spawn()
 		end
 }
 
-CraftingTable["ent_jack_turretammobox_9mm"] = {
-	Name = "9mm Sentry Ammo",
-	Description = "Requires 3 iron.",
+CraftingTable["ent_jack_gmod_ezparts"] = {
+	Name = "Parts Box",
+	Description = "Requires 1 iron and 1 wrench.",
 	Materials = {
-		ironbar = 3
-	},
-	Type = 4,
-	Category = "Turret Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_turretammobox_9mm" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
-}
-
-CraftingTable["ent_jack_turretammobox_22"] = {
-	Name = ".22 LR Sentry Ammo",
-	Description = "Requires 2 iron.",
-	Materials = {
-		ironbar = 2
-	},
-	Type = 4,
-	Category = "Turret Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_turretammobox_22" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
-}
-
-CraftingTable["ent_jack_turretammobox_556"] = {
-	Name = "5.56 Sentry Ammo",
-	Description = "Requires 4 iron and 1 wrench.",
-	Materials = {
-		ironbar = 4,
+		ironbar = 1,
 		wrench = 1
 	},
 	Type = 4,
-	Category = "Turret Ammo",
+	Category = "Turrets",
 	SpawnFunction =
 		function( ply, self )
-			local e = ents.Create( "ent_jack_turretammobox_556" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
-}
-
-CraftingTable["ent_jack_turretammobox_762"] = {
-	Name = "7.62 Sentry Ammo",
-	Description = "Requires 4 iron and 3 wrenches.",
-	Materials = {
-		ironbar = 4,
-		wrench = 3
-	},
-	Type = 4,
-	Category = "Turret Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_turretammobox_762" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
-}
-
-CraftingTable["ent_jack_turretbattery"] = {
-	Name = "Sentry Battery",
-	Description = "Requires 2 iron and 2 wrenches.",
-	Materials = {
-		ironbar = 2,
-		wrench = 2
-	},
-	Type = 4,
-	Category = "Turret Tools",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_turretbattery" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
-}
-
-CraftingTable["ent_jack_turretrepairkit"] = {
-	Name = "Sentry Repair Kit",
-	Description = "Requires 4 iron and 4 wrenches.",
-	Materials = {
-		ironbar = 4,
-		wrench = 4
-	},
-	Type = 4,
-	Category = "Turret Tools",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_turretrepairkit" )
+			local e = ents.Create( "ent_jack_gmod_ezparts" )
 			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 			e:Spawn()
 		end

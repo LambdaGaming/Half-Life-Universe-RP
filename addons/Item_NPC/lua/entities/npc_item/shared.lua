@@ -1217,21 +1217,6 @@ ItemNPC["crafting_tablecombine"] = {
 	end
 }
 
-ItemNPC["ent_jack_ifftagcmb"] = {
-	Name = "IFF Tag",
-	RealClass = "ent_jack_ifftag",
-	Description = "Link with a turret to prevent the turret from firing at you.",
-	Model = "models/Items/AR2_Grenade.mdl",
-	Price = 0,
-	Type = 5,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_ifftag" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
-		spawn:Spawn()
-	end
-}
-
 ItemNPC["announcement_speakercmd"] = {
 	Name = "Announcement Speaker",
 	RealClass = "announcement_speaker",
