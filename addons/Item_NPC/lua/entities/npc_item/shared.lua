@@ -353,6 +353,22 @@ ItemNPC["ent_jack_gmod_ezworkbench"] = {
 	end
 }
 
+ItemNPC["ent_jack_gmod_ezaidradio"] = {
+	Name = "Aid Radio",
+	Description = "Used to call for supply airdrops.",
+	Model = "models/props_rooftop/satellitedish02.mdl",
+	Price = 0,
+	Type = 3,
+	Max = 5,
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_gmod_ezaidradio" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		JMod_Owner( spawn, ply )
+		spawn:Spawn()
+		spawn:Activate()
+	end
+}
+
 ItemNPC["ent_jack_gmod_ezfieldhospital"] = {
 	Name = "Automated Field Hospital",
 	Description = "Large device to heal severe injuries such as radiation poisoning.",
