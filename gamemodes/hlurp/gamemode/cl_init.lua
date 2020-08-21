@@ -21,54 +21,11 @@ surface.CreateFont( "JobTitle", {
 
 surface.CreateFont( "JobDesc", {
 	font = "Arial",
-	size = 20
+	size = 16
 } )
 
 function GM:DrawDeathNotice()
 	return false
-end
-
---Credit to the DarkRP devs for these text wrap functions
-local function charWrap(text, remainingWidth, maxWidth)
-    local totalWidth = 0
-    text = text:gsub(".", function(char)
-        totalWidth = totalWidth + surface.GetTextSize(char)
-        if totalWidth >= remainingWidth then
-            totalWidth = surface.GetTextSize(char)
-            remainingWidth = maxWidth
-            return "\n" .. char
-        end
-        return char
-    end)
-    return text, totalWidth
-end
-
-local function textWrap(text, font, maxWidth)
-    local totalWidth = 0
-    surface.SetFont(font)
-    local spaceWidth = surface.GetTextSize(' ')
-    text = text:gsub("(%s?[%S]+)", function(word)
-            local char = string.sub(word, 1, 1)
-            if char == "\n" or char == "\t" then
-                totalWidth = 0
-            end
-            local wordlen = surface.GetTextSize(word)
-            totalWidth = totalWidth + wordlen
-            if wordlen >= maxWidth then
-                local splitWord, splitPoint = charWrap(word, maxWidth - (totalWidth - wordlen), maxWidth)
-                totalWidth = splitPoint
-                return splitWord
-            elseif totalWidth < maxWidth then
-                return word
-            end
-            if char == ' ' then
-                totalWidth = wordlen - spaceWidth
-                return '\n' .. string.sub(word, 2)
-            end
-            totalWidth = wordlen
-            return '\n' .. word
-        end)
-    return text
 end
 
 local function SelectPlayermodel( num, job )
@@ -174,16 +131,23 @@ function DrawJobMenu()
 				mainframe:Close()
 			end
 			local buttontext = vgui.Create( "DLabel", mainbuttons )
+			local bwidth, bheight = mainbuttons:GetSize()
 			buttontext:Dock( BOTTOM )
-			buttontext:DockMargin( 5, 5, 5, 5 )
-			buttontext:SetSize( mainbuttons:GetSize() )
-			buttontext:SetText( textWrap( "Description: "..v.Description, "JobDesc", ScrW() * 0.75 ) )
-			buttontext:SizeToContents()
+			buttontext:DockMargin( 200, 5, 200, 15 )
+			buttontext:SetAutoStretchVertical( true )
+			buttontext:SetText( "Description: "..v.Description )
+			buttontext:SetTextColor( color_white )
+			buttontext:SetFont( "JobDesc" )
+			buttontext:SetWrap( true )
+
+			local newwidth, newheight = buttontext:GetTextSize()
+			if newheight > 7000 then
+				mainbuttons:SetSize( bwidth, newheight * 0.015 )
+			end
+			
 			if #v.Models > 1 then
 				local playermodel = vgui.Create( "DButton", mainbuttons )
-				local width, height = mainbuttons:GetSize()
 				playermodel:SetSize( 200, nil )
-				playermodel:SetPos( 0, height )
 				playermodel:SetText( "Select Playermodel" )
 				playermodel:SetFont( "JobTitle" )
 				playermodel:SetTextColor( color_white )

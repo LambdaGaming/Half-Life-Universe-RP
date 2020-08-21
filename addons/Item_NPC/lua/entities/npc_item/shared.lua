@@ -321,93 +321,57 @@ ItemNPC["gw_strider"] = {
 }
 
 -----TURRET NPC ITEMS-----
-ItemNPC["ent_jack_turret_plinker"] = {
-	Name = "Plinker Sentry",
-	Description = "Chambered in .22 LR, does minimal damage.",
+ItemNPC["ent_jack_gmod_ezsentry"] = {
+	Name = "Sentry",
+	Description = "Automated turret that can be programmed to not shoot friendly players.",
 	Model = "models/Combine_turrets/Floor_turret.mdl",
 	Price = 0,
 	Type = 3,
 	Max = 5,
 	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_turret_plinker" )
+		local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		spawn:SetNetworkedEntity( "Owenur", ply )
-		spawn.TargetingGroup = { 1, 3, 6 }
+		JMod_Owner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
 }
 
-ItemNPC["ent_jack_turret_pistol"] = {
-	Name = "Pistol Sentry",
-	Description = "Chambered in 9mm , does a small amount of damage.",
-	Model = "models/Combine_turrets/Floor_turret.mdl",
+ItemNPC["ent_jack_gmod_ezworkbench"] = {
+	Name = "Workbench",
+	Description = "Used to craft armor and certain weapons.",
+	Model = "models/mosi/fallout4/furniture/workstations/weaponworkbench01.mdl",
 	Price = 0,
 	Type = 3,
 	Max = 5,
 	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_turret_pistol" )
+		local spawn = ents.Create( "ent_jack_gmod_ezworkbench" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		spawn:SetNetworkedEntity( "Owenur", ply )
-		spawn.TargetingGroup = { 1, 3, 6 }
+		JMod_Owner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
 }
 
-ItemNPC["ent_jack_turret_rifle"] = {
-	Name = "Rifle Sentry",
-	Description = "Chambered in 5.56, does high amounts of damage at short-med range.",
-	Model = "models/Combine_turrets/Floor_turret.mdl",
+ItemNPC["ent_jack_gmod_ezfieldhospital"] = {
+	Name = "Automated Field Hospital",
+	Description = "Large device to heal severe injuries such as radiation poisoning.",
+	Model = "models/mri-scanner/mri-scanner.mdl",
 	Price = 0,
 	Type = 3,
 	Max = 5,
 	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_turret_rifle" )
+		local spawn = ents.Create( "ent_jack_gmod_ezfieldhospital" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		spawn:SetNetworkedEntity( "Owenur", ply )
-		spawn.TargetingGroup = { 1, 3, 6 }
+		JMod_Owner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
 }
 
-ItemNPC["ent_jack_turret_smg"] = {
-	Name = "SMG Sentry",
-	Description = "Chambered in 9mm, same as pistol sentry but has a higher rate of fire.",
-	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Price = 0,
-	Type = 3,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_turret_smg" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		spawn:SetNetworkedEntity( "Owenur", ply )
-		spawn.TargetingGroup = { 1, 3, 6 }
-		spawn:Spawn()
-		spawn:Activate()
-	end
-}
-
-ItemNPC["ent_jack_turret_sniper"] = {
-	Name = "Sniper Sentry",
-	Description = "Chambered in 7.62, does high amounts of damage at long ranges.",
-	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Price = 0,
-	Type = 3,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_turret_sniper" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		spawn:SetNetworkedEntity( "Owenur", ply )
-		spawn.TargetingGroup = { 1, 3, 6 }
-		spawn:Spawn()
-		spawn:Activate()
-	end
-}
-
-ItemNPC["item_healthcharger"] = {
+ItemNPC["item_healthcharger_out"] = {
 	Name = "Mounted Healing Unit",
+	RealClass = "item_healthcharger",
 	Description = "Health unit that heals up to 75 HP. Recharges after 5 minutes when empty.",
 	Model = "models/props_combine/health_charger001.mdl",
 	Price = 0,
@@ -425,8 +389,9 @@ ItemNPC["item_healthcharger"] = {
 	end
 }
 
-ItemNPC["item_healthkit"] = {
+ItemNPC["item_healthkit_out"] = {
 	Name = "Health Kit",
+	RealClass = "item_healthkit",
 	Description = "Small, one-time-use health kit that heals up to 25 HP.",
 	Model = "models/Items/HealthKit.mdl",
 	Price = 0,
@@ -444,8 +409,9 @@ ItemNPC["item_healthkit"] = {
 	end
 }
 
-ItemNPC["item_battery"] = {
+ItemNPC["item_battery_out"] = {
 	Name = "Armor Battery",
+	RealClass = "item_battery",
 	Description = "Battery for HEV suits. Charges up to 25 AP.",
 	Model = "models/Items/battery.mdl",
 	Price = 0,
@@ -463,8 +429,9 @@ ItemNPC["item_battery"] = {
 	end
 }
 
-ItemNPC["item_suitcharger"] = {
+ItemNPC["item_suitcharger_out"] = {
 	Name = "Mounted Armor Charging Unit",
+	RealClass = "item_suitcharger",
 	Description = "Charging unit for HEV suits. Charges up to 75 AP.",
 	Model = "models/props_combine/suit_charger001.mdl",
 	Price = 0,
@@ -492,20 +459,6 @@ ItemNPC["crafting_tablerebel"] = {
 	Max = 5,
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "crafting_table" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
-		spawn:Spawn()
-	end
-}
-
-ItemNPC["ent_jack_ifftag"] = {
-	Name = "IFF Tag",
-	Description = "Link with a turret to prevent the turret from firing at you.",
-	Model = "models/Items/AR2_Grenade.mdl",
-	Price = 0,
-	Type = 3,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_ifftag" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 30 ) )
 		spawn:Spawn()
 	end

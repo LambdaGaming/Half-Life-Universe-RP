@@ -590,91 +590,92 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 			end
 	}
 
-	CraftingTable["ent_jack_terminal_rebel"] = {
-		Name = "Sentry Terminal",
+	CraftingTable["ent_jack_gmod_ezadvparts"] = {
+		Name = "Advanced Parts Box",
 		Description = "Requires 3 iron and 3 wrenches.",
 		Materials = {
 			ironbar = 3,
 			wrench = 3
 		},
 		Type = 1,
-		Category = "Tools",
+		Category = "Crafting Materials",
 		SpawnFunction =
 			function( ply, self )
-				local e = ents.Create( "ent_jack_terminal" )
+				local e = ents.Create( "ent_jack_gmod_ezadvparts" )
 				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 				e:Spawn()
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_9mm_rebel"] = {
-		Name = "9mm Sentry Ammo",
-		Description = "Requires 3 iron.",
+	CraftingTable["ent_jack_gmod_ezadvtextiles"] = {
+		Name = "Advanced Textiles Box",
+		Description = "Requires 2 iron and 2 wood.",
 		Materials = {
-			ironbar = 3
+			ironbar = 2,
+			wood = 2
+		},
+		Type = 1,
+		Category = "Crafting Materials",
+		SpawnFunction =
+			function( ply, self )
+				local e = ents.Create( "ent_jack_gmod_ezadvtextiles" )
+				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+				e:Spawn()
+			end
+	}
+
+	CraftingTable["ent_jack_gmod_ezammo"] = {
+		Name = "Turret Ammo",
+		Description = "Requires 4 iron.",
+		Materials = {
+			ironbar = 4
 		},
 		Type = 1,
 		Category = "Ammo",
 		SpawnFunction =
 			function( ply, self )
-				local e = ents.Create( "ent_jack_turretammobox_9mm" )
+				local e = ents.Create( "ent_jack_gmod_ezammo" )
 				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 				e:Spawn()
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_22_rebel"] = {
-		Name = ".22 LR Sentry Ammo",
-		Description = "Requires 2 iron.",
+	CraftingTable["ent_jack_gmod_ezbattery"] = {
+		Name = "Battery",
+		Description = "Requires 3 iron and 1 wrench.",
 		Materials = {
-			ironbar = 2
-		},
-		Type = 1,
-		Category = "Ammo",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_turretammobox_22" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
-	}
-
-	CraftingTable["ent_jack_turretammobox_556_rebel"] = {
-		Name = "5.56 Sentry Ammo",
-		Description = "Requires 4 iron and 1 wrench.",
-		Materials = {
-			ironbar = 4,
+			ironbar = 3,
 			wrench = 1
 		},
 		Type = 1,
-		Category = "Ammo",
+		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
-				local e = ents.Create( "ent_jack_turretammobox_556" )
+				local e = ents.Create( "ent_jack_gmod_ezbattery" )
 				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 				e:Spawn()
 			end
 	}
 
-	CraftingTable["ent_jack_turretammobox_762_rebel"] = {
-		Name = "7.62 Sentry Ammo",
-		Description = "Requires 4 iron and 3 wrenches.",
+	CraftingTable["ent_jack_gmod_ezmedsupplies"] = {
+		Name = "Medical Supply Box",
+		Description = "Requires 2 iron and 3 wood.",
 		Materials = {
-			ironbar = 4,
-			wrench = 3
+			ironbar = 2,
+			wood = 3
 		},
 		Type = 1,
-		Category = "Ammo",
+		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
-				local e = ents.Create( "ent_jack_turretammobox_762" )
+				local e = ents.Create( "ent_jack_gmod_ezmedsupplies" )
 				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 				e:Spawn()
 			end
 	}
 
-	CraftingTable["ent_jack_turretbattery_rebel"] = {
-		Name = "Sentry Battery",
+	CraftingTable["ent_jack_gmod_ezparts"] = {
+		Name = "Parts Box",
 		Description = "Requires 2 iron and 2 wrenches.",
 		Materials = {
 			ironbar = 2,
@@ -684,24 +685,7 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		Category = "Tools",
 		SpawnFunction =
 			function( ply, self )
-				local e = ents.Create( "ent_jack_turretbattery" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
-	}
-
-	CraftingTable["ent_jack_turretrepairkit_rebel"] = {
-		Name = "Sentry Repair Kit",
-		Description = "Requires 4 iron and 4 wrenches.",
-		Materials = {
-			ironbar = 4,
-			wrench = 4
-		},
-		Type = 1,
-		Category = "Tools",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_turretrepairkit" )
+				local e = ents.Create( "ent_jack_gmod_ezparts" )
 				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 				e:Spawn()
 			end

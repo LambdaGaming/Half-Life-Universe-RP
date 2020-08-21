@@ -21,21 +21,13 @@ if SERVER then
 		end
 		
 		local items = {
-			"ent_jack_turretammobox_9mm",
-			"ent_jack_turretammobox_9mm",
-			"ent_jack_turretammobox_9mm",
-			"ent_jack_turretammobox_22",
-			"ent_jack_turretammobox_22",
-			"ent_jack_turretammobox_22",
-			"ent_jack_turretammobox_22",
-			"ent_jack_turretammobox_556",
-			"ent_jack_turretammobox_556",
-			"ent_jack_turretammobox_762",
-			"ent_jack_turretbattery",
-			"ent_jack_turretbattery"
+			"ent_jack_gmod_ezammo",
+			"ent_jack_gmod_ezbattery",
+			"ent_jack_gmod_eznutrients",
+			"ent_jack_gmod_ezmedsupplies"
 		}
 		
-		timer.Create( tostring( self:EntIndex() ), 60, 0, function()
+		timer.Create( "ItemSpawner"..self:EntIndex(), 180, 0, function()
 			for k,v in pairs( ents.FindInSphere( self:GetPos(), 200 ) ) do
 				if table.HasValue( items, v:GetClass() ) then
 					return
@@ -49,7 +41,7 @@ if SERVER then
 end
 
 function ENT:OnRemove()
-	timer.Remove( tostring( self:EntIndex() ) )
+	timer.Remove( "ItemSpawner"..self:EntIndex() )
 end
 
 if CLIENT then

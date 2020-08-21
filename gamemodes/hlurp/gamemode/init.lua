@@ -342,8 +342,8 @@ local function HLU_SpawnNPCs()
 			e:ApplyType( 2 )
 
 			local e2 = ents.Create( "npc_item" )
-			e2:SetPos( Vector( -11046, 6843, 1024 ) )
-			e2:SetAngles( angle_zero )
+			e2:SetPos( Vector( -11993, 6232, 1024 ) )
+			e2:SetAngles( Angle( 0, 90, 0 ) )
 			e2:Spawn()
 			e2:ApplyType( 3 )
 		end
@@ -355,8 +355,8 @@ local function HLU_SpawnNPCs()
 			e:ApplyType( 2 )
 
 			local e2 = ents.Create( "npc_item" )
-			e2:SetPos( Vector( -367, 370, -6303 ) )
-			e2:SetAngles( Angle( 0, 67, 0 ) )
+			e2:SetPos( Vector( 64, 5130, -6400 ) )
+			e2:SetAngles( Angle( 0, -45, 0 ) )
 			e2:Spawn()
 			e2:ApplyType( 3 )
 		end
