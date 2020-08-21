@@ -53,7 +53,6 @@ hook.Add( "InitPostEntity", "LoadNewPersist", function()
 		e:Spawn()
 		e:Activate()
 		e:SetMoveType( MOVETYPE_NONE )
-		e:SetSolid( SOLID_VPHYSICS )
 		e.IsPermaProp = true
 	end
 	MsgC( color_red, "\n[HLU RP] Loaded perma props.\n" )

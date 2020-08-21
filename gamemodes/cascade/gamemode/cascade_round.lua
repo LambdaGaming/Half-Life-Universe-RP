@@ -311,14 +311,16 @@ local function ResetDoors()
 end
 
 function CascadePreRound()
-	for k,v in pairs( player.GetAll() ) do
-		if v:Team() == scientist then
-			v:SetPos( table.Random( CASCADE_SCIENTISTSPAWN ) ) --Scientists will first be spawned in a random science lab
-			v:ChatPrint( "You are a scientist. Your objective is to work with security to escape, and to build/invent machines to survive." )
+	timer.Simple( 3, function()
+		for k,v in pairs( player.GetAll() ) do
+			if v:Team() == scientist then
+				v:SetPos( table.Random( CASCADE_SCIENTISTSPAWN ) ) --Scientists will first be spawned in a random science lab
+				v:ChatPrint( "You are a scientist. Your objective is to work with security to escape, and to build/invent machines to survive." )
+			end
+			v:ChatPrint( "The pre-round has started. Scientists have been released." )
 		end
-		v:ChatPrint( "The pre-round has started. Scientists have been released." )
-	end
-	SetGlobalBool( "PreRound", true )
+		SetGlobalBool( "PreRound", true )
+	end )
 end
 
 function CascadeMainRound()
