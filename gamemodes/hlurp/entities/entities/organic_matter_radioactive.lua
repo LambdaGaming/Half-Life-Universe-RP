@@ -135,7 +135,7 @@ function ENT:StartTouch( ent )
 		if randchance >= 50 then
 			local randnpc = {
 				"monster_hound_eye",
-				"npc_bullsquid",
+				"monster_bullsquid",
 				"npc_headcrab",
 				"monster_hwgrunt",
 				"monster_alien_slv"

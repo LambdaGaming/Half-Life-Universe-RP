@@ -234,7 +234,7 @@ CASCADE_MONSTERS = {
 	"monster_agrunt",
 	"monster_controller",
 	"npc_headcrab",
-	"npc_bullsquid",
+	"monster_bullsquid",
 	"monster_hound_eye",
 	"monster_zombie_barney",
 	"monster_zombie_scientist"

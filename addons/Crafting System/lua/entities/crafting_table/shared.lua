@@ -776,7 +776,7 @@ CraftingTable["monster_controller"] = {
 		end
 }
 
-CraftingTable["npc_bullsquid"] = {
+CraftingTable["monster_bullsquid"] = {
 	Name = "Bullsquid",
 	Description = "Requires 4 organic matter and 2 xen iron.",
 	Materials = {
@@ -787,7 +787,7 @@ CraftingTable["npc_bullsquid"] = {
 	Category = "Creatures",
 	SpawnFunction =
 		function( ply, self )
-			local e = ents.Create( "npc_bullsquid" )
+			local e = ents.Create( "monster_bullsquid" )
 			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 			e:Spawn()
 		end

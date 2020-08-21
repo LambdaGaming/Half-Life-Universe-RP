@@ -76,7 +76,7 @@ local function XenSpawn()
 		"monster_agrunt",
 		"monster_controller",
 		"npc_headcrab",
-		"npc_bullsquid",
+		"monster_bullsquid",
 		"monster_hound_eye"
 	}
 

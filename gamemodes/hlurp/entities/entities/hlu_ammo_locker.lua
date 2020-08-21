@@ -31,7 +31,13 @@ if SERVER then
 		["AR2"] = "item_ammo_ar2_large",
 		["AR2AltFire"] = "item_ammo_ar2_altfire",
 		["SMG1_Grenade"] = "item_ammo_smg1_grenade",
-		["bp_sniper"] = "bp_sniper_ammo"
+		["bp_sniper"] = "bp_sniper_ammo",
+		["9mm"] = "ammo_9mmar",
+		["357"] = "item_ammo_357_large",
+		["45mm"] = "ammo_556",
+		["308"] = "ammo_762",
+		["m4grenade"] = "ammo_argrenades",
+		["uranium"] = "ammo_gaussclip"
 	}
 
 	function ENT:Use( ply )
