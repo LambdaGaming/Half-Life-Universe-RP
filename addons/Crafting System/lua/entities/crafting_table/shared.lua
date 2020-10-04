@@ -21,6 +21,7 @@ end
 CraftingTable = {}
 CraftingCategory = {}
 CraftingIngredient = {}
+local COLOR_DEFAULT = Color( 49, 53, 61, 255 )
 
 --Template Ingredient
 --[[
@@ -77,121 +78,122 @@ CraftingIngredient["crystal_fragment"] = {
 
 --Template Category
 --[[
-	CraftingCategory[1] = { --Be sure to change the number, the lower the number, the higher up in the list it is
-		Name = "Pistols", --Name of the category
-		Color = Color( 49, 53, 61, 255 ) --Color of the category box
+	CraftingCategory[1] = {
+		Name = "Pistols",
+		Color = COLOR_DEFAULT,
+		StartCollapsed = false
 	}
 ]]
 
 --Rebel categories
 CraftingCategory[1] = {
 	Name = "Pistols",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[2] = {
 	Name = "SMGs",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[3] = {
 	Name = "Rifles",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[4] = {
 	Name = "Shotguns",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[5] = {
 	Name = "Tools",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[6] = {
 	Name = "Crafting Ingredients",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[7] = {
 	Name = "Ammo",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[8] = {
 	Name = "Explosives",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 CraftingCategory[9] = {
 	Name = "Traps",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 1
 }
 
 --Biochemist categories
 CraftingCategory[10] = {
 	Name = "Creatures",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 2
 }
 
 CraftingCategory[11] = {
 	Name = "Bioweapons",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 2
 }
 
 --Weapons engineer categories
 CraftingCategory[12] = {
 	Name = "Normal Weapons",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 3
 }
 
 CraftingCategory[13] = {
 	Name = "Prototype Weapons",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 3
 }
 
 CraftingCategory[14] = {
 	Name = "Unusual Weapons",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 3
 }
 
 --Combine categories
 CraftingCategory[15] = {
 	Name = "Turrets",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 4
 }
 
 CraftingCategory[16] = {
 	Name = "Turret Ammo",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 4
 }
 
 CraftingCategory[17] = {
 	Name = "Turret Tools",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 4
 }
 
 CraftingCategory[18] = {
 	Name = "Other",
-	Color = Color( 49, 53, 61, 255 ),
+	Color = COLOR_DEFAULT,
 	Type = 4
 }
 
