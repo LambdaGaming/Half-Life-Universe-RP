@@ -29,10 +29,6 @@ CRAFT_CONFIG_BUTTON_COLOR = Color( 230, 93, 80, 255 )
 
 CRAFT_CONFIG_BUTTON_TEXT_COLOR = color_white
 
-CRAFT_CONFIG_BUTTON_TEXT_COLOR_CLOSE = Color( 255, 255, 0 )
-
-CRAFT_CONFIG_BUTTON_TEXT_COLOR_NONE = Color( 255, 0, 0 )
-
 --List of entities that can be dropped from mining a rock
 CRAFT_CONFIG_ROCK_INGREDIENTS = {
 	"ironbar"
