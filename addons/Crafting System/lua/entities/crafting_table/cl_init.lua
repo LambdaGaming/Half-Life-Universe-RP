@@ -157,17 +157,23 @@ DrawRecipes = function( ent ) --Panel that draws the list of recipes
 			mainlist:AddItem( mainbuttons )
 			categorybutton.NumEntries = categorybutton.NumEntries + 1
 
+			local totalrequired = 0
+			local totalamount = 0
 			local amountimage = vgui.Create( "DImage", mainbuttons )
 			amountimage:SetSize( 16, 16 )
 			amountimage:CenterVertical()
 			for c,d in pairs( v.Materials ) do
 				if ent:GetNWInt( "Craft_"..c ) >= d then
-					amountimage:SetImage( "icon16/accept.png" )
-				elseif ent:GetNWInt( "Craft_"..c ) < d and ent:GetNWInt( "Craft_"..c ) >= d - math.Round( d * 0.25 ) then
-					amountimage:SetImage( "icon16/error.png" )
-				elseif ent:GetNWInt( "Craft_"..c ) < d then
-					amountimage:SetImage( "icon16/delete.png" )
+					totalamount = totalamount + 1
 				end
+				totalrequired = totalrequired + 1
+			end
+			if totalamount >= totalrequired then
+				amountimage:SetImage( "icon16/accept.png" )
+			elseif math.Round( totalamount / totalrequired ) >= 0.50 then
+				amountimage:SetImage( "icon16/error.png" )
+			else
+				amountimage:SetImage( "icon16/delete.png" )
 			end
 		end
 		if categorybutton.NumEntries == 0 then
