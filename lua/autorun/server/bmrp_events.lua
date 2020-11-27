@@ -175,7 +175,7 @@ timer.Simple( 10, function()
 		local xenbreach_npcs = {
 			"npc_headcrab",
 			"monster_hound_eye",
-			"npc_bullsquid",
+			"monster_bullsquid",
 			"monster_alien_slv"
 		}
 
