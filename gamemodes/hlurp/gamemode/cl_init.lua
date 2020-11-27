@@ -28,6 +28,49 @@ function GM:DrawDeathNotice()
 	return false
 end
 
+scoreboard = scoreboard or {}
+function scoreboard:show()
+	local mainframe = vgui.Create( "DFrame" )
+	mainframe:SetSize( ScrW() * 0.70, ScrH() * 0.70 )
+	mainframe:Center()
+	mainframe:ShowCloseButton( false )
+	mainframe:MakePopup()
+	mainframe:SetTitle( "Lambda Gaming Half-Life Universe RP" )
+	mainframe.Paint = function( self, w, h )
+		draw.RoundedBox( 2, 0, 0, w, h, themecolor )
+	end
+
+	local plylist = vgui.Create( "DListView", mainframe )
+	plylist:Dock( FILL )
+	plylist:AddColumn( "Name" )
+	plylist:AddColumn( "Job" )
+	plylist:AddColumn( "Health" )
+	plylist:AddColumn( "Kills" )
+	plylist:AddColumn( "Deaths" )
+	plylist:SetDataHeight( 30 )
+	plylist.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, color_transparent )
+	end
+
+	for k,v in ipairs( player.GetAll() ) do
+		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths() )
+		function row:Paint( w, h )
+			draw.RoundedBox( 0, 0, 0, w, h, v:GetJobColor() )
+		end
+	end
+	function scoreboard:hide()
+		mainframe:Close()
+	end
+end
+
+function GM:ScoreboardShow()
+	scoreboard:show()
+end
+
+function GM:ScoreboardHide()
+	scoreboard:hide()
+end
+
 local function SelectPlayermodel( num, job )
 	local ply = LocalPlayer()
 	local mainframe = vgui.Create( "DFrame" )

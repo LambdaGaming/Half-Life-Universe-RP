@@ -662,6 +662,20 @@ function meta:IsJobCategory( category )
 	return jobtable.Category == category
 end
 
+function meta:GetJobName()
+	local curgame = GetGlobalInt( "CurrentGamemode" )
+	local job = self:Team()
+	local jobtable = HLU_JOB[curgame][job]
+	return jobtable.Name
+end
+
+function meta:GetJobColor()
+	local curgame = GetGlobalInt( "CurrentGamemode" )
+	local job = self:Team()
+	local jobtable = HLU_JOB[curgame][job]
+	return jobtable.Color
+end
+
 function GM:Initialize()
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	for k,v in pairs( HLU_JOB[curgame] ) do
