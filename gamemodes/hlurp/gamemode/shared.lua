@@ -368,7 +368,7 @@ HLU_JOB = {
 		},
 		{
 			Name = "Refugee",
-			Description = "Refugees are civilians of City 17 who have decided to fight against the combine. During City 17 RP , refugees are to start the uprising by crafting weapons and fighting the Combine. During Outland RP, refugees have the option to act as guards for rebel bases, but they can also choose to work by themselves or other refugees to create their own separate rebellion.",
+			Description = "Refugees are civilians of City 17 who have decided to fight against the combine. They typically create bases in areas of the city that are inaccessible to normal citizens to avoid detection.",
 			Color = Color( 28, 54, 9, 255 ),
 			Models = civimodels,
 			Weapons = { "rphands", "mgs_pickaxe" },
@@ -377,7 +377,7 @@ HLU_JOB = {
 		},
 		{
 			Name = "Resistance Leader",
-			Description = "The resistance leader is in charge of commanding the rebel force. The resistance leader is also in charge of the rocket at the rebel base and when it launches. While in City 17, however, it is the resistance leader's duty to recruit any refugees who are looking to fight the combine. It is recommended that you say hidden indoors and underground. Since you are one of the highest ranking members of the resistance, you cannot afford to get yourself captured and forced by the combine to give out resistance intel.",
+			Description = "The resistance leader is in charge of commanding the rebel force. It is their duty to recruit any refugees who are looking to fight the combine. It is recommended that you say hidden indoors and underground. Since you are one of the highest ranking members of the resistance, you cannot afford to get yourself captured and forced by the combine to give out resistance intel.",
 			Color = Color( 28, 54, 9, 255 ),
 			Models = leadermodels,
 			Weapons = { "weapon_smg1", "weapon_portal_pair", "weapon_agent" },
@@ -514,7 +514,7 @@ HLU_JOB = {
 	[3] = { --Outland RP Jobs
 		{
 			Name = "Refugee",
-			Description = "Refugees are civilians of City 17 who have decided to fight against the combine. During City 17 RP , refugees are to start the uprising by crafting weapons and fighting the Combine. During Outland RP, refugees have the option to act as guards for rebel bases, but they can also choose to work by themselves or other refugees to create their own separate rebellion.",
+			Description = "Refugees are civilians of City 17 who have decided to fight against the combine. They have the option to act as guards for rebel bases, but they can also choose to work by themselves or other refugees to create their own separate rebellion.",
 			Color = Color( 28, 54, 9, 255 ),
 			Models = civimodels,
 			Weapons = { "rphands", "mgs_pickaxe" },
@@ -523,7 +523,7 @@ HLU_JOB = {
 		},
 		{
 			Name = "Resistance Leader",
-			Description = "The resistance leader is in charge of commanding the rebel force. The resistance leader is also in charge of the rocket at the rebel base and when it launches. While in City 17, however, it is the resistance leader's duty to recruit any refugees who are looking to fight the combine. It is recommended that you say hidden indoors and underground. Since you are one of the highest ranking members of the resistance, you cannot afford to get yourself captured and forced by the combine to give out resistance intel.",
+			Description = "The resistance leader is in charge of commanding the rebel force. The resistance leader is also in charge of the rocket at the rebel base and when it launches. It is recommended that you say hidden indoors and underground. Since you are one of the highest ranking members of the resistance, you cannot afford to get yourself captured and forced by the combine to give out resistance intel.",
 			Color = Color( 0, 128, 0, 255 ),
 			Models = leadermodels,
 			Weapons = { "weapon_smg1", "weapon_portal_pair", "weapon_agent" },
