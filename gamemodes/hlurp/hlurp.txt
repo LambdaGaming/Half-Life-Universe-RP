@@ -4,4 +4,5 @@
 	"title"		"Half-Life Universe RP"
 	"menusystem"	"1"
 	"version" 	"1.0"
+	"category"	"rp"
 }
