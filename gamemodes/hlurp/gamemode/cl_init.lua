@@ -1,4 +1,3 @@
-
 include( "shared.lua" )
 include( "cl_hlu_chat.lua" )
 include( "sh_bmrp.lua" )
@@ -35,6 +34,7 @@ function scoreboard:show()
 	mainframe:Center()
 	mainframe:ShowCloseButton( false )
 	mainframe:MakePopup()
+	mainframe:SetDraggable( false )
 	mainframe:SetTitle( "Lambda Gaming Half-Life Universe RP" )
 	mainframe.Paint = function( self, w, h )
 		draw.RoundedBox( 2, 0, 0, w, h, themecolor )
@@ -56,6 +56,9 @@ function scoreboard:show()
 		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths() )
 		function row:Paint( w, h )
 			draw.RoundedBox( 0, 0, 0, w, h, v:GetJobColor() )
+		end
+		function row:OnSelect()
+			gui.OpenURL( "https://steamcommunity.com/profiles/"..v:SteamID64() )
 		end
 	end
 	function scoreboard:hide()
