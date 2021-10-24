@@ -162,7 +162,7 @@ local function MiscCommands( ply, text )
 end
 hook.Add( "PlayerSay", "BMRP_MiscCommands", MiscCommands )
 
---Remove Xen objects that trigger NPCs on rp_sectorc_beta
+--Remove Xen objects that trigger NPCs and cause other problems
 local function HairLoss()
 	if game.GetMap() == "rp_sectorc_beta" then
 		local models = {
@@ -170,27 +170,34 @@ local function HairLoss()
 			["models/fungus.mdl"] = true,
 			["models/fungus(small).mdl"] = true
 		}
-		for k,v in pairs( ents.GetAll() ) do
+		for k,v in ipairs( ents.GetAll() ) do
 			if models[v:GetModel()] then
 				v:Remove()
 			end
+		end
+	elseif game.GetMap() == "rp_bmrf" then
+		for k,v in pairs( ents.FindByClass( "xen_plantlight" ) ) do
+			v:Remove()
 		end
 	end
 end
 hook.Add( "InitPostEntity", "BMRP_HairLoss", HairLoss )
 
---Alarm chat command for the facility admin to remotely activate the alarm system
-local alarmindex = {
-	["rp_sectorc_beta"] = 1990,
-	["rp_blackmesa_laboratory"] = 712,
-	["rp_blackmesa_complex_fixed"] = 1104,
-	["rp_bmrf"] = 1151
-}
+function ToggleAlarm( forceon )
+	local alarmindex = {
+		["rp_sectorc_beta"] = 1990,
+		["rp_blackmesa_laboratory"] = 712,
+		["rp_blackmesa_complex_fixed"] = 1104,
+		["rp_bmrf"] = 1153
+	}
+	local ent = ents.GetByIndex( alarmindex[game.GetMap()] )
+	ent:Fire( forceon and "PressIn" or "Press" )
+end
 
+--Alarm chat command for the facility admin to remotely activate the alarm system
 local function AdminAlarm( ply, text )
 	if text == "!alarm" and ply:Team() == TEAM_ADMIN then
-		local ent = ents.GetByIndex( alarmindex[game.GetMap()] )
-		ent:Fire( "Press" )
+		ToggleAlarm()
 		return ""
 	end
 end

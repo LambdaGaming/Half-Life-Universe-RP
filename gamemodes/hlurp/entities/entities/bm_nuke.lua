@@ -5,7 +5,8 @@ ENT.Base = "base_gmodentity"
 ENT.PrintName = "Thermonuclear Device"
 ENT.Author = "Lambda Gaming"
 ENT.Category = "Superadmin Only"
-ENT.Spawnable = false
+ENT.Spawnable = true
+ENT.AdminOnly = true
 
 if SERVER then
 	local setmap = {
@@ -53,6 +54,9 @@ if SERVER then
 		HLU_Notify( nil, "Nuke activated. 2 minutes until detonation.", 1, 6, true )
 		for k,v in pairs( player.GetHumans() ) do
 			v:ConCommand( "play bmrp_nuke.mp3" )
+		end
+		if SERVER then
+			ToggleAlarm( true )
 		end
 	end
 end
