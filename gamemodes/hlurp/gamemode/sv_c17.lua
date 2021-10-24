@@ -48,6 +48,9 @@ local function City17ScientistChange( ply, before, after )
 		end
 		HLU_Notify( ply, "You are under Combine control until the resistance is able to free you.", 0, 15 )
 		timer.Simple( 0.3, function() HLU_Notify( ply, "Visit the website for guidelines on how this job works if you are confused.", 0, 15 ) end )
+	elseif before == TEAM_SCIENTIST then
+		ply:Spawn()
+		HLU_Notify( ply, "You have been sent back to spawn to avoid being locked in the citadel since you were a scientist.", 0, 10 )
 	end
 end
 hook.Add( "PlayerChangedTeam", "City17ScientistChange", City17ScientistChange ) --Thx gmod devs for finally fixing this hook
