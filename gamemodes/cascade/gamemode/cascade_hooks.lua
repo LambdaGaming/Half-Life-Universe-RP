@@ -8,7 +8,7 @@ if SERVER then
 			end
 			if timer.Exists( "MainLoop" ) then timer.Remove( "MainLoop" ) end
 			if timer.Exists( "MainLoopHalf" ) then timer.Remove( "MainLoopHalf" ) end
-			for k,v in pairs( player.GetAll() ) do
+			for k,v in ipairs( player.GetAll() ) do
 				v:ChatPrint( "The timer for this round has been disabled." )
 			end
 			return ""
@@ -37,12 +37,12 @@ if SERVER then
 			end
 			if GetGlobalBool( "FastMode" ) then
 				SetGlobalBool( "FastMode", false )
-				for k,v in pairs( player.GetAll() ) do
+				for k,v in ipairs( player.GetAll() ) do
 					v:ChatPrint( "Fast mode has been disabled. Timers will now have their default times." )
 				end
 			else
 				SetGlobalBool( "FastMode", true )
-				for k,v in pairs( player.GetAll() ) do
+				for k,v in ipairs( player.GetAll() ) do
 					v:ChatPrint( "The gamemode is now running in fast mode. All timers have been cut in half." )
 				end
 			end

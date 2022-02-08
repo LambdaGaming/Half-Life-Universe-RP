@@ -8,10 +8,10 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "Superadmin Only"
 
-function ENT:SpawnFunction( ply, tr )
+function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "tram_controller" )
+	local SpawnPos = tr.HitPos + tr.HitNormal
+	local ent = ents.Create( name )
 	ent:SetPos( SpawnPos + ent:GetUp() * 10 )
 	ent:Spawn()
 	ent:Activate()
@@ -20,10 +20,10 @@ end
 
 function ENT:Initialize()
     self:SetModel( "models/props/reqprops/supercomputer.mdl" )
-	self:SetMoveType(MOVETYPE_NONE)
-	self:SetSolid(SOLID_VPHYSICS)
+	self:SetMoveType( MOVETYPE_NONE )
+	self:SetSolid( SOLID_VPHYSICS )
 	if SERVER then
-		self:SetUseType(SIMPLE_USE)
+		self:SetUseType( SIMPLE_USE )
 	end
 	self.tramenabled = false
 end
@@ -39,7 +39,7 @@ function ENT:Use( caller, activator )
 				v:Fire( "PressOut" )
 			end
 		end
-		for a,b in pairs( player.GetAll() ) do
+		for a,b in ipairs( player.GetAll() ) do
 			b:ChatPrint( "The transit system has been activated!" )
 		end
 		self.tramenabled = true
@@ -50,7 +50,7 @@ function ENT:Use( caller, activator )
 				v:Fire( "PressIn" )
 			end
 		end
-		for a,b in pairs( player.GetAll() ) do
+		for a,b in ipairs( player.GetAll() ) do
 			b:ChatPrint( "The transit system has been disabled!" )
 		end
 		self.tramenabled = false

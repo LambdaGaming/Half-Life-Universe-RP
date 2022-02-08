@@ -35,7 +35,7 @@ function ENT:Initialize()
 end
 
 function ENT:Use( activator, caller )
-	DarkRP.notify( activator, 0, 6, "Place this near a science locker and press your use key on the locker to research something." )
+	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Place this key near a science locker and press your use key on the locker to research something.", true, activator )
 end
 
 if CLIENT then

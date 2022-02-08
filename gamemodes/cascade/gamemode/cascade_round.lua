@@ -12,7 +12,7 @@ function SetJobs() --Randomly selects jobs based on how many players there are, 
 	local ply = player.GetAll()
 	local plycount = player.GetCount()
 	if plycount <= 2 then
-		for k,v in pairs( ply ) do
+		for k,v in ipairs( ply ) do
 			v:ChatPrint( "BMRP:Cascade is intended to be used with 3 or more players. Errors may occur with 2 or less." )
 		end
 	end
@@ -84,7 +84,7 @@ function SpawnMonsters()
 end
 
 function TelePlayers()
-	for k,v in pairs( player.GetAll() ) do
+	for k,v in ipairs( player.GetAll() ) do
 		v:SetPos( table.Random( CASCADE_DEADPOS ) )
 		v:ChatPrint( "Teleported all players to the starting room." )
 	end
@@ -263,11 +263,9 @@ function PressAlarm() --Turns on alarms, disables the trams, and closes the fire
 	for k,v in pairs( ents.FindByClass( "func_button" ) ) do
 		if v:EntIndex() == 1153 then
 			v:Fire( "Press" )
-		end
-		if v:EntIndex() == 1151 then
+		elseif v:EntIndex() == 1151 then
 			v:Fire( "Press" )
-		end
-		if v:EntIndex() == 1272 then
+		elseif v:EntIndex() == 1272 then
 			v:Fire( "Press" )
 		end
 	end
@@ -277,11 +275,9 @@ function UnpressAlarm() --Turns off the alarm, starts up the trams, and lifts th
 	for k,v in pairs( ents.FindByClass( "func_button" ) ) do
 		if v:EntIndex() == 1153 then
 			v:Fire( "Press" )
-		end
-		if v:EntIndex() == 1151 then
+		elseif v:EntIndex() == 1151 then
 			v:Fire( "PressOut" ) --Using PressOut here incase the trams were re-activated during the round
-		end
-		if v:EntIndex() == 1272 then
+		elseif v:EntIndex() == 1272 then
 			v:Fire( "Press" )
 		end
 	end
@@ -312,7 +308,7 @@ end
 
 function CascadePreRound()
 	timer.Simple( 3, function()
-		for k,v in pairs( player.GetAll() ) do
+		for k,v in ipairs( player.GetAll() ) do
 			if v:Team() == scientist then
 				v:SetPos( table.Random( CASCADE_SCIENTISTSPAWN ) ) --Scientists will first be spawned in a random science lab
 				v:ChatPrint( "You are a scientist. Your objective is to work with security to escape, and to build/invent machines to survive." )
@@ -326,24 +322,20 @@ end
 function CascadeMainRound()
 	SetGlobalBool( "PreRound", false )
 	SetGlobalBool( "MainRound", true )
-	for k,v in pairs( player.GetAll() ) do --Spawns the rest of the players after the pre-round is over
+	for k,v in ipairs( player.GetAll() ) do --Spawns the rest of the players after the pre-round is over
 		if v:Team() == admin then
 			v:SetPos( table.Random( CASCADE_ADMINPOS ) )
 			v:ChatPrint( "You are a facility administrator. Your objective is to kill all non-military personnel on sight and prevent them from escaping." )
-		end
-		if v:Team() == security then
+		elseif v:Team() == security then
 			v:SetPos( table.Random( CASCADE_SECURITYPOS ) )
 			v:ChatPrint( "You are a security officer. Your objective is to work with scientists to escape." )
-		end
-		if v:Team() == medic then
+		elseif v:Team() == medic then
 			v:SetPos( table.Random( CASCADE_MEDICPOS ) )
 			v:ChatPrint( "You are a medic. Your objective is to avoid being captured by scientists and/or security, and to work with HECU to escape." )
-		end
-		if v:Team() == vort then
+		elseif v:Team() == vort then
 			v:SetPos( table.Random( CASCADE_VORTPOS ) )
 			v:ChatPrint( "You are a vortigaunt who has been freed from slavery. Your objective is to protect humans from invading Xen aliens." )
-		end	
-		if v:Team() == visitor then
+		elseif v:Team() == visitor then
 			v:SetPos( table.Random( CASCADE_DEADPOS ) )
 			v:ChatPrint( "You are still a visitor because you spawned in after jobs were selected. You will respawn as HECU in "..string.ToMinutesSeconds( timer.TimeLeft( "HECULoop" ) ) )
 		end
@@ -352,7 +344,7 @@ end
 
 function ResetRound() --Places everyone in the waiting room, resets everyone's scores, and removes the HECU timer
 	local WinnerTable = {}
-	for k,v in pairs( player.GetAll() ) do
+	for k,v in ipairs( player.GetAll() ) do
 		if v:Team() == admin then
 			local amount = v:Frags() * 200
 			v:ChatPrint( "You have been awarded $"..amount.." for getting "..v:Frags().." kills as the facility administrator." )
@@ -360,6 +352,9 @@ function ResetRound() --Places everyone in the waiting room, resets everyone's s
 		elseif v:Team() != visitor and v:Team() != marine then
 			v:ChatPrint( "You have been awarded $1000 for staying alive in the facility until the end of the round." )
 			WinnerTable[v:SteamID()] = 1000
+		elseif v:Team() == marine and v.EscortBonus then
+			WinnerTable[v:SteamID()] = 600 * v.EscortBonus
+			v.EscortBonus = 0
 		end
 		v:SetDeaths( 0 )
 		v:SetFrags( 0 )
@@ -387,12 +382,12 @@ end
 function Cascade()
 	if game.GetMap() != "rp_bmrf" then Error( "Cascade will not be loaded. Incorrect map." ) return end
 	SetJobs()
-	for k,v in pairs( player.GetAll() ) do
+	for k,v in ipairs( player.GetAll() ) do
 		v:ChatPrint( "Teams selected. Starting round in 5 seconds." )
 	end
 	timer.Simple( 5, function()
 		local fastmode = GetGlobalBool( "FastMode" )
-		for k,v in pairs( player.GetAll() ) do
+		for k,v in ipairs( player.GetAll() ) do
 			v:ConCommand( "say /setr 42.0" ) --Sets radio channel every round, players will have to manually change it if they want to keep their conversations private
 		end
 		CascadePreRound()
@@ -405,7 +400,7 @@ function Cascade()
 			hecutimer = 300
 		end
 		timer.Create( "HECULoop", hecutimer, 0, function() --Creates timer loop for respawning dead players as HECU
-			for k,v in pairs( player.GetAll() ) do
+			for k,v in ipairs( player.GetAll() ) do
 				if v:Team() == visitor and v:Alive() then
 					ChangeTeam( v, TEAM_MARINE, false )
 					v:SetPos( table.Random( CASCADE_HECUPOS ) )
@@ -418,7 +413,7 @@ function Cascade()
 			timer.Create( "MainRoundStart", 90, 1, function() CascadeMainRound() end )
 			timer.Create( "MainLoop", 600, 1, function() ResetRound() end )
 			timer.Create( "MainLoopHalf", 300, 1, function()
-				for k,v in pairs( player.GetAll() ) do
+				for k,v in ipairs( player.GetAll() ) do
 					v:ChatPrint( "10 minute warning, the round is half way over." )
 				end
 			end )
@@ -426,7 +421,7 @@ function Cascade()
 			timer.Create( "MainRoundStart", 180, 1, function() CascadeMainRound() end )
 			timer.Create( "MainLoop", 1200, 1, function() ResetRound() end )
 			timer.Create( "MainLoopHalf", 600, 1, function()
-				for k,v in pairs( player.GetAll() ) do
+				for k,v in ipairs( player.GetAll() ) do
 					v:ChatPrint( "5 minute warning, the round is half way over." )
 				end
 			end )
@@ -434,7 +429,7 @@ function Cascade()
 		PressAlarm()
 		LockDoors()
 		SpawnMonsters()
-		for k,v in pairs( player.GetAll() ) do
+		for k,v in ipairs( player.GetAll() ) do
 			SyncCascadeTimers( v )
 		end
 	end )
