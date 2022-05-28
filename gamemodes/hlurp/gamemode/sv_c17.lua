@@ -53,52 +53,56 @@ local function City17ScientistChange( ply, before, after )
 		HLU_Notify( ply, "You have been sent back to spawn to avoid being locked in the citadel since you were a scientist.", 0, 10 )
 	end
 end
-hook.Add( "PlayerChangedTeam", "City17ScientistChange", City17ScientistChange ) --Thx gmod devs for finally fixing this hook
+hook.Add( "PlayerChangedTeam", "City17ScientistChange", City17ScientistChange )
 
 --Overwatch announcement chat commands
+local OverwatchCommands = {
+	["person"] = "npc/overwatch/cityvoice/f_confirmcivilstatus_1_spkr.wav",
+	["anticiv"] = "npc/overwatch/cityvoice/f_anticivilevidence_3_spkr.wav",
+	["evadeciv"] = "npc/overwatch/cityvoice/f_evasionbehavior_2_spkr.wav",
+	["civreport"] = "npc/overwatch/cityvoice/f_innactionisconspiracy_spkr.wav",
+	["position"] = "npc/overwatch/cityvoice/f_trainstation_assumepositions_spkr.wav",
+	["failure"] = "npc/overwatch/cityvoice/fprison_missionfailurereminder.wav",
+	["capitalmal"] = "npc/overwatch/cityvoice/f_capitalmalcompliance_spkr.wav",
+	["socifive"] = "npc/overwatch/cityvoice/f_ceaseevasionlevelfive_spkr.wav",
+	["violation"] = "npc/overwatch/cityvoice/f_citizenshiprevoked_6_spkr.wav",
+	["unrest"] = "npc/overwatch/cityvoice/f_localunrest_spkr.wav",
+	["evasion"] = "npc/overwatch/cityvoice/f_protectionresponse_1_spkr.wav",
+	["block"] = "npc/overwatch/cityvoice/f_rationunitsdeduct_3_spkr.wav",
+	["socione"] = "npc/overwatch/cityvoice/f_sociolevel1_4_spkr.wav",
+	["check"] = "npc/overwatch/cityvoice/f_trainstation_assemble_spkr.wav",
+	["miscount"] = "npc/overwatch/cityvoice/f_trainstation_cooperation_spkr.wav",
+	["relocation"] = "npc/overwatch/cityvoice/f_trainstation_offworldrelocation_spkr.wav",
+	["exogen"] = "npc/overwatch/cityvoice/fprison_nonstandardexogen.wav"
+}
+
 local function City17AdminCommands( ply, text )
 	local allowedjobs = {
 		[TEAM_EARTHADMIN] = true,
 		[TEAM_COMBINEELITE] = true
 	}
 
-	local cmd = {
-		{ "/person", "npc/overwatch/cityvoice/f_confirmcivilstatus_1_spkr.wav" },
-		{ "/anticiv", "npc/overwatch/cityvoice/f_anticivilevidence_3_spkr.wav" },
-		{ "/evadeciv", "npc/overwatch/cityvoice/f_evasionbehavior_2_spkr.wav" },
-		{ "/civreport", "npc/overwatch/cityvoice/f_innactionisconspiracy_spkr.wav" },
-		{ "/position", "npc/overwatch/cityvoice/f_trainstation_assumepositions_spkr.wav" },
-		{ "/failure", "npc/overwatch/cityvoice/fprison_missionfailurereminder.wav" },
-		{ "/capitalmal", "npc/overwatch/cityvoice/f_capitalmalcompliance_spkr.wav" },
-		{ "/socifive", "npc/overwatch/cityvoice/f_ceaseevasionlevelfive_spkr.wav" },
-		{ "/violation", "npc/overwatch/cityvoice/f_citizenshiprevoked_6_spkr.wav" },
-		{ "/unrest", "npc/overwatch/cityvoice/f_localunrest_spkr.wav" },
-		{ "/evasion", "npc/overwatch/cityvoice/f_protectionresponse_1_spkr.wav" },
-		{ "/block", "npc/overwatch/cityvoice/f_rationunitsdeduct_3_spkr.wav" },
-		{ "/socione", "npc/overwatch/cityvoice/f_sociolevel1_4_spkr.wav" },
-		{ "/check", "npc/overwatch/cityvoice/f_trainstation_assemble_spkr.wav" },
-		{ "/miscount", "npc/overwatch/cityvoice/f_trainstation_cooperation_spkr.wav" },
-		{ "/relocation", "npc/overwatch/cityvoice/f_trainstation_offworldrelocation_spkr.wav" },
-		{ "/exogen", "npc/overwatch/cityvoice/fprison_nonstandardexogen.wav" }
-	}
-
-	local function SendSound( sound )
-		for k,v in pairs( player.GetHumans() ) do
-			v:ConCommand( "play "..sound )
-		end
-	end
-
-	for k,v in pairs( cmd ) do
-		if text == v[1] then
-			if !allowedjobs[ply:Team()] then
-				HLU_Notify( ply, "You do not have the right job to use these commands.", 1, 6 )
-				return ""
+	if allowedjobs[ply:Team()] then
+		if text == "/fatboy" then
+			for k,v in ipairs( player.GetHumans() ) do
+				v:ConCommand( "play admin/fat_boy.mp3" )
+				cooldown = CurTime() + 10
 			end
+			return ""
+		end
+	
+		local split = string.Split( text, " " )
+		if split[1] == "!announce" then
 			if ply:Team() == TEAM_COMBINEELITE and player.GetCount() > 5 then
 				HLU_Notify( ply, "There are too many players for you to take the Earth Admin's role.", 1, 6 )
 				return ""
 			end
-			SendSound( v[2] )
+			if !split[2] or !OverwatchCommands[split[2]] then
+				HLU_Notify( ply, "Please provide a valid argument. https://lambdagaming.github.io/hlurp/commands.html", 1, 6 )
+				return ""
+			end
+			RunConsoleCommand( "play", OverwatchCommands[split[2]] )
+			cooldown = CurTime() + 10
 			return ""
 		end
 	end
