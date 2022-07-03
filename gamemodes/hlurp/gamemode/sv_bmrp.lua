@@ -66,78 +66,72 @@ local function CommandSound( ply, text )
 end
 hook.Add( "PlayerSay", "BMRPCommandSounds", CommandSound )
 
---Console command for spawning NPCs in Xen
-local function XenSpawn()
-	if game.GetMap() == "gm_atomic" then return end
-	for k,v in pairs( ents.FindByClass( "npc_*" ) ) do
-		if v.IsXenNPC then v:Remove() end
-	end
+--Functions for spawning and respawning NPCs in Xen
+local XenSpawn, XenRespawn
+XenRespawn = function()
 	for k,v in pairs( ents.FindByClass( "monster_*" ) ) do
-		if v.IsXenNPC then v:Remove() end
+		if v.IsXenNPC then return end
 	end
+	timer.Simple( 600, function()
+		XenSpawn()
+	end )
+end
+
+XenSpawn = function()
+	if game.GetMap() == "gm_atomic" then return end
 
 	local monsters = {
 		"monster_alien_slv",
 		"monster_agrunt",
 		"monster_controller",
-		"npc_headcrab",
 		"monster_bullsquid",
 		"monster_hound_eye"
 	}
 
 	local NPCPosTable
-
-	local sectorcpos = {
-		Vector( -4312, -10572, 15 ),
-		Vector( -4314, -9693, 45 ),
-		Vector( -3841, -10562, 30 ),
-		Vector( -6203, -11538, 115 ),
-		Vector( -4343, -7738, -730 ),
-		Vector( -6508, -12717, 115 ),
-		Vector( -5484, -9237, -2845 ),
-		Vector( -5736, -6869, -975 ),
-		Vector( -8775, -7680, -2950 ),
-		Vector( -7995, -7833, -2945 ),
-		Vector( -10049, -6705, -2660 ),
-		Vector( -10490, -7925, -2660 )
-	}
-
-	local complexpos = {
-		Vector( 8747, -2843, 1425 ),
-		Vector( 7985, -3491, 1425 ),
-		Vector( 9017, -3441, 1425 ),
-		Vector( 9415, -4233, 1055 ),
-		Vector( 9579, -4030, 1250 ),
-		Vector( 8802, -3951, 1055 ),
-		Vector( 9122, -3115, 1090 ),
-		Vector( 8276, -3073, 1055 )
-	}
-
-	local laboratorypos = {
-		Vector( -4480, -39, -350 ),
-		Vector( -4278, 1331, -350 ),
-		Vector( -4015, 1916, -350 ),
-		Vector( -4564, 1512, -350 ),
-		Vector( -5243, 1906, -350 ),
-		Vector( -4567, 2252, -350 )
-	}
-
-	local bmrfpos = {
-		Vector( -14609, -14482, -14952 ),
-		Vector( -14309, -14713, -15006 ),
-		Vector( -13876, -14545, -14941 ),
-		Vector( -14381, -14138, -14950 ),
-		Vector( -14321, -14431, -15017 )
-	}
-
 	if game.GetMap() == "rp_sectorc_beta" then
-		NPCPosTable = sectorcpos
+		NPCPosTable = {
+			Vector( -4312, -10572, 15 ),
+			Vector( -4314, -9693, 45 ),
+			Vector( -3841, -10562, 30 ),
+			Vector( -6203, -11538, 115 ),
+			Vector( -4343, -7738, -730 ),
+			Vector( -6508, -12717, 115 ),
+			Vector( -5484, -9237, -2845 ),
+			Vector( -5736, -6869, -975 ),
+			Vector( -8775, -7680, -2950 ),
+			Vector( -7995, -7833, -2945 ),
+			Vector( -10049, -6705, -2660 ),
+			Vector( -10490, -7925, -2660 )
+		}
 	elseif game.GetMap() == "rp_blackmesa_complex_fixed" then
-		NPCPosTable = complexpos
+		NPCPosTable = {
+			Vector( 8747, -2843, 1425 ),
+			Vector( 7985, -3491, 1425 ),
+			Vector( 9017, -3441, 1425 ),
+			Vector( 9415, -4233, 1055 ),
+			Vector( 9579, -4030, 1250 ),
+			Vector( 8802, -3951, 1055 ),
+			Vector( 9122, -3115, 1090 ),
+			Vector( 8276, -3073, 1055 )
+		}
 	elseif game.GetMap() == "rp_blackmesa_laboratory" then
-		NPCPosTable = laboratorypos
+		NPCPosTable = {
+			Vector( -4480, -39, -350 ),
+			Vector( -4278, 1331, -350 ),
+			Vector( -4015, 1916, -350 ),
+			Vector( -4564, 1512, -350 ),
+			Vector( -5243, 1906, -350 ),
+			Vector( -4567, 2252, -350 )
+		}
 	elseif game.GetMap() == "rp_bmrf" then
-		NPCPosTable = bmrfpos
+		NPCPosTable = {
+			Vector( -14609, -14482, -14952 ),
+			Vector( -14309, -14713, -15006 ),
+			Vector( -13876, -14545, -14941 ),
+			Vector( -14381, -14138, -14950 ),
+			Vector( -14321, -14431, -15017 )
+		}
 	end
 
 	for k,v in ipairs( NPCPosTable ) do
@@ -145,10 +139,10 @@ local function XenSpawn()
 		e:SetPos( v )
 		e:Spawn()
 		e:EmitSound( "debris/beamstart7.wav" )
+		e:CallOnRemove( "XenRespawn", function() XenRespawn() end )
 		e.IsXenNPC = true
 	end
 end
-concommand.Add( "xenspawn", XenSpawn )
 hook.Add( "InitPostEntity", "SpawnXenNPCs", function() XenSpawn() end )
 
 --Show ID chat command
