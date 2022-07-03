@@ -25,12 +25,13 @@ function SWEP:PrimaryAttack()
 	if !IsFirstTimePredicted() or CLIENT then return end
     local tr = self.Owner:GetEyeTrace().Entity
 	if self.Owner:GetPos():DistToSqr( tr:GetPos() ) > 90000 then return end
-	if tr.IsPermaProp or tr:IsPlayer() or tr:IsWorld() or tr:CreatedByMap() or tr:GetClass() == "prop_physics" then return end
-	local e = ents.Create( "trash_ent" )
-	e:SetPos( tr:GetPos() )
-	e:SetAngles( tr:GetAngles() )
-	e:Spawn()
-	e:EmitSound( "physics/cardboard/cardboard_box_impact_soft"..math.random( 1, 7 )..".wav" )
-	tr:Remove()
+	if GLOBAL_WHITELIST[tr:GetClass()] then
+		local e = ents.Create( "trash_ent" )
+		e:SetPos( tr:GetPos() )
+		e:SetAngles( tr:GetAngles() )
+		e:Spawn()
+		e:EmitSound( "physics/cardboard/cardboard_box_impact_soft"..math.random( 1, 7 )..".wav" )
+		tr:Remove()
+	end
     self:SetNextPrimaryFire( CurTime() + 1 )
 end

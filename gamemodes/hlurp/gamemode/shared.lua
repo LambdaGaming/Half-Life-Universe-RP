@@ -33,16 +33,33 @@ elseif outlandmaps[game.GetMap()] then
 	SetGlobalInt( "CurrentGamemode", 3 )
 end
 
+GLOBAL_WHITELIST = { --Global entity whitelist currently used by the trash swep and the pocket
+	["organic_matter"] = true,
+	["organic_matter_cooked"] = true,
+	["organic_matter_radioactive"] = true,
+	["mediaplayer_tv"] = true,
+	["organic_matter_rare"] = true,
+	["xen_iron"] = true,
+	["xen_iron_radioactive"] = true,
+	["xen_iron_refined"] = true,
+	["ironbar"] = true,
+	["wrench"] = true,
+	["crystal_fragment"] = true,
+	["crystal_harvested"] = true,
+	["crystal_radioactive"] = true,
+	["wood"] = true
+}
+
 HLU_GAMEMODE = {
-    [1] = {
+    {
         Name = "Black Mesa RP",
 		Color = color_orange
     },
-    [2] = {
+    {
         Name = "City 17 RP",
 		Color = color_theme
     },
-    [3] = {
+    {
         Name = "Outland RP",
 		Color = color_green
     }

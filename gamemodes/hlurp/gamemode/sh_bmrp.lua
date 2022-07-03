@@ -1,4 +1,3 @@
-
 if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 
 TEAM_VISITOR = 1
@@ -19,26 +18,26 @@ TEAM_SECURITYBOSS = 15
 TEAM_SECURITY = 16
 
 local blockedtools = {
-	["wire_explosive"] = function( ply, tool )
+	["wire_explosive"] = function( ply )
 		return ply:Team() == TEAM_WEPMAKER
 	end,
-	["wire_turret"] = function( ply, tool )
+	["wire_turret"] = function( ply )
 		return ply:Team() == TEAM_WEPMAKER
 	end,
-	["wire_detonator"] = function( ply, tool )
+	["wire_detonator"] = function( ply )
 		return ply:Team() == TEAM_WEPMAKER
 	end,
-	["wire_expression2"] = function( ply, tool )
+	["wire_expression2"] = function( ply )
 		return ply:IsJobCategory( "Science" )
 	end,
-	["wire_simple_explosive"] = function( ply, tool )
+	["wire_simple_explosive"] = function( ply )
 		return ply:Team() == TEAM_WEPMAKER
 	end
 }
 
 local function RestrictTool( ply, tr, tool )
 	if blockedtools[tool] then
-		return blockedtools[tool]( ply, tool )
+		return blockedtools[tool]( ply )
 	end
 	if string.find( tool, "pcspawn_" ) then
 		return ply:Team() == TEAM_TECH
