@@ -161,7 +161,7 @@ HLU_JOB_CATEGORY = {
 			Color = Color( 56, 118, 29, 255 )
 		},
 		{
-			Name = "Management",
+			Name = "Utility",
 			Color = Color( 0, 116, 140, 255 )
 		},
 		{
@@ -179,7 +179,7 @@ HLU_JOB_CATEGORY = {
 			Color = Color( 5, 19, 30, 255 )
 		},
 		{
-			Name = "Other",
+			Name = "Neutral",
 			Color = Color( 135, 206, 235, 255 )
 		}
 	},
@@ -273,7 +273,7 @@ HLU_JOB = {
 			Models = { "models/player/kleiner.mdl" },
 			Weapons = { "weapon_medkit" },
 			Max = 2,
-			Category = "Management"
+			Category = "Utility"
 		},
 		{
 			Name = "Service Official",
@@ -286,7 +286,7 @@ HLU_JOB = {
 			},
 			Weapons = { "weapon_extinguisher", "weapon_crowbar_hl", "weapon_pipewrench", "trash_wep", "broom" },
 			Max = 1,
-			Category = "Management"
+			Category = "Utility"
 		},
 		{
 			Name = "Government Man",
@@ -356,7 +356,7 @@ HLU_JOB = {
 			IsCop = true,
 			SpawnFunction = function( ply )
 				ply:GiveAmmo( 50, "Buckshot" )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 25, "357" )
 			end
 		},
 		{
@@ -408,7 +408,7 @@ HLU_JOB = {
 			Models = sciencemodels,
 			Weapons = {},
 			Max = 1,
-			Category = "Other"
+			Category = "Neutral"
 		},
 		{
 			Name = "Vortigaunt",
@@ -417,7 +417,7 @@ HLU_JOB = {
 			Models = { "models/player/vortigaunt.mdl" },
 			Weapons = { "swep_vortigaunt_beam", "mgs_pickaxe" },
 			Max = 2,
-			Category = "Other"
+			Category = "Neutral"
 		},
 		{
 			Name = "Government Man",
@@ -426,7 +426,7 @@ HLU_JOB = {
 			Models = { "models/player/gman_high.mdl" },
 			Weapons = { "telebar" },
 			Max = 1,
-			Category = "Other"
+			Category = "Neutral"
 		},
 		{
 			Name = "Earth's Administrator",
