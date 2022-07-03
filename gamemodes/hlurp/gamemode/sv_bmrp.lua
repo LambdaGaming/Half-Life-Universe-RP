@@ -308,3 +308,15 @@ local function SetSpawnRadio( ply )
 	ply:ConCommand( "say /setr 42.0" )
 end
 hook.Add( "PlayerInitialSpawn", "BMRP_SetRadio", SetSpawnRadio )
+
+hook.Add( "CanPlayerEnterVehicle", "BMRP_ForkliftRestriction", function( ply, veh )
+	local script = veh:GetKeyValues()["VehicleScript"]
+	if script and script == "scripts/vehicles/sligwolf/sw_forklift_truck.txt" then
+		if ply:Team() == TEAM_SERVICE then
+			return true
+		else
+			HLU_Notify( ply, "Only service officials are forklift certified!", 1, 6 )
+			return false
+		end
+	end
+end )
