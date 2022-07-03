@@ -293,7 +293,7 @@ HLU_JOB = {
 			Description = "The Government Man (or G-Man) walks around the facility looking at the conditions of certain things. You should first take a tour with the administrator or head of security, then later talk with the Safety Advisor about things that could be improved. Once you are done with that, you can continue to walk around the facility asking the administrator questions if needed. Once you are free, you can spend the rest of your time looking at certain parts of the facility by yourself.",
 			Color = Color( 0, 116, 140, 255 ),
 			Models = { "models/player/gman_high.mdl" },
-			Weapons = { "telebar" },
+			Weapons = { "gman_teleporter" },
 			Max = 1,
 			Category = "Administration"
 		},
