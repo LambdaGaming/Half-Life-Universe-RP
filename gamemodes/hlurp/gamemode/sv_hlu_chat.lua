@@ -13,12 +13,15 @@ function HLU_Notify( ply, text, type, len, broadcast )
 end
 
 util.AddNetworkString( "HLU_ChatNotify" )
-function HLU_ChatNotify( ply, header, headercolor, text, broadcast )
+function HLU_ChatNotify( ply, header, headercolor, text, broadcast, speaker )
 	net.Start( "HLU_ChatNotify" )
 	net.WriteEntity( ply )
 	net.WriteString( header )
 	net.WriteColor( headercolor )
 	net.WriteString( text )
+	if speaker then
+		net.WriteEntity( speaker )
+	end
 	if broadcast then
 		net.Broadcast()
 	else
@@ -80,6 +83,21 @@ function GM:PlayerCanSeePlayersChat( text, teamOnly, listener, speaker )
 	end
     return dist <= 90000
 end
+
+hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
+	local split = string.Split( text, " " )
+	if split[1] == "/y" or split[1] == "/w" then
+		for k,v in ipairs( player.GetAll() ) do
+			local dist = v:GetPos():DistToSqr( ply:GetPos() )
+			if split[1] == "/y" and dist <= 250000 then
+				HLU_ChatNotify( v, "Yell", ply:GetJobColor(), string.TrimLeft( text, "/y " ), false, ply )
+			elseif split[1] == "/w" and dist <= 10000 then
+				HLU_ChatNotify( v, "Whisper", ply:GetJobColor(), string.TrimLeft( text, "/w " ), false, ply )
+			end
+		end
+		return ""
+	end
+end )
 
 local function DetectChatCommand( ply, text )
 	local split = string.Split( text, " " )
