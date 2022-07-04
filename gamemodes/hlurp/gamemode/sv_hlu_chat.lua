@@ -84,6 +84,14 @@ function GM:PlayerCanSeePlayersChat( text, teamOnly, listener, speaker )
     return dist <= 90000
 end
 
+function GM:PlayerCanHearPlayersVoice( listener, talker )
+	local dist = listener:GetPos():DistToSqr( talker:GetPos() )
+	if dist > 250000 then
+		return false
+	end
+	return true, true
+end
+
 hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
 	local split = string.Split( text, " " )
 	if split[1] == "/y" or split[1] == "/w" then
@@ -107,12 +115,3 @@ local function DetectChatCommand( ply, text )
 	end
 end
 hook.Add( "PlayerSay", "DetectChatCommand", DetectChatCommand )
-
-local function ShortenVoiceRange( listener, talker ) --Using this along with sv_alltalk 2 since all voice chats emit sound at 0,0,0 on the map for some reason
-	local dist = 562500
-	local listenpos = listener:GetPos()
-	local talkpos = talker:GetPos()
-	if listenpos:DistToSqr( talkpos ) <= dist then return true end
-	return false
-end
-hook.Add( "PlayerCanHearPlayersVoice", "ShortenVoiceRange", ShortenVoiceRange )

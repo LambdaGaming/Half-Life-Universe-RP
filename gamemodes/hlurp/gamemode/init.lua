@@ -16,7 +16,7 @@ include( "sh_c17.lua" )
 include( "sh_outland.lua" )
 include( "sv_outland.lua" )
 
-RunConsoleCommand( "sv_alltalk", "2" )
+RunConsoleCommand( "sv_alltalk", "0" )
 
 function GM:PlayerSpawnNPC( ply )
 	return ply:IsSuperAdmin()
@@ -135,7 +135,7 @@ local function HLU_SpawnHook( ply )
 			ply:SetWalkSpeed( 180 )
 			ply:SetRunSpeed( 240 )
 		end
-		ply:SetJumpPower( 180 )
+		ply:SetJumpPower( 150 )
 		if jobtable.SpawnFunction then
 			jobtable.SpawnFunction( ply )
 		end
