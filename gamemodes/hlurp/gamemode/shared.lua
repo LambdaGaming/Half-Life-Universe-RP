@@ -224,7 +224,7 @@ HLU_JOB = {
 			Max = 1,
 			Category = "Science",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "SMG1" )
+				ply:GiveAmmo( 50, "pistol" )
 			end
 		},
 		{
@@ -319,8 +319,8 @@ HLU_JOB = {
 			Max = 1,
 			Category = "Military",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "SMG1" )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 50, "Pistol" )
+				ply:GiveAmmo( 25, "357" )
 			end
 		},
 		{
@@ -399,7 +399,10 @@ HLU_JOB = {
 			Models = leadermodels,
 			Weapons = { "weapon_smg1", "weapon_portal_pair", "weapon_agent" },
 			Max = 1,
-			Category = "Citizens"
+			Category = "Citizens",
+			SpawnFunction = function( ply )
+				ply:GiveAmmo( 50, "smg1" )
+			end
 		},
 		{
 			Name = "Scientist",
