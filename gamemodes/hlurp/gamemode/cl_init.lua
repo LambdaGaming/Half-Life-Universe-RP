@@ -27,6 +27,11 @@ function GM:DrawDeathNotice()
 	return false
 end
 
+--Luminance calculator
+local function IsDarkColor( color )
+	return 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b < 255 / 3
+end
+
 scoreboard = scoreboard or {}
 function scoreboard:show()
 	local mainframe = vgui.Create( "DFrame" )
@@ -54,6 +59,11 @@ function scoreboard:show()
 
 	for k,v in ipairs( player.GetAll() ) do
 		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths() )
+		for i=1,5 do
+			if IsDarkColor( v:GetJobColor() ) then
+				row.Columns[i]:SetTextColor( color_white )
+			end
+		end
 		function row:Paint( w, h )
 			draw.RoundedBox( 0, 0, 0, w, h, v:GetJobColor() )
 		end
@@ -219,7 +229,7 @@ local function HLUButtons( ply, button )
 		DrawJobMenu()
 	end
 	if button == f3 then
-		gui.OpenURL( "https://lambdagaming.github.io/hlurp/lambda_hlu_main.html" )
+		gui.OpenURL( "https://lambdagaming.github.io/hlurp/main.html" )
 	end
 end
 hook.Add( "PlayerButtonDown", "HP_ChangeTeam", HLUButtons )
