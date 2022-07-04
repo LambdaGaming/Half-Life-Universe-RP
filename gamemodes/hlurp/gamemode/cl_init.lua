@@ -18,9 +18,10 @@ surface.CreateFont( "JobTitle", {
 	weight = 900
 } )
 
-surface.CreateFont( "JobDesc", {
+surface.CreateFont( "QuestionMark", {
 	font = "Arial",
-	size = 16
+	size = 50,
+	weight = 900
 } )
 
 function GM:DrawDeathNotice()
@@ -128,11 +129,12 @@ function DrawJobMenu()
 	local ply = LocalPlayer()
 	local mainframe = vgui.Create( "DFrame" )
 	mainframe:SetTitle( "Choose a Job:" )
-	mainframe:SetSize( ScrW() * 0.75, ScrH() * 0.75 )
+	mainframe:SetSize( 500, 500 )
 	mainframe:Center()
 	mainframe:MakePopup()
 	mainframe.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, themecolor )
+		surface.SetDrawColor( themecolor )
+		surface.DrawRect( 0, 0, w, h )
 	end
 	mainframe.OnClose = function()
 		ply.MenuOpen = false
@@ -141,18 +143,19 @@ function DrawJobMenu()
 	mainframescroll:Dock( FILL )
 	for a,b in ipairs( HLU_JOB_CATEGORY[GetGlobalInt( "CurrentGamemode" )] ) do
 		local categorybutton = vgui.Create( "DButton", mainframescroll )
-		categorybutton:SetSize( nil, 50 ) --X is ignored since it's docked to the frame already
+		categorybutton:SetSize( nil, 25 ) --X is ignored since it's docked to the frame already
 		categorybutton:SetText( b.Name )
 		categorybutton:SetFont( "JobCategory" )
 		categorybutton:SetTextColor( color_white )
 		categorybutton:Dock( TOP )
 		if a > 1 then
-			categorybutton:DockMargin( 0, 60, 0, 5 )
+			categorybutton:DockMargin( 0, 40, 0, 5 )
 		else
 			categorybutton:DockMargin( 0, 0, 0, 5 )
 		end
 		categorybutton.Paint = function( self, w, h )
-			draw.RoundedBox( 0, 0, 0, w, h, b.Color )
+			surface.SetDrawColor( b.Color )
+			surface.DrawRect( 0, 0, w, h )
 		end
 		for k,v in ipairs( HLU_JOB[GetGlobalInt( "CurrentGamemode" )] ) do
 			if v.Category != b.Name then --Puts jobs into their respective categories
@@ -165,15 +168,14 @@ function DrawJobMenu()
 				max = "∞"
 			end
 			local mainbuttons = vgui.Create( "DButton", mainframescroll )
-			mainbuttons:SetSize( nil, 100 )
+			mainbuttons:SetSize( nil, 50 )
 			mainbuttons:SetText( v.Name..": "..team.NumPlayers( k ).."/"..max )
-			mainbuttons:SetTextInset( 0, -30 )
 			mainbuttons:SetFont( "JobTitle" )
 			mainbuttons:SetTextColor( color_white )
 			mainbuttons:Dock( TOP )
 			mainbuttons:DockMargin( 0, 0, 0, 5 )
 			mainbuttons.Paint = function( self, w, h )
-				draw.RoundedBox( 0, 0, 0, w, h, v.Color )
+				draw.RoundedBox( 8, 0, 0, w, h, v.Color )
 			end
 			mainbuttons.DoClick = function()
 				if ply.JobSelectCooldown and ply.JobSelectCooldown > CurTime() then
@@ -186,35 +188,34 @@ function DrawJobMenu()
 				ply.JobSelectCooldown = CurTime() + 5
 				mainframe:Close()
 			end
-			local buttontext = vgui.Create( "DLabel", mainbuttons )
-			local bwidth, bheight = mainbuttons:GetSize()
-			buttontext:Dock( BOTTOM )
-			buttontext:DockMargin( 200, 5, 200, 15 )
-			buttontext:SetAutoStretchVertical( true )
-			buttontext:SetText( "Description: "..v.Description )
-			buttontext:SetTextColor( color_white )
-			buttontext:SetFont( "JobDesc" )
-			buttontext:SetWrap( true )
-
-			local newwidth, newheight = buttontext:GetTextSize()
-			if newheight > 7000 then
-				mainbuttons:SetSize( bwidth, newheight * 0.015 )
-			end
 			
-			if #v.Models > 1 then
-				local playermodel = vgui.Create( "DButton", mainbuttons )
-				playermodel:SetSize( 200, nil )
-				playermodel:SetText( "Select Playermodel" )
-				playermodel:SetFont( "JobTitle" )
-				playermodel:SetTextColor( color_white )
-				playermodel:Dock( RIGHT )
-				playermodel.Paint = function( self, w, h )
-					draw.RoundedBox( 0, 0, 0, w, h, color_transparent )
+			local playermodel = vgui.Create( "SpawnIcon", mainbuttons )
+			playermodel:SetSize( 50, 50 )
+			playermodel:Dock( LEFT )
+			playermodel:SetModel( v.Models[1] )
+			playermodel.DoClick = function()
+				mainframe:Close()
+				SelectPlayermodel( k, v )
+			end
+
+			local info = vgui.Create( "DButton", mainbuttons )
+			info:Dock( RIGHT )
+			info:SetText( "?" )
+			info:SetFont( "QuestionMark" )
+			info.Paint = function()
+				draw.RoundedBox( 0, 0, 0, info:GetWide(), info:GetTall(), color_transparent )
+			end
+			info.DoClick = function()
+				local current = GetGlobalInt( "CurrentGamemode" )
+				local rptype
+				if current == 1 then
+					rptype = "bmrp"
+				elseif current == 2 then
+					rptype = "city17rp"
+				else
+					current = "outlandrp"
 				end
-				playermodel.DoClick = function()
-					mainframe:Close()
-					SelectPlayermodel( k, v )
-				end
+				gui.OpenURL( "https://lambdagaming.github.io/hlurp/jobs_"..rptype..".html#"..v.Link )
 			end
 		end
 	end
