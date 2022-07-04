@@ -58,7 +58,9 @@ local function CommandSound( ply, text )
 				HLU_Notify( ply, "Please provide a valid argument. https://lambdagaming.github.io/hlurp/commands.html", 1, 6 )
 				return ""
 			end
-			RunConsoleCommand( "vox", commands[split[2]] )
+			for k,v in ipairs( player.GetHumans() ) do
+				v:ConCommand( "vox "..commands[split[2]] )
+			end
 			cooldown = CurTime() + 10
 			return ""
 		end

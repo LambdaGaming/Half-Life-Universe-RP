@@ -101,7 +101,9 @@ local function City17AdminCommands( ply, text )
 				HLU_Notify( ply, "Please provide a valid argument. https://lambdagaming.github.io/hlurp/commands.html", 1, 6 )
 				return ""
 			end
-			RunConsoleCommand( "play", OverwatchCommands[split[2]] )
+			for k,v in ipairs( player.GetHumans() ) do
+				v:ConCommand( "play "..OverwatchCommands[split[2]] )
+			end
 			cooldown = CurTime() + 10
 			return ""
 		end
