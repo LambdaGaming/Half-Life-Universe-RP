@@ -1,4 +1,3 @@
-
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 AddCSLuaFile( "cl_hlu_chat.lua" )
@@ -15,6 +14,8 @@ include( "sv_c17.lua" )
 include( "sh_c17.lua" )
 include( "sh_outland.lua" )
 include( "sv_outland.lua" )
+include( "sv_bmrp_events.lua" )
+include( "sv_c17_events.lua" )
 
 RunConsoleCommand( "sv_alltalk", "0" )
 
@@ -102,7 +103,6 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		ply:SetModel( model )
 	end
 	if !silent then
-		HLU_Notify( ply, "You have changed your job to "..tbl.Name..".", 0, 6 )
 		HLU_Notify( nil, ply:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
 	end
 	if tbl.SpawnFunction then
@@ -222,26 +222,6 @@ local function HLU_SpawnNPCs()
 			e:SetAngles( Angle( 0, 180, 0 ) )
 			e:Spawn()
 			e:ApplyType( 1 )
-			local itemshopa = ents.Create( "npc_item" )
-			itemshopa:SetPos( Vector( -13561, -585, -392 ) )
-			itemshopa:SetAngles( angle_zero )
-			itemshopa:Spawn()
-			itemshopa:ApplyType( 4 )
-			local itemshopb = ents.Create( "npc_item" )
-			itemshopb:SetPos( Vector( 4072, -1618, -357 ) )
-			itemshopb:SetAngles( Angle( 0, 180, 0 ) )
-			itemshopb:Spawn()
-			itemshopb:ApplyType( 4 )
-			local itemshopc = ents.Create( "npc_item" )
-			itemshopc:SetPos( Vector( -3088, -2126, -208 ) )
-			itemshopc:SetAngles( Angle( 0, 90, 0 ) )
-			itemshopc:Spawn()
-			itemshopc:ApplyType( 4 )
-			local itemshopd = ents.Create( "npc_item" )
-			itemshopd:SetPos( Vector( -79, -5613, -232 ) )
-			itemshopd:SetAngles( Angle( 0, 90, 0 ) )
-			itemshopd:Spawn()
-			itemshopd:ApplyType( 4 )
 			local budget = ents.Create( "budget_npc" )
 			budget:SetPos( Vector( -123, -3703, -252 ) )
 			budget:SetAngles( angle_zero )
@@ -253,11 +233,6 @@ local function HLU_SpawnNPCs()
 			e:SetAngles( angle_zero )
 			e:Spawn()
 			e:ApplyType( 1 )
-			local itemshopd = ents.Create( "npc_item" )
-			itemshopd:SetPos( Vector( 833, -4633, 628 ) )
-			itemshopd:SetAngles( Angle( 0, 180, 0 ) )
-			itemshopd:Spawn()
-			itemshopd:ApplyType( 4 )
 			local budget = ents.Create( "budget_npc" )
 			budget:SetPos( Vector( 2533, -58, -31 ) )
 			budget:SetAngles( Angle( 0, 180, 0 ) )
@@ -269,16 +244,6 @@ local function HLU_SpawnNPCs()
 			e:SetAngles( angle_zero )
 			e:Spawn()
 			e:ApplyType( 1 )
-			local itemshop = ents.Create( "npc_item" )
-			itemshop:SetPos( Vector( 363, 6829, 2180 ) )
-			itemshop:SetAngles( Angle( 0, 90, 0 ) )
-			itemshop:Spawn()
-			itemshop:ApplyType( 4 )
-			local itemshop2 = ents.Create( "npc_item" )
-			itemshop2:SetPos( Vector( -2059, 780, 308 ) )
-			itemshop2:SetAngles( angle_zero )
-			itemshop2:Spawn()
-			itemshop2:ApplyType( 4 )
 			local budget = ents.Create( "budget_npc" )
 			budget:SetPos( Vector( 952, 602, -31 ) )
 			budget:SetAngles( Angle( 0, 90, 0 ) )
@@ -290,26 +255,6 @@ local function HLU_SpawnNPCs()
 			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 1 )
-			local itemshop = ents.Create( "npc_item" )
-			itemshop:SetPos( Vector( 1083, -4278, -1419 ) )
-			itemshop:SetAngles( Angle( 0, 90, 0 ) )
-			itemshop:Spawn()
-			itemshop:ApplyType( 4 )
-			local itemshop2 = ents.Create( "npc_item" )
-			itemshop2:SetPos( Vector( -1466, -2606, 372 ) )
-			itemshop2:SetAngles( Angle( 0, 180, 0 ) )
-			itemshop2:Spawn()
-			itemshop2:ApplyType( 4 )
-			local itemshop3 = ents.Create( "npc_item" )
-			itemshop3:SetPos( Vector( -2088, 2965, -19 ) )
-			itemshop3:SetAngles( Angle( 0, -90, 0 ) )
-			itemshop3:Spawn()
-			itemshop3:ApplyType( 4 )
-			local itemshop4 = ents.Create( "npc_item" )
-			itemshop4:SetPos( Vector( 509, 2912, -43 ) )
-			itemshop4:SetAngles( Angle( 0, 180, 0 ) )
-			itemshop4:Spawn()
-			itemshop4:ApplyType( 4 )
 			local budget = ents.Create( "budget_npc" )
 			budget:SetPos( Vector( -404, 2374, -63 ) )
 			budget:SetAngles( Angle( 0, 90, 0 ) )
@@ -326,27 +271,6 @@ local function HLU_SpawnNPCs()
 			e2:SetAngles( Angle( 0, -90, 0 ) )
 			e2:Spawn()
 			e2:ApplyType( 1 )
-		end
-		if map == "rp_city17_build210" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( 4860, 193, 76 ) )
-			e:SetAngles( Angle( 0, 180, 0 ) )
-			e:Spawn()
-			e:ApplyType( 5 )
-		end
-		if map == "rp_city17_district47" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -382, -3027, 384 ) )
-			e:SetAngles( Angle( 0, 90, 0 ) )
-			e:Spawn()
-			e:ApplyType( 5 )
-		end
-		if map == "rp_city24_v2" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -742, 9112, -663 ) )
-			e:SetAngles( Angle( 0, -90, 0 ) )
-			e:Spawn()
-			e:ApplyType( 5 )
 		end
 		if map == "rp_ineu_valley2_v1a" then
 			local e = ents.Create( "npc_item" )
@@ -383,4 +307,39 @@ net.Receive( "SetPlayermodel", function( len, ply )
 	local model = net.ReadString()
 	local job = net.ReadInt( 32 )
 	ply:SetNWString( "SetPlayermodel_"..job, model )
+end )
+
+util.AddNetworkString( "BuyItemFromMenu" )
+net.Receive( "BuyItemFromMenu", function( len, ply )
+	local key = net.ReadString()
+	local tr = ply:GetEyeTrace()
+	local total = #ents.FindByClass( key )
+	local item = BuyMenuItems[key]
+	if ply.BuyCooldown and ply.BuyCooldown > CurTime() then
+		HLU_Notify( ply, "Please wait before purchasing another item.", 1, 6 )
+		return
+	end
+	if item.Max and total >= item.Max then
+		HLU_Notify( ply, "Purchase failed. Maximum amount of this entity has been reached.", 1, 6 )
+		return
+	end
+	if !item.SpawnFunction then
+		local e = ents.Create( key )
+		e:SetPos( tr.HitPos + tr.HitNormal )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	else
+		local e = item.SpawnFunction( ply, tr )
+		e:CPPISetOwner( ply )
+	end
+	if item.Price and ChangeBudget then
+		ChangeBudget( -item.Price )
+		for k,v in ipairs( player.GetAll() ) do
+			if v:Team() == TEAM_ADMIN then
+				HLU_Notify( v, ply:Nick().." has purchased a "..item.Name, 0, 6 )
+			end
+		end
+	end
+	HLU_Notify( ply, "You have purchased a "..item.Name, 0, 6 )
+	ply.BuyCooldown = CurTime() + 10
 end )

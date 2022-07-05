@@ -222,6 +222,75 @@ function DrawJobMenu()
 	ply.MenuOpen = true
 end
 
+local function DrawBuyMenu()
+	local ply = LocalPlayer()
+	local mainframe = vgui.Create( "DFrame" )
+	mainframe:SetTitle( "Select an item to purchase:" )
+	mainframe:SetSize( 500, 500 )
+	mainframe:Center()
+	mainframe:MakePopup()
+	mainframe.Paint = function( self, w, h )
+		draw.RoundedBox( 0, 0, 0, w, h, themecolor )
+	end
+	mainframe.OnClose = function()
+		ply.MenuOpen = false
+	end
+
+	local listframe = vgui.Create( "DScrollPanel", mainframe )
+	listframe:Dock( FILL )
+	for k,v in pairs( BuyMenuItems ) do
+		if v.Allowed and !v.Allowed( ply ) then
+			continue
+		end
+		local itembackground = vgui.Create( "DPanel", listframe )
+		itembackground:SetPos( 0, 10 )
+		itembackground:SetSize( 450, 100 )
+		itembackground:Dock( TOP )
+		itembackground:DockMargin( 0, 0, 0, 10 )
+		itembackground:Center()
+		itembackground.Paint = function()
+			draw.RoundedBox( 0, 0, 0, itembackground:GetWide(), itembackground:GetTall(), Color( 45, 45, 45 ) )
+		end
+
+		local mainbuttons = vgui.Create( "DButton", itembackground )
+		mainbuttons:SetText( v.Name )
+		mainbuttons:SetTextColor( color_white )
+		mainbuttons:SetFont( "JobTitle" )
+		mainbuttons:Dock( TOP )
+		mainbuttons.Paint = function( self, w, h )
+			draw.RoundedBox( 0, 0, 0, w, h, ColorAlpha( themecolor, 255 ) )
+		end
+		mainbuttons.DoClick = function()
+			net.Start( "BuyItemFromMenu" )
+			net.WriteString( k )
+			net.SendToServer()
+			mainframe:Close()
+		end
+
+		local itemprice = vgui.Create( "DLabel", itembackground )
+		itemprice:SetFont( "Trebuchet24" )
+		itemprice:SetColor( color_white )
+		itemprice:Dock( LEFT )
+		if v.Price and v.Price > 0 then
+			itemprice:SetText( "Price: "..v.Price )
+		else
+			itemprice:SetText( "Price: Free" )
+		end
+		itemprice:SizeToContents()
+
+		local itemdesc = vgui.Create( "DLabel", itembackground )
+		itemdesc:SetFont( "Trebuchet18" )
+		itemdesc:SetColor( color_white )
+		itemdesc:SetText( v.Description )
+		itemdesc:Dock( RIGHT )
+		itemdesc:SetWrap( true )
+		itemprice:SetPos( 5, 30 )
+		itemdesc:SetSize( 320, 110 )
+		itemdesc:SetPos( 150, -8 )
+	end
+	ply.MenuOpen = true
+end
+
 local function HLUButtons( ply, button )
 	local f4 = KEY_F4
 	local f3 = KEY_F3
@@ -229,8 +298,8 @@ local function HLUButtons( ply, button )
 	if button == f4 and !ply.MenuOpen then
 		DrawJobMenu()
 	end
-	if button == f3 then
-		gui.OpenURL( "https://lambdagaming.github.io/hlurp/main.html" )
+	if button == f3 and !ply.MenuOpen then
+		DrawBuyMenu()
 	end
 end
 hook.Add( "PlayerButtonDown", "HP_ChangeTeam", HLUButtons )

@@ -143,44 +143,6 @@ local function C17Generator()
 end
 hook.Add( "InitPostEntity", "C17Generator", C17Generator )
 
---Rebel crafting table spawns
-local function C17Crafting()
-	local craftpos
-	local map = game.GetMap()
-	if map == "rp_city17_build210" then
-		craftpos = {
-			{ Vector( 1455, 3949, 92 ), Angle( 0, 171, 0 ) },
-			{ Vector( 2881, -2660, 96 ), Angle( 0, -145, 0 ) },
-			{ Vector( -949, -2725, 96 ), Angle( 0, 94, 0 ) },
-			{ Vector( -923, 1825, 96 ), Angle( 0, 90, 0 ) },
-			{ Vector( -1803, 6954, -449 ), Angle( 0, -90, 0 ) }
-		}
-	elseif map == "rp_city17_district47" then
-		craftpos = {
-			{ Vector( -587, 444, 400 ), Angle( 0, 180, 0 ) },
-			{ Vector( -1872, -970, 400 ), Angle( 0, 180, 0 ) },
-			{ Vector( 3859, 76, 80 ), angle_zero },
-			{ Vector( 1186, 683, 345 ), angle_zero },
-			{ Vector( -2968, -1306, 80 ), Angle( 0, 90, 0 ) }
-		}
-	else
-		craftpos = {
-			{ Vector( 6565, 9456, 536 ), angle_zero },
-			{ Vector( 6885, 5955, -496 ), angle_zero },
-			{ Vector( 7884, 2892, 24 ), Angle( 0, 180, 0 ) },
-			{ Vector( 10039, 8811, 25 ), Angle( 2, -146, 0 ) },
-			{ Vector( 4301, 11454, 536 ), Angle( 0, -90, 0 ) }
-		}
-	end
-	for k,v in pairs( craftpos ) do
-		local e = ents.Create( "crafting_table" )
-		e:SetPos( v[1] )
-		e:SetAngles( v[2] )
-		e:Spawn()
-	end
-end
-hook.Add( "InitPostEntity", "C17Crafting", C17Crafting )
-
 --Player death management
 local function PlayerDeathDemote( ply )
 	local plyteam = ply:Team()
