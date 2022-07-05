@@ -23,6 +23,13 @@ BuyMenuItems = {
 		Price = 50,
 		Max = 10
 	},
+	["sent_iodevice"] = {
+		Name = "Terminal I/O Device",
+		Description = "Device that allows you to link your office terminal to wiremod devices.",
+		Price = 100,
+		Max = 5,
+		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
+	},
 	["item_healthcharger"] = {
 		Name = "Mounted Healing Unit",
 		Description = "Health unit that heals up to 75 HP. Recharges after 5 minutes when empty.",
