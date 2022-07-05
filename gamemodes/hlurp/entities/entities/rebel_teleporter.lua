@@ -13,7 +13,7 @@ if SERVER then
 		["rp_city17_build210"] = Vector( 6286, -1759 ,4220 ),
 		["rp_ineu_valley2_v1a"] = Vector( 7121, 14434, 1328 ),
 		["rp_city17_district47"] = Vector( -623, -2533, 704 ),
-		["rp_city24_v2"] = Vector( -790, 8901, 32 ),
+		["rp_city24_v3"] = Vector( 14548, 4986, 2064 ),
 		["gm_boreas"] = Vector( 1734, -14423, -6575 )
 	}
 

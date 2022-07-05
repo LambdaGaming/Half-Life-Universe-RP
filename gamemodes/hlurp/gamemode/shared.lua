@@ -1,4 +1,3 @@
-
 GM.Name = "Half-Life Universe RP"
 GM.Author = "Lambda Gaming"
 GM.Email = "N/A"
@@ -17,7 +16,7 @@ local bmrpmaps = {
 local city17maps = {
 	["rp_city17_build210"] = true,
 	["rp_city17_district47"] = true,
-	["rp_city24_v2"] = true
+	["rp_city24_v3"] = true
 }
 
 local outlandmaps = {

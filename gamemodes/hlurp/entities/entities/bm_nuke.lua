@@ -12,7 +12,7 @@ if SERVER then
 	local setmap = {
 		"rp_city17_build210",
 		"rp_city17_district47",
-		"rp_city24_v2"
+		"rp_city24_v3"
 	}
 
 	local random = table.Random( setmap )

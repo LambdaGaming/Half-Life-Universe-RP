@@ -2,7 +2,7 @@
 local c17maps = {
 	["rp_city17_build210"] = true,
 	["rp_city17_district47"] = true,
-	["rp_city24_v2"] = true
+	["rp_city24_v3"] = true
 }
 if c17maps[game.GetMap()] then
 	local zombiepos = {}
@@ -40,18 +40,18 @@ if c17maps[game.GetMap()] then
 				Vector( 1200, -946, 64 )
 			}
 		end
-		if game.GetMap() == "rp_city24_v2" then
+		if game.GetMap() == "rp_city24_v3" then
 			zombiepos = {
-				Vector( 10976, 7871, 136 ),
-				Vector( 10926, 6589, -56 ),
-				Vector( 10517, 8646, 8 ),
-				Vector( 9024, 8978, 8 ),
-				Vector( 6875, 5983, -512 ),
-				Vector( 9381, 6466, -384 ),
-				Vector( 8964, 7983, -384 ),
-				Vector( 8760, 8164, -991 ),
-				Vector( 9640, 7394, -376 ),
-				Vector( 10328, 8471, 9 )
+				Vector( 8361, 7538, -1184 ),
+				Vector( 7973, 8439, -1403 ),
+				Vector( 8263, 9438, -1184 ),
+				Vector( 8445, 8438, -1408 ),
+				Vector( 8610, 7116, 264 ),
+				Vector( 7919, 5877, -1213 ),
+				Vector( 8020, 4352, -1208 ),
+				Vector( 7926, 5085, -1404 ),
+				Vector( 7168, 5075, -1540 ),
+				Vector( 4621, 5658, -1512 )
 			}
 		end
 		local zombies = {
@@ -69,46 +69,13 @@ if c17maps[game.GetMap()] then
 	function CoreFailure()
 		HLU_ChatNotifySystem( "City 17 RP", color_theme, "Power failure at the citadel has caused doors to malfunction! Some of the jail cells are now open!" )
 		if game.GetMap() == "rp_city17_build210" then
-			indexnum = {
-				1176,
-				1178,
-				1173,
-				1180,
-				2534,
-				661,
-				277,
-				1319,
-				1316,
-				1311,
-				1308,
-				675
-			}
+			indexnum = { 1176, 1178, 1173, 1180, 2534, 661, 277, 1319, 1316, 1311, 1308, 675 }
 		end
 		if game.GetMap() == "rp_city17_district47" then
-			indexnum = {
-				300,
-				312,
-				296,
-				310,
-				323,
-				294,
-				308,
-				320,
-				894,
-				234,
-				235,
-				893,
-				1639
-			}
+			indexnum = { 300, 312, 296, 310, 323, 294, 308, 320, 894, 234, 235, 893, 1639 }
 		end
-		if game.GetMap() == "rp_city24_v2" then
-			indexnum = {
-				1106,
-				1104,
-				1099,
-				1098,
-				1513
-			}
+		if game.GetMap() == "rp_city24_v3" then
+			indexnum = { 1940, 1780, 3901, 4498, 2074, 1620 }
 		end
 		for k,v in pairs( ents.GetAll() ) do
 			if table.HasValue( indexnum, v:EntIndex() ) then
@@ -120,7 +87,7 @@ if c17maps[game.GetMap()] then
 	end
 
 	function RaceX() --why did I agree to do this?
-		HLU_ChatNotifySystem( "City 17 RP", color_theme, "Someone screwed up the lore and Race X has invaded the citadel!" )
+		HLU_ChatNotifySystem( "City 17 RP", color_theme, "Someone screwed up the lore and now Race X is invading the citadel!" )
 		if game.GetMap() == "rp_city17_build210" then
 			racexpos = {
 				Vector( 3017, -255, 76 ),
@@ -139,13 +106,13 @@ if c17maps[game.GetMap()] then
 				Vector( -165, -1807, 1284 )
 			}
 		end
-		if game.GetMap() == "rp_city24_v2" then
+		if game.GetMap() == "rp_city24_v3" then
 			racexpos = {
-				Vector( 488, 9047, 520 ),
-				Vector( -1324, 8996, 601 ),
-				Vector( -887, 8319, 857 ),
-				Vector( -663, 6911, 867 ),
-				Vector( -1342, 8835, -32 )
+				Vector( 12770, 9560, 456 ),
+				Vector( 12759, 10502, 696 ),
+				Vector( 12779, 7418, 456 ),
+				Vector( 14069, 4993, 2064 ),
+				Vector( 12283, 4987, 2064 )
 			}
 		end
 		local racexnpcs = {
@@ -188,13 +155,13 @@ if c17maps[game.GetMap()] then
 				Vector( -165, -1807, 1284 )
 			}
 		end
-		if game.GetMap() == "rp_city24_v2" then
+		if game.GetMap() == "rp_city24_v3" then
 			rebelpos = {
-				Vector( 488, 9047, 520 ),
-				Vector( -1324, 8996, 601 ),
-				Vector( -887, 8319, 857 ),
-				Vector( -663, 6911, 867 ),
-				Vector( -1342, 8835, -32 )
+				Vector( 12770, 9560, 456 ),
+				Vector( 12759, 10502, 696 ),
+				Vector( 12779, 7418, 456 ),
+				Vector( 14069, 4993, 2064 ),
+				Vector( 12283, 4987, 2064 )
 			}
 		end
 		local randmodel = {
@@ -248,12 +215,12 @@ if c17maps[game.GetMap()] then
 				Vector( 1848, -1930, -288 )
 			}
 		end
-		if game.GetMap() == "rp_city24_v2" then
+		if game.GetMap() == "rp_city24_v3" then
 			canpos = {
-				Vector( 7155, 6089, 256 ),
-				Vector( 6511, 4641, 0 ),
-				Vector( 3276, 8984, 520 ),
-				Vector( 5658, 9785, 520 )
+				Vector( 5388, 6331, 264 ),
+				Vector( 7326, 4371, 1 ),
+				Vector( 9018, 3569, -41 ),
+				Vector( 8585, 5027, 15 )
 			}
 		end
 		for k,v in ipairs( canpos ) do
