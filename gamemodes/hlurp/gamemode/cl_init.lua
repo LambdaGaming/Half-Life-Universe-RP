@@ -5,7 +5,7 @@ include( "cl_bmrp.lua" )
 include( "sh_c17.lua" )
 include( "sh_outland.lua" )
 
-local themecolor = ColorAlpha( HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Color, 30 )
+local themecolor = ColorAlpha( HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Color, 40 )
 surface.CreateFont( "JobCategory", {
 	font = "Arial",
 	size = 30,
@@ -36,7 +36,7 @@ end
 scoreboard = scoreboard or {}
 function scoreboard:show()
 	local mainframe = vgui.Create( "DFrame" )
-	mainframe:SetSize( ScrW() * 0.70, ScrH() * 0.70 )
+	mainframe:SetSize( 800, 600 )
 	mainframe:Center()
 	mainframe:ShowCloseButton( false )
 	mainframe:MakePopup()
@@ -48,11 +48,11 @@ function scoreboard:show()
 
 	local plylist = vgui.Create( "DListView", mainframe )
 	plylist:Dock( FILL )
-	plylist:AddColumn( "Name" )
-	plylist:AddColumn( "Job" )
-	plylist:AddColumn( "Health" )
-	plylist:AddColumn( "Kills" )
-	plylist:AddColumn( "Deaths" )
+	plylist:AddColumn( "Name" ):SetWidth( 200 )
+	plylist:AddColumn( "Job" ):SetWidth( 200 )
+	plylist:AddColumn( "Health" ):SetWidth( 50 )
+	plylist:AddColumn( "Kills" ):SetWidth( 50 )
+	plylist:AddColumn( "Deaths" ):SetWidth( 50 )
 	plylist:SetDataHeight( 30 )
 	plylist.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, color_transparent )
@@ -60,6 +60,7 @@ function scoreboard:show()
 
 	for k,v in ipairs( player.GetAll() ) do
 		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths() )
+		row:SetCursor( "hand" )
 		for i=1,5 do
 			if IsDarkColor( v:GetJobColor() ) then
 				row.Columns[i]:SetTextColor( color_white )
@@ -88,12 +89,14 @@ end
 local function SelectPlayermodel( num, job )
 	local ply = LocalPlayer()
 	local mainframe = vgui.Create( "DFrame" )
-	mainframe:SetTitle( "Choose a Playermodel:" )
-	mainframe:SetSize( ScrW() * 0.1, ScrH() * 0.5 )
+	mainframe:SetTitle( "" )
+	mainframe:SetSize( 100, 450 )
+	mainframe:ShowCloseButton( false )
 	mainframe:Center()
 	mainframe:MakePopup()
 	mainframe.Paint = function( self, w, h )
-		draw.RoundedBox( 0, 0, 0, w, h, themecolor )
+		surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
+		surface.DrawRect( 0, 0, w, h )
 	end
 	mainframe.OnClose = function()
 		ply.MenuOpen = false
@@ -102,12 +105,12 @@ local function SelectPlayermodel( num, job )
 	listframe:Dock( FILL )
 	for k,v in pairs( job.Models ) do
 		local itembackground = vgui.Create( "DPanel", listframe )
-		itembackground:SetPos( 0, 10 )
 		itembackground:SetSize( 450, 100 )
 		itembackground:Dock( TOP )
 		itembackground:Center()
-		itembackground.Paint = function()
-			draw.RoundedBox( 0, 0, 0, itembackground:GetWide(), itembackground:GetTall(), color_transparent )
+		itembackground.Paint = function( self, w, h )
+			surface.SetDrawColor( color_transparent )
+			surface.DrawRect( 0, 0, w, h )
 		end
 		local itemicon = vgui.Create( "SpawnIcon", itembackground )
 		itemicon:SetPos( 10, 30 )
@@ -194,7 +197,6 @@ function DrawJobMenu()
 			playermodel:Dock( LEFT )
 			playermodel:SetModel( v.Models[1] )
 			playermodel.DoClick = function()
-				mainframe:Close()
 				SelectPlayermodel( k, v )
 			end
 
@@ -248,8 +250,9 @@ local function DrawBuyMenu()
 		itembackground:Dock( TOP )
 		itembackground:DockMargin( 0, 0, 0, 10 )
 		itembackground:Center()
-		itembackground.Paint = function()
-			draw.RoundedBox( 0, 0, 0, itembackground:GetWide(), itembackground:GetTall(), Color( 45, 45, 45 ) )
+		itembackground.Paint = function( self, w, h )
+			surface.SetDrawColor( Color( 45, 45, 45 ) )
+			surface.DrawRect( 0, 0, w, h )
 		end
 
 		local mainbuttons = vgui.Create( "DButton", itembackground )
@@ -258,7 +261,8 @@ local function DrawBuyMenu()
 		mainbuttons:SetFont( "JobTitle" )
 		mainbuttons:Dock( TOP )
 		mainbuttons.Paint = function( self, w, h )
-			draw.RoundedBox( 0, 0, 0, w, h, ColorAlpha( themecolor, 255 ) )
+			surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
+			surface.DrawRect( 0, 0, w, h )
 		end
 		mainbuttons.DoClick = function()
 			net.Start( "BuyItemFromMenu" )
