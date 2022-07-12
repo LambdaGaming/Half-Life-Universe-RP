@@ -19,6 +19,18 @@ if SERVER then
 		BMRP_EVENTS[key].OnSelect()
 		SetGlobalBool( "EventActive", true )
 	end )
+
+	util.AddNetworkString( "GetTask" )
+	util.AddNetworkString( "UpdateTask" )
+	net.Receive( "GetTask", function( len, ply )
+		local key = net.ReadInt( 8 )
+		for k,v in pairs( BMRP_TASKS[key].Required ) do
+			BMRP_CURRENT_TASKS[v] = BMRP_TASKS[key].Description
+		end
+		net.Start( "UpdateTask" )
+		net.WriteTable( BMRP_CURRENT_TASKS )
+		net.Broadcast()
+	end )
 	-----------------------------------------------------------------
 	function PortalBreakDown()
 		local button
@@ -479,3 +491,13 @@ BMRP_EVENTS = {
 		OnSelect = RandomFire
 	}
 }
+
+BMRP_TASKS = {
+	{
+		Name = "Gather Xen Materials",
+		Description = "Gather various materials from Xen to be used in crafting and research.",
+		Required = { TEAM_SURVEYBOSS, TEAM_SURVEY }
+	}
+}
+
+BMRP_CURRENT_TASKS = {}

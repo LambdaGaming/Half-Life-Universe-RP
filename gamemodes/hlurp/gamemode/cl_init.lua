@@ -316,7 +316,7 @@ local function DrawEventMenu()
 	local mainframe = vgui.Create( "DFrame" )
 	if plyteam == gman then
 		mainframe:SetTitle( "Select an event to start:" )
-	elseif plyteam == admin then
+	else
 		mainframe:SetTitle( "Select a task to assign:" )
 	end
 	mainframe:SetSize( 500, 500 )
@@ -329,9 +329,16 @@ local function DrawEventMenu()
 		ply.MenuOpen = false
 	end
 
+	local tbl
+	if plyteam == gman then
+		tbl = BMRP_EVENTS
+	else
+		tbl = BMRP_TASKS
+	end
+
 	local listframe = vgui.Create( "DScrollPanel", mainframe )
 	listframe:Dock( FILL )
-	for k,v in pairs( BMRP_EVENTS ) do
+	for k,v in pairs( tbl ) do
 		local itembackground = vgui.Create( "DPanel", listframe )
 		itembackground:SetSize( 450, 100 )
 		itembackground:Dock( TOP )
@@ -354,18 +361,25 @@ local function DrawEventMenu()
 			surface.DrawRect( 0, 0, w, h )
 		end
 		mainbuttons.DoClick = function()
-			local found = false
-			for a,b in ipairs( player.GetAll() ) do
-				if b:Team() == v.Required then
-					found = true
+			if plyteam == gman then
+				local found = false
+				for a,b in ipairs( player.GetAll() ) do
+					if b:Team() == v.Required then
+						found = true
+					end
 				end
-			end
-			if found then
-				net.Start( "StartEvent" )
+				if found then
+					net.Start( "StartEvent" )
+					net.WriteInt( k, 8 )
+					net.SendToServer()
+				else
+					HLU_Notify( "This event cannot be activated as there are no players currently working the affected job.", 1, 6 )
+				end
+			else
+				HLU_Notify( "Task assigned!", 0, 6 )
+				net.Start( "GetTask" )
 				net.WriteInt( k, 8 )
 				net.SendToServer()
-			else
-				HLU_Notify( "This event cannot be activated as there are no players currently working the affected job.", 1, 6 )
 			end
 			mainframe:Close()
 		end
@@ -373,13 +387,32 @@ local function DrawEventMenu()
 		local itemdesc = vgui.Create( "DLabel", itembackground )
 		itemdesc:SetFont( "Trebuchet18" )
 		itemdesc:SetColor( color_white )
-		itemdesc:SetText( "Affected Job: "..HLU_JOB[1][v.Required].Name.."\n"..v.Description )
+		if plyteam == gman then
+			itemdesc:SetText( "Affected Job: "..HLU_JOB[1][v.Required].Name.."\n"..v.Description )
+		else
+			local affected = ""
+			local count = 0
+			for k,v in pairs( v.Required ) do
+				if count == 0 then
+					affected = HLU_JOB[1][v].Name
+				else
+					affected = affected..", "..HLU_JOB[1][v].Name
+				end
+				count = count + 1
+			end
+			itemdesc:SetText( "Affected Job(s): "..affected.."\n"..v.Description )
+		end
 		itemdesc:Dock( RIGHT )
 		itemdesc:SetWrap( true )
 		itemdesc:SetSize( 320, 110 )
 	end
 	ply.MenuOpen = true
 end
+
+net.Receive( "UpdateTask", function()
+	local tbl = net.ReadTable()
+	BMRP_CURRENT_TASKS = tbl
+end )
 
 local function HLUButtons( ply, button )
 	if IsFirstTimePredicted() and !ply.MenuOpen then
