@@ -41,30 +41,28 @@ function ENT:Initialize()
 end
 
 function ENT:Use( caller, activator )
-	if !self.broke then
+	if self.broke then
+		if caller:Team() != TEAM_SERVICE then
+			HLU_Notify( caller, "The portal is broken. Use your wrench to attempt repairs.", 1, 6 )
+		else
+			HLU_Notify( caller, "The portal is broken. Contact a service official to have it fixed.", 1, 6 )
+		end
+	else
 		HLU_Notify( caller, "You visually inspect the portal but find nothing out of the ordinary.", 0, 6 )
-		return
-	end
-	if caller:Team() != TEAM_SERVICE and self.broke then
-		HLU_Notify( caller, "The portal is broken. Contact a service official to have it fixed.", 1, 6 )
-		return
-	end
-	if caller:Team() == TEAM_SERVICE and self.broke then
-		HLU_Notify( caller, "The portal is broken. Use your wrench to attempt repairs.", 1, 6 )
 	end
 end
 
 function ENT:Think()
 	if self.broke then
-		if(math.random(1,8)==7)then
-			local effectdata=EffectData()
-			effectdata:SetOrigin(self:GetPos()+self:GetUp()*math.random(10,25))
-			effectdata:SetNormal(VectorRand())
-			effectdata:SetMagnitude(3) --amount and shoot hardness
-			effectdata:SetScale(1) --length of strands
-			effectdata:SetRadius(3) --thickness of strands
-			util.Effect("Sparks",effectdata,true,true)
-			self:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav")
+		if math.random( 1, 8 ) == 7 then
+			local effectdata = EffectData()
+			effectdata:SetOrigin( self:GetPos() + self:GetUp() * math.random( 10, 25 ) )
+			effectdata:SetNormal( VectorRand() )
+			effectdata:SetMagnitude( 3 )
+			effectdata:SetScale( 1 )
+			effectdata:SetRadius( 3 )
+			util.Effect( "Sparks", effectdata, true, true )
+			self:EmitSound( "ambient/energy/spark"..math.random( 1, 6 )..".wav" )
 		end
 	end
 end
@@ -84,14 +82,7 @@ function ENT:OnTakeDamage( dmg )
 				HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has been repaired!" )
 			end
 		end
-		return
 	end
-	--[[
-	if self:Health() > 0 then self:SetHealth( self:Health() - 4 ) end --Disabled until I can have all buttons disabled to prevent the portal from breaking
-	if self:Health() <= 0 then
-		PortalBreakDown()
-	end
-	]]
 end
 
 if CLIENT then

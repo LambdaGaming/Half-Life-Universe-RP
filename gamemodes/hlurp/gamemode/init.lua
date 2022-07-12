@@ -5,6 +5,7 @@ AddCSLuaFile( "sh_bmrp.lua" )
 AddCSLuaFile( "cl_bmrp.lua" )
 AddCSLuaFile( "sh_c17.lua" )
 AddCSLuaFile( "sh_outland.lua" )
+AddCSLuaFile( "sh_bmrp_events.lua" )
 
 include( "shared.lua" )
 include( "sv_hlu_chat.lua" )
@@ -14,7 +15,7 @@ include( "sv_c17.lua" )
 include( "sh_c17.lua" )
 include( "sh_outland.lua" )
 include( "sv_outland.lua" )
-include( "sv_bmrp_events.lua" )
+include( "sh_bmrp_events.lua" )
 include( "sv_c17_events.lua" )
 
 RunConsoleCommand( "sv_alltalk", "0" )
@@ -45,6 +46,9 @@ function GM:PlayerNoClip( ply, on )
 	end
 	return ply:IsSuperAdmin()
 end
+
+function GM:ShowHelp() end
+function GM:ShowTeam() end
 
 function GM:PlayerLoadout( ply )
 	local PlyTeam = ply:Team()

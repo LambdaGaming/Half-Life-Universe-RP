@@ -22,22 +22,21 @@ if SERVER then
 		if phys:IsValid() then
 			phys:Wake()
 		end
+		self.broke = false
 	end
 
 	function ENT:Use( caller, activator )
-		if !computerbroke then
+		if self.broke then
+			if caller:Team() == TEAM_TECH then
+				self:EmitSound( "ambient/levels/citadel/zapper_warmup1.wav" )
+				self.broke = false
+				HLU_Notify( caller, "You clean out the dust and reboot the system. +500 for the facility budget.", 1, 6 )
+				ChangeBudget( 500 )
+			else
+				HLU_Notify( caller, "The server has overheated. Contact a technician to have it fixed.", 1, 6 )
+			end
+		else
 			HLU_Notify( caller, "You check the server stats. Everything looks good.", 1, 6 )
-			return
-		end
-		if caller:Team() != TEAM_TECH and computerbroke then
-			HLU_Notify( caller, "The server has overheated. Contact a technician to have it fixed.", 1, 6 )
-			return
-		end
-		if caller:Team() == TEAM_TECH and computerbroke then
-			self:EmitSound( "ambient/levels/citadel/zapper_warmup1.wav" )
-			computerbroke = false
-			HLU_Notify( caller, "You clean out the dust and reboot the system. +500 for the facility budget.", 1, 6 )
-			ChangeBudget( 500 )
 		end
 	end
 end

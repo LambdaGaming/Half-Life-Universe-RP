@@ -36,7 +36,6 @@ function ENT:Initialize()
 		self:PhysicsInit( SOLID_VPHYSICS )
 		self:SetUseType( SIMPLE_USE )
 	end
- 
     local phys = self:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
@@ -45,7 +44,8 @@ end
 
 function ENT:Use( caller, activator )
 	if caller:Team() == TEAM_SURVEYBOSS or caller:Team() == TEAM_SURVEY then
-		HLU_Notify( caller, "As per protocol, you are required to take this specimen to a secure location for containment.", 0, 6 )
+		SecureCrystal()
+		self:Remove()
 	else
 		HLU_Notify( caller, "The crystal appears as if it doesn't belong here. Contacting the survey team would be a good idea.", 0, 6 )
 	end
