@@ -19,6 +19,15 @@ include( "sh_bmrp_events.lua" )
 include( "sv_c17_events.lua" )
 
 RunConsoleCommand( "sv_alltalk", "0" )
+if GetGlobalInt( "CurrentGamemode" ) == 1 then
+	RunConsoleCommand( "vfire_spread_delay", "5" )
+	RunConsoleCommand( "vfire_decay_rate", "0" )
+	RunConsoleCommand( "vfire_spread_boost", "10" )
+else
+	RunConsoleCommand( "vfire_spread_delay", "60" )
+	RunConsoleCommand( "vfire_decay_rate", "10" )
+	RunConsoleCommand( "vfire_spread_boost", "0" )
+end
 
 function GM:PlayerSpawnNPC( ply )
 	return ply:IsSuperAdmin()

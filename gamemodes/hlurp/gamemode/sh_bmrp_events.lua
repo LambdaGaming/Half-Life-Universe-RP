@@ -1,62 +1,5 @@
 if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 
-BMRP_EVENTS = {
-	{
-		Name = "Xen Portal Failure",
-		Description = "Prevents the Xen portal from being activated until a service official repairs a console near the portal controls.",
-		Required = TEAM_SERVICE,
-		OnSelect = PortalBreakDown
-	},
-	{
-		Name = "Door Failure",
-		Description = "Prevents certain doors from being opened until a service official restarts the generator powering them.",
-		Required = TEAM_SERVICE,
-		OnSelect = DoorFailure
-	},
-	{
-		Name = "Medical Emergency",
-		Description = "Causes a random player (excluding you and any medics) to faint and remain on the ground until a medic revives them.",
-		Required = TEAM_MEDIC,
-		OnSelect = MedicFaint
-	},
-	{
-		Name = "Containment Breach",
-		Description = "Hostile Xen creatures enter the facility and attack personnel.",
-		Required = TEAM_SECURITYBOSS,
-		OnSelect = XenBreach
-	},
-	{
-		Name = "Biohazard",
-		Description = "Radioactive materials spill out at a random location within the facility that the biochemist has to cleanup.",
-		Required = TEAM_BIO,
-		OnSelect = Biohazard
-	},
-	{
-		Name = "Lost Crystal",
-		Description = "Xen crystal teleports to a random location within the facility. Survey members need to remove it before it gets lost.",
-		Required = TEAM_SURVEYBOSS,
-		OnSelect = Crystal
-	},
-	{
-		Name = "Server Failure",
-		Description = "Prevents players from using all computers until the server is repaired by a technician.",
-		Required = TEAM_TECH,
-		OnSelect = ServerFailure
-	},
-	{
-		Name = "Boss Fight",
-		Description = "Large hostile Xen creature teleports into the facility.",
-		Required = TEAM_WEPBOSS,
-		OnSelect = Boss
-	},
-	{
-		Name = "Fire",
-		Description = "Fire breaks out at a random location.",
-		Required = TEAM_SERVICE,
-		OnSelect = RandomFire
-	}
-}
-
 if SERVER then
 	local map = game.GetMap()
 	local sectorc = "rp_sectorc_beta"
@@ -465,9 +408,9 @@ if SERVER then
 		local e = ents.Create( "event_fire" )
 		e:SetPos( randfire )
 		e:Spawn()
-		CreateVFireBall( 1200, 10, randfire + Vector( 0, 0, 50 ), vector_origin, nil )
+		CreateVFireBall( 30, 15, e:GetPos(), Vector( 0, 50, 0 ), e )
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A fire has been detected by the facility smoke alarms! Evacuate while service officials contain it!" )
-		RunConsoleCommand( "vox", "bizwarn bizwarn warning fire detected" )
+		RunConsoleCommand( "vox", "bizwarn bizwarn warning _comma fire detected" )
 	end
 
 	function ExtinguishFire()
@@ -475,3 +418,60 @@ if SERVER then
 		EndEvent( 1800 )
 	end
 end
+
+BMRP_EVENTS = {
+	{
+		Name = "Xen Portal Failure",
+		Description = "Prevents the Xen portal from being activated until a service official repairs a console near the portal controls.",
+		Required = TEAM_SERVICE,
+		OnSelect = PortalBreakDown
+	},
+	{
+		Name = "Door Failure",
+		Description = "Prevents certain doors from being opened until a service official restarts the generator powering them.",
+		Required = TEAM_SERVICE,
+		OnSelect = DoorFailure
+	},
+	{
+		Name = "Medical Emergency",
+		Description = "Causes a random player (excluding you and any medics) to faint and remain on the ground until a medic revives them.",
+		Required = TEAM_MEDIC,
+		OnSelect = MedicFaint
+	},
+	{
+		Name = "Containment Breach",
+		Description = "Hostile Xen creatures enter the facility and attack personnel.",
+		Required = TEAM_SECURITYBOSS,
+		OnSelect = XenBreach
+	},
+	{
+		Name = "Biohazard",
+		Description = "Radioactive materials spill out at a random location within the facility that the biochemist has to cleanup.",
+		Required = TEAM_BIO,
+		OnSelect = Biohazard
+	},
+	{
+		Name = "Lost Crystal",
+		Description = "Xen crystal teleports to a random location within the facility. Survey members need to remove it before it gets lost.",
+		Required = TEAM_SURVEYBOSS,
+		OnSelect = Crystal
+	},
+	{
+		Name = "Server Failure",
+		Description = "Prevents players from using all computers until the server is repaired by a technician.",
+		Required = TEAM_TECH,
+		OnSelect = ServerFailure
+	},
+	{
+		Name = "Boss Fight",
+		Description = "Large hostile Xen creature teleports into the facility.",
+		Required = TEAM_WEPBOSS,
+		OnSelect = Boss
+	},
+	{
+		Name = "Fire",
+		Description = "Fire breaks out at a random location.",
+		Required = TEAM_SERVICE,
+		OnSelect = RandomFire
+	}
+}

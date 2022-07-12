@@ -19,28 +19,27 @@ function ENT:SpawnFunction( ply, tr, name )
 end
 
 function ENT:Initialize()
-    self:SetModel( "models/hunter/misc/sphere025x025.mdl" )
+    self:SetModel( "models/hunter/blocks/cube025x025x025.mdl" )
 	self:SetMoveType( MOVETYPE_NONE )
-	self:SetSolid( SOLID_VPHYSICS )
+	self:SetSolid( SOLID_NONE )
+	self:SetRenderMode( RENDERMODE_TRANSCOLOR )
 	self:SetColor( color_transparent )
-    local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
 end
 
 function ENT:Think()
-	local found = false
-	for k,v in pairs( ents.FindInSphere( self:GetPos(), 200 ) ) do
-		if string.match( v:GetClass(), "vfire" ) or v:GetClass() == "entityflame" then
-			found = true
+	if SERVER then
+		local found = false
+		for k,v in pairs( ents.FindInSphere( self:GetPos(), 500 ) ) do
+			if string.match( v:GetClass(), "vfire" ) then
+				found = true
+			end
 		end
+		if !found then
+			ExtinguishFire()
+			self:Remove()
+		end
+		self:NextThink( CurTime() + 1 )
 	end
-	if !found then
-		ExtinguishFire()
-		self:Remove()
-	end
-	self:NextThink( CurTime() + 1 )
 end
 
 if CLIENT then

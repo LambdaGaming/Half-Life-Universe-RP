@@ -302,6 +302,7 @@ local function DrawEventMenu()
 	local gman = TEAM_GMAN
 	local admin = TEAM_ADMIN
 
+	if ply:Team() != TEAM_GMAN and ply:Team() != TEAM_ADMIN then return end
 	if plyteam == gman then
 		if GetGlobalBool( "EventActive" ) then
 			HLU_Notify( "Please wait until the current event ends before starting a new one.", 1, 6 )
