@@ -98,12 +98,14 @@ if SERVER then
 		body:SetAngles( victim:GetAngles() )
 		body:SetModel( victim:GetModel() )
 		body:Spawn()
+		body.Owner = victim
 		victim:Lock()
 		victim:Spectate( OBS_MODE_CHASE )
 		victim:SpectateEntity( body )
+		victim:SetActiveWeapon( "pocket" )
 		victim.Fainted = true
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A medical emergency has been reported! Current location unknown!" )
-		RunConsoleCommand( "vox", "bizwarn bizwarn medical emergency reported " )
+		RunConsoleCommand( "vox", "bizwarn bizwarn medical emergency in the facility" )
 	end
 
 	function MedicRevive( medic, victim )
@@ -312,7 +314,9 @@ if SERVER then
 		end
 		hook.Add( "PlayerUse", "BlockPCUsage", function( ply, ent )
 			if string.match( ent:GetClass(), "pcmod_" ) or ent:GetClass() == "sent_computer" then
-				HLU_ChatNotifySystem( "BMRP", color_green, "The main server is currently down. You won't be able to use computers until a technician fixes it.", true, ply )
+				if ply.MessageCooldown and ply.MessageCooldown > CurTime() then return end
+				HLU_ChatNotifySystem( "BMRP", color_orange, "The main server is currently down. You won't be able to use computers until a technician fixes it.", true, ply )
+				ply.MessageCooldown = CurTime() + 1
 				return false
 			end
 		end )

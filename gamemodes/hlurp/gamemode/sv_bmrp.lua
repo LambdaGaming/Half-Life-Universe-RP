@@ -322,3 +322,8 @@ hook.Add( "CanPlayerEnterVehicle", "BMRP_ForkliftRestriction", function( ply, ve
 		end
 	end
 end )
+
+hook.Add( "InitPostEntity", "InitialEventCooldown", function()
+	SetGlobalBool( "EventCooldownActive", true )
+	timer.Simple( 1800, function() SetGlobalBool( "EventCooldownActive", false ) end )
+end )
