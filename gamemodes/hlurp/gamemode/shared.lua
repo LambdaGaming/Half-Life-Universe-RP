@@ -35,17 +35,14 @@ end
 GLOBAL_WHITELIST = { --Global entity whitelist currently used by the trash swep and the pocket
 	["organic_matter"] = true,
 	["organic_matter_cooked"] = true,
-	["organic_matter_radioactive"] = true,
 	["mediaplayer_tv"] = true,
 	["organic_matter_rare"] = true,
 	["xen_iron"] = true,
-	["xen_iron_radioactive"] = true,
 	["xen_iron_refined"] = true,
 	["ironbar"] = true,
 	["wrench"] = true,
 	["crystal_fragment"] = true,
 	["crystal_harvested"] = true,
-	["crystal_radioactive"] = true,
 	["wood"] = true
 }
 
