@@ -29,7 +29,7 @@ function ENT:Initialize()
 		self:SetTrigger(true)
 	end
     local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
+	if phys:IsValid() then
 		phys:Wake()
 	end
 
@@ -181,7 +181,7 @@ function ENT:Think()
 			if CLIENT then
 				surface.PlaySound( "player/geiger"..math.random( 1, 3 )..".wav" )
 			end
-			hurtcooldown = hurtcooldown + 3
+			hurtcooldown = CurTime() + 3
 		end
 	end
 end
