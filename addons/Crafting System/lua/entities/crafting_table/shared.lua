@@ -1,4 +1,3 @@
-
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Crafting Table"
@@ -199,21 +198,20 @@ CraftingCategory[18] = {
 
 --Template Item
 --[[
-	CraftingTable["weapon_crowbar"] = { --Add the entity name of the item in the brackets with quotes
-	Name = "Crowbar", --Name of the item, different from the item's entity name
-	Description = "Requires 1 ball.", --Description of the item
-	Materials = { --Entities that are required to craft this item, make sure you leave the entity names WITHOUT quotes!
+CraftingTable["weapon_crowbar"] = {
+	Name = "Crowbar",
+	Description = "Requires 1 ball.",
+	Materials = {
 		iron = 2,
 		wood = 1
 	},
-	Type = 1, --Lets you set the type of the item to match up with the data table above so you can have one table entity for multiple sets of items, keep this at 1 if you only want to use 1 set of items for all players
-	SpawnFunction = --Function to spawn the item, don't modify anything outside of the entity name unless you know what you're doing
-		function( ply, self ) --In this function you are able to modify the player who is crafting, the table itself, and the item that is being crafted
-			local e = ents.Create( "weapon_crowbar" ) --Replace the entity name with the one at the very top inside the brackets
-			e:SetPos( self:GetPos() - Vector( 0, 0, -5 ) ) --A negative Z coordinate is added here to prevent items from spawning on top of the table and being consumed, you'll have to change it if you use a different model otherwise keep it as it is
-			e:Spawn()
-		end
-	}
+	Type = 1,
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "weapon_crowbar" )
+		e:SetPos( self:GetPos() - Vector( 0, 0, -5 ) )
+		e:Spawn()
+	end
+}
 ]]
 
 --Rebel crafting items
@@ -226,10 +224,9 @@ CraftingTable["weapon_pistol"] = {
 	},
 	Type = 1,
 	Category = "Pistols",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_pistol" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_pistol" )
+	end
 }
 
 CraftingTable["weapon_crowbar"] = {
@@ -240,10 +237,9 @@ CraftingTable["weapon_crowbar"] = {
 	},
 	Type = 1,
 	Category = "Tools",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_crowbar" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_crowbar" )
+	end
 }
 
 CraftingTable["weapon_smg1"] = {
@@ -255,10 +251,9 @@ CraftingTable["weapon_smg1"] = {
 	},
 	Type = 1,
 	Category = "SMGs",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_smg1" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_smg1" )
+	end
 }
 
 CraftingTable["weapon_ar2"] = {
@@ -270,10 +265,9 @@ CraftingTable["weapon_ar2"] = {
 	},
 	Type = 1,
 	Category = "Rifles",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_ar2" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_ar2" )
+	end
 }
 
 CraftingTable["weapon_crossbow"] = {
@@ -285,10 +279,9 @@ CraftingTable["weapon_crossbow"] = {
 	},
 	Type = 1,
 	Category = "Rifles",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_crossbow" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_crossbow" )
+	end
 }
 
 CraftingTable["wrench"] = {
@@ -299,10 +292,9 @@ CraftingTable["wrench"] = {
 	},
 	Type = 1,
 	Category = "Crafting Ingredients",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "wrench" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "wrench" )
+	end
 }
 
 CraftingTable["weapon_bp_sniper"] = {
@@ -314,10 +306,9 @@ CraftingTable["weapon_bp_sniper"] = {
 	},
 	Type = 1,
 	Category = "Rifles",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_bp_sniper" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_bp_sniper" )
+	end
 }
 
 CraftingTable["item_ammo_pistol"] = {
@@ -328,12 +319,12 @@ CraftingTable["item_ammo_pistol"] = {
 	},
 	Type = 1,
 	Category = "Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "item_ammo_pistol" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "item_ammo_pistol" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["item_ammo_smg1"] = {
@@ -344,12 +335,12 @@ CraftingTable["item_ammo_smg1"] = {
 	},
 	Type = 1,
 	Category = "Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "item_ammo_smg1" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "item_ammo_smg1" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["item_box_buckshot"] = {
@@ -360,12 +351,12 @@ CraftingTable["item_box_buckshot"] = {
 	},
 	Type = 1,
 	Category = "Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "item_box_buckshot" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "item_box_buckshot" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["item_ammo_crossbow"] = {
@@ -376,12 +367,12 @@ CraftingTable["item_ammo_crossbow"] = {
 	},
 	Type = 1,
 	Category = "Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "item_ammo_crossbow" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "item_ammo_crossbow" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["item_ammo_ar2"] = {
@@ -392,12 +383,12 @@ CraftingTable["item_ammo_ar2"] = {
 	},
 	Type = 1,
 	Category = "Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "item_ammo_ar2" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "item_ammo_ar2" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["bp_sniper_ammo"] = {
@@ -408,12 +399,12 @@ CraftingTable["bp_sniper_ammo"] = {
 	},
 	Type = 1,
 	Category = "Ammo",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "bp_sniper_ammo" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "bp_sniper_ammo" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["lockpick"] = {
@@ -424,10 +415,9 @@ CraftingTable["lockpick"] = {
 	},
 	Type = 1,
 	Category = "Tools",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "lockpick" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "lockpick" )
+	end
 }
 
 CraftingTable["weapon_shotgun"] = {
@@ -439,10 +429,9 @@ CraftingTable["weapon_shotgun"] = {
 	},
 	Type = 1,
 	Category = "Shotguns",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_shotgun" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_shotgun" )
+	end
 }
 
 CraftingTable["weapon_rpg"] = {
@@ -454,10 +443,9 @@ CraftingTable["weapon_rpg"] = {
 	},
 	Type = 1,
 	Category = "Explosives",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_rpg" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_rpg" )
+	end
 }
 
 CraftingTable["rebel_teleporter"] = {
@@ -469,12 +457,12 @@ CraftingTable["rebel_teleporter"] = {
 	},
 	Type = 1,
 	Category = "Tools",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "rebel_teleporter" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "rebel_teleporter" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["two_way_teleporter"] = {
@@ -486,12 +474,12 @@ CraftingTable["two_way_teleporter"] = {
 	},
 	Type = 1,
 	Category = "Tools",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "two_way_teleporter" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "two_way_teleporter" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["weapon_frag"] = {
@@ -503,10 +491,9 @@ CraftingTable["weapon_frag"] = {
 	},
 	Type = 1,
 	Category = "Explosives",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_frag" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_frag" )
+	end
 }
 
 CraftingTable["weapon_grenadeplacer"] = {
@@ -518,10 +505,9 @@ CraftingTable["weapon_grenadeplacer"] = {
 	},
 	Type = 1,
 	Category = "Traps",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_grenadeplacer" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_grenadeplacer" )
+	end
 }
 
 CraftingTable["bouncingmine"] = {
@@ -533,12 +519,12 @@ CraftingTable["bouncingmine"] = {
 	},
 	Type = 1,
 	Category = "Traps",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "bouncingmine" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "bouncingmine" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["springgun"] = {
@@ -550,12 +536,12 @@ CraftingTable["springgun"] = {
 	},
 	Type = 1,
 	Category = "Traps",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "springgun" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "springgun" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["tripwireextender"] = {
@@ -566,12 +552,12 @@ CraftingTable["tripwireextender"] = {
 	},
 	Type = 1,
 	Category = "Traps",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "tripwireextender" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "tripwireextender" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
@@ -584,12 +570,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Tools",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_sleepinbag" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_sleepinbag" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 
 	CraftingTable["ent_jack_gmod_ezadvparts"] = {
@@ -601,12 +587,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Crafting Materials",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_gmod_ezadvparts" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_gmod_ezadvparts" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 
 	CraftingTable["ent_jack_gmod_ezadvtextiles"] = {
@@ -618,12 +604,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Crafting Materials",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_gmod_ezadvtextiles" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_gmod_ezadvtextiles" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 
 	CraftingTable["ent_jack_gmod_ezammo"] = {
@@ -634,12 +620,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Ammo",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_gmod_ezammo" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_gmod_ezammo" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 
 	CraftingTable["ent_jack_gmod_ezbattery"] = {
@@ -651,12 +637,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Tools",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_gmod_ezbattery" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_gmod_ezbattery" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 
 	CraftingTable["ent_jack_gmod_ezmedsupplies"] = {
@@ -668,12 +654,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Tools",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_gmod_ezmedsupplies" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_gmod_ezmedsupplies" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 
 	CraftingTable["ent_jack_gmod_ezparts"] = {
@@ -685,12 +671,12 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		},
 		Type = 1,
 		Category = "Tools",
-		SpawnFunction =
-			function( ply, self )
-				local e = ents.Create( "ent_jack_gmod_ezparts" )
-				e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-				e:Spawn()
-			end
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_jack_gmod_ezparts" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
 	}
 end
 
@@ -704,12 +690,12 @@ CraftingTable["npc_headcrab_black"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "npc_headcrab_black" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "npc_headcrab_black" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["npc_headcrab_fast"] = {
@@ -720,12 +706,12 @@ CraftingTable["npc_headcrab_fast"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "npc_headcrab_fast" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "npc_headcrab_fast" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_agrunt"] = {
@@ -737,12 +723,12 @@ CraftingTable["monster_agrunt"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_agrunt" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_agrunt" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_controller"] = {
@@ -754,12 +740,12 @@ CraftingTable["monster_controller"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_controller" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_controller" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_bullsquid"] = {
@@ -771,12 +757,12 @@ CraftingTable["monster_bullsquid"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_bullsquid" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_bullsquid" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_babyheadcrab"] = {
@@ -787,12 +773,12 @@ CraftingTable["monster_babyheadcrab"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_babyheadcrab" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_babyheadcrab" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_hound_eye"] = {
@@ -804,12 +790,12 @@ CraftingTable["monster_hound_eye"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_hound_eye" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_hound_eye" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_zombie_scientist"] = {
@@ -821,12 +807,12 @@ CraftingTable["monster_zombie_scientist"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_zombie_scientist" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_zombie_scientist" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_zombie_barney"] = {
@@ -838,12 +824,12 @@ CraftingTable["monster_zombie_barney"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_zombie_barney" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_zombie_barney" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_zombie_soldier"] = {
@@ -855,12 +841,12 @@ CraftingTable["monster_zombie_soldier"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_zombie_soldier" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_zombie_soldier" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_alien_snark"] = {
@@ -872,12 +858,12 @@ CraftingTable["monster_alien_snark"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_alien_snark" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_alien_snark" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["monster_alien_slv"] = {
@@ -889,12 +875,12 @@ CraftingTable["monster_alien_slv"] = {
 	},
 	Type = 2,
 	Category = "Creatures",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "monster_alien_slv" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "monster_alien_slv" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["weapon_barnacle"] = {
@@ -906,10 +892,9 @@ CraftingTable["weapon_barnacle"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_barnacle" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_barnacle" )
+	end
 }
 
 CraftingTable["weapon_chumtoad"] = {
@@ -922,10 +907,9 @@ CraftingTable["weapon_chumtoad"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_chumtoad" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_chumtoad" )
+	end
 }
 
 CraftingTable["weapon_hornetgun"] = {
@@ -938,10 +922,9 @@ CraftingTable["weapon_hornetgun"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_hornetgun" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_hornetgun" )
+	end
 }
 
 CraftingTable["weapon_possessor"] = {
@@ -956,10 +939,9 @@ CraftingTable["weapon_possessor"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_possessor" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_possessor" )
+	end
 }
 
 CraftingTable["weapon_shockrifle"] = {
@@ -973,10 +955,9 @@ CraftingTable["weapon_shockrifle"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_shockrifle" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_shockrifle" )
+	end
 }
 
 CraftingTable["weapon_snark"] = {
@@ -989,10 +970,9 @@ CraftingTable["weapon_snark"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_snark" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_snark" )
+	end
 }
 
 CraftingTable["weapon_sporelauncher"] = {
@@ -1006,10 +986,9 @@ CraftingTable["weapon_sporelauncher"] = {
 	},
 	Type = 2,
 	Category = "Bioweapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_sporelauncher" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_sporelauncher" )
+	end
 }
 
 --Weapons engineer crafting items
@@ -1022,10 +1001,9 @@ CraftingTable["weapon_357_hl"] = {
 	},
 	Type = 3,
 	Category = "Normal Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_357_hl" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_357_hl" )
+	end
 }
 
 CraftingTable["weapon_crossbow_hl"] = {
@@ -1037,10 +1015,9 @@ CraftingTable["weapon_crossbow_hl"] = {
 	},
 	Type = 3,
 	Category = "Normal Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_crossbow_hl" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_crossbow_hl" )
+	end
 }
 
 CraftingTable["weapon_egon"] = {
@@ -1053,10 +1030,9 @@ CraftingTable["weapon_egon"] = {
 	},
 	Type = 3,
 	Category = "Prototype Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_egon" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_egon" )
+	end
 }
 
 CraftingTable["weapon_flechettegrenade"] = {
@@ -1068,10 +1044,9 @@ CraftingTable["weapon_flechettegrenade"] = {
 	},
 	Type = 3,
 	Category = "Prototype Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_flechettegrenade" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_flechettegrenade" )
+	end
 }
 
 CraftingTable["weapon_freezinggun"] = {
@@ -1085,10 +1060,9 @@ CraftingTable["weapon_freezinggun"] = {
 	},
 	Type = 3,
 	Category = "Unusual Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_freezinggun" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_freezinggun" )
+	end
 }
 
 CraftingTable["weapon_gauss"] = {
@@ -1102,10 +1076,9 @@ CraftingTable["weapon_gauss"] = {
 	},
 	Type = 3,
 	Category = "Prototype Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_gauss" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_gauss" )
+	end
 }
 
 CraftingTable["weapon_knife"] = {
@@ -1116,10 +1089,9 @@ CraftingTable["weapon_knife"] = {
 	},
 	Type = 3,
 	Category = "Normal Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_knife" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_knife" )
+	end
 }
 
 CraftingTable["weapon_penguin"] = {
@@ -1135,10 +1107,9 @@ CraftingTable["weapon_penguin"] = {
 	},
 	Type = 3,
 	Category = "Unusual Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_penguin" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_penguin" )
+	end
 }
 
 CraftingTable["weapon_rpg_hl"] = {
@@ -1151,10 +1122,9 @@ CraftingTable["weapon_rpg_hl"] = {
 	},
 	Type = 3,
 	Category = "Normal Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_rpg_hl" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_rpg_hl" )
+	end
 }
 
 CraftingTable["weapon_tripmine"] = {
@@ -1167,10 +1137,9 @@ CraftingTable["weapon_tripmine"] = {
 	},
 	Type = 3,
 	Category = "Normal Weapons",
-	SpawnFunction =
-		function( ply, self )
-			ply:Give( "weapon_tripmine" )
-		end
+	SpawnFunction = function( ply, self )
+		ply:Give( "weapon_tripmine" )
+	end
 }
 
 --Combine crafting items
@@ -1184,14 +1153,14 @@ CraftingTable["ent_jack_gmod_ezsentry"] = {
 	},
 	Type = 4,
 	Category = "Turrets",
-	SpawnFunction =
-		function( ply, self )
-			local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
-			spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-			JMod_Owner( spawn, ply )
-			spawn:Spawn()
-			spawn:Activate()
-		end
+	SpawnFunction = function( ply, self )
+		local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
+		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
+		JMod_Owner( spawn, ply )
+		spawn:Spawn()
+		spawn:Activate()
+		spawn:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["ent_jack_gmod_ezammo"] = {
@@ -1202,12 +1171,12 @@ CraftingTable["ent_jack_gmod_ezammo"] = {
 	},
 	Type = 4,
 	Category = "Turrets",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_gmod_ezammo" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "ent_jack_gmod_ezammo" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["ent_jack_gmod_ezbattery"] = {
@@ -1219,12 +1188,12 @@ CraftingTable["ent_jack_gmod_ezbattery"] = {
 	},
 	Type = 1,
 	Category = "Turrets",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_gmod_ezbattery" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "ent_jack_gmod_ezbattery" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["ent_jack_gmod_ezparts"] = {
@@ -1236,12 +1205,12 @@ CraftingTable["ent_jack_gmod_ezparts"] = {
 	},
 	Type = 4,
 	Category = "Turrets",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "ent_jack_gmod_ezparts" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "ent_jack_gmod_ezparts" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
 
 CraftingTable["locker_key"] = {
@@ -1252,10 +1221,10 @@ CraftingTable["locker_key"] = {
 	},
 	Type = 4,
 	Category = "Other",
-	SpawnFunction =
-		function( ply, self )
-			local e = ents.Create( "locker_key" )
-			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
-			e:Spawn()
-		end
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "locker_key" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
 }
