@@ -147,13 +147,6 @@ BuyMenuItems = {
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end
 	},
-	["announcement_speaker"] = {
-		Name = "Announcement Speaker",
-		Description = "Used with the announcement SWEP to broadcast voice.",
-		Price = 50,
-		Max = 5,
-		Allowed = function( ply ) return ply:Team() == TEAM_ADMIN end
-	},
 	["satchel_shipment"] = {
 		Name = "Satchel Charge (Box)",
 		Description = "Remotely detonated plastic explosive.",

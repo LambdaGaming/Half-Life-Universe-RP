@@ -207,7 +207,7 @@ HLU_JOB = {
 			Link = "facilityadmin",
 			Color = color_red,
 			Models = { "models/player/breen.mdl" },
-			Weapons = { "weapon_leash_police", "weapon_announcement" },
+			Weapons = { "weapon_leash_police" },
 			Max = 1,
 			Category = "Administration"
 		},
@@ -423,7 +423,7 @@ HLU_JOB = {
 			Link = "earthadmin",
 			Color = color_red,
 			Models = { "models/player/breen.mdl" },
-			Weapons = { "weapon_leash_police", "weapon_announcement", "weapon_ram" },
+			Weapons = { "weapon_leash_police", "weapon_ram" },
 			Max = 1,
 			Category = "Combine"
 		},

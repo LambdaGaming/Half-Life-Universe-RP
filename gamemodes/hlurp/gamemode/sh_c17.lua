@@ -16,12 +16,6 @@ TEAM_METROCOPMANHACK = 13
 TEAM_METROCOP = 14
 
 BuyMenuItems = {
-	["announcement_speaker"] = {
-		Name = "Announcement Speaker",
-		Description = "Used with the announcement SWEP to broadcast voice.",
-		Max = 5,
-		Allowed = function( ply ) return ply:Team() == TEAM_EARTHADMIN end
-	},
 	["mediaplayer_tv"] = {
 		Name = "Media Player",
 		Description = "Used to watch videos.",
