@@ -20,48 +20,48 @@ BuyMenuItems = {
 	["sent_computer"] = {
 		Name = "Office Terminal",
 		Description = "Terminal-based computer that allows for private messaging and file transfer through virtual servers.",
-		Price = 50,
+		Price = 100,
 		Max = 10
 	},
 	["sent_iodevice"] = {
 		Name = "Terminal I/O Device",
 		Description = "Device that allows you to link your office terminal to wiremod devices.",
-		Price = 100,
+		Price = 150,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
 	},
 	["item_healthcharger"] = {
 		Name = "Mounted Healing Unit",
 		Description = "Health unit that heals up to 75 HP. Recharges after 5 minutes when empty.",
-		Price = 100,
+		Price = 200,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_MEDIC end
 	},
 	["item_healthkit"] = {
 		Name = "Health Kit",
 		Description = "Small, one-time-use health kit that heals up to 25 HP.",
-		Price = 50,
+		Price = 100,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_MEDIC end
 	},
 	["item_battery"] = {
 		Name = "Armor Battery",
 		Description = "Battery for HEV suits. Charges up to 25 AP.",
-		Price = 75,
+		Price = 125,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_MEDIC end
 	},
 	["item_suitcharger"] = {
 		Name = "Mounted Armor Charging Unit",
 		Description = "Charging unit for HEV suits. Charges up to 75 AP.",
-		Price = 125,
+		Price = 225,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_MEDIC end
 	},
 	["crafting_table_bio"] = {
 		Name = "Biochemist Crafting Table",
 		Description = "Allows the biochemist to summon Xen creatures.",
-		Price = 400,
+		Price = 500,
 		Max = 2,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end,
 		SpawnFunction = function( ply, tr )
@@ -87,7 +87,7 @@ BuyMenuItems = {
 	["crafting_table_wep"] = {
 		Name = "Weapons Engineer Crafting Table",
 		Description = "Allows the weapons engineer to craft weapons, both normal and rare.",
-		Price = 400,
+		Price = 500,
 		Max = 2,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPMAKER end,
 		SpawnFunction = function( ply, tr )
@@ -101,56 +101,56 @@ BuyMenuItems = {
 	["lab_burner"] = {
 		Name = "Bunsen Burner",
 		Description = "Common scientific tool, emits a small flame from a metal tube.",
-		Price = 200,
+		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:IsJobCategory( "Science" ) end
 	},
 	["lab_laser"] = {
 		Name = "High-Powered Laser Emitter",
 		Description = "Contains a high-powered laser that can cut through just about anything.",
-		Price = 200,
+		Price = 1500,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPMAKER end
 	},
 	["lab_generator"] = {
 		Name = "Electric Generator",
 		Description = "Gasoline engine built to produce large amounts of electricity.",
-		Price = 200,
+		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
 	},
 	["lab_reactor"] = {
 		Name = "Nuclear Reactor",
 		Description = "Produces extreme amounts of energy. Relatively safe by itself.",
-		Price = 200,
+		Price = 1500,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end
 	},
 	["lab_nitrogen"] = {
 		Name = "Liquid Nitrogen Capsule",
 		Description = "Contains liquid nitrogen, which is extremely cold in normal conditions.",
-		Price = 200,
+		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:IsJobCategory( "Science" ) end
 	},
 	["lab_chemical"] = {
 		Name = "Chemical Container",
 		Description = "Contains an unknown and highly reactive chemical.",
-		Price = 200,
+		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end
 	},
 	["container_ent"] = {
 		Name = "Radioactive Material Barrel",
 		Description = "Used to safely store radioactive materials.",
-		Price = 100,
+		Price = 200,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end
 	},
 	["satchel_shipment"] = {
 		Name = "Satchel Charge (Box)",
 		Description = "Remotely detonated plastic explosive.",
-		Price = 300,
+		Price = 500,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end,
 		SpawnFunction = function( ply, tr )
@@ -180,7 +180,7 @@ BuyMenuItems = {
 	["shotgun_shipment"] = {
 		Name = "SPAS-12 (Box)",
 		Description = "Semi-automatic 12 gauge shotgun with folding stock.",
-		Price = 300,
+		Price = 800,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end,
 		SpawnFunction = function( ply, tr )
@@ -195,7 +195,7 @@ BuyMenuItems = {
 	["deagle_shipment"] = {
 		Name = "Desert Eagle (Box)",
 		Description = "Powerful pistol with laser sight.",
-		Price = 300,
+		Price = 500,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end,
 		SpawnFunction = function( ply, tr )
@@ -210,7 +210,7 @@ BuyMenuItems = {
 	["sniper_shipment"] = {
 		Name = "M40A1 Sniper (Box)",
 		Description = "Bolt-action rifle with long range scope.",
-		Price = 300,
+		Price = 800,
 		Max = 10,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end,
 		SpawnFunction = function( ply, tr )
@@ -225,14 +225,14 @@ BuyMenuItems = {
 	["vending_resupply"] = {
 		Name = "Vending Machine Resupply",
 		Description = "Touch with a vending machine to restock it.",
-		Price = 50,
+		Price = 100,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_SERVICE end,
 	},
 	["mediaplayer_tv"] = {
 		Name = "Media Player",
 		Description = "Used to watch videos.",
-		Price = 50,
+		Price = 100,
 		Max = 10
 	}
 }
