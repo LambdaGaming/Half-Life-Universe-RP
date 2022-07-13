@@ -112,10 +112,10 @@ local function DrawItemMenu( ent ) --Panel that draws the main menu
 		local itemprice = vgui.Create( "DLabel", itembackground )
 		itemprice:SetFont( "Trebuchet24" )
 		itemprice:SetColor( ItemNPCType[type].MenuTextColor )
-		if v.Price <= 0 then
-			itemprice:SetText( "Price: Free" )
-		else
+		if v.Price and v.Price > 0 then
 			itemprice:SetText( "Price: "..v.Price )
+		else
+			itemprice:SetText( "Price: Free" )
 		end
 		itemprice:SizeToContents()
 

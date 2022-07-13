@@ -1,4 +1,3 @@
-
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include('shared.lua')
@@ -55,29 +54,11 @@ net.Receive( "CreateItem", function( len, ply )
 	local ent = net.ReadString()
 	local SpawnCheck = ItemNPC[ent].SpawnCheck
 	local SpawnItem = ItemNPC[ent].SpawnFunction
-	local money = GetGlobalInt( "BMRP_Budget" )
 	local name = ItemNPC[ent].Name
-	local price = ItemNPC[ent].Price
 	local max = ItemNPC[ent].Max
 	local realclass = ItemNPC[ent].RealClass or ent --Fix for having 2 different items with the same class name
 	if max and max > 0 and #ents.FindByClass( realclass ) >= max then
 		HLU_Notify( ply, "Global limit reached. Remove some instances of this entity to spawn it again.", 1, 6 )
-		return
-	end
-	if GetGlobalInt( "CurrentGamemode" ) == 1 and game.GetMap() != "gm_atomic" then
-		if money >= price then
-			if SpawnCheck and SpawnCheck( ply, self ) == false then return end
-			if SpawnItem then
-				SpawnItem( ply, self )
-				HLU_Notify( ply, "You have purchased a "..name..".", 0, 6 )
-			else
-				HLU_Notify( ply, "ERROR: SpawnFunction for this item not detected!", 1, 6 )
-				return
-			end
-			ChangeBudget( -price )
-		else
-			HLU_Notify( ply, "The facility budget isn't high enough to purchase this item!", 1, 6 )
-		end
 		return
 	end
 	if SpawnCheck and SpawnCheck( ply, self ) == false then return end
