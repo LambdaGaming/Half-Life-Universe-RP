@@ -4,21 +4,9 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Trash Compactor"
 ENT.Author = "Lambda Gaming"
-ENT.Spawnable = true
-ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
+ENT.Spawnable = false
 
 if SERVER then
-	function ENT:SpawnFunction( ply, tr, name )
-		if !tr.Hit then return end
-		local SpawnPos = tr.HitPos + tr.HitNormal * 1
-		local ent = ents.Create( name )
-		ent:SetPos( SpawnPos )
-		ent:Spawn()
-		ent:Activate()
-		return ent
-	end
-
 	function ENT:Initialize()
 		self:SetModel( "models/props/halflifeoneprops4/radmachine.mdl" )
 		self:PhysicsInit( SOLID_VPHYSICS )
@@ -47,7 +35,7 @@ if SERVER then
 				self:EmitSound( "ambient/energy/weld2.wav" )
 				self.greenlight = ents.Create( "light_dynamic" )
 				self.greenlight:SetPos( self:GetPos() )
-				self.greenlight:SetParent(self)
+				self.greenlight:SetParent( self )
 				self.greenlight:SetKeyValue( "_light", "255 255 0 255" )  
 				self.greenlight:SetKeyValue( "distance", "1000" )
 				self.greenlight:SetKeyValue( "brightness", "2" )
@@ -55,7 +43,7 @@ if SERVER then
 			end )
 			timer.Simple( 5, function() self.greenlight:Remove() end )
 			self:EmitSound( "HL1/ambience/particle_suck2.wav" )
-			ChangeBudget( totalmoney )
+			caller:AddFunds( totalmoney )
 			HLU_Notify( caller, "You have made $"..totalmoney.." disposing of "..totalbags.." trash bag(s).", 0, 6 )
 		end
 	end

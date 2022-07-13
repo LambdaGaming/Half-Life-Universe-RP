@@ -299,17 +299,21 @@ local function BMRPForkliftSpawn()
 end
 hook.Add( "InitPostEntity", "BMRP_ForkliftSpawn", BMRPForkliftSpawn )
 
---Budget management function
-function ChangeBudget( amount )
-	local budget = GetGlobalInt( "BMRP_Budget" )
-	SetGlobalInt( "BMRP_Budget", budget + amount )
+--Fund management functions
+local meta = FindMetaTable( "Player" )
+function meta:AddFunds( amount )
+	self:SetNWInt( "Funds", self:GetNWInt( "Funds" ) + amount )
+end
+function meta:RemoveFunds( amount )
+	self:SetNWInt( "Funds", self:GetNWInt( "Funds" ) - amount )
 end
 
 --Set players radio when spawning
-local function SetSpawnRadio( ply )
+local function BMRPPlayerInit( ply )
 	ply:ConCommand( "say /setr 42.0" )
+	ply:AddFunds( 1000 )
 end
-hook.Add( "PlayerInitialSpawn", "BMRP_SetRadio", SetSpawnRadio )
+hook.Add( "PlayerInitialSpawn", "BMRPPlayerInit", BMRPPlayerInit )
 
 hook.Add( "CanPlayerEnterVehicle", "BMRP_ForkliftRestriction", function( ply, veh )
 	local script = veh:GetKeyValues()["VehicleScript"]

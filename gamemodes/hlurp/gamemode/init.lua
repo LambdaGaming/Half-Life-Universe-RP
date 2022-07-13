@@ -345,13 +345,8 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 		local e = item.SpawnFunction( ply, tr )
 		e:CPPISetOwner( ply )
 	end
-	if item.Price and ChangeBudget then
-		ChangeBudget( -item.Price )
-		for k,v in ipairs( player.GetAll() ) do
-			if v:Team() == TEAM_ADMIN then
-				HLU_Notify( v, ply:Nick().." has purchased a "..item.Name, 0, 6 )
-			end
-		end
+	if item.Price then
+		ply:RemoveFunds( item.Price )
 	end
 	HLU_Notify( ply, "You have purchased a "..item.Name, 0, 6 )
 	ply.BuyCooldown = CurTime() + 10

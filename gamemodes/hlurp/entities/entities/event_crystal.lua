@@ -4,19 +4,7 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Crystal Event"
 ENT.Author = "Lambda Gaming"
-ENT.Spawnable = true
-ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
-
-function ENT:SpawnFunction( ply, tr, name )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( name )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
+ENT.Spawnable = false
 
 local models = {
 	"models/props/bm/crystalstrappedroom2.mdl",
@@ -44,6 +32,8 @@ end
 
 function ENT:Use( caller, activator )
 	if caller:Team() == TEAM_SURVEYBOSS or caller:Team() == TEAM_SURVEY then
+		caller:AddFunds( 200 )
+		HLU_Notify( caller, "You have been awarded $200 for securing the lost crystal.", 0, 6 )
 		SecureCrystal()
 		self:Remove()
 	else

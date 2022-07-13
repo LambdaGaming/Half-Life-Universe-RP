@@ -6,6 +6,7 @@ if SERVER then
 	local laboratory = "rp_blackmesa_laboratory"
 	local complex = "rp_blackmesa_complex_fixed"
 	local bmrf = "rp_bmrf"
+	local NPCEventParticipants = {}
 
 	local function EndEvent( cooldown )
 		SetGlobalBool( "EventActive", false )
@@ -77,6 +78,7 @@ if SERVER then
 				v:Fire( "Unlock" )
 			end
 		end
+		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has been repaired!" )
 		RunConsoleCommand( "vox", "dadeda maintenance reports main portal control inspection nominal" )
 		EndEvent( 1800 )
 	end
@@ -131,7 +133,8 @@ if SERVER then
 		victim:UnLock()
 		victim.Fainted = false
 		body:Remove()
-		--TODO: Give money to medics
+		medic:AddFunds( 500 )
+		HLU_Notify( medic, "You have successfully revived your unresponsive colleague. (+500)", 0, 6 )
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The medical emergency has been located and dealt with!" )
 		EndEvent( 2700 )
 	end
@@ -140,7 +143,13 @@ if SERVER then
 		for k,v in pairs( ents.FindByClass( "monster_*" ) ) do
 			if v.IsEventNPC then return end
 		end
-		--TODO: Give money to participants
+		for k,v in pairs( NPCEventParticipants ) do
+			if IsValid( v ) then
+				v:AddFunds( 500 )
+				HLU_Notify( v, "You have been awarded $500 for helping defend the facility." )
+			end
+		end
+		NPCEventParticipants = {}
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The security breach has been dealt with!" )
 		EndEvent( 2700 )
 	end
@@ -223,12 +232,22 @@ if SERVER then
 		HLU_ChatNotifySystem( "BMRP", color_orange, "Security breach detected! Alien life has been spotted loose in the facility!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn warning _comma security _comma breach _comma unauthorized biological _comma forms detected" )
 	end
+
+	hook.Add( "EntityTakeDamage", "LogEventParticipants", function( ent, dmg )
+		if ent.IsEventNPC then
+			local ply = dmg:GetAttacker()
+			table.insert( NPCEventParticipants, ply )
+		end	
+	end )
 	-----------------------------------------------------------------
 	local function BiohazardCleanup()
 		if #ents.FindByClass( "*ium_ent" ) > 0 then
 			return
 		end
-		--TODO: Give money to biochemists
+		for k,v in pairs( team.GetPlayers( TEAM_BIO ) ) do
+			v:AddFunds( 500 )
+			HLU_Notify( v, "You have been awarded $500 for helping cleanup the biohazard.", 0, 6 )
+		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The hazardous waste leak has been cleaned up!" )
 		EndEvent( 1800 )
 	end
@@ -355,6 +374,13 @@ if SERVER then
 	}
 
 	local function KillBoss()
+		for k,v in pairs( NPCEventParticipants ) do
+			if IsValid( v ) then
+				v:AddFunds( 500 )
+				HLU_Notify( v, "You have been awarded $500 for helping defend the facility." )
+			end
+		end
+		NPCEventParticipants = {}
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The large hostile life form has been killed!" )
 		EndEvent( 3600 )
 	end
@@ -377,6 +403,7 @@ if SERVER then
 		end
 		boss:Spawn()
 		boss:CallOnRemove( "KillBoss", KillBoss )
+		boss.IsEventNPC = true
 		HLU_ChatNotifySystem( "BMRP", color_orange, "All hands on deck! A large hostile life form has teleported into the facility!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn bizwarn attention _comma all personnel report _comma to containment zone immediately" )
 	end
@@ -435,6 +462,10 @@ if SERVER then
 	end
 
 	function ExtinguishFire()
+		for k,v in pairs( team.GetPlayers( TEAM_SERVICE ) ) do
+			v:AddFunds( 500 )
+			HLU_Notify( v, "You have been awarded $500 for extinguishing a fire.", 0, 6 )
+		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The fire has been extinguished!" )
 		EndEvent( 1800 )
 	end

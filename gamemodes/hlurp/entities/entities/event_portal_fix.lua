@@ -4,19 +4,7 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Portal Event Fixer"
 ENT.Author = "Lambda Gaming"
-ENT.Spawnable = true
-ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
-
-function ENT:SpawnFunction( ply, tr, name )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( name )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
+ENT.Spawnable = false
 
 function ENT:Initialize()
     self:SetModel( "models/props/hl10props/amsmachine02.mdl" )
@@ -77,9 +65,8 @@ function ENT:OnTakeDamage( dmg )
 				self.broke = false
 				PortalFix()
 				self:SetHealth( 0 )
-				HLU_Notify( ply, "You rewire a few circuits and reboot the system, it appears to be working now. Award: +400", 0, 6 )
-				ChangeBudget( 400 )
-				HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has been repaired!" )
+				HLU_Notify( ply, "You rewire a few circuits and reboot the system, it appears to be working now. (+500)", 0, 6 )
+				ply:AddFunds( 500 )
 			end
 		end
 	end
