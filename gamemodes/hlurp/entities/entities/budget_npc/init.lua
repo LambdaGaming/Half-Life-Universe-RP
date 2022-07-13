@@ -50,7 +50,7 @@ function ENT:AcceptInput( ply, caller )
 					v:Remove()
 				elseif BuyMenuItems[v:GetClass()] then
 					amount = amount + 1
-					price = price + BuyMenuItems[v:GetClass()].Price
+					price = price + math.Round( BuyMenuItems[v:GetClass()].Price / 2 )
 					v:Remove()
 				end
 			end
