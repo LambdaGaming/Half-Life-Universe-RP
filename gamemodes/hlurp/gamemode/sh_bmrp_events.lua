@@ -24,8 +24,13 @@ if SERVER then
 	util.AddNetworkString( "UpdateTask" )
 	net.Receive( "GetTask", function( len, ply )
 		local key = net.ReadInt( 8 )
-		for k,v in pairs( BMRP_TASKS[key].Required ) do
-			BMRP_CURRENT_TASKS[v] = BMRP_TASKS[key].Description
+		local custom = net.ReadString()
+		if custom then
+			BMRP_CURRENT_TASKS[key] = custom
+		else
+			for k,v in pairs( BMRP_TASKS[key].Required ) do
+				BMRP_CURRENT_TASKS[v] = BMRP_TASKS[key].Description
+			end
 		end
 		net.Start( "UpdateTask" )
 		net.WriteTable( BMRP_CURRENT_TASKS )
@@ -497,6 +502,86 @@ BMRP_TASKS = {
 		Name = "Gather Xen Materials",
 		Description = "Gather various materials from Xen to be used in crafting and research.",
 		Required = { TEAM_SURVEYBOSS, TEAM_SURVEY }
+	},
+	{
+		Name = "Clear Out Xen",
+		Description = "Clear Xen of hostile life forms to make way for future expeditions.",
+		Required = { TEAM_SURVEYBOSS, TEAM_SURVEY }
+	},
+	{
+		Name = "Handle Radioactive Materials",
+		Description = "Help other scientists handle radioactive materials",
+		Required = { TEAM_SURVEYBOSS, TEAM_SURVEY }
+	},
+	{
+		Name = "Setup Computers",
+		Description = "Setup computers for all staff that need or want it.",
+		Required = { TEAM_TECH }
+	},
+	{
+		Name = "Create Local Server",
+		Description = "Create a local server using GTerminal, PCMod, and/or Wiremod so staff can remotely communicate with each other.",
+		Required = { TEAM_TECH }
+	},
+	{
+		Name = "Develop Advanced Technology",
+		Description = "Develop advanced technology with Wiremod that the facility can use and/or sell. See facility admin for details.",
+		Required = { TEAM_TECH }
+	},
+	{
+		Name = "Research Alien Life",
+		Description = "Research and attempt to replicate alien life forms.",
+		Required = { TEAM_BIO }
+	},
+	{
+		Name = "Develop Biological Weapons",
+		Description = "Develop biological weapons using materials obtained from the border world.",
+		Required = { TEAM_BIO }
+	},
+	{
+		Name = "Setup Office",
+		Description = "Setup an office that staff can visit if they need healed.",
+		Required = { TEAM_MEDIC }
+	},
+	{
+		Name = "Setup Medical Equipment",
+		Description = "Setup medical equipment such as health and armor chargers around the facility for easy access.",
+		Required = { TEAM_MEDIC }
+	},
+	{
+		Name = "Cleanup Facility",
+		Description = "Visit each lab and cleanup any unused materials and wipe down walls and floors.",
+		Required = { TEAM_SERVICE }
+	},
+	{
+		Name = "Restock Vending Machines",
+		Description = "Restock any vending machines around the facility that are empty.",
+		Required = { TEAM_SERVICE }
+	},
+	{
+		Name = "Develop Normal Weapons",
+		Description = "Develop normal weapons that security can use as alternatives to their stock weapons.",
+		Required = { TEAM_WEPMAKER }
+	},
+	{
+		Name = "Develop Prototype Weapons",
+		Description = "Develop prototype weapons that the facility can sell to the military or use for advanced projects.",
+		Required = { TEAM_WEPMAKER }
+	},
+	{
+		Name = "Develop Unusual Weapons",
+		Description = "Develop unusual weapons that we can use for....something...",
+		Required = { TEAM_WEPMAKER },
+	},
+	{
+		Name = "Patrol Facility",
+		Description = "Patrol the facility and notify personnel of any security risks.",
+		Required = { TEAM_SECURITYBOSS, TEAM_SECURITY },
+	},
+	{
+		Name = "Setup Checkpoint",
+		Description = "Setup and man a security checkpoint to a restricted area. See facility admin for details.",
+		Required = { TEAM_SECURITYBOSS, TEAM_SECURITY },
 	}
 }
 
