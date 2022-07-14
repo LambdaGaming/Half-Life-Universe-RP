@@ -101,7 +101,7 @@ hook.Add( "HUDPaint", "DrawTaskBox", function()
 	end
 end )
 
-local function DrawCustomTaskMenu()
+local function DrawCustomTaskMenu( finish )
 	local ply = LocalPlayer()
 	local job = 0
 	local mainframe = vgui.Create( "DFrame" )
@@ -128,16 +128,42 @@ local function DrawCustomTaskMenu()
 		job = data
 	end
 
-	local txt = vgui.Create( "DTextEntry", mainframe )
-	txt:Dock( FILL )
-	txt:SetMaximumCharCount( 300 )
-	txt:SetPlaceholderText( "Enter custom task" )
-	txt.OnEnter = function( self )
-		net.Start( "GetTask" )
-		net.WriteInt( job, 8 )
-		net.WriteString( self:GetValue() )
-		net.SendToServer()
-		HLU_Notify( "Task assigned!", 0, 6 )
+	if finish then
+		mainframe:SetSize( 500, 150 )
+		local label = vgui.Create( "DLabel", mainframe )
+		label:SetFont( "Trebuchet18" )
+		label:SetColor( color_white )
+		label:SetText( "Enter the amount of funds you would like to award: (Max 1000)" )
+		label:Dock( TOP )
+		label:DockMargin( 0, 10, 0, 0 )
+		local wang = vgui.Create( "DNumberWang", mainframe )
+		wang:SetMin( 1 )
+		wang:SetMax( 1000 )
+		wang:Dock( TOP )
+		wang:SetSize( nil, 26 )
+		local button = vgui.Create( "DButton", mainframe )
+		button:SetText( "Submit" )
+		button:SetSize( nil, 26 )
+		button:Dock( TOP )
+		button:DockMargin( 0, 10, 0, 0 )
+		button.DoClick = function()
+			net.Start( "GetTask" )
+			net.WriteInt( job, 8 )
+			net.WriteString( "None" )
+			net.WriteInt( wang:GetValue(), 11 )
+			net.SendToServer()
+		end
+	else
+		local txt = vgui.Create( "DTextEntry", mainframe )
+		txt:Dock( FILL )
+		txt:SetMaximumCharCount( 300 )
+		txt:SetPlaceholderText( "Enter custom task" )
+		txt.OnEnter = function( self )
+			net.Start( "GetTask" )
+			net.WriteInt( job, 8 )
+			net.WriteString( self:GetValue() )
+			net.SendToServer()
+		end
 	end
 	ply.MenuOpen = true
 end
@@ -192,7 +218,7 @@ local function DrawEventMenu()
 	mainbuttons:SetTextColor( color_white )
 	mainbuttons:SetFont( "JobTitle" )
 	mainbuttons:Dock( TOP )
-	mainbuttons:SetSize( 450, 100 )
+	mainbuttons:SetSize( 450, 50 )
 	mainbuttons:DockMargin( 0, 0, 0, 10 )
 	mainbuttons.Paint = function( self, w, h )
 		surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
@@ -201,6 +227,22 @@ local function DrawEventMenu()
 	mainbuttons.DoClick = function()
 		mainframe:Close()
 		DrawCustomTaskMenu()
+	end
+
+	local mainbuttons = vgui.Create( "DButton", listframe )
+	mainbuttons:SetText( "Clear Task & Award Funds" )
+	mainbuttons:SetTextColor( color_white )
+	mainbuttons:SetFont( "JobTitle" )
+	mainbuttons:Dock( TOP )
+	mainbuttons:SetSize( 450, 50 )
+	mainbuttons:DockMargin( 0, 0, 0, 10 )
+	mainbuttons.Paint = function( self, w, h )
+		surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
+		surface.DrawRect( 0, 0, w, h )
+	end
+	mainbuttons.DoClick = function()
+		mainframe:Close()
+		DrawCustomTaskMenu( true )
 	end
 	
 	for k,v in pairs( tbl ) do
@@ -245,7 +287,6 @@ local function DrawEventMenu()
 					HLU_Notify( "This event cannot be activated as there are no players currently working the affected job.", 1, 6 )
 				end
 			else
-				HLU_Notify( "Task assigned!", 0, 6 )
 				net.Start( "GetTask" )
 				net.WriteInt( k, 8 )
 				net.SendToServer()

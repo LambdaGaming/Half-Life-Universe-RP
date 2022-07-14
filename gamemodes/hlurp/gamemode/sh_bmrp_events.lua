@@ -26,10 +26,33 @@ if SERVER then
 	net.Receive( "GetTask", function( len, ply )
 		local key = net.ReadInt( 8 )
 		local custom = net.ReadString()
-		if custom then
-			BMRP_CURRENT_TASKS[key] = custom
+		local pay = net.ReadInt( 11 )
+		if custom != "" then
+			for k,v in pairs( BMRP_TASKS[key].Required ) do
+				for a,b in pairs( team.GetPlayers( v ) ) do
+					if pay > 0 then
+						if BMRP_TASK_COOLDOWN[key] then
+							HLU_Notify( ply, "Please wait before ending another task for this job.", 1, 6 )
+							return
+						end
+						b:AddFunds( pay )
+						HLU_Notify( b, "The facility admin has given you $"..pay.." for completing a task.", 0, 6 )
+						BMRP_TASK_COOLDOWN[key] = true
+						timer.Simple( 600, function() BMRP_TASK_COOLDOWN[key] = nil end )
+						HLU_Notify( ply, "Task reset and funds given!", 0, 6 )
+					else
+						HLU_Notify( b, "Your task has been updated.", 0, 6 )
+						HLU_Notify( ply, "Task assigned!", 0, 6 )
+					end
+					BMRP_CURRENT_TASKS[key] = custom
+				end
+			end
 		else
 			for k,v in pairs( BMRP_TASKS[key].Required ) do
+				for a,b in pairs( team.GetPlayers( v ) ) do
+					HLU_Notify( b, "Your task has been updated.", 0, 6 )
+					HLU_Notify( ply, "Task assigned!", 0, 6 )
+				end
 				BMRP_CURRENT_TASKS[v] = BMRP_TASKS[key].Description
 			end
 		end
@@ -617,3 +640,4 @@ BMRP_TASKS = {
 }
 
 BMRP_CURRENT_TASKS = {}
+BMRP_TASK_COOLDOWN = {}

@@ -308,10 +308,13 @@ function meta:RemoveFunds( amount )
 	self:SetNWInt( "Funds", self:GetNWInt( "Funds" ) - amount )
 end
 
---Set players radio when spawning
+--Set initial player values
 local function BMRPPlayerInit( ply )
 	ply:ConCommand( "say /setr 42.0" )
 	ply:AddFunds( 1000 )
+	net.Start( "UpdateTask" )
+	net.WriteTable( BMRP_CURRENT_TASKS )
+	net.Send( ply )
 end
 hook.Add( "PlayerInitialSpawn", "BMRPPlayerInit", BMRPPlayerInit )
 
