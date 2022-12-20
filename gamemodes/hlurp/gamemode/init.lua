@@ -107,6 +107,10 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
 		return
 	end
+	if GetGlobalInt( "CurrentGamemode" ) == 2 and newteam == TEAM_RESISTANCELEADER and timer.Exists( "City17Timer" ) then
+		HLU_Notify( ply, "You cannot play as this job until the ceasefire is over." )
+		return
+	end
 	ply:StripWeapons()
 	ply:StripAmmo()
 	ply:SetTeam( newteam )
