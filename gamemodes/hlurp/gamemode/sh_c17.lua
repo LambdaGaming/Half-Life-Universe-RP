@@ -183,7 +183,14 @@ BuyMenuItems = {
 	["crafting_table_rebel"] = {
 		Name = "Rebel Crafting Table",
 		Description = "Allows players to craft turrets and science locker keys.",
-		Allowed = function( ply ) return ply:Team() == TEAM_REFUGEE or ply:Team() == TEAM_RESISTANCELEADER end
+		Allowed = function( ply ) return ply:Team() == TEAM_REFUGEE or ply:Team() == TEAM_RESISTANCELEADER end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "crafting_table" )
+			e:SetPos( tr.HitPos + tr.HitNormal )
+			e:Spawn()
+			e:SetTableType( 1 )
+			return e
+		end
 	}
 }
 
