@@ -32,7 +32,7 @@ ItemNPCType[2] = {
 	MenuTextColor = color_white,
 	ButtonColor = Color( 49, 53, 61, 255 ),
 	ButtonTextColor = color_white,
-	Allowed = {}
+	Allowed = { TEAM_COMBINESOLDIER, TEAM_COMBINEGUARD, TEAM_COMBINEELITE, TEAM_COMBINEGUARDSHOTGUN }
 }
 
 ItemNPCType[3] = {
@@ -42,7 +42,7 @@ ItemNPCType[3] = {
 	MenuTextColor = color_white,
 	ButtonColor = color_black,
 	ButtonTextColor = color_white,
-	Allowed = {}
+	Allowed = { TEAM_RESISTANCELEADER, TEAM_REBEL, TEAM_REBELMEDIC }
 }
 
 -----HECU WEAPON CRATE ITEMS-----
