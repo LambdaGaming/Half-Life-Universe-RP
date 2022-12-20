@@ -295,22 +295,7 @@ ItemNPC["ent_jack_gmod_ezsentry"] = {
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod_Owner( spawn, ply )
-		spawn:Spawn()
-		spawn:Activate()
-	end
-}
-
-ItemNPC["ent_jack_gmod_ezworkbench"] = {
-	Name = "Workbench",
-	Description = "Used to craft armor and certain weapons.",
-	Model = "models/mosi/fallout4/furniture/workstations/weaponworkbench01.mdl",
-	Type = 3,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_gmod_ezworkbench" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod_Owner( spawn, ply )
+		JMod.Owner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
@@ -325,7 +310,7 @@ ItemNPC["ent_jack_gmod_ezaidradio"] = {
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "ent_jack_gmod_ezaidradio" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod_Owner( spawn, ply )
+		JMod.Owner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
@@ -345,7 +330,7 @@ ItemNPC["ent_jack_gmod_ezfieldhospital"] = {
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "ent_jack_gmod_ezfieldhospital" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod_Owner( spawn, ply )
+		JMod.Owner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
