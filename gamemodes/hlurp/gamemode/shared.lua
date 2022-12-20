@@ -662,12 +662,12 @@ function FindTeamByName( name )
 end
 
 local meta = FindMetaTable( "Player" )
-function meta:IsJobCategory( category )
+function meta:GetJobCategory()
 	if !IsValid( self ) then return end
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
 	local jobtable = HLU_JOB[curgame][job]
-	return jobtable.Category == category
+	return jobtable.Category
 end
 
 function meta:GetJobName()

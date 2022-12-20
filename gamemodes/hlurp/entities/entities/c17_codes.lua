@@ -30,7 +30,7 @@ if SERVER then
 	}
 
 	function ENT:Use( ply )
-		if ply:IsJobCategory( "Combine" ) then
+		if ply:GetJobCategory() == "Combine" then
 			if !GetGlobalBool( "BlowoutActive" ) then
 				HLU_Notify( ply, "Cancellation aborted, there is nothing to cancel.", 1, 6 )
 				return

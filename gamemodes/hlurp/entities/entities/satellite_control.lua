@@ -23,7 +23,7 @@ if SERVER then
 	end
 
 	function ENT:Use( ply )
-		if ply:IsJobCategory( "Combine" ) then
+		if ply:GetJobCategory() == "Combine" then
 			if !GetConVar( "blowout_enabled" ):GetBool() then
 				HLU_Notify( ply, "ERROR: Nothing was detected to cancel.", 1, 6 )
 				return

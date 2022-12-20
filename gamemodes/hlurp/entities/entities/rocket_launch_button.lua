@@ -28,7 +28,7 @@ if SERVER then
 	end
 
 	function ENT:Use( ply )
-		if ply:IsJobCategory( "Combine" ) then
+		if ply:GetJobCategory() == "Combine" then
 			if timer.Exists( "OutlandTimer" ) then
 				HLU_Notify( ply, "You must wait until the 30 minute ceasefire has ended.", 1, 6 )
 				return

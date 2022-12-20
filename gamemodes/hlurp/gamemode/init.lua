@@ -81,7 +81,7 @@ end
 function GM:PlayerSetHandsModel( ply, ent )
 	local simplemodel = player_manager.TranslateToPlayerModelName( ply:GetModel() )
 	local info = player_manager.TranslatePlayerHands( simplemodel )
-	if ( info ) then
+	if info then
 		ent:SetModel( info.model )
 		ent:SetSkin( info.skin )
 		ent:SetBodyGroups( info.body )
@@ -128,6 +128,12 @@ function ChangeTeam( ply, newteam, respawn, silent )
 	hook.Run( "PlayerLoadout", ply )
 	if respawn then
 		ply:Spawn()
+	end
+	ply.JModFriends = {}
+	for k,v in ipairs( player.GetAll() ) do
+		if v:GetJobCategory() == ply:GetJobCategory() then
+			table.insert( ply.JModFriends, v )
+		end
 	end
 end
 

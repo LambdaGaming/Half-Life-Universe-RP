@@ -103,7 +103,7 @@ BuyMenuItems = {
 		Description = "Common scientific tool, emits a small flame from a metal tube.",
 		Price = 1000,
 		Max = 5,
-		Allowed = function( ply ) return ply:IsJobCategory( "Science" ) end
+		Allowed = function( ply ) return ply:GetJobCategory() == "Science" end
 	},
 	["lab_laser"] = {
 		Name = "High-Powered Laser Emitter",
@@ -131,7 +131,7 @@ BuyMenuItems = {
 		Description = "Contains liquid nitrogen, which is extremely cold in normal conditions.",
 		Price = 1000,
 		Max = 5,
-		Allowed = function( ply ) return ply:IsJobCategory( "Science" ) end
+		Allowed = function( ply ) return ply:GetJobCategory() == "Science" end
 	},
 	["lab_chemical"] = {
 		Name = "Chemical Container",
@@ -248,7 +248,7 @@ local blockedtools = {
 		return ply:Team() == TEAM_WEPMAKER
 	end,
 	["wire_expression2"] = function( ply )
-		return ply:IsJobCategory( "Science" )
+		return ply:GetJobCategory() == "Science"
 	end,
 	["wire_simple_explosive"] = function( ply )
 		return ply:Team() == TEAM_WEPMAKER
