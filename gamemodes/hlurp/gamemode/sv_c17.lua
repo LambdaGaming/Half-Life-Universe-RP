@@ -29,32 +29,6 @@ hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
 	}
 end )
 
---Scientist job management
-local function City17ScientistChange( ply, before, after )
-	if after == TEAM_SCIENTIST then
-		local map = game.GetMap()
-		local c17 = "rp_city17_build210"
-		local district = "rp_city17_district47"
-		local c24 = "rp_city24_v3"
-		if map == c17 then
-			ply:SetPos( Vector( 4371, -270, 76 ) )
-		elseif map == district then
-			ply:SetPos( Vector( -179, -2592, 384 ) )
-		elseif map == c24 then
-			ply:SetPos( Vector( 13266, 9546, 456 ) )
-		else
-			HLU_Notify( ply, "Something went wrong. The current map wasn't detected as valid.", 1, 6 )
-			return
-		end
-		HLU_Notify( ply, "You are under Combine control until the resistance is able to free you.", 0, 15 )
-		timer.Simple( 0.3, function() HLU_Notify( ply, "Visit the website for guidelines on how this job works if you are confused.", 0, 15 ) end )
-	elseif before == TEAM_SCIENTIST then
-		ply:Spawn()
-		HLU_Notify( ply, "You have been sent back to spawn to avoid being locked in the citadel since you were a scientist.", 0, 10 )
-	end
-end
-hook.Add( "PlayerChangedTeam", "City17ScientistChange", City17ScientistChange )
-
 --Overwatch announcement chat commands
 local OverwatchCommands = {
 	["person"] = "npc/overwatch/cityvoice/f_confirmcivilstatus_1_spkr.wav",

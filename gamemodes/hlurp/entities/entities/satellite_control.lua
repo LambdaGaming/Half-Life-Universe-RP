@@ -22,29 +22,34 @@ if SERVER then
 		end
 	end
 
-	function ENT:Use(caller, activator)
-		if timer.Exists( "OutlandTimer" ) then
-			HLU_Notify( caller, "You must wait until the 30 minute ceasefire has ended.", 1, 6 )
-			return
+	function ENT:Use( ply )
+		if ply:IsJobCategory( "Combine" ) then
+			if !GetConVar( "blowout_enabled" ):GetBool() then
+				HLU_Notify( ply, "ERROR: Nothing was detected to cancel.", 1, 6 )
+				return
+			end
+			RunConsoleCommand( "blowout_enabled", 0 )
+			timer.Remove( "blowoutcombine" )
+			timer.Remove( "changelevelcombine" )
+			HLU_Notify( nil, "Portal failed to successfully close, emergency cancellation button was activated.", 1, 6, true )
+		else
+			if timer.Exists( "OutlandTimer" ) then
+				HLU_Notify( ply, "You must wait until the 30 minute ceasefire has ended.", 1, 6 )
+				return
+			end
+			if !ply.hascodes then
+				HLU_Notify( ply, "You don't have the codes to shutdown the portal!", 1, 6 )
+				return
+			end
+			if !GetConVar( "blowout_enabled" ):GetBool() then
+				HLU_Notify( ply, "ERROR: The portal is already being opened!", 1, 6 )
+				return
+			end
+			RunConsoleCommand( "blowout_enabled", 1 )
+			self:EmitSound( "buttons/button19.wav", 50, 100 )
+			timer.Create( "blowoutcombine", 2, 0, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
+			timer.Create( "changelevelcombine", 150, 0, function() RunConsoleCommand ( "changelevel", "gm_atomic" ) end )
+			HLU_Notify( nil, "Codes sent to Combine overworld.......... 2 minutes until portal detonation.", 0, 10, true )
 		end
-		if !caller.hascodes then
-			HLU_Notify( caller, "You don't have the codes to shutdown the portal!", 1, 6 )
-			return
-		end
-		if !GetConVar( "blowout_enabled" ):GetBool() then
-			HLU_Notify( caller, "ERROR: The portal is already being opened!", 1, 6 )
-			return
-		end
-		RunConsoleCommand( "blowout_enabled", 1 ) --Enables blowout addon
-		self:EmitSound( "buttons/button19.wav", 50, 100 ) --Emits sound upon using
-		timer.Create( "blowoutcombine", 2, 0, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
-		timer.Create( "changelevelcombine", 150, 0, function() RunConsoleCommand ( "changelevel", "gm_atomic" ) end )
-		HLU_Notify( nil, "Codes sent to Combine overworld.......... 2 minutes until portal detonation.", 0, 10, true )
-	end
-end
-
-if CLIENT then
-	function ENT:Draw()
-		self:DrawModel()
 	end
 end

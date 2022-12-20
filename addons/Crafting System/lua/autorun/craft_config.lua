@@ -5,7 +5,7 @@ CRAFT_CONFIG_MODEL = "models/props_wasteland/controlroom_desk001b.mdl"
 
 CRAFT_CONFIG_MATERIAL = ""
 
-CRAFT_CONFIG_COLOR = Color( 255, 255, 255, 255 )
+CRAFT_CONFIG_COLOR = color_white
 
 CRAFT_CONFIG_PLACE_SOUND = "physics/metal/metal_solid_impact_hard1.wav"
 

@@ -45,6 +45,11 @@ CraftingIngredient["wood"] = {
 	Type = { 1 }
 }
 
+CraftingIngredient["locker_key"] = {
+	Name = "Science Locker Key",
+	Type = { 1 }
+}
+
 CraftingIngredient["xen_iron"] = {
 	Name = "Xen Iron",
 	Type = { 2, 3 }
@@ -554,6 +559,23 @@ CraftingTable["tripwireextender"] = {
 	Category = "Traps",
 	SpawnFunction = function( ply, self )
 		local e = ents.Create( "tripwireextender" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
+}
+
+CraftingTable["code_decrypter"] = {
+	Name = "Detonation Code Decrypter",
+	Description = "Requires 5 iron and a science locker key.",
+	Materials = {
+		ironbar = 5,
+		locker_key = 1
+	},
+	Type = 1,
+	Category = "Tools",
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "code_decrypter" )
 		e:SetPos( self:GetPos() + Vector( 0, 0, -5 ) )
 		e:Spawn()
 		e:CPPISetOwner( ply )
