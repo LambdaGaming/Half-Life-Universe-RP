@@ -11,7 +11,7 @@ net.Receive( "HLU_Notify", function()
 end )
 
 function HLU_ChatNotify( ply, header, headercolor, text, speaker )
-	local spkr = speaker or ply
+	local spkr = speaker:IsPlayer() and speaker or ply
 	chat.AddText( headercolor, "["..header.."] ", team.GetColor( spkr:Team() ), spkr:Nick(), color_white, ": "..text )
 end
 net.Receive( "HLU_ChatNotify", function()

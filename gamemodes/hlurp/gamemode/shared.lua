@@ -663,6 +663,7 @@ end
 
 local meta = FindMetaTable( "Player" )
 function meta:IsJobCategory( category )
+	if !IsValid( self ) then return end
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
 	local jobtable = HLU_JOB[curgame][job]
@@ -670,6 +671,7 @@ function meta:IsJobCategory( category )
 end
 
 function meta:GetJobName()
+	if !IsValid( self ) then return end
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
 	local jobtable = HLU_JOB[curgame][job]
@@ -677,6 +679,7 @@ function meta:GetJobName()
 end
 
 function meta:GetJobColor()
+	if !IsValid( self ) then return end
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
 	local jobtable = HLU_JOB[curgame][job]
