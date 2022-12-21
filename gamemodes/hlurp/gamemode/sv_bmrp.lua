@@ -334,3 +334,59 @@ hook.Add( "InitPostEntity", "InitialEventCooldown", function()
 	SetGlobalBool( "EventCooldownActive", true )
 	timer.Simple( 1800, function() SetGlobalBool( "EventCooldownActive", false ) end )
 end )
+
+function BMRF_Cascade() --Cascade for rp_bmrf since this map doesn't have one built-in
+	pos = {
+		Vector( 2192, -4962, 192 ),
+		Vector( -627, -4618, 352 ),
+		Vector( -919, -3827, 352 ),
+		Vector( 289, -3486, 352 ),
+		Vector( -1846, -3840, -1440 ),
+		Vector( -2359, -4140, -1120 ),
+		Vector( -604, -3112, -1440 ),
+		Vector( -3126, -4684, -1439 ),
+		Vector( 1317, -3188, -1440 ),
+		Vector( -1698, -2038, 352 ),
+		Vector( -2721, -213, 704 ),
+		Vector( -2585, -1489, 208 ),
+		Vector( -908, -1419, 64 ),
+		Vector( 619, 295, -64 ),
+		Vector( 4579, -519, -64 ),
+		Vector( 5908, -394, -63 ),
+		Vector( -138, 2260, -64 ),
+		Vector( -151, 2732, -63 ),
+		Vector( -4793, 2062, -64 ),
+		Vector( -5825, -155, -112 ),
+		Vector( -1150, 1328, -1088 ),
+		Vector( 6851, -5744, 352 ),
+		Vector( -9242, -1768, -63 ),
+		Vector( -10420, -1537, -64 ),
+		Vector( -8774, -1859, 705 )
+	}
+	
+	npcs = {
+		"monster_alien_slv",
+		"monster_agrunt",
+		"monster_controller",
+		"npc_headcrab",
+		"monster_bullsquid",
+		"monster_hound_eye",
+		"monster_zombie_barney",
+		"monster_zombie_scientist"
+	}
+
+	for k,v in pairs( pos ) do
+		local e = ents.Create( table.Random( npcs ) )
+		e:SetPos( v )
+		e:Spawn()
+	end
+
+	for k,v in ipairs( player.GetAll() ) do
+		v:SendLua( [[util.ScreenShake( vector_origin, 50, 50, 8, 0 )]] )
+		v:SendLua( [[surface.PlaySound( "ambient/atmosphere/terrain_rumble1.wav" )]] )
+	end
+
+	Entity( 1153 ):Fire( "Press" )
+	Entity( 1151 ):Fire( "Press" )
+	Entity( 1272 ):Fire( "Press" )
+end
