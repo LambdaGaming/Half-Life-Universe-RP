@@ -111,6 +111,7 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		HLU_Notify( ply, "You cannot play as this job until the ceasefire is over." )
 		return
 	end
+	ply:SetNWString( "RPJob", false )
 	ply:StripWeapons()
 	ply:StripAmmo()
 	ply:SetTeam( newteam )
@@ -154,6 +155,11 @@ function GM:PlayerInitialSpawn( ply )
 	end
 	ply:SetJumpPower( 180 )
 	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Name.." gamemode." )
+
+	local rpname = ply:GetPData( "RPName" )
+	if rpname then
+		ply:SetNWString( "RPName", rpname )
+	end
 end
 
 local function HLU_SpawnHook( ply )

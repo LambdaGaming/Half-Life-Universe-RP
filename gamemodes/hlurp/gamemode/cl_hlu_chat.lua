@@ -34,8 +34,10 @@ net.Receive( "HLU_ChatNotifySystem", function()
 	HLU_ChatNotifySystem( header, headercolor, text )
 end )
 
-hook.Add( "OnPlayerChat", "HLU_OnPlayerChat", function( ply, text, team, dead )
+hook.Add( "OnPlayerChat", "HLU_OnPlayerChat", function( ply, text, tm, dead )
 	if ply != LocalPlayer() then
 		chat.PlaySound()
 	end
+	chat.AddText( team.GetColor( ply:Team() ), ply:Nick(), color_white, ": "..text )
+	return true
 end )

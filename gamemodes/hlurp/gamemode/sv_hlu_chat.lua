@@ -73,6 +73,17 @@ local chatcommands = {
 	["/drop"] = function( ply )
 		DropWeapon( ply )
 		return ""
+	end,
+	["/job"] = function( ply, text )
+		ply:SetNWString( "RPJob", text )
+		HLU_Notify( ply, "Successfully applied custom job title.", 0, 6 )
+		return ""
+	end,
+	["/name"] = function( ply, text )
+		ply:SetNWString( "RPName", text )
+		ply:SetPData( "RPName", text )
+		HLU_Notify( ply, "Successfully applied RP name.", 0, 6 )
+		return ""
 	end
 }
 

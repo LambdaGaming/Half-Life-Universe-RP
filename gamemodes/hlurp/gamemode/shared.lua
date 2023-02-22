@@ -675,7 +675,8 @@ function meta:GetJobName()
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
 	local jobtable = HLU_JOB[curgame][job]
-	return jobtable.Name
+	local customjob = self:GetNWString( "RPJob" )
+	return self:GetNWString( "RPJob", false ) or jobtable.Name
 end
 
 function meta:GetJobColor()
@@ -685,6 +686,14 @@ function meta:GetJobColor()
 	local jobtable = HLU_JOB[curgame][job]
 	return jobtable.Color
 end
+
+--Similar to what DarkRP does for overriding player names
+meta.SteamName = meta.SteamName or meta.Name
+function meta:Name()
+	return self:GetNWString( "RPName", false ) or self:SteamName()
+end
+meta.GetName = meta.Name
+meta.Nick = meta.Name
 
 function GM:Initialize()
 	local curgame = GetGlobalInt( "CurrentGamemode" )
