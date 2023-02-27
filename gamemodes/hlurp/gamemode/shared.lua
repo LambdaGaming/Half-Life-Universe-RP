@@ -673,7 +673,6 @@ function meta:GetJobName()
 	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
 	local jobtable = HLU_JOB[curgame][job]
-	local customjob = self:GetNWString( "RPJob" )
 	return self:GetNWString( "RPJob", false ) or jobtable.Name
 end
 
