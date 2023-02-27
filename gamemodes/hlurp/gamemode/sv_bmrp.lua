@@ -106,26 +106,6 @@ XenSpawn = function()
 			Vector( -10049, -6705, -2660 ),
 			Vector( -10490, -7925, -2660 )
 		}
-	elseif game.GetMap() == "rp_blackmesa_complex_fixed" then
-		NPCPosTable = {
-			Vector( 8747, -2843, 1425 ),
-			Vector( 7985, -3491, 1425 ),
-			Vector( 9017, -3441, 1425 ),
-			Vector( 9415, -4233, 1055 ),
-			Vector( 9579, -4030, 1250 ),
-			Vector( 8802, -3951, 1055 ),
-			Vector( 9122, -3115, 1090 ),
-			Vector( 8276, -3073, 1055 )
-		}
-	elseif game.GetMap() == "rp_blackmesa_laboratory" then
-		NPCPosTable = {
-			Vector( -4480, -39, -350 ),
-			Vector( -4278, 1331, -350 ),
-			Vector( -4015, 1916, -350 ),
-			Vector( -4564, 1512, -350 ),
-			Vector( -5243, 1906, -350 ),
-			Vector( -4567, 2252, -350 )
-		}
 	elseif game.GetMap() == "rp_bmrf" then
 		NPCPosTable = {
 			Vector( -14609, -14482, -14952 ),
@@ -187,8 +167,6 @@ hook.Add( "InitPostEntity", "BMRP_HairLoss", HairLoss )
 function ToggleAlarm( forceon )
 	local alarmindex = {
 		["rp_sectorc_beta"] = 1990,
-		["rp_blackmesa_laboratory"] = 712,
-		["rp_blackmesa_complex_fixed"] = 1104,
 		["rp_bmrf"] = 1153
 	}
 	local ent = ents.GetByIndex( alarmindex[game.GetMap()] )
@@ -269,16 +247,6 @@ local function BMRPForkliftSpawn()
 			{ Vector( 3179, -1326, -377 ), Angle( 0, 180, 0 ) },
 			{ Vector( 3385, -1326, -377 ), Angle( 0, 180, 0 ) },
 			{ Vector( 3616, -1326, -377 ), Angle( 0, 180, 0 ) }
-		},
-		["rp_blackmesa_laboratory"] = {
-			{ Vector( -381, -5922, -349 ), angle_zero },
-			{ Vector( -240, -5924, -349 ), angle_zero },
-			{ Vector( -65, -5925, -349 ), angle_zero }
-		},
-		["rp_blackmesa_complex_fixed"] = {
-			{ Vector( -1854, 727, 288 ), angle_zero },
-			{ Vector( -1143, -931, 432 ), angle_zero },
-			{ Vector( -930, 1226, 288 ), angle_zero }
 		},
 		["rp_bmrf"] = {
 			{ Vector( -223, -2680, 96 ), Angle( 0, 90, 0 ) },

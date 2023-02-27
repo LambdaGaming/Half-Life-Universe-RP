@@ -3,8 +3,6 @@ if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 if SERVER then
 	local map = game.GetMap()
 	local sectorc = "rp_sectorc_beta"
-	local laboratory = "rp_blackmesa_laboratory"
-	local complex = "rp_blackmesa_complex_fixed"
 	local bmrf = "rp_bmrf"
 	local NPCEventParticipants = {}
 
@@ -65,10 +63,6 @@ if SERVER then
 		local button
 		if map == sectorc then
 			button = 1207
-		elseif map == laboratory then
-			button = 90
-		elseif map == complex then
-			button = 977
 		elseif map == bmrf then
 			button = 1523
 		end
@@ -89,10 +83,6 @@ if SERVER then
 		local button
 		if map == sectorc then
 			button = 1207
-		elseif map == laboratory then
-			button = 90
-		elseif map == complex then
-			button = 977
 		elseif map == bmrf then
 			button = 1523
 		end
@@ -196,31 +186,6 @@ if SERVER then
 				Vector( -3765, -1711, -229 ),
 				Vector( -2257, -3341, -229 )
 			},
-			[laboratory] = {
-				Vector( 675, -2885, 288 ),
-				Vector( 713, -3209, 288 ),
-				Vector( 1340, -3187, 288 ),
-				Vector( 1382, -2668, 288 ),
-				Vector( 283, -3210, 288 ),
-				Vector( 137, -2887, 288 ),
-				Vector( -316, -3550, -31 ),
-				Vector( 273, -3140, -31 ),
-				Vector( 265, -2321, -31 ),
-				Vector( -306, -2535, -31 ),
-				Vector( -32, -5132, -351 ),
-				Vector( -1079, -5450, -351 )
-			},
-			[complex] = {
-				Vector( -4366, 4418, 2262 ),
-				Vector( -5079, 4567, 2307 ),
-				Vector( -4345, 5161, 2262 ),
-				Vector( -3791, 5681, 2262 ),
-				Vector( -4387, 7208, 2262 ),
-				Vector( -5223, 6454, 1392 ),
-				Vector( -3581, 6876, 2262 ),
-				Vector( -3779, 7578, 2262 ),
-				Vector( -1863, 5118, 2230 )
-			},
 			[bmrf] = {
 				Vector( -10421, -1535, -63 ),
 				Vector( -3623, 2157, -39 ),
@@ -288,17 +253,6 @@ if SERVER then
 				Vector( 2167, -4669, -3162 ),
 				Vector( 1439, -4103, -2786 )
 			},
-			[laboratory] = {
-				Vector( 833, -2205, -31 ),
-				Vector( 2632, -2380, 609 ),
-				Vector( -812, -3789, 288 )
-			},
-			[complex] = {
-				Vector( -1285, -1040, -456 ),
-				Vector( -1875, -4, 288 ),
-				Vector( 544, 6137, 2160 ),
-				Vector( -3846, 7020, 2262 )
-			},
 			[bmrf] = {
 				Vector( 2236, -4998, -1439 ),
 				Vector( 289, -2657, 96 ),
@@ -325,24 +279,6 @@ if SERVER then
 				Vector( -6116, 771, -301 ),
 				Vector( -10292, -416, 570 ),
 				Vector( -10617, -979, 570 )
-			},
-			[laboratory] = {
-				Vector( -1126, -4457, 608 ),
-				Vector( -302, -1059, 289 ),
-				Vector( 860, -52, 289 ),
-				Vector( 521, -1006, -32 ),
-				Vector( 784, -2251, -31 ),
-				Vector( 120, -4224, -351 ),
-				Vector( 807, -6389, -350 )
-			},
-			[complex] = {
-				Vector( 1270, 1731, -32 ),
-				Vector( -2212, 304, 288 ),
-				Vector( -2919, 8225, 2262 ),
-				Vector( -4800, 6595, 2455 ),
-				Vector( -617, 4997, 2160 ),
-				Vector( 3785, 5614, 1568 ),
-				Vector( 883, 1374, -32 )
 			},
 			[bmrf] = {
 				Vector( -1204, -1393, 64 ),
@@ -414,12 +350,6 @@ if SERVER then
 			boss = ents.Create( table.Random( bosses ) )
 			boss:SetPos( Vector( -10245, -6811, -2661 ) )
 			boss:SetAngles( Angle( 0, -55, 0 ) )
-		elseif map == laboratory then
-			boss = ents.Create( "monster_alien_tentacle" )
-			boss:SetPos( Vector( -4331, 1734, -350 ) )
-		elseif map == complex then
-			boss = ents.Create( "monster_alien_voltigore" )
-			boss:SetPos( Vector( 8388, -3671, 1360 ) )
 		elseif map == bmrf then
 			boss = ents.Create( "monster_pitworm_up" )
 			boss:SetPos( Vector( 2664, -2547, -255 ) )
@@ -442,26 +372,6 @@ if SERVER then
 				Vector( 4357, -2199, -239 ),
 				Vector( -3963, -3632, -1172 ),
 				Vector( -217, -4774, -252 )
-			},
-			[laboratory] = {
-				Vector( 2384, 1766, -31 ),
-				Vector( -1, -3379, -350 ),
-				Vector( -14, -2087, -30 ),
-				Vector( -943, -3769, 592 ),
-				Vector( 3298, -724, 466 ),
-				Vector( 2088, -1961, -31 ),
-				Vector( 122, 879, -526 ),
-				Vector( -49, -5074, -350 )
-			},
-			[complex] = {
-				Vector( -5312, 6600, 1392 ),
-				Vector( 1139, 1928, 1232 ),
-				Vector( 802, -520, -263 ),
-				Vector( -2107, 7467, 2262 ),
-				Vector( 1326, 1081, -31 ),
-				Vector( -3729, 5684, 2262 ),
-				Vector( 3732, 4550, 1576 ),
-				Vector( -758, 1550, 288 )
 			},
 			[bmrf] = {
 				Vector( -946, -4747, 352 ),

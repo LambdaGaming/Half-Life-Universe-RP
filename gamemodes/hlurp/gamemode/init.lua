@@ -255,30 +255,7 @@ local function HLU_SpawnNPCs()
 			budget:SetPos( Vector( -123, -3703, -252 ) )
 			budget:SetAngles( angle_zero )
 			budget:Spawn()
-		end
-		if map == "rp_blackmesa_laboratory" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( 10808, -4008, 922 ) )
-			e:SetAngles( angle_zero )
-			e:Spawn()
-			e:ApplyType( 1 )
-			local budget = ents.Create( "budget_npc" )
-			budget:SetPos( Vector( 2533, -58, -31 ) )
-			budget:SetAngles( Angle( 0, 180, 0 ) )
-			budget:Spawn()
-		end
-		if map == "rp_blackmesa_complex_fixed" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -1251, 6766, 2160 ) )
-			e:SetAngles( angle_zero )
-			e:Spawn()
-			e:ApplyType( 1 )
-			local budget = ents.Create( "budget_npc" )
-			budget:SetPos( Vector( 952, 602, -31 ) )
-			budget:SetAngles( Angle( 0, 90, 0 ) )
-			budget:Spawn()
-		end
-		if map == "rp_bmrf" then
+		elseif map == "rp_bmrf" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 5615, -374, -63 ) )
 			e:SetAngles( Angle( 0, -90, 0 ) )
@@ -288,8 +265,7 @@ local function HLU_SpawnNPCs()
 			budget:SetPos( Vector( -404, 2374, -63 ) )
 			budget:SetAngles( Angle( 0, 90, 0 ) )
 			budget:Spawn()
-		end
-		if map == "gm_atomic" then
+		elseif map == "gm_atomic" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( -8407, -1818, -12639 ) )
 			e:SetAngles( Angle( 0, 90, 0 ) )
@@ -300,27 +276,23 @@ local function HLU_SpawnNPCs()
 			e2:SetAngles( Angle( 0, -90, 0 ) )
 			e2:Spawn()
 			e2:ApplyType( 1 )
-		end
-		if map == "rp_ineu_valley2_v1a" then
+		elseif map == "rp_ineu_valley2_v1a" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 9543, 14860, 1277 ) )
 			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )
-
 			local e2 = ents.Create( "npc_item" )
 			e2:SetPos( Vector( -11993, 6232, 1024 ) )
 			e2:SetAngles( Angle( 0, 90, 0 ) )
 			e2:Spawn()
 			e2:ApplyType( 3 )
-		end
-		if map == "gm_boreas" then
+		elseif map == "gm_boreas" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 1694, -14736, -6575 ) )
 			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )
-
 			local e2 = ents.Create( "npc_item" )
 			e2:SetPos( Vector( 64, 5130, -6400 ) )
 			e2:SetAngles( Angle( 0, -45, 0 ) )
