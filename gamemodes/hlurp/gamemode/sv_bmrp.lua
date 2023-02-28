@@ -358,12 +358,36 @@ local function Cascade() --Cascade activation function
 		local e = ents.Create( "cascade_escape" )
 		e:SetPos( Vector( -6901, -1738, 706 ) )
 		e:Spawn()
+		
+		local rubblepos = {
+			{ Vector( -910, -3855, 405 ), Angle( -45, 0, 0 ) },
+			{ Vector( -9231, -2121, 766 ), Angle( 0, 0, -45 ) },
+			{ Vector( -1821, -1398, 419 ), Angle( -90, 180, 180 ) }
+		}
+		for i=1,3 do
+			local e = ents.Create( "rubble_block" )
+			e:SetPos( rubblepos[i][1] )
+			e:SetAngles( rubblepos[i][2] )
+			e:Spawn()
+		end
 		Entity( 1153 ):Fire( "Press" )
 		Entity( 1155 ):Fire( "Press" )
 	elseif game.GetMap() == "rp_sectorc_beta" then
 		local e = ents.Create( "cascade_escape" )
 		e:SetPos( Vector( -3577, -967, 569 ) )
 		e:Spawn()
+
+		local rubblepos = {
+			{ Vector( -10258, -689, -185 ), Angle( 0, 0, 45 ) },
+			{ Vector( -3739, -1063, -170 ), Angle( -45, 0, 0 ) },
+			{ Vector( 214, -3322, -185 ), Angle( 0, 180, 45 ) }
+		}
+		for i=1,3 do
+			local e = ents.Create( "rubble_block" )
+			e:SetPos( rubblepos[i][1] )
+			e:SetAngles( rubblepos[i][2] )
+			e:Spawn()
+		end
 		Entity( 973 ):Fire( "Press" )
 	end
 	TramFailure( true )
