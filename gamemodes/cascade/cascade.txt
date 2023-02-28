@@ -1,8 +1,0 @@
-"cascade"
-{
-	"base"		"sandbox"
-	"title"		"Half-Life Universe RP"
-	"menusystem"	"1"
-	"version" 	"2.1"
-	"category"	"pvp"
-}
