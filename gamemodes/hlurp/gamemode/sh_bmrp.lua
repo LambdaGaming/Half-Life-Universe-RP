@@ -229,6 +229,13 @@ BuyMenuItems = {
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_SERVICE end,
 	},
+	["weapon_extinguisher"] = {
+		Name = "Fire Extinguisher",
+		Description = "Used to put out fires. Touch with a used extinguisher case to restock it.",
+		Price = 100,
+		Max = 5,
+		Allowed = function( ply ) return ply:Team() == TEAM_SERVICE end,
+	},
 	["mediaplayer_tv"] = {
 		Name = "Media Player",
 		Description = "Used to watch videos.",
