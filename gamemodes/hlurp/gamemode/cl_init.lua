@@ -186,6 +186,10 @@ function DrawJobMenu()
 					HLU_Notify( "Please wait a few seconds before changing jobs.", 1, 6 )
 					return
 				end
+				if k == TEAM_MARINEBOSS or k == TEAM_MARINE then
+					HLU_Notify( "Under normal circumstances, players can only become HECU by interacting with the escape truck during the cascade.", 1, 8 )
+					return
+				end
 				net.Start( "HLU_ChangeJob" )
 				net.WriteInt( k, 32 )
 				net.SendToServer()

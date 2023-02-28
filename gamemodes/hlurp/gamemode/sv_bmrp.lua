@@ -355,9 +355,15 @@ local function Cascade() --Cascade activation function
 			v:SendLua( [[surface.PlaySound( "ambient/atmosphere/terrain_rumble1.wav" )]] )
 		end
 	
+		local e = ents.Create( "cascade_escape" )
+		e:SetPos( Vector( -6901, -1738, 706 ) )
+		e:Spawn()
 		Entity( 1153 ):Fire( "Press" )
 		Entity( 1155 ):Fire( "Press" )
 	elseif game.GetMap() == "rp_sectorc_beta" then
+		local e = ents.Create( "cascade_escape" )
+		e:SetPos( Vector( -3577, -967, 569 ) )
+		e:Spawn()
 		Entity( 973 ):Fire( "Press" )
 	end
 	TramFailure( true )
