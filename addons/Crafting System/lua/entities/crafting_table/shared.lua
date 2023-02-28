@@ -22,14 +22,6 @@ CraftingCategory = {}
 CraftingIngredient = {}
 local COLOR_DEFAULT = Color( 49, 53, 61, 255 )
 
---Template Ingredient
---[[
-	CraftingIngredient["iron"] = {
-		Name = "Iron",
-		Type = 1
-	}
-]]
-
 CraftingIngredient["ironbar"] = {
 	Name = "Iron",
 	Type = { 1, 4 }
@@ -79,15 +71,6 @@ CraftingIngredient["crystal_fragment"] = {
 	Name = "Crystal Fragment",
 	Type = { 3 }
 }
-
---Template Category
---[[
-	CraftingCategory[1] = {
-		Name = "Pistols",
-		Color = COLOR_DEFAULT,
-		StartCollapsed = false
-	}
-]]
 
 --Rebel categories
 CraftingCategory[1] = {
@@ -201,26 +184,7 @@ CraftingCategory[18] = {
 	Type = 4
 }
 
---Template Item
---[[
-CraftingTable["weapon_crowbar"] = {
-	Name = "Crowbar",
-	Description = "Requires 1 ball.",
-	Materials = {
-		iron = 2,
-		wood = 1
-	},
-	Type = 1,
-	SpawnFunction = function( ply, self )
-		local e = ents.Create( "weapon_crowbar" )
-		e:SetPos( self:GetPos() - Vector( 0, 0, -5 ) )
-		e:Spawn()
-	end
-}
-]]
-
 --Rebel crafting items
-
 CraftingTable["weapon_pistol"] = {
 	Name = "Civil Protection Pistol",
 	Description = "Requires 3 iron.",
@@ -703,7 +667,6 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 end
 
 --Biochemist crafting items
-
 CraftingTable["npc_headcrab_black"] = {
 	Name = "Poison Headcrab",
 	Description = "Requires 2 organic matter.",
@@ -1013,8 +976,24 @@ CraftingTable["weapon_sporelauncher"] = {
 	end
 }
 
---Weapons engineer crafting items
+CraftingTable["zombie_serum"] = {
+	Name = "Zombie Serum",
+	Description = "Requires 4 organic matter and 1 rare organic matter.",
+	Materials = {
+		organic_matter = 4,
+		organic_matter_rare = 1
+	},
+	Type = 2,
+	Category = "Creatures",
+	SpawnFunction = function( ply, self )
+		local e = ents.Create( "zombie_serum" )
+		e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+		e:Spawn()
+		e:CPPISetOwner( ply )
+	end
+}
 
+--Weapons engineer crafting items
 CraftingTable["weapon_357_hl"] = {
 	Name = "357 Magnum",
 	Description = "Requires 4 xen iron.",
@@ -1165,7 +1144,6 @@ CraftingTable["weapon_tripmine"] = {
 }
 
 --Combine crafting items
-
 CraftingTable["ent_jack_gmod_ezsentry"] = {
 	Name = "Sentry",
 	Description = "Requires 4 iron and 2 wrenches.",

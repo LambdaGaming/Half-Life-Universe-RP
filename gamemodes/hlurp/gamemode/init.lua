@@ -88,6 +88,17 @@ function GM:PlayerSetHandsModel( ply, ent )
 	end
 end
 
+local meta = FindMetaTable( "Player" )
+function meta:MakeZombie()
+	self:StripWeapons()
+	self.IsZombie = true
+	HLU_Notify( self, "You have been zombified!", 0, 6 )
+	timer.Simple( 1, function()
+		self:EmitSound( "npc/zombie/zombie_voice_idle"..math.random( 1, 14 )..".wav" )
+		self:Give( "weapon_weapons_zombie" )
+	end )
+end
+
 function ChangeTeam( ply, newteam, respawn, silent )
     local tbl = HLU_JOB[GetGlobalInt( "CurrentGamemode" )][newteam]
 	local model = ply:GetNWString( "SetPlayermodel_"..newteam )
@@ -178,6 +189,7 @@ local function HLU_SpawnHook( ply )
 		if jobtable.SpawnFunction then
 			jobtable.SpawnFunction( ply )
 		end
+		ply.IsZombie = false
 	end )
 end
 hook.Add( "PlayerSpawn", "HLU_SpawnHook", HLU_SpawnHook )
@@ -190,7 +202,8 @@ local DropBlacklist = {
 	["gmod_camera"] = true,
 	["weapon_cuffed"] = true,
 	["swep_vortigaunt_beam"] = true,
-	["pocket"] = true
+	["pocket"] = true,
+	["weapon_weapons_zombie"] = true
 }
 
 function DropWeapon( ply )
@@ -341,5 +354,25 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 end )
 
 hook.Add( "PlayerCanPickupWeapon", "NoDoublePickup", function( ply, wep )
-	if ply:HasWeapon( wep:GetClass() ) then return false end
+	if ply:HasWeapon( wep:GetClass() ) or ( ply.IsZombie and wep:GetClass() != "weapon_weapons_zombie" ) then
+		return false
+	end
+end )
+
+hook.Add( "PlayerDeath", "ZombifyPlayer", function( ply, inflictor, attacker )
+	local pos = ply:GetPos()
+	local allowed = {
+		npc_headcrab = true,
+		npc_headcrab_fast = true,
+		npc_headcrab_black = true
+	}
+	if allowed[attacker:GetClass()] and !ply.IsZombie then
+		timer.Simple( 1, function()
+			if IsValid( ply ) then
+				ply:Spawn()
+				ply:SetPos( pos )
+				ply:MakeZombie()
+			end
+		end )
+	end
 end )
