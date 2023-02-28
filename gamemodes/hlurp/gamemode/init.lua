@@ -339,3 +339,7 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 	HLU_Notify( ply, "You have purchased a "..item.Name, 0, 6 )
 	ply.BuyCooldown = CurTime() + 10
 end )
+
+hook.Add( "PlayerCanPickupWeapon", "NoDoublePickup", function( ply, wep )
+	if ply:HasWeapon( wep:GetClass() ) then return false end
+end )
