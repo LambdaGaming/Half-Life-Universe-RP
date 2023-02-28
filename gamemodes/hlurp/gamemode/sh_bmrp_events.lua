@@ -96,24 +96,26 @@ if SERVER then
 		EndEvent( 1800 )
 	end
 	-----------------------------------------------------------------
-	function DoorFailure()
-		for k,v in pairs( ents.FindByClass( "func_door*" ) ) do
-			v:Fire( "Lock" )
+	function TramFailure( suppress )
+		for k,v in pairs( ents.FindByClass( "func_tracktrain" ) ) do
+			v:Fire( "Stop" )
 		end
 		for k,v in pairs( ents.FindByClass( "event_door_fix" ) ) do
 			v.broke = true
 			v:EmitSound( "vehicles/Airboat/fan_motor_shut_off1.wav" )
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator powering some doors has stalled!" )
-		RunConsoleCommand( "vox", "bizwarn warning secondary _comma door power system failure" )
+		if !suppress then
+			HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator powering the trams has stalled!" )
+			RunConsoleCommand( "vox", "bizwarn warning secondary _comma train power system failure" )
+		end
 	end
 
-	function DoorFix()
-		for k,v in pairs( ents.FindByClass( "func_door*" ) ) do
-			v:Fire( "Unlock" )
+	function TramFix()
+		for k,v in pairs( ents.FindByClass( "func_tracktrain" ) ) do
+			v:Fire( "Resume" )
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator has been restarted!" )
-		RunConsoleCommand( "vox", "dadeda maintenance reports secondary _comma door power system inspection nominal" )
+		RunConsoleCommand( "vox", "dadeda maintenance reports secondary _comma train power system inspection nominal" )
 		EndEvent( 1800 )
 	end
 	-----------------------------------------------------------------
@@ -415,7 +417,7 @@ BMRP_EVENTS = {
 		Name = "Door Failure",
 		Description = "Prevents certain doors from being opened until a service official restarts the generator powering them.",
 		Required = TEAM_SERVICE,
-		OnSelect = DoorFailure
+		OnSelect = TramFailure
 	},
 	{
 		Name = "Medical Emergency",

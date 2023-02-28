@@ -356,10 +356,10 @@ local function Cascade() --Cascade activation function
 		end
 	
 		Entity( 1153 ):Fire( "Press" )
-		Entity( 1151 ):Fire( "Press" )
-		Entity( 1272 ):Fire( "Press" )
+		Entity( 1155 ):Fire( "Press" )
 	elseif game.GetMap() == "rp_sectorc_beta" then
 		Entity( 973 ):Fire( "Press" )
 	end
+	TramFailure( true )
 end
 concommand.Add( "cascade", Cascade )
