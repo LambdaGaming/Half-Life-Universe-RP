@@ -1,4 +1,3 @@
-
 local scimodels = {
 	["models/jheviv/jhevmk4.mdl"] = true,
 	["models/player/hdpp/gordon.mdl"] = true,
@@ -115,7 +114,6 @@ local scichats = {
 	{ "it's you", "scientist/c1a0_sci_itsyou.wav" },
 	{ "ahem", "scientist/c1a0_sci_stall.wav" },
 	{ "run", "scientist/c1a2_sci_1zomb.wav" },
-	{ "shoot", "scientist/c1a2_sci_6zomb.wav" },
 	{ "rescued", "scientist/c1a3_sci_rescued.wav" },
 	{ "doomed", "scientist/c1a3_sci_silo2a.wav" },
 	{ "don't shoot", "scientist/c1a3_sci_team.wav" },
@@ -155,7 +153,7 @@ local scichats = {
 	{ "try this", "scientist/letstrythis.wav" },
 	{ "quiet", "scientist/lowervoice.wav" },
 	{ "madness", "scientist/madness.wav" },
-	{ "facinating", "scientist/neverseen.wav" },
+	{ "fascinating", "scientist/neverseen.wav" },
 	{ "amazing", "scientist/neverseen.wav" },
 	{ "sample", "scientist/newsample.wav" },
 	{ "doubt", "scientist/nodoubt.wav" },
@@ -163,11 +161,10 @@ local scichats = {
 	{ "noo", "scientist/nooo.wav" },
 	{ "smell", "scientist/odorfromyou.wav" },
 	{ "of course", "scientist/ofcourse.wav" },
-	{ "of course not", "scientist/ofcoursenot.wav" },
 	{ "right", "scientist/right.wav" },
 	{ "get back", "scientist/sci_fear14.wav" },
 	{ "ah", "scientist/sci_fear8.wav" },
-	{ "cup", "scientist/seencup.wav" },
+	{ "coffee", "scientist/seencup.wav" },
 	{ "report", "scientist/statusreport.wav" },
 	{ "shut up", "scientist/shutup2.wav" },
 	{ "uh oh", "scientist/startle9.wav" },
@@ -177,8 +174,7 @@ local scichats = {
 	{ "wait", "scientist/waithere.wav" },
 	{ "tie", "scientist/weartie.wav" },
 	{ "now what", "scientist/whatnext.wav" },
-	{ "what", "scientist/whatareyoudoing.wav" },
-	{ "yes?", "scientist/yees.wav" },
+	{ "what", "scientist/whatyoudoing.wav" },
 	{ "yes", "scientist/yes.wav" },
 	{ "yea", "scientist/yes.wav" },
 	{ "yey", "scientist/yes.wav" },
@@ -190,10 +186,10 @@ local scichats = {
 
 local secchats = {
 	{ "aim", "barney/aimforhead.wav" },
-	{ "not going", "barney/aintgoing.wav" },
+	{ "not going", "barney/aintgoin.wav" },
 	{ "scared", "barney/aintscared.wav" },
 	{ "ambush", "barney/ambush.wav" },
-	{ "bring it on", "barney/bringit.wav" },
+	{ "bring it", "barney/ba_bring.wav" },
 	{ "freeze", "barney/ba_attack1.wav" },
 	{ "that was close", "barney/ba_close.wav" },
 	{ "friend", "barney/ba_friends.wav" },
@@ -439,60 +435,36 @@ local malechat = {
 	{ "yes", "vo/npc/male01/yeah02.wav" }
 }
 
+--Credit to DarkRP devs for parts of this function that correctly verify text
+local function CheckText( tbl, text, ply )
+	for _,v in pairs( tbl ) do
+		local res1, res2 = string.find( string.lower( text ), v[1] )
+		if res1 and ( !text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( !text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
+			ply:EmitSound( v[2], 80, 100 )
+			break
+		end
+	end
+end
+
+--Plays sounds based on what players send in chat, similar to what DarkRP does but with support for specific sounds for specific playermodels
 hook.Add( "PlayerSay", "SoundChat", function( ply, text, team )
 	if team then return end
 	local prefixlist = { "/", "!", "@" }
 	local model = ply:GetModel()
-	if table.HasValue( prefixlist, string.sub( text, 0, 1 ) ) then return end --Doesn't check the tables if a prefix was entered, for example /ooc or !addons
-	if ply.chatcooldown and ply.chatcooldown > CurTime() then return end --Doesn't check the tables if the cooldown is still in effect
-	if scimodels[model] then --Sounds play according to what playermodel the player has
-		for _,v in pairs( scichats ) do --Looks over table of words and paths
-			local res1, res2 = string.find( string.lower( text ), v[1] )
-			if res1 and ( !text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( !text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then --Credit to DarkRP devs for this
-				ply:EmitSound( v[2], 80, 100 )
-				break
-			end
-		end
+	if table.HasValue( prefixlist, string.sub( text, 0, 1 ) ) then return end
+	if ply.chatcooldown and ply.chatcooldown > CurTime() then return end
+	if scimodels[model] then
+		CheckText( scichats, text, ply )
 	elseif secmodels[model] then
-		for k,v in pairs( secchats ) do
-			local res1, res2 = string.find( string.lower( text ), v[1] )
-			if res1 and ( !text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( !text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
-				ply:EmitSound( v[2], 80, 100 )
-				break
-			end
-		end
+		CheckText( secchats, text, ply )
 	elseif marinemodels[model] then
-		for _,v in pairs( marinechats ) do
-			local res1, res2 = string.find( string.lower( text ), v[1] )
-			if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
-				ply:EmitSound( v[2], 80, 100 )
-				break
-			end
-		end
+		CheckText( marinechats, text, ply )
 	elseif cpmodels[model] then
-		for _,v in pairs( cpchat ) do
-			local res1, res2 = string.find( string.lower( text ), v[1] )
-			if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
-				ply:EmitSound( v[2], 80, 100 )
-				break
-			end
-		end
+		CheckText( cpchat, text, ply )
 	elseif femalemodels[model] then
-		for _,v in pairs( femalechat ) do
-			local res1, res2 = string.find( string.lower( text ), v[1] )
-			if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
-				ply:EmitSound( v[2], 80, 100 )
-				break
-			end
-		end
+		CheckText( femalechat, text, ply )
 	elseif malemodels[model] then
-		for _,v in pairs( malechat ) do
-			local res1, res2 = string.find( string.lower( text ), v[1] )
-			if res1 and ( not text[res1 - 1] or text[res1 - 1] == "" or text[res1 - 1] == " " ) and ( not text[res2 + 1] or text[res2 + 1] == "" or text[res2 + 1] == " " ) then
-				ply:EmitSound( v[2], 80, 100 )
-				break
-			end
-		end
+		CheckText( malechat, text, ply )
 	end
 	return text
 end )
