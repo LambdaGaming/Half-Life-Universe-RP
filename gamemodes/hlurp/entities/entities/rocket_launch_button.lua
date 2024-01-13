@@ -42,9 +42,9 @@ if SERVER then
 					HLU_Notify( ply, "ERROR: No rocket detected to abort.", 1, 6 )
 					return
 				end
-				timer.Create( "rocket_timer", cooldown, 1, function() end )
+				timer.Create( "rocket_timer", 600, 1, function() end )
 				HLU_Notify( nil, "Rocket failed to successfully launch, emergency cancellation button was activated.", 0, 6, true )
-				HLU_Notify( nil, "There were "..string.ToMinutesSeconds( math.Round( timer.TimeLeft( "rocketinit" ) ) ).." minutes left until the rocket launched.", 0, 6, true )
+				HLU_Notify( nil, "There were "..math.Round( timer.TimeLeft( "rocketinit" ) ).." seconds left until the rocket launched.", 0, 6, true )
 				timer.Remove( "KickTimer" )
 				for k,v in pairs( ents.FindByClass( "gb5_proj_icbm_big" ) ) do
 					v:Remove()
@@ -68,7 +68,7 @@ if SERVER then
 				return
 			end
 			if timer.Exists("rocket_timer") then
-				HLU_Notify( ply, "Wait "..string.ToMinutesSeconds( math.Round( timer.TimeLeft( "rocket_timer" ) ) ).." before activating the rocket again.", 1, 6 )
+				HLU_Notify( ply, "Wait "..math.Round( timer.TimeLeft( "rocket_timer" ) ).." seconds before activating the rocket again.", 1, 6 )
 				return
 			end
 			if game.GetMap() == "rp_ineu_valley2_v1a" then
