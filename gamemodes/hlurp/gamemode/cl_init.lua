@@ -49,18 +49,19 @@ function scoreboard:show()
 
 	local plylist = vgui.Create( "DListView", mainframe )
 	plylist:Dock( FILL )
-	plylist:AddColumn( "Name" ):SetWidth( 200 )
-	plylist:AddColumn( "Job" ):SetWidth( 200 )
+	plylist:AddColumn( "Name" ):SetWidth( 175 )
+	plylist:AddColumn( "Job" ):SetWidth( 175 )
 	plylist:AddColumn( "Health" ):SetWidth( 50 )
 	plylist:AddColumn( "Kills" ):SetWidth( 50 )
 	plylist:AddColumn( "Deaths" ):SetWidth( 50 )
+	plylist:AddColumn( "Ping" ):SetWidth( 50 )
 	plylist:SetDataHeight( 30 )
 	plylist.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, color_transparent )
 	end
 
 	for k,v in ipairs( player.GetAll() ) do
-		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths() )
+		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths(), v:Ping() )
 		row:SetCursor( "hand" )
 		for i=1,5 do
 			if IsDarkColor( v:GetJobColor() ) then
