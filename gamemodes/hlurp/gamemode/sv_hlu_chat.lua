@@ -105,13 +105,17 @@ end
 
 hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
 	local split = string.Split( text, " " )
-	if split[1] == "/y" or split[1] == "/w" then
-		for k,v in ipairs( player.GetAll() ) do
-			local dist = v:GetPos():DistToSqr( ply:GetPos() )
-			if split[1] == "/y" and dist <= 250000 then
-				HLU_ChatNotify( v, "Yell", ply:GetJobColor(), string.TrimLeft( text, "/y " ), false, ply )
-			elseif split[1] == "/w" and dist <= 10000 then
-				HLU_ChatNotify( v, "Whisper", ply:GetJobColor(), string.TrimLeft( text, "/w " ), false, ply )
+	if split[1]:lower() == "/y" then
+		for k,v in ipairs( ents.FindInSphere( ply:GetPos(), 500 ) ) do
+			if v:IsPlayer() then
+				HLU_ChatNotify( v, "Yell", ply:GetJobColor(), string.Right( text, 4 ), false, ply )
+			end
+		end
+		return ""
+	elseif split[1]:lower() == "/w" then
+		for k,v in ipairs( ents.FindInSphere( ply:GetPos(), 100 ) ) do
+			if v:IsPlayer() then
+				HLU_ChatNotify( v, "Whisper", ply:GetJobColor(), string.Right( text, 4 ), false, ply )
 			end
 		end
 		return ""
@@ -120,9 +124,9 @@ end )
 
 local function DetectChatCommand( ply, text )
 	local split = string.Split( text, " " )
-	if chatcommands[split[1]] then
+	if chatcommands[split[1]:lower()] then
 		local trimmedtext = string.gsub( text, split[1], "" )
-		return chatcommands[split[1]]( ply, trimmedtext )
+		return chatcommands[split[1]:lower()]( ply, trimmedtext )
 	end
 end
 hook.Add( "PlayerSay", "DetectChatCommand", DetectChatCommand )
