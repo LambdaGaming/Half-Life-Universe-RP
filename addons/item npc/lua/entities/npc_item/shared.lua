@@ -21,8 +21,7 @@ ItemNPCType[1] = {
 	MenuColor = ColorAlpha( color_orange, 30 ),
 	MenuTextColor = color_white,
 	ButtonColor = color_white,
-	ButtonTextColor = color_black,
-	Allowed = {}
+	ButtonTextColor = color_black
 }
 
 ItemNPCType[2] = {
@@ -32,7 +31,16 @@ ItemNPCType[2] = {
 	MenuTextColor = color_white,
 	ButtonColor = Color( 49, 53, 61, 255 ),
 	ButtonTextColor = color_white,
-	Allowed = { TEAM_COMBINESOLDIER, TEAM_COMBINEGUARD, TEAM_COMBINEELITE, TEAM_COMBINEGUARDSHOTGUN }
+	UseCheck = function( ply )
+		local allowed = { TEAM_COMBINESOLDIER, TEAM_COMBINEGUARD, TEAM_COMBINEELITE, TEAM_COMBINEGUARDSHOTGUN }
+		for k,v in pairs( allowed ) do
+			if v == ply:Team() then
+				return true
+			end
+		end
+		HLU_Notify( ply, "You cannot use this NPC as a rebel.", 1, 6 )
+		return false
+	end
 }
 
 ItemNPCType[3] = {
@@ -42,7 +50,16 @@ ItemNPCType[3] = {
 	MenuTextColor = color_white,
 	ButtonColor = color_black,
 	ButtonTextColor = color_white,
-	Allowed = { TEAM_RESISTANCELEADER, TEAM_REBEL, TEAM_REBELMEDIC }
+	UseCheck = function( ply )
+		local allowed = { TEAM_RESISTANCELEADER, TEAM_REBEL, TEAM_REBELMEDIC }
+		for k,v in pairs( allowed ) do
+			if v == ply:Team() then
+				return true
+			end
+		end
+		HLU_Notify( ply, "You cannot use this NPC as the Combine.", 1, 6 )
+		return false
+	end
 }
 
 -----HECU WEAPON CRATE ITEMS-----
@@ -295,7 +312,7 @@ ItemNPC["ent_jack_gmod_ezsentry"] = {
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod.Owner( spawn, ply )
+		JMod.SetEZOwner( spawn, ply, true )
 		spawn:Spawn()
 		spawn:Activate()
 	end

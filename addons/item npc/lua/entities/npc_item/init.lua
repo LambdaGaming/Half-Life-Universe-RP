@@ -33,16 +33,13 @@ end
 
 util.AddNetworkString( "ItemNPCMenu" )
 function ENT:AcceptInput( input, activator )
-	local allowed = ItemNPCType[self:GetNPCType()].Allowed
 	if !activator:IsPlayer() then return end
 	if self:GetNPCType() == 0 then
 		HLU_Notify( activator, "ERROR: NPC isn't fully initialized.", 1, 6 )
 		return
 	end
-	if allowed and !table.IsEmpty( allowed ) and !allowed[activator:Team()] then
-		HLU_Notify( activator, "You cannot use this NPC as your current job.", 1, 6 )
-		return
-	end
+	local useCheck = ItemNPCType[self:GetNPCType()].UseCheck
+	if useCheck and useCheck( activator ) == false then return end
 	net.Start( "ItemNPCMenu" )
 	net.WriteEntity( self )
 	net.Send( activator )
