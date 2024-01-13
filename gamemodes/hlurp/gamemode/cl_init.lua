@@ -220,7 +220,7 @@ function DrawJobMenu()
 				elseif current == 2 then
 					rptype = "city17rp"
 				else
-					current = "outlandrp"
+					rptype = "outlandrp"
 				end
 				gui.OpenURL( "https://lambdagaming.github.io/hlurp/jobs_"..rptype..".html#"..v.Link )
 			end
