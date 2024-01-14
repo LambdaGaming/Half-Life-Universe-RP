@@ -100,7 +100,7 @@ BuyMenuItems = {
 	},
 	["lab_burner"] = {
 		Name = "Bunsen Burner",
-		Description = "Common scientific tool, emits a small flame from a metal tube.",
+		Description = "Scientific tool commonly used to heat things in a controlled manner.",
 		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:GetJobCategory() == "Science" end
@@ -114,7 +114,7 @@ BuyMenuItems = {
 	},
 	["lab_generator"] = {
 		Name = "Electric Generator",
-		Description = "Gasoline engine built to produce large amounts of electricity.",
+		Description = "Gasoline engine that can produce large amounts of electricity.",
 		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
@@ -128,7 +128,7 @@ BuyMenuItems = {
 	},
 	["lab_nitrogen"] = {
 		Name = "Liquid Nitrogen Capsule",
-		Description = "Contains liquid nitrogen, which is extremely cold in normal conditions.",
+		Description = "Used to rapidly freeze items.",
 		Price = 1000,
 		Max = 5,
 		Allowed = function( ply ) return ply:GetJobCategory() == "Science" end
