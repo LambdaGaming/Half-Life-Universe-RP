@@ -391,5 +391,66 @@ local function Cascade() --Cascade activation function
 		Entity( 973 ):Fire( "Press" )
 	end
 	TramFailure( true )
+	SetGlobalBool( "CascadeActive", true )
 end
 concommand.Add( "cascade", Cascade )
+
+local TeamSpawns = {
+	["rp_bmrf"] = {
+		["Administration"] = {
+			Vector( 271, 2724, -64 ),
+			Vector( 802, -3720, 400 )
+		},
+		["Science"] = {
+			Vector( -4295, 2539, -63 ),
+			Vector( -964, -3816, -1440 ),
+			Vector( -1697, -992, 352 ),
+			Vector( 730, 228, -64 ),
+			Vector( -9260, -1520, -64 )
+		},
+		["Security"] = {
+			Vector( 3789, -509, -64 ),
+			Vector( 5194, 344, 0 )
+		},
+		["Military"] = {
+			Vector( 3772, -1268, 701 ),
+			Vector( 4418, -910, 704 )
+		},
+		["Utility"] = {
+			Vector( 5572, -4657, 64 ),
+			Vector( -6032, -102, -112 )
+		}
+	},
+	["rp_sectorc_beta"] = {
+		["Administration"] = {
+			Vector( 212, -4542, -253 ),
+			Vector( -10267, -1016, 570 )
+		},
+		["Science"] = {
+			Vector( -10234, -475, -253 ),
+			Vector( -2794, -584, -253 ),
+			Vector( -5372, -2772, -1173 ),
+			Vector( -3079, -1874, -229 )
+		},
+		["Security"] = {
+			Vector( 4892, -1615, -240 ),
+			Vector( -10492, -1038, -253 )
+		},
+		["Military"] = {
+			Vector( -4985, -712, 593 ),
+			Vector( -5298, 148, 593 )
+		},
+		["Utility"] = {
+			Vector( -6889, 749, -301 ),
+			Vector( 332, -852, -378 )
+		}
+	}
+}
+hook.Add( "PlayerSpawn", "TeamSpawns", function( ply )
+	local map = game.GetMap()
+	local category = ply:GetJobCategory()
+	local spawns = TeamSpawns[map][category]
+	if spawns then
+		ply:SetPos( table.Random( spawns ) )
+	end
+end )
