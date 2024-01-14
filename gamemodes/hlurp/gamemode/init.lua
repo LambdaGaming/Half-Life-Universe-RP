@@ -159,12 +159,12 @@ function GM:PlayerInitialSpawn( ply )
 	ChangeTeam( ply, 1, false, true )
 	if HLU_JOB[GetGlobalInt( "CurrentGamemode" )][ply:Team()].IsCop then
 		ply:SetWalkSpeed( 200 )
-		ply:SetRunSpeed( 260 )
+		ply:SetRunSpeed( 270 )
 	else
 		ply:SetWalkSpeed( 180 )
-		ply:SetRunSpeed( 240 )
+		ply:SetRunSpeed( 250 )
 	end
-	ply:SetJumpPower( 180 )
+	ply:SetJumpPower( 170 )
 	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Name.." gamemode." )
 
 	local rpname = ply:GetPData( "RPName" )
