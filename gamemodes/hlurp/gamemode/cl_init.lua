@@ -63,7 +63,7 @@ function scoreboard:show()
 	for k,v in ipairs( player.GetAll() ) do
 		local row = plylist:AddLine( v:Nick(), v:GetJobName(), v:Health(), v:Frags(), v:Deaths(), v:Ping() )
 		row:SetCursor( "hand" )
-		for i=1,5 do
+		for i=1,6 do
 			if IsDarkColor( v:GetJobColor() ) then
 				row.Columns[i]:SetTextColor( color_white )
 			end
