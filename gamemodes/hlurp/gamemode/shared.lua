@@ -360,18 +360,9 @@ HLU_JOB = {
 	},
 	[2] = { --City 17 RP Jobs
 		{
-			Name = "Loyal Citizen",
-			Link = "loyalcitizen",
+			Name = "Citizen",
+			Link = "citizen",
 			Color = color_green,
-			Models = civimodels,
-			Weapons = { "rphands", "mgs_pickaxe" },
-			Max = 0,
-			Category = "Citizens"
-		},
-		{
-			Name = "Refugee",
-			Link = "refugee",
-			Color = Color( 28, 54, 9, 255 ),
 			Models = civimodels,
 			Weapons = { "rphands", "mgs_pickaxe" },
 			Max = 0,

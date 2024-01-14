@@ -15,9 +15,9 @@ BuyMenuItems = {
 		Description = "Used to watch videos.",
 		Max = 10
 	},
-	["crafting_table_rebel"] = {
+	["crafting_table"] = {
 		Name = "Rebel Crafting Table",
-		Description = "Allows players to craft turrets and science locker keys.",
+		Description = "Allows players to craft weapons, tools, traps, and ammo.",
 		Allowed = function( ply )
 			local allowed = {
 				[TEAM_REBEL] = true,

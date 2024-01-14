@@ -1,19 +1,18 @@
 if GetGlobalInt( "CurrentGamemode" ) != 2 then return end
 
 TEAM_CIVILIAN = 1
-TEAM_REFUGEE = 2
-TEAM_RESISTANCELEADER = 3
-TEAM_SCIENTIST = 4
-TEAM_VORT = 5
-TEAM_GMANCITY = 6
-TEAM_EARTHADMIN = 7
-TEAM_COMBINEELITE = 8
-TEAM_CREMATOR = 9
-TEAM_COMBINEGUARD = 10
-TEAM_COMBINEGUARDSHOTGUN = 11
-TEAM_COMBINESOLDIER = 12
-TEAM_METROCOPMANHACK = 13
-TEAM_METROCOP = 14
+TEAM_RESISTANCELEADER = 2
+TEAM_SCIENTIST = 3
+TEAM_VORT = 4
+TEAM_GMANCITY = 5
+TEAM_EARTHADMIN = 6
+TEAM_COMBINEELITE = 7
+TEAM_CREMATOR = 8
+TEAM_COMBINEGUARD = 9
+TEAM_COMBINEGUARDSHOTGUN = 10
+TEAM_COMBINESOLDIER = 11
+TEAM_METROCOPMANHACK = 12
+TEAM_METROCOP = 13
 
 BuyMenuItems = {
 	["mediaplayer_tv"] = {
@@ -182,8 +181,8 @@ BuyMenuItems = {
 	},
 	["crafting_table_rebel"] = {
 		Name = "Rebel Crafting Table",
-		Description = "Allows players to craft turrets and science locker keys.",
-		Allowed = function( ply ) return ply:Team() == TEAM_REFUGEE or ply:Team() == TEAM_RESISTANCELEADER end,
+		Description = "Allows players to craft weapons, tools, traps, and ammo.",
+		Allowed = function( ply ) return ply:Team() == TEAM_CIVILIAN or ply:Team() == TEAM_RESISTANCELEADER end,
 		SpawnFunction = function( ply, tr )
 			local e = ents.Create( "crafting_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
