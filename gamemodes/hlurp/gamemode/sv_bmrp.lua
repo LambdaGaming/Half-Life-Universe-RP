@@ -166,10 +166,10 @@ hook.Add( "InitPostEntity", "BMRP_HairLoss", HairLoss )
 
 function ToggleAlarm( forceon )
 	local alarmindex = {
-		["rp_sectorc_beta"] = 1990,
-		["rp_bmrf"] = 1153
+		["rp_sectorc_beta"] = 4856,
+		["rp_bmrf"] = 3364
 	}
-	local ent = ents.GetByIndex( alarmindex[game.GetMap()] )
+	local ent = ents.GetMapCreatedEntity( alarmindex[game.GetMap()] )
 	ent:Fire( forceon and "PressIn" or "Press" )
 end
 
