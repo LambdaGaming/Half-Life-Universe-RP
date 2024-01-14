@@ -21,7 +21,14 @@ ItemNPCType[1] = {
 	MenuColor = ColorAlpha( color_orange, 30 ),
 	MenuTextColor = color_white,
 	ButtonColor = color_white,
-	ButtonTextColor = color_black
+	ButtonTextColor = color_black,
+	UseCheck = function( ply )
+		if ply:GetJobCategory() == "Military" or GetGlobalBool( "CascadeActive" ) then
+			return true
+		end
+		HLU_Notify( ply, "Only HECU jobs can use the weapon crate at this time.", 1, 6 )
+		return false
+	end
 }
 
 ItemNPCType[2] = {
@@ -38,7 +45,7 @@ ItemNPCType[2] = {
 				return true
 			end
 		end
-		HLU_Notify( ply, "You cannot use this NPC as a rebel.", 1, 6 )
+		HLU_Notify( ply, "Only the Combine can use this NPC.", 1, 6 )
 		return false
 	end
 }
@@ -57,7 +64,7 @@ ItemNPCType[3] = {
 				return true
 			end
 		end
-		HLU_Notify( ply, "You cannot use this NPC as the Combine.", 1, 6 )
+		HLU_Notify( ply, "Only rebels can use this NPC.", 1, 6 )
 		return false
 	end
 }
