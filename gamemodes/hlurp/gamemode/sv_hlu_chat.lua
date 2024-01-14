@@ -1,4 +1,3 @@
-
 util.AddNetworkString( "HLU_Notify" )
 function HLU_Notify( ply, text, type, len, broadcast )
 	net.Start( "HLU_Notify" )

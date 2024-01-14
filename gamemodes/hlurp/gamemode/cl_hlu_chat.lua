@@ -38,6 +38,7 @@ hook.Add( "OnPlayerChat", "HLU_OnPlayerChat", function( ply, text, tm, dead )
 	if ply != LocalPlayer() then
 		chat.PlaySound()
 	end
-	chat.AddText( team.GetColor( ply:Team() ), ply:Nick(), color_white, ": "..text )
+	local decorator = tm and "(Team) " or ""
+	chat.AddText( team.GetColor( ply:Team() ), decorator, ply:Nick(), color_white, ": "..text )
 	return true
 end )
