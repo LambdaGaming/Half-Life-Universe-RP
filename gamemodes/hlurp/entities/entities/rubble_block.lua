@@ -52,7 +52,8 @@ if SERVER then
 	
 	function ENT:OnTakeDamage( dmg )
 		if dmg:GetAttacker():IsPlayer() then
-			if dmg:GetInflictor():GetClass() == "mgs_pickaxe" then
+			local wep = dmg:GetAttacker():GetActiveWeapon()
+			if wep:GetClass() == "mgs_pickaxe" then
 				self:SetHealth( self:Health() - 3 )
 			end
 			if self:Health() <= 0 or dmg:IsDamageType( DMG_BLAST ) then
