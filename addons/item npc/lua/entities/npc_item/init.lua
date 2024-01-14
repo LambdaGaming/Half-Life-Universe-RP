@@ -2,17 +2,6 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
-function ENT:SpawnFunction( ply, tr )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 2
-	local ent = ents.Create( "npc_item" )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	ent:ApplyType( 4 )
-	return ent
-end
-
 function ENT:ApplyType( type ) --This needs to be called externally sometime after the NPC is spawned for the items to show up
 	self:SetNPCType( type )
 	self:SetModel( ItemNPCType[type].Model )

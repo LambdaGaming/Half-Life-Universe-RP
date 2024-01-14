@@ -1,4 +1,3 @@
-
 include('shared.lua')
 
 surface.CreateFont( "ItemNPCTitleFont", {
@@ -7,32 +6,9 @@ surface.CreateFont( "ItemNPCTitleFont", {
 	antialias = true
 } )
 
-surface.CreateFont( "ItemNPCHeadFont", {
-	font = "Roboto",
-	size = 40,
-	antialias = true
-} )
-
 function ENT:Draw()
 	self:DrawModel()
-
-	local pos = self:GetPos()
-	pos.z = pos.z + 15
-
-	local ang = self:GetAngles()
-
-	surface.SetFont( "ItemNPCHeadFont" )
-
-	local title = ItemNPCType[self:GetNPCType()].Name
-	local tw = surface.GetTextSize( title )
-	local textcolor = Color( 38, 41, 49, 255 )
-
-	ang:RotateAroundAxis( ang:Forward(), 90 )
-	ang:RotateAroundAxis( ang:Right(), -90 )
-
-	cam.Start3D2D( pos + ang:Right() * -30, ang, 0.2 )
-		draw.WordBox( 2, -tw *0.5 + 5, -180, title, "ItemNPCHeadFont", textcolor, color_white )
-	cam.End3D2D()
+	self:DrawNPCText( ItemNPCType[self:GetNPCType()].Name, 80 )
 end
 
 local function DrawItemMenu( ent ) --Panel that draws the main menu

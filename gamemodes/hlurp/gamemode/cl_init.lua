@@ -310,3 +310,25 @@ local function HLUButtons( ply, button )
 	end
 end
 hook.Add( "PlayerButtonDown", "OpenJobBuyMenu", HLUButtons )
+
+surface.CreateFont( "EntitySignFont", {
+	font = "Roboto",
+	size = 400,
+	antialias = true
+} )
+local meta = FindMetaTable( "Entity" )
+local color = Color( 38, 41, 49, 255 )
+function meta:DrawNPCText( text, offset )
+	local ply = LocalPlayer()
+	local ang = self:GetAngles()
+	local pos = self:GetPos()
+	pos.z = pos.z + offset or 0
+	local ang = ( ply:EyePos() - pos ):Angle()
+	ang.p = 0
+	ang:RotateAroundAxis( ang:Right(), 90 )
+	ang:RotateAroundAxis( ang:Up(), 90 )
+	ang:RotateAroundAxis( ang:Forward(), 180 )
+	cam.Start3D2D( pos, ang, 0.035 )
+		draw.SimpleText( text, "EntitySignFont", 0, 0, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP )
+	cam.End3D2D()
+end

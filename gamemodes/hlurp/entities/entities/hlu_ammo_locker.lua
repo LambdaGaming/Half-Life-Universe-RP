@@ -74,5 +74,6 @@ end
 if CLIENT then
 	function ENT:Draw()
 		self:DrawModel()
+		self:DrawNPCText( "Ammo", 50 )
 	end
 end

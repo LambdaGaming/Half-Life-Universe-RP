@@ -312,7 +312,7 @@ ItemNPC["ent_jack_gmod_ezsentry"] = {
 	SpawnFunction = function( ply, self )
 		local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
 		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod.SetEZOwner( spawn, ply, true )
+		JMod.SetEZOwner( spawn, ply )
 		spawn:Spawn()
 		spawn:Activate()
 	end
