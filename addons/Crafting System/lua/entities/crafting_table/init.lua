@@ -1,17 +1,6 @@
-
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include('shared.lua')
-
-function ENT:SpawnFunction( ply, tr, name )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 2
-	local ent = ents.Create( name )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
 
 function ENT:Initialize()
     self:SetModel( CRAFT_CONFIG_MODEL )
@@ -100,6 +89,13 @@ end )
 function ENT:Touch( ent )
 	for k,v in pairs( CraftingIngredient ) do
 		if self.TouchCooldown and self.TouchCooldown > CurTime() then return end
+		local allowed = false
+		for _,num in pairs( v.Type ) do
+			if num == self:GetTableType() then
+				allowed = true
+			end
+		end
+		if !allowed then continue end
 		if k == ent:GetClass() then
 			self:SetNWInt( "Craft_"..ent:GetClass(), self:GetNWInt( "Craft_"..ent:GetClass() ) + 1 )
 			self:EmitSound( CRAFT_CONFIG_PLACE_SOUND )
