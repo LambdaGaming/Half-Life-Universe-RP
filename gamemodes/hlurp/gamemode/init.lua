@@ -119,7 +119,7 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		return
 	end
 	if GetGlobalInt( "CurrentGamemode" ) == 2 and newteam == TEAM_RESISTANCELEADER and timer.Exists( "City17Timer" ) then
-		HLU_Notify( ply, "You cannot play as this job until the ceasefire is over." )
+		HLU_Notify( ply, "You cannot play as this job until the ceasefire is over.", 1, 6 )
 		return
 	end
 	ply:SetNWString( "RPJob", false )
