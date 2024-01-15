@@ -259,6 +259,9 @@ local blockedtools = {
 	end,
 	["wire_simple_explosive"] = function( ply )
 		return ply:Team() == TEAM_WEPMAKER
+	end,
+	["duplicator"] = function( ply )
+		return ply:GetJobCategory() == "Science"
 	end
 }
 

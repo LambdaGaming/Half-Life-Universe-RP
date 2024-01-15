@@ -208,6 +208,9 @@ local blockedtools = {
 	end,
 	["wire_simple_explosive"] = function( ply, tool )
 		return false
+	end,
+	["duplicator"] = function( ply, tool )
+		return ply:Team() == TEAM_SCIENTIST
 	end
 }
 
