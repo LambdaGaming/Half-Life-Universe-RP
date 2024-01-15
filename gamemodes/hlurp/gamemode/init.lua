@@ -203,7 +203,12 @@ local DropBlacklist = {
 	["weapon_cuffed"] = true,
 	["swep_vortigaunt_beam"] = true,
 	["pocket"] = true,
-	["weapon_weapons_zombie"] = true
+	["weapon_weapons_zombie"] = true,
+	["gman_teleporter"] = true,
+	["weapon_leash_police"] = true,
+	["trash_wep"] = true,
+	["broom"] = true,
+	["weapon_portal_pair"] = true
 }
 
 function DropWeapon( ply )
