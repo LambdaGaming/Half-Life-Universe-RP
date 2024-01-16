@@ -2,16 +2,6 @@ AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "shared.lua" )
 include('shared.lua')
 
-function ENT:SpawnFunction( ply, tr, name )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( name )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
-
 local SellableEnts = {
 	["crystal_fragment"] = 100,
 	["crystal_harvested"] = 50,

@@ -13,25 +13,17 @@ BuyMenuItems = {
 	["mediaplayer_tv"] = {
 		Name = "Media Player",
 		Description = "Used to watch videos.",
-		Max = 10
+		Max = 2
 	},
 	["crafting_table"] = {
 		Name = "Rebel Crafting Table",
 		Description = "Allows players to craft weapons, tools, traps, and ammo.",
-		Allowed = function( ply )
-			local allowed = {
-				[TEAM_REBEL] = true,
-				[TEAM_REBELMEDIC] = true,
-				[TEAM_RESISTANCELEADER] = true,
-				[TEAM_REFUGEE] = true
-			}
-			return allowed[ply:Team()]
-		end
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end
 	},
 	["item_healthcharger"] = {
 		Name = "Mounted Healing Unit",
 		Description = "Health unit that heals up to 75 HP. Recharges after 5 minutes when empty.",
-		Max = 5,
+		Max = 3,
 		Allowed = function( ply ) return ply:Team() == TEAM_REBELMEDIC or ply:Team() == TEAM_COMBINEGUARD end
 	},
 	["item_healthkit"] = {
@@ -49,9 +41,111 @@ BuyMenuItems = {
 	["item_suitcharger"] = {
 		Name = "Mounted Armor Charging Unit",
 		Description = "Charging unit for HEV suits. Charges up to 75 AP.",
-		Max = 5,
+		Max = 3,
 		Allowed = function( ply ) return ply:Team() == TEAM_REBELMEDIC or ply:Team() == TEAM_COMBINEGUARD end
 	},
+	["ent_jack_gmod_eztoolbox"] = {
+		Name = "Tool Box",
+		Description = "Contains tools used to build JMod weapons and machinery.",
+		Max = 1,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end
+	},
+	["ent_jack_gmod_ezgroundscanner"] = {
+		Name = "Resource Scanner",
+		Description = "Scans the ground for JMod crafting resources.",
+		Max = 2,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ent_jack_gmod_ezgroundscanner" )
+			e:SetPos( tr.HitPos + tr.HitNormal * 60 )
+			JMod.SetEZowner( e, ply )
+			e.SpawnFull = true
+			e:SetCreator( ply )
+			e:Spawn()
+			e:Activate()
+			return e
+		end
+	},
+	["ent_jack_gmod_ezsentry"] = {
+		Name = "Sentry",
+		Description = "Automated sentry.",
+		Max = 2,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ent_jack_gmod_ezsentry" )
+			e:SetPos( tr.HitPos + tr.HitNormal * 60 )
+			JMod.SetEZowner( e, ply )
+			e.SpawnFull = true
+			e:SetCreator( ply )
+			e:Spawn()
+			e:Activate()
+			return e
+		end
+	},
+	["ent_jack_gmod_ezrtg"] = {
+		Name = "Thermoelectric Generator",
+		Description = "Simple but slow power generator.",
+		Max = 1,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ent_jack_gmod_ezrtg" )
+			e:SetPos( tr.HitPos + tr.HitNormal * 60 )
+			JMod.SetEZowner( e, ply )
+			e.SpawnFull = true
+			e:SetCreator( ply )
+			e:Spawn()
+			e:Activate()
+			return e
+		end
+	},
+	["ent_jack_gmod_ezfurnace"] = {
+		Name = "Smelting Furnace",
+		Description = "Furnace used for smelting mined ores.",
+		Max = 1,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ent_jack_gmod_ezfurnace" )
+			e:SetPos( tr.HitPos + tr.HitNormal * 60 )
+			JMod.SetEZowner( e, ply )
+			e.SpawnFull = true
+			e:SetCreator( ply )
+			e:Spawn()
+			e:Activate()
+			return e
+		end
+	},
+	["ent_jack_gmod_ezaugerdrill"] = {
+		Name = "Auger Drill",
+		Description = "Used to gather resources from the ground.",
+		Max = 1,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ent_jack_gmod_ezaugerdrill" )
+			e:SetPos( tr.HitPos + tr.HitNormal * 60 )
+			JMod.SetEZowner( e, ply )
+			e.SpawnFull = true
+			e:SetCreator( ply )
+			e:Spawn()
+			e:Activate()
+			return e
+		end
+	},
+	["ent_jack_gmod_ezworkbench"] = {
+		Name = "Workbench",
+		Description = "Used to craft various JMod items.",
+		Max = 1,
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ent_jack_gmod_ezworkbench" )
+			e:SetPos( tr.HitPos + tr.HitNormal * 60 )
+			JMod.SetEZowner( e, ply )
+			e.SpawnFull = true
+			e:SetCreator( ply )
+			e:Spawn()
+			e:Activate()
+			return e
+		end
+	}
 }
 
 local blockedtools = {

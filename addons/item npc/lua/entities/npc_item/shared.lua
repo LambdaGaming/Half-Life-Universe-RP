@@ -50,25 +50,6 @@ ItemNPCType[2] = {
 	end
 }
 
-ItemNPCType[3] = {
-	Name = "Rebel Item Shop",
-	Model = "models/humans/group03/male_04.mdl",
-	MenuColor = Color( 1, 22, 0, 200 ),
-	MenuTextColor = color_white,
-	ButtonColor = color_black,
-	ButtonTextColor = color_white,
-	UseCheck = function( ply )
-		local allowed = { TEAM_RESISTANCELEADER, TEAM_REBEL, TEAM_REBELMEDIC }
-		for k,v in pairs( allowed ) do
-			if v == ply:Team() then
-				return true
-			end
-		end
-		HLU_Notify( ply, "Only rebels can use this NPC.", 1, 6 )
-		return false
-	end
-}
-
 -----HECU WEAPON CRATE ITEMS-----
 ItemNPC["weapon_9mmar"] = {
 	Name = "9mm SMG",
@@ -306,56 +287,5 @@ ItemNPC["gw_strider"] = {
 			e:SetPos( Vector( 2749, -14444, -6632 ) )
 			e:Spawn()
 		end
-	end
-}
-
------TURRET NPC ITEMS-----
-ItemNPC["ent_jack_gmod_ezsentry"] = {
-	Name = "Sentry",
-	Description = "Automated turret that can be programmed to not shoot friendly players.",
-	Model = "models/Combine_turrets/Floor_turret.mdl",
-	Type = 3,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_gmod_ezsentry" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod.SetEZOwner( spawn, ply )
-		spawn:Spawn()
-		spawn:Activate()
-	end
-}
-
-ItemNPC["ent_jack_gmod_ezaidradio"] = {
-	Name = "Aid Radio",
-	Description = "Used to call for supply airdrops.",
-	Model = "models/props_rooftop/satellitedish02.mdl",
-	Type = 3,
-	Max = 5,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_gmod_ezaidradio" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod.Owner( spawn, ply )
-		spawn:Spawn()
-		spawn:Activate()
-	end
-}
-
-ItemNPC["ent_jack_gmod_ezfieldhospital"] = {
-	Name = "Automated Field Hospital",
-	Description = "Large device to heal severe injuries such as radiation poisoning.",
-	Model = "models/mri-scanner/mri-scanner.mdl",
-	Type = 3,
-	Max = 1,
-	SpawnCheck = function( ply, self )
-		if ply:Team() == TEAM_REBELMEDIC then return true end
-		HLU_Notify( ply, "Only rebel medics can purchase this item.", 1, 6 )
-		return false
-	end,
-	SpawnFunction = function( ply, self )
-		local spawn = ents.Create( "ent_jack_gmod_ezfieldhospital" )
-		spawn:SetPos( ply:GetPos() + Vector( -30, 0, 10 ) )
-		JMod.Owner( spawn, ply )
-		spawn:Spawn()
-		spawn:Activate()
 	end
 }
