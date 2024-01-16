@@ -300,22 +300,12 @@ local function HLU_SpawnNPCs()
 			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )
-			local e2 = ents.Create( "npc_item" )
-			e2:SetPos( Vector( -11993, 6232, 1024 ) )
-			e2:SetAngles( Angle( 0, 90, 0 ) )
-			e2:Spawn()
-			e2:ApplyType( 3 )
 		elseif map == "gm_boreas" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 1694, -14736, -6575 ) )
 			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )
-			local e2 = ents.Create( "npc_item" )
-			e2:SetPos( Vector( 64, 5130, -6400 ) )
-			e2:SetAngles( Angle( 0, -45, 0 ) )
-			e2:Spawn()
-			e2:ApplyType( 3 )
 		end
 	end )
 end
@@ -332,11 +322,16 @@ util.AddNetworkString( "BuyItemFromMenu" )
 net.Receive( "BuyItemFromMenu", function( len, ply )
 	local key = net.ReadString()
 	local tr = ply:GetEyeTrace()
-	local total = #ents.FindByClass( key )
+	local total = 0
 	local item = BuyMenuItems[key]
 	if ply.BuyCooldown and ply.BuyCooldown > CurTime() then
 		HLU_Notify( ply, "Please wait before purchasing another item.", 1, 6 )
 		return
+	end
+	for k,v in ipairs( ents.FindByClass( key ) ) do
+		if IsValid( v ) and v:CPPIGetOwner() == ply then
+			total = total + 1
+		end
 	end
 	if item.Max and total >= item.Max then
 		HLU_Notify( ply, "Purchase failed. Maximum amount of this entity has been reached.", 1, 6 )
