@@ -103,7 +103,7 @@ local leadermodels = {
 }
 
 local cpmodels = {
-	"models/player/police.mdl", 
+	"models/player/police.mdl",
 	"models/player/police_fem.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_arctic_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_badass_police.mdl",
@@ -278,7 +278,7 @@ HLU_JOB = {
 			Link = "governmentman",
 			Color = Color( 0, 116, 140, 255 ),
 			Models = { "models/player/gman_high.mdl" },
-			Weapons = { "gman_teleporter" },
+			Weapons = { "swep_gmanbriefcase" },
 			Max = 1,
 			Category = "Administration"
 		},
@@ -403,7 +403,7 @@ HLU_JOB = {
 			Link = "governmentman",
 			Color = Color( 0, 116, 140, 255 ),
 			Models = { "models/player/gman_high.mdl" },
-			Weapons = { "gman_teleporter" },
+			Weapons = { "swep_gmanbriefcase" },
 			Max = 1,
 			Category = "Neutral"
 		},
@@ -535,11 +535,11 @@ HLU_JOB = {
 			Link = "rebel",
 			Color = Color( 0, 128, 0, 255 ),
 			Models = {
-				"models/player/Group03/female_01.mdl", 
-				"models/player/Group03/female_02.mdl", 
-				"models/player/Group03/female_03.mdl", 
-				"models/player/Group03/female_04.mdl", 
-				"models/player/Group03/female_05.mdl", 
+				"models/player/Group03/female_01.mdl",
+				"models/player/Group03/female_02.mdl",
+				"models/player/Group03/female_03.mdl",
+				"models/player/Group03/female_04.mdl",
+				"models/player/Group03/female_05.mdl",
 				"models/player/Group03/female_06.mdl",
 				"models/player/Group03/male_01.mdl",
 				"models/player/Group03/male_02.mdl",
