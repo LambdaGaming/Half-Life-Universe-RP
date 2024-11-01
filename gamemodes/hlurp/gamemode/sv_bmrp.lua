@@ -257,8 +257,8 @@ local function BMRPForkliftSpawn()
 
 	for k,v in ipairs( ForkPos[game.GetMap()] ) do
 		local car = ents.Create( "prop_vehicle_jeep" )
-		car:SetModel( "models/sligwolf/forklift_truck/forklift_truck.mdl" )
-		car:SetKeyValue( "vehiclescript", "scripts/vehicles/sligwolf/sw_forklift_truck.txt" )
+		car:SetModel( "models/sligwolf/forklift/forklift.mdl" )
+		car:SetKeyValue( "vehiclescript", "scripts/vehicles/sligwolf/forklift/forklift.txt" )
 		car:SetPos( v[1] )
 		car:SetAngles( v[2] )
 		car:Spawn()
@@ -288,7 +288,7 @@ hook.Add( "PlayerInitialSpawn", "BMRPPlayerInit", BMRPPlayerInit )
 
 hook.Add( "CanPlayerEnterVehicle", "BMRP_ForkliftRestriction", function( ply, veh )
 	local script = veh:GetKeyValues()["VehicleScript"]
-	if script and script == "scripts/vehicles/sligwolf/sw_forklift_truck.txt" then
+	if script and script == "scripts/vehicles/sligwolf/forklift/forklift.txt" then
 		if ply:Team() == TEAM_SERVICE then
 			return true
 		else
