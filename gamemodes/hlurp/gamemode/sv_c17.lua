@@ -96,14 +96,7 @@ local function C17Generator()
 			Vector( -1774, 6948, -463 ),
 			Vector( 2865, -3104, 83 )
 		}
-	elseif map == "rp_city17_district47" then
-		genpos = {
-			Vector( 644, -793, -124 ),
-			Vector( 214, -1580, 67 ),
-			Vector( 916, -204, 134 ),
-			Vector( 3713, -68, 69 )
-		}
-	else
+	elseif map == "rp_city24_v4" then
 		genpos = {
 			Vector( 6185, 5506, -311 ),
 			Vector( 6986, 6516, -511 ),
@@ -155,16 +148,7 @@ local function CombineSpawn( ply )
 			Vector( 4024, -2069, -179 ),
 			Vector( 4164, -2068, -179 )
 		}
-	elseif map == "rp_city17_district47" then
-		randpos = {
-			Vector( -1192, -2266, 640 ),
-			Vector( -1192, -2364, 640 ),
-			Vector( -1103, -2364, 640 ),
-			Vector( -1103, -2254, 640 ),
-			Vector( -1005, -2255, 640 ),
-			Vector( -1007, -2376, 640 )
-		}
-	else
+	elseif map == "rp_city24_v4" then
 		randpos = {
 			Vector( -812, 9107, -663 ),
 			Vector( -812, 8999, -663 ),

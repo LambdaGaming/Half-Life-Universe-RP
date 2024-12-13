@@ -90,31 +90,13 @@ XenSpawn = function()
 		"monster_hound_eye"
 	}
 
-	local NPCPosTable
-	if game.GetMap() == "rp_sectorc_beta" then
-		NPCPosTable = {
-			Vector( -4312, -10572, 15 ),
-			Vector( -4314, -9693, 45 ),
-			Vector( -3841, -10562, 30 ),
-			Vector( -6203, -11538, 115 ),
-			Vector( -4343, -7738, -730 ),
-			Vector( -6508, -12717, 115 ),
-			Vector( -5484, -9237, -2845 ),
-			Vector( -5736, -6869, -975 ),
-			Vector( -8775, -7680, -2950 ),
-			Vector( -7995, -7833, -2945 ),
-			Vector( -10049, -6705, -2660 ),
-			Vector( -10490, -7925, -2660 )
-		}
-	elseif game.GetMap() == "rp_bmrf" then
-		NPCPosTable = {
-			Vector( -14609, -14482, -14952 ),
-			Vector( -14309, -14713, -15006 ),
-			Vector( -13876, -14545, -14941 ),
-			Vector( -14381, -14138, -14950 ),
-			Vector( -14321, -14431, -15017 )
-		}
-	end
+	local NPCPosTable = {
+		Vector( -14609, -14482, -14952 ),
+		Vector( -14309, -14713, -15006 ),
+		Vector( -13876, -14545, -14941 ),
+		Vector( -14381, -14138, -14950 ),
+		Vector( -14321, -14431, -15017 )
+	}
 
 	for k,v in ipairs( NPCPosTable ) do
 		local e = ents.Create( table.Random( monsters ) )
@@ -145,19 +127,8 @@ hook.Add( "PlayerSay", "BMRP_MiscCommands", MiscCommands )
 
 --Remove Xen objects that trigger NPCs and cause other problems
 local function HairLoss()
-	if game.GetMap() == "rp_sectorc_beta" then
-		local models = {
-			["models/hair.mdl"] = true,
-			["models/fungus.mdl"] = true,
-			["models/fungus(small).mdl"] = true
-		}
-		for k,v in ipairs( ents.GetAll() ) do
-			if models[v:GetModel()] then
-				v:Remove()
-			end
-		end
-	elseif game.GetMap() == "rp_bmrf" then
-		for k,v in pairs( ents.FindByClass( "xen_plantlight" ) ) do
+	if game.GetMap() == "rp_bmrf" then
+		for k,v in ipairs( ents.FindByClass( "xen_plantlight" ) ) do
 			v:Remove()
 		end
 	end
@@ -166,7 +137,6 @@ hook.Add( "InitPostEntity", "BMRP_HairLoss", HairLoss )
 
 function ToggleAlarm( forceon )
 	local alarmindex = {
-		["rp_sectorc_beta"] = 4856,
 		["rp_bmrf"] = 3364
 	}
 	local ent = ents.GetMapCreatedEntity( alarmindex[game.GetMap()] )
@@ -186,7 +156,6 @@ hook.Add( "PlayerSay", "BMRP_Alarm", AdminAlarm )
 local function BMRPVehicleSpawn()
 	local spawnpos
 	local allowedmaps = {
-		["rp_sectorc_beta"] = true,
 		["gm_atomic"] = true,
 		["rp_bmrf"] = true
 	}
@@ -200,13 +169,7 @@ local function BMRPVehicleSpawn()
 			{ "models/black_mesa_vehicles/M35.mdl", "scripts/vehicles/bm_m35.txt" }
 		}
 
-		if game.GetMap() == "rp_sectorc_beta" then
-			spawnpos = {
-				{ Vector( -8857, -870, 570 ), Angle( 0, 180, 0 ) },
-				{ Vector( -8996, -866, 570 ), Angle( 0, 180, 0 ) },
-				{ Vector( -6250, -1590, 557 ), Angle( 0, 118, 0 ) }
-			}
-		elseif game.GetMap() == "gm_atomic" then
+		if game.GetMap() == "gm_atomic" then
 			spawnpos = {
 				{ Vector( -10676, 7944, -12294 ), angle_zero },
 				{ Vector( -5513, 1928, -12240 ), angle_zero },
@@ -217,7 +180,7 @@ local function BMRPVehicleSpawn()
 				{ Vector( -2264, -7373, -12548 ), angle_zero },
 				{ Vector( 9171, -9176, -12262 ), angle_zero }
 			}
-		else
+		elseif game.GetMap() == "rp_bmrf" then
 			spawnpos = {
 				{ Vector( 4289, -1954, 704 ), Angle( 0, -90, 0 ) },
 				{ Vector( 2173, -5337, 192 ), Angle( 0, 180, 0 ) },
@@ -239,34 +202,6 @@ local function BMRPVehicleSpawn()
 end
 hook.Add( "InitPostEntity", "BMRP_VehicleSpawn", BMRPVehicleSpawn )
 
---Forklift spawn function
-local function BMRPForkliftSpawn()
-	if game.GetMap() == "gm_atomic" then return end
-	local ForkPos = {
-		["rp_sectorc_beta"] = {
-			{ Vector( 3179, -1326, -377 ), Angle( 0, 180, 0 ) },
-			{ Vector( 3385, -1326, -377 ), Angle( 0, 180, 0 ) },
-			{ Vector( 3616, -1326, -377 ), Angle( 0, 180, 0 ) }
-		},
-		["rp_bmrf"] = {
-			{ Vector( -223, -2680, 96 ), Angle( 0, 90, 0 ) },
-			{ Vector( -223, -2830, 96 ), Angle( 0, 90, 0 ) },
-			{ Vector( -223, -2911, 96 ), Angle( 0, 90, 0 ) }
-		}
-	}
-
-	for k,v in ipairs( ForkPos[game.GetMap()] ) do
-		local car = ents.Create( "prop_vehicle_jeep" )
-		car:SetModel( "models/sligwolf/forklift/forklift.mdl" )
-		car:SetKeyValue( "vehiclescript", "scripts/vehicles/sligwolf/forklift/forklift.txt" )
-		car:SetPos( v[1] )
-		car:SetAngles( v[2] )
-		car:Spawn()
-		car:Activate()
-	end
-end
-hook.Add( "InitPostEntity", "BMRP_ForkliftSpawn", BMRPForkliftSpawn )
-
 --Fund management functions
 local meta = FindMetaTable( "Player" )
 function meta:AddFunds( amount )
@@ -285,18 +220,6 @@ local function BMRPPlayerInit( ply )
 	net.Send( ply )
 end
 hook.Add( "PlayerInitialSpawn", "BMRPPlayerInit", BMRPPlayerInit )
-
-hook.Add( "CanPlayerEnterVehicle", "BMRP_ForkliftRestriction", function( ply, veh )
-	local script = veh:GetKeyValues()["VehicleScript"]
-	if script and script == "scripts/vehicles/sligwolf/forklift/forklift.txt" then
-		if ply:Team() == TEAM_SERVICE then
-			return true
-		else
-			HLU_Notify( ply, "Only service officials are forklift certified!", 1, 6 )
-			return false
-		end
-	end
-end )
 
 hook.Add( "InitPostEntity", "InitialEventCooldown", function()
 	SetGlobalBool( "EventCooldownActive", true )
@@ -372,23 +295,6 @@ local function Cascade() --Cascade activation function
 		end
 		Entity( 1153 ):Fire( "Press" )
 		Entity( 1155 ):Fire( "Press" )
-	elseif game.GetMap() == "rp_sectorc_beta" then
-		local e = ents.Create( "cascade_escape" )
-		e:SetPos( Vector( -3577, -967, 569 ) )
-		e:Spawn()
-
-		local rubblepos = {
-			{ Vector( -10258, -689, -185 ), Angle( 0, 0, 45 ) },
-			{ Vector( -3739, -1063, -170 ), Angle( -45, 0, 0 ) },
-			{ Vector( 214, -3322, -185 ), Angle( 0, 180, 45 ) }
-		}
-		for i=1,3 do
-			local e = ents.Create( "rubble_block" )
-			e:SetPos( rubblepos[i][1] )
-			e:SetAngles( rubblepos[i][2] )
-			e:Spawn()
-		end
-		Entity( 973 ):Fire( "Press" )
 	end
 	TramFailure( true )
 	SetGlobalBool( "CascadeActive", true )
@@ -419,30 +325,6 @@ local TeamSpawns = {
 		["Utility"] = {
 			Vector( 5572, -4657, 64 ),
 			Vector( -6032, -102, -112 )
-		}
-	},
-	["rp_sectorc_beta"] = {
-		["Administration"] = {
-			Vector( 212, -4542, -253 ),
-			Vector( -10267, -1016, 570 )
-		},
-		["Science"] = {
-			Vector( -10234, -475, -253 ),
-			Vector( -2794, -584, -253 ),
-			Vector( -5372, -2772, -1173 ),
-			Vector( -3079, -1874, -229 )
-		},
-		["Security"] = {
-			Vector( 4892, -1615, -240 ),
-			Vector( -10492, -1038, -253 )
-		},
-		["Military"] = {
-			Vector( -4985, -712, 593 ),
-			Vector( -5298, 148, 593 )
-		},
-		["Utility"] = {
-			Vector( -6889, 749, -301 ),
-			Vector( 332, -852, -378 )
 		}
 	}
 }

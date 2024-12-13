@@ -14,19 +14,7 @@ function ZombieInvasion()
 			Vector( 2343, -716, -466 ),
 			Vector( -926, 6732, -466 )
 		},
-		["rp_city17_district47"] = {
-			Vector( -288, -1117, -64 ),
-			Vector( -49, -1258, -64 ),
-			Vector( -1022, -1284, -64 ),
-			Vector( 724, -1401, -120 ),
-			Vector( 664, -1693, -256 ),
-			Vector( 1718, -2756, -288 ),
-			Vector( 556, -1211, -128 ),
-			Vector( 909, -562, -128 ),
-			Vector( 1201, -292, 128 ),
-			Vector( 1200, -946, 64 )
-		},
-		["rp_city24_v3"] = {
+		["rp_city24_v4"] = {
 			Vector( 8361, 7538, -1184 ),
 			Vector( 7973, 8439, -1403 ),
 			Vector( 8263, 9438, -1184 ),
@@ -57,8 +45,7 @@ end
 function CoreFailure()
 	local doorindexes = {
 		["rp_city17_build210"] = { 1176, 1178, 1173, 1180, 2534, 661, 277, 1319, 1316, 1311, 1308, 675 },
-		["rp_city17_district47"] = { 300, 312, 296, 310, 323, 294, 308, 320, 894, 234, 235, 893, 1639 },
-		["rp_city24_v3"] = { 1940, 1780, 3901, 4498, 2074, 1620 }
+		["rp_city24_v4"] = { 1940, 1780, 3901, 4498, 2074, 1620 }
 	}
 
 	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Power failure at the citadel has caused doors to malfunction! Some of the jail cells are now open!" )
@@ -80,14 +67,7 @@ local function GetAttackPos()
 			Vector( 6237, -1404, 4156 ),
 			Vector( 5676, -2531, 4924 )
 		},
-		["rp_city17_district47"] = {
-			Vector( -968, -2523, 384 ),
-			Vector( -800, -1942, 516 ),
-			Vector( -748, -2546, 776 ),
-			Vector( -1039, -2606, 1152 ),
-			Vector( -165, -1807, 1284 )
-		},
-		["rp_city24_v3"] = {
+		["rp_city24_v4"] = {
 			Vector( 12770, 9560, 456 ),
 			Vector( 12759, 10502, 696 ),
 			Vector( 12779, 7418, 456 ),
@@ -147,13 +127,7 @@ function CanisterFail()
 			Vector( 1695, 4520, 115 ),
 			Vector( 1759, -103, 76 )
 		},
-		["rp_city17_district47"] = {
-			Vector( 319, -1415, 360 ),
-			Vector( -2144, -72, 385 ),
-			Vector( -627, -1531, 384 ),
-			Vector( 1848, -1930, -288 )
-		},
-		["rp_city24_v3"] = {
+		["rp_city24_v4"] = {
 			Vector( 5388, 6331, 264 ),
 			Vector( 7326, 4371, 1 ),
 			Vector( 9018, 3569, -41 ),

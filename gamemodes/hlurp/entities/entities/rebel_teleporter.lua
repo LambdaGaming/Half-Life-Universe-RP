@@ -11,10 +11,8 @@ ENT.Category = "Superadmin Only"
 if SERVER then
 	local TeleCoords = {
 		["rp_city17_build210"] = Vector( 6286, -1759 ,4220 ),
-		["rp_ineu_valley2_v1a"] = Vector( 7121, 14434, 1328 ),
-		["rp_city17_district47"] = Vector( -623, -2533, 704 ),
-		["rp_city24_v3"] = Vector( 14548, 4986, 2064 ),
-		["gm_boreas"] = Vector( 1734, -14423, -6575 )
+		["rp_city24_v4"] = Vector( 14548, 4986, 2064 ),
+		["rp_mezs"] = Vector( -282, -1410, 5836 )
 	}
 
 	function ENT:Initialize()
@@ -25,7 +23,6 @@ if SERVER then
 		self:SetUseType( SIMPLE_USE )
 		self:SetHealth( 100 )
 		self:SetMaxHealth( 100 )
-		
 		self.active = false
 	end
 

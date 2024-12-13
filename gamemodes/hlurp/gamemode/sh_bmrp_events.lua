@@ -1,9 +1,6 @@
 if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 
 if SERVER then
-	local map = game.GetMap()
-	local sectorc = "rp_sectorc_beta"
-	local bmrf = "rp_bmrf"
 	local NPCEventParticipants = {}
 
 	local function EndEvent( cooldown )
@@ -60,12 +57,7 @@ if SERVER then
 	end )
 	-----------------------------------------------------------------
 	function PortalBreakDown()
-		local button
-		if map == sectorc then
-			button = 1207
-		elseif map == bmrf then
-			button = 1523
-		end
+		local button = 1523
 		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
 			if v:EntIndex() == button then
 				v:Fire( "Lock" )
@@ -80,12 +72,7 @@ if SERVER then
 	end
 
 	function PortalFix()
-		local button
-		if map == sectorc then
-			button = 1207
-		elseif map == bmrf then
-			button = 1523
-		end
+		local button = 1523
 		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
 			if v:EntIndex() == button then
 				v:Fire( "Unlock" )
@@ -178,32 +165,20 @@ if SERVER then
 		}
 	
 		local breach_maps = {
-			[sectorc] = {
-				Vector( -11192, -304, -253 ),
-				Vector( -11394, -686, -253 ),
-				Vector( -11429, -302, -253 ),
-				Vector( -12713, -494, -413 ),
-				Vector( -3780, -604, -253 ),
-				Vector( -3310, -1416, -229 ),
-				Vector( -3765, -1711, -229 ),
-				Vector( -2257, -3341, -229 )
-			},
-			[bmrf] = {
-				Vector( -10421, -1535, -63 ),
-				Vector( -3623, 2157, -39 ),
-				Vector( -3269, 1560, -39 ),
-				Vector( -763, 756, -1087 ),
-				Vector( -461, 1700, -63 ),
-				Vector( 770, -2010, 64 ),
-				Vector( -957, -1037, 64 ),
-				Vector( -1288, -1914, 352 ),
-				Vector( -1693, -3340, 352 ),
-				Vector( -1011, -3203, -1439 )
-			}
+			Vector( -10421, -1535, -63 ),
+			Vector( -3623, 2157, -39 ),
+			Vector( -3269, 1560, -39 ),
+			Vector( -763, 756, -1087 ),
+			Vector( -461, 1700, -63 ),
+			Vector( 770, -2010, 64 ),
+			Vector( -957, -1037, 64 ),
+			Vector( -1288, -1914, 352 ),
+			Vector( -1693, -3340, 352 ),
+			Vector( -1011, -3203, -1439 )
 		}
 
 		local npc = ents.Create( table.Random( xenbreach_npcs ) )
-		npc:SetPos( table.Random( breach_maps[map] ) )
+		npc:SetPos( table.Random( breach_maps ) )
 		npc:Spawn()
 		npc:EmitSound( "debris/beamstart7.wav" )
 		npc:CallOnRemove( "XenBreachEndCheck", XenBreachEndCheck )
@@ -250,21 +225,14 @@ if SERVER then
 		}
 	
 		local biopos = {
-			[sectorc] = {
-				Vector( 1596, -984, -338 ),
-				Vector( 2167, -4669, -3162 ),
-				Vector( 1439, -4103, -2786 )
-			},
-			[bmrf] = {
-				Vector( 2236, -4998, -1439 ),
-				Vector( 289, -2657, 96 ),
-				Vector( 894, -1411, 61 )
-			}
+			Vector( 2236, -4998, -1439 ),
+			Vector( 289, -2657, 96 ),
+			Vector( 894, -1411, 61 )
 		}
 
 		for i=1, math.random( 1, 6 ) do
 			local waste = ents.Create( table.Random( hazard ) )
-			waste:SetPos( table.Random( biopos[game.GetMap()] ) )
+			waste:SetPos( table.Random( biopos ) )
 			waste:Spawn()
 			waste:CallOnRemove( "BiohazardCleanup", BiohazardCleanup )
 		end
@@ -274,26 +242,16 @@ if SERVER then
 	-----------------------------------------------------------------
 	function Crystal()
 		local crystalpos = {
-			[sectorc] = {
-				Vector( -6837, -677, -253 ),
-				Vector( 4227, -1397, -240 ),
-				Vector( 915, -3345, -2858 ),
-				Vector( -6116, 771, -301 ),
-				Vector( -10292, -416, 570 ),
-				Vector( -10617, -979, 570 )
-			},
-			[bmrf] = {
-				Vector( -1204, -1393, 64 ),
-				Vector( -4221, 623, -111 ),
-				Vector( -4269, 2578, -63 ),
-				Vector( -446, 2721, -63 ),
-				Vector( 4608, -544, -63 ),
-				Vector( 2484, -4879, 192 )
-			}
+			Vector( -1204, -1393, 64 ),
+			Vector( -4221, 623, -111 ),
+			Vector( -4269, 2578, -63 ),
+			Vector( -446, 2721, -63 ),
+			Vector( 4608, -544, -63 ),
+			Vector( 2484, -4879, 192 )
 		}
 
 		local crystal = ents.Create( "event_crystal" )
-		crystal:SetPos( table.Random( crystalpos[game.GetMap()] ) )
+		crystal:SetPos( table.Random( crystalpos ) )
 		crystal:Spawn()
 		HLU_ChatNotifySystem( "BMRP", color_orange, "A crystal has been accidently teleported to a random location in the facility!" )
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The survey team should find it before it gets into the wrong hands!" )
@@ -328,10 +286,10 @@ if SERVER then
 	end
 	-----------------------------------------------------------------
 	local bosses = {
-		"monster_garg",
-		"monster_geneworm",
-		"monster_gonarch",
-		"monster_pitworm_up"
+		{ "monster_garg", Vector( 2600, -2415, -131 ) },
+		{ "monster_geneworm", Vector( -1434, 1812, -1231 ) },
+		{ "monster_gonarch", Vector( -1855, -2631, -1375 ) },
+		{ "monster_pitworm_up", Vector( 2664, -2547, -255 ) }
 	}
 
 	local function KillBoss()
@@ -347,15 +305,9 @@ if SERVER then
 	end
 
 	function Boss()
-		local boss
-		if map == sectorc then
-			boss = ents.Create( table.Random( bosses ) )
-			boss:SetPos( Vector( -10245, -6811, -2661 ) )
-			boss:SetAngles( Angle( 0, -55, 0 ) )
-		elseif map == bmrf then
-			boss = ents.Create( "monster_pitworm_up" )
-			boss:SetPos( Vector( 2664, -2547, -255 ) )
-		end
+		local selected = table.Random( bosses )
+		local boss = ents.Create( selected[1] )
+		boss:SetPos( selected[2] )
 		boss:Spawn()
 		boss:CallOnRemove( "KillBoss", KillBoss )
 		boss.IsEventNPC = true
@@ -365,29 +317,17 @@ if SERVER then
 	-----------------------------------------------------------------
 	function RandomFire()
 		local FirePos = {
-			[sectorc] = {
-				Vector( -2001, -3430, -213 ),
-				Vector( 832, -3529, -2857 ),
-				Vector( -4074, -582, 576 ),
-				Vector( -9915, -776, 570 ),
-				Vector( -13117, -144, -412 ),
-				Vector( 4357, -2199, -239 ),
-				Vector( -3963, -3632, -1172 ),
-				Vector( -217, -4774, -252 )
-			},
-			[bmrf] = {
-				Vector( -946, -4747, 352 ),
-				Vector( 804, -3761, 400 ),
-				Vector( -2369, -3044, -1119 ),
-				Vector( -4095, 689, -111 ),
-				Vector( -929, 3211, -63 ),
-				Vector( -799, -1478, 64 ),
-				Vector( -1605, -2404, 352 ),
-				Vector( -9192, -1772, 704 )
-			}
+			Vector( -946, -4747, 352 ),
+			Vector( 804, -3761, 400 ),
+			Vector( -2369, -3044, -1119 ),
+			Vector( -4095, 689, -111 ),
+			Vector( -929, 3211, -63 ),
+			Vector( -799, -1478, 64 ),
+			Vector( -1605, -2404, 352 ),
+			Vector( -9192, -1772, 704 )
 		}
 
-		local randfire = table.Random( FirePos[game.GetMap()] )
+		local randfire = table.Random( FirePos )
 		local e = ents.Create( "event_fire" )
 		e:SetPos( randfire )
 		e:Spawn()

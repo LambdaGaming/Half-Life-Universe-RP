@@ -263,17 +263,7 @@ hook.Add( "DoPlayerDeath", "HLU_DropWeaponDeath", HLU_DropWeaponDeath )
 local function HLU_SpawnNPCs()
 	timer.Simple( 10, function()
 		local map = game.GetMap()
-		if map == "rp_sectorc_beta" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -5095, -427, 608 ) )
-			e:SetAngles( Angle( 0, 180, 0 ) )
-			e:Spawn()
-			e:ApplyType( 1 )
-			local budget = ents.Create( "budget_npc" )
-			budget:SetPos( Vector( -123, -3703, -252 ) )
-			budget:SetAngles( angle_zero )
-			budget:Spawn()
-		elseif map == "rp_bmrf" then
+		if map == "rp_bmrf" then
 			local e = ents.Create( "npc_item" )
 			e:SetPos( Vector( 5615, -374, -63 ) )
 			e:SetAngles( Angle( 0, -90, 0 ) )
@@ -294,16 +284,10 @@ local function HLU_SpawnNPCs()
 			e2:SetAngles( Angle( 0, -90, 0 ) )
 			e2:Spawn()
 			e2:ApplyType( 1 )
-		elseif map == "rp_ineu_valley2_v1a" then
+		elseif map == "rp_mezs" then
 			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( 9543, 14860, 1277 ) )
-			e:SetAngles( Angle( 0, -90, 0 ) )
-			e:Spawn()
-			e:ApplyType( 2 )
-		elseif map == "gm_boreas" then
-			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( 1694, -14736, -6575 ) )
-			e:SetAngles( Angle( 0, -90, 0 ) )
+			e:SetPos( Vector( -1648, -2761, 6828 ) )
+			e:SetAngles( Angle( 0, 180, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )
 		end

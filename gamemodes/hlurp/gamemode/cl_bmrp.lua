@@ -7,12 +7,6 @@ net.Receive( "SendID", function()
 	chat.AddText( teamcolor, ply:Nick(), color_white, " presents their identification. It reads: ", teamcolor, HLU_JOB[1][plyteam].Name )
 end )
 
-hook.Add( "InitPostEntity", "BMRP_SoundFix", function()
-	if game.GetMap() == "rp_sectorc_beta" then
-		RunConsoleCommand( "snd_restart" ) --Fixes ambient and door sounds not being heard on this map
-	end
-end )
-
 local themecolor = ColorAlpha( HLU_GAMEMODE[1].Color, 40 )
 local whitelist = {
 	[TEAM_SURVEYBOSS] = true,

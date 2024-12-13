@@ -11,8 +11,7 @@ ENT.AdminOnly = true
 if SERVER then
 	local setmap = {
 		"rp_city17_build210",
-		"rp_city17_district47",
-		"rp_city24_v3"
+		"rp_city24_v4"
 	}
 
 	local random = table.Random( setmap )
@@ -32,7 +31,7 @@ if SERVER then
 
 	function ENT:Use( activator, caller )
 		local foundkey = false
-		for k,v in pairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
+		for k,v in ipairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
 			if v:GetClass() == "nuke_key" then
 				foundkey = true
 				break
@@ -52,12 +51,10 @@ if SERVER then
 		timer.Simple( 150, function() RunConsoleCommand ( "changelevel", random ) end )
 
 		HLU_Notify( nil, "Nuke activated. 2 minutes until detonation.", 1, 6, true )
-		for k,v in pairs( player.GetHumans() ) do
+		for k,v in ipairs( player.GetHumans() ) do
 			v:ConCommand( "play bmrp_nuke.mp3" )
 		end
-		if SERVER then
-			ToggleAlarm( true )
-		end
+		ToggleAlarm( true )
 	end
 end
 

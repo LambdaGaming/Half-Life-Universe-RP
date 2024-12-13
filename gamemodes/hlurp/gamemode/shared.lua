@@ -6,20 +6,17 @@ GM.Website = "lambdagaming.github.io"
 DeriveGamemode( "sandbox" )
 
 local bmrpmaps = {
-	["rp_sectorc_beta"] = true,
 	["gm_atomic"] = true,
 	["rp_bmrf"] = true
 }
 
 local city17maps = {
 	["rp_city17_build210"] = true,
-	["rp_city17_district47"] = true,
-	["rp_city24_v3"] = true
+	["rp_city24_v4"] = true
 }
 
 local outlandmaps = {
-	["rp_ineu_valley2_v1a"] = true,
-	["gm_boreas"] = true
+	["rp_mezs"] = true
 }
 
 if bmrpmaps[game.GetMap()] then

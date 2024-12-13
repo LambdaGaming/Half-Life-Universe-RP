@@ -24,11 +24,6 @@ if SERVER then
 		self.Decrypted = false
 	end
 
-	local randmap = {
-		"rp_ineu_valley2_v1a",
-		"gm_boreas"
-	}
-
 	function ENT:Use( ply )
 		if ply:GetJobCategory() == "Combine" then
 			if !GetGlobalBool( "BlowoutActive" ) then
@@ -53,7 +48,7 @@ if SERVER then
 			timer.Create( "blowout", 2, 0, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
 			timer.Create( "changelevel", 150, 0, function()
 				RunConsoleCommand( "gamemode", "outlandrp" )
-				RunConsoleCommand( "changelevel", table.Random( randmap ) )
+				RunConsoleCommand( "changelevel", "rp_mezs" )
 			end )
 			HLU_Notify( nil, "Codes uploading to core......2 minutes until citadel destruction.", 0, 10, true )
 		end
