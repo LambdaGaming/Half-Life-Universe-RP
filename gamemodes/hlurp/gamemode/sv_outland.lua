@@ -148,7 +148,7 @@ local function CombineSpawn( ply )
 	}
 	local randrebel = {
 		Vector( 11983, 8030, -1641 ),
-		Vector( 10981, 8908, -771 )
+		Vector( 10981, 8908, -771 ),
 		Vector( 12920, 7009, -1641 ),
 		Vector( 12266, 8510, -1641 ),
 		Vector( 12381, 7563, -1641 )

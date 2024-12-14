@@ -267,7 +267,7 @@ local function HLU_SpawnNPCs()
 		local map = game.GetMap()
 		if map == "rp_bmrf" then
 			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( 5615, -374, -63 ) )
+			e:SetPos( Vector( 5614, -53, -45 ) )
 			e:SetAngles( Angle( 0, -90, 0 ) )
 			e:Spawn()
 			e:ApplyType( 1 )
