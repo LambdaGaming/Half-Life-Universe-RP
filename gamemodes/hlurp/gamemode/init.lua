@@ -100,9 +100,11 @@ function meta:MakeZombie()
 end
 
 function ChangeTeam( ply, newteam, respawn, silent )
-    local tbl = HLU_JOB[GetGlobalInt( "CurrentGamemode" )][newteam]
+	local gm = GetGlobalInt( "CurrentGamemode" )
+	local oldteam = HLU_JOB[gm][ply:Team()]
+	local tbl = HLU_JOB[gm][newteam]
 	local model = ply:GetNWString( "SetPlayermodel_"..newteam )
-	if !HLU_JOB[GetGlobalInt( "CurrentGamemode" )] or !HLU_JOB[GetGlobalInt( "CurrentGamemode" )][newteam] then
+	if !HLU_JOB[gm] or !HLU_JOB[gm][newteam] then
 		HLU_Notify( ply, "Error changing jobs. Job does not exist.", 1, 6 )
 		return
 	end
@@ -118,7 +120,7 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
 		return
 	end
-	if GetGlobalInt( "CurrentGamemode" ) == 2 and newteam == TEAM_RESISTANCELEADER and timer.Exists( "City17Timer" ) then
+	if gm == 2 and newteam == TEAM_RESISTANCELEADER and timer.Exists( "City17Timer" ) then
 		HLU_Notify( ply, "You cannot play as this job until the ceasefire is over.", 1, 6 )
 		return
 	end
@@ -138,7 +140,7 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		tbl.SpawnFunction( ply )
 	end
 	hook.Run( "PlayerLoadout", ply )
-	if respawn then
+	if respawn or ( gm == 3 and oldteam.Category != tbl.Category ) then
 		ply:Spawn()
 	end
 	ply.JModFriends = {}
