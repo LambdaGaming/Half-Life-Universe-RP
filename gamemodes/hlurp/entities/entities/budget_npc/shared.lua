@@ -4,4 +4,4 @@ ENT.PrintName = "Budget NPC"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
+ENT.Category = "HLU RP"

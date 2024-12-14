@@ -6,7 +6,7 @@ ENT.PrintName = "Rubble Obstruction"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
+ENT.Category = "HLU RP"
 
 function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end

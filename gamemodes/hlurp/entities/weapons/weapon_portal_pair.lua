@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 SWEP.PrintName = "Two-Way Portal Pairing Tool"
-SWEP.Category = "Superadmin Only"
+SWEP.Category = "HLU RP"
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
 SWEP.Base = "weapon_base"

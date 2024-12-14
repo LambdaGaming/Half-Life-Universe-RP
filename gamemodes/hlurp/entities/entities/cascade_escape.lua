@@ -6,7 +6,7 @@ ENT.PrintName = "Cascade Escape Truck"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
+ENT.Category = "HLU RP"
 
 function ENT:Initialize()
     self:SetModel( "models/decay/vehicles/truck_research.mdl" )

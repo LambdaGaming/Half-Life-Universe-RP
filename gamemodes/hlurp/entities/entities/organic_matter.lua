@@ -6,17 +6,7 @@ ENT.PrintName = "Organic Matter"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
-
-function ENT:SpawnFunction( ply, tr )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "organic_matter" )
-	ent:SetPos( SpawnPos + ent:GetUp() * 60 )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
+ENT.Category = "HLU RP"
 
 function ENT:Initialize()
     self:SetModel( "models/props_lab/petridish01d.mdl" )

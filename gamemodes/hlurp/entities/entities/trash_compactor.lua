@@ -4,7 +4,9 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Trash Compactor"
 ENT.Author = "Lambda Gaming"
-ENT.Spawnable = false
+ENT.Category = "HLU RP"
+ENT.Spawnable = true
+ENT.AdminOnly = true
 
 if SERVER then
 	function ENT:Initialize()

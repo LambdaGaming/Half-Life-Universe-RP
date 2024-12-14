@@ -4,8 +4,9 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Ammo Locker"
 ENT.Author = "Lambda Gaming"
-ENT.Category = "Superadmin Only"
+ENT.Category = "HLU RP"
 ENT.Spawnable = true
+ENT.AdminOnly = true
 
 if SERVER then
 	function ENT:Initialize()

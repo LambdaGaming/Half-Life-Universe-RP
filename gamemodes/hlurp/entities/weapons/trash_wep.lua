@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 SWEP.PrintName = "Trash Bag"
-SWEP.Category = "Superadmin Only"
+SWEP.Category = "HLU RP"
 SWEP.Spawnable = true
 SWEP.AdminSpawnable = true
 SWEP.Base = "weapon_base"

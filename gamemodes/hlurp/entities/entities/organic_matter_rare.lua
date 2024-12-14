@@ -8,16 +8,6 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "Superadmin Only"
 
-function ENT:SpawnFunction( ply, tr )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "organic_matter_rare" )
-	ent:SetPos( SpawnPos + ent:GetUp() * 60 )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
-
 function ENT:Initialize()
     self:SetModel( "models/props_lab/petridish01d.mdl" )
 	self:SetMoveType(MOVETYPE_VPHYSICS)

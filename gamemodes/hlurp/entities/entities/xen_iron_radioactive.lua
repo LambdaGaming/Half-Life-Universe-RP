@@ -6,17 +6,7 @@ ENT.PrintName = "Radioactive Xen Iron"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
-
-function ENT:SpawnFunction( ply, tr )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( "xen_iron_radioactive" )
-	ent:SetPos( SpawnPos + ent:GetUp() * 60 )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
+ENT.Category = "HLU RP"
 
 function ENT:Initialize()
     self:SetModel( "models/Items/CrossbowRounds.mdl" )

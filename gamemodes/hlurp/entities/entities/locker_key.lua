@@ -1,4 +1,3 @@
-
 AddCSLuaFile()
 
 ENT.Type = "anim"
@@ -7,17 +6,7 @@ ENT.PrintName = "Combine Science Locker Key"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Science Locker"
-
-function ENT:SpawnFunction( ply, tr, name )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( name )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
+ENT.Category = "HLU RP"
 
 function ENT:Initialize()
     self:SetModel( "models/props_c17/TrapPropeller_Lever.mdl" )

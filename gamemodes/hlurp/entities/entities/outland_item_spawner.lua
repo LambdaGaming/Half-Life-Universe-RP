@@ -6,7 +6,7 @@ ENT.PrintName = "Outland Item Spawner"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
+ENT.Category = "HLU RP"
 
 if SERVER then
 	function ENT:Initialize()

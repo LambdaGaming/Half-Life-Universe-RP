@@ -6,7 +6,7 @@ ENT.PrintName = "Combine Science Locker"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Science Locker"
+ENT.Category = "HLU RP"
 
 function ENT:SetupDataTables()
 	self:NetworkVar( "Int", 0, "Keys" )

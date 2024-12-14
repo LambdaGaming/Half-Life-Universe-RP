@@ -6,17 +6,7 @@ ENT.PrintName = "Outland Generator"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
-
-function ENT:SpawnFunction( ply, tr, name )
-	if !tr.Hit then return end
-	local SpawnPos = tr.HitPos + tr.HitNormal * 1
-	local ent = ents.Create( name )
-	ent:SetPos( SpawnPos )
-	ent:Spawn()
-	ent:Activate()
-	return ent
-end
+ENT.Category = "HLU RP"
 
 function ENT:Initialize()
     self:SetModel( "models/props_wasteland/laundry_washer003.mdl" )
@@ -49,10 +39,4 @@ if GetGlobalInt( "CurrentGamemode" ) == 3 then --Prevents script errors on other
 		end
 		HLU_Notify( caller, "You searched around the generator but found nothing of use.", 1, 6 )
 	end
-end
-
-if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-    end
 end

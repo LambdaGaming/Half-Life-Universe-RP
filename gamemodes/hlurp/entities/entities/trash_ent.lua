@@ -4,7 +4,6 @@ ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Trash"
 ENT.Author = "Lambda Gaming"
-ENT.Category = "Superadmin Only"
 ENT.Spawnable = false
 
 if SERVER then
