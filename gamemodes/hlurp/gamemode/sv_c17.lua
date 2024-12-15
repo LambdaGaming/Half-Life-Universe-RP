@@ -1,23 +1,6 @@
-
 if GetGlobalInt( "CurrentGamemode" ) != 2 then return end
 
---Ceasefire timers
-timer.Create( "City17Timer", 1800, 1, function()
-	local endmessage = "The ceasefire has ended!"
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, endmessage )
-	HLU_Notify( nil, endmessage, 0, 6, true )
-end )
-
-local function City17CeasefireNotice( ply )
-	if timer.Exists( "City17Timer" ) then
-		timer.Simple( 10, function() --Small timer since players tend to freeze for a few seconds after spawning in
-			local ceasefiremessage = "The ceasefire is currently in effect. Use this time to set up a base."
-			HLU_ChatNotifySystem( "City 17 RP", color_theme, ceasefiremessage, true, ply )
-			HLU_Notify( ply, ceasefiremessage, 0, 6 )
-		end )
-	end
-end
-hook.Add( "PlayerInitialSpawn", "City17CeasefireNotice", City17CeasefireNotice )
+ResistanceStats = {}
 
 --Restrictions for locked jobs
 hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
@@ -111,8 +94,11 @@ end
 hook.Add( "InitPostEntity", "C17Generator", C17Generator )
 
 --Player death management
-local function PlayerDeathDemote( ply )
+local function C17PlayerDeath( ply, inflictor, attacker )
 	local plyteam = ply:Team()
+	if attacker:IsPlayer() and ply:GetJobCategory() == "Combine" and attacker:GetJobCategory() == "Citizens" then
+		ResistanceStats[attacker:SteamID()].Killed = ResistanceStats[attacker:SteamID()].Killed + 1
+	end
 	if plyteam == TEAM_EARTHADMIN then
 		ChangeTeam( ply, 1, false, true )
 		HLU_Notify( nil, "The earth admin has been killed!", 0, 6, true )
@@ -124,10 +110,10 @@ local function PlayerDeathDemote( ply )
 		HLU_Notify( nil, "A resistance leader has been killed!", 0, 6, true )
 	end
 end
-hook.Add( "PlayerDeath", "PlayerDeathDemote", PlayerDeathDemote )
+hook.Add( "PlayerDeath", "C17PlayerDeath", C17PlayerDeath )
 
 --Player spawn management
-local function CombineSpawn( ply )
+local function C17PlayerSpawn( ply )
 	local map = game.GetMap()
 	local allowed = {
 		[TEAM_COMBINEELITE] = true,
@@ -161,5 +147,25 @@ local function CombineSpawn( ply )
 	if allowed[ply:Team()] then
 		ply:SetPos( table.Random( randpos ) )
 	end
+	if !ResistanceStats[ply:SteamID()] then
+		ResistanceStats[ply:SteamID()] = { Loyalty = 100, Killed = 0 }
+	end
 end
-hook.Add( "PlayerSpawn", "CombineSpawn", CombineSpawn )
+hook.Add( "PlayerSpawn", "C17PlayerSpawn", C17PlayerSpawn )
+
+hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
+	local resistanceJobs = { TEAM_RESISTANCELEADER, TEAM_COMBINEGUARD, TEAM_COMBINESOLDIER }
+	if RestrictedJobs[new] then
+		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
+		return false
+	elseif resistanceJobs[new] then
+		local totalKilled = 0
+		for k,v in pairs( ResistanceStats ) do
+			totalKilled = totalKilled + v.Killed
+		end
+		if totalKilled < 5 then
+			HLU_Notify( ply, "Wait for the resistance to build up more before choosing this role.", 1, 6 )
+			return false
+		end
+	end
+end )

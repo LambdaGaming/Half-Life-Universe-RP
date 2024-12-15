@@ -116,14 +116,8 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		HLU_Notify( ply, "All slots are filled for this job.", 1, 6 )
 		return
 	end
-	if RestrictedJobs and RestrictedJobs[newteam] then
-		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
-		return
-	end
-	if gm == 2 and newteam == TEAM_RESISTANCELEADER and timer.Exists( "City17Timer" ) then
-		HLU_Notify( ply, "You cannot play as this job until the ceasefire is over.", 1, 6 )
-		return
-	end
+	if hook.Run( "HLU_CanChangeJobs", ply, newteam, oldteam ) == false then return end
+
 	ply:SetNWString( "RPJob", false )
 	ply:StripWeapons()
 	ply:StripAmmo()
