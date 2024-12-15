@@ -228,7 +228,7 @@ end )
 
 local function Cascade() --Cascade activation function
 	if game.GetMap() == "rp_bmrf" then
-		pos = {
+		local pos = {
 			Vector( 2192, -4962, 192 ),
 			Vector( -627, -4618, 352 ),
 			Vector( -919, -3827, 352 ),
@@ -256,7 +256,7 @@ local function Cascade() --Cascade activation function
 			Vector( -8774, -1859, 705 )
 		}
 		
-		npcs = {
+		local npcs = {
 			"monster_alien_slv",
 			"monster_agrunt",
 			"monster_controller",
