@@ -22,7 +22,7 @@ local function SpawnVehicles()
 	local carpos = {
 		Vector( 3783, -8076, -1526 ),
 		Vector( 1817, -9502, -1540 ),
-		Vector( 1817, -9502, -1540 ),
+		Vector( 3633, 767, -2471 ),
 		Vector( -6483, 1438, -2808 ),
 		Vector( -4564, 5197, -2477 ),
 		Vector( 3340, 8278, -2900 ),
@@ -55,7 +55,7 @@ local function SpawnVehicles()
 		{ "models/buggy.mdl", "scripts/vehicles/jeep_test.txt" }
 	}
 	
-	for k,v in ipairs( carpos ) do
+	for k,v in pairs( carpos ) do
 		local randveh = table.Random( vehicles )
 		local car = ents.Create( "prop_vehicle_jeep" )
 		car:SetModel( randveh[1] )
