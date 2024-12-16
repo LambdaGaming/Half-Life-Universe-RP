@@ -134,7 +134,7 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		tbl.SpawnFunction( ply )
 	end
 	hook.Run( "PlayerLoadout", ply )
-	if respawn or ( gm == 3 and oldteam.Category != tbl.Category ) then
+	if respawn or ( gm == 3 and oldteam and oldteam.Category != tbl.Category ) then
 		ply:Spawn()
 	end
 	ply.JModFriends = {}
