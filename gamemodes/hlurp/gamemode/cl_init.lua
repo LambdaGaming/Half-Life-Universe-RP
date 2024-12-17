@@ -317,12 +317,13 @@ surface.CreateFont( "EntitySignFont", {
 	antialias = true
 } )
 local meta = FindMetaTable( "Entity" )
-local color = Color( 38, 41, 49, 255 )
+local offset = Vector( 0, 0, 80 )
 function meta:DrawNPCText( text, offset )
+	local origin = self:GetPos()
 	local ply = LocalPlayer()
-	local ang = self:GetAngles()
-	local pos = self:GetPos()
-	pos.z = pos.z + offset or 0
+	if ply:GetPos():DistToSqr( origin ) >= 589824 then return end
+
+	local pos = origin + ( override or offset )
 	local ang = ( ply:EyePos() - pos ):Angle()
 	ang.p = 0
 	ang:RotateAroundAxis( ang:Right(), 90 )
@@ -332,3 +333,10 @@ function meta:DrawNPCText( text, offset )
 		draw.SimpleText( text, "EntitySignFont", 0, 0, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP )
 	cam.End3D2D()
 end
+
+--Draw text on item NPCs
+hook.Add( "ItemNPC_OnDraw", "ItemNPCDraw", function( npc )
+	local type = npc:GetNPCType()
+	local name = ItemNPCType[type].Name
+	npc:DrawNPCText( name )
+end )
