@@ -188,7 +188,7 @@ local function BMRPVehicleSpawn()
 			}
 		end
 
-		for k,v in ipairs( spawnpos ) do
+		for k,v in pairs( spawnpos ) do
 			local randveh = table.Random( vehicles )
 			local car = ents.Create( "prop_vehicle_jeep" )
 			car:SetModel( randveh[1] )
@@ -197,6 +197,9 @@ local function BMRPVehicleSpawn()
 			car:SetAngles( v[2] )
 			car:Spawn()
 			car:Activate()
+			timer.Simple( 1, function()
+				GAuto.SetFuel( car, math.random( 10, 100 ) )
+			end )
 		end
 	end
 end

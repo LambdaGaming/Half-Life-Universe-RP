@@ -546,7 +546,7 @@ CraftingTable["code_decrypter"] = {
 	end
 }
 
-if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
+if game.GetMap() == "rp_mezs" then
 	CraftingTable["ent_jack_sleepinbag_rebel"] = {
 		Name = "Sleeping Bag",
 		Description = "Requires 2 iron and 4 wood.",
@@ -659,6 +659,40 @@ if game.GetMap() == "rp_ineu_valley2_v1a" or game.GetMap() == "gm_boreas" then
 		Category = "Tools",
 		SpawnFunction = function( ply, self )
 			local e = ents.Create( "ent_jack_gmod_ezparts" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
+	}
+
+	CraftingTable["ent_gauto_fuel"] = {
+		Name = "Vehicle Fuel",
+		Description = "Requires 4 iron and 1 wrench.",
+		Materials = {
+			ironbar = 4,
+			wrench = 1
+		},
+		Type = 1,
+		Category = "Tools",
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_gauto_fuel" )
+			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
+			e:Spawn()
+			e:CPPISetOwner( ply )
+		end
+	}
+
+	CraftingTable["ent_gauto_repair"] = {
+		Name = "Vehicle Repair Kit",
+		Description = "Requires 2 iron and 3 wrenches.",
+		Materials = {
+			ironbar = 2,
+			wrench = 3
+		},
+		Type = 1,
+		Category = "Tools",
+		SpawnFunction = function( ply, self )
+			local e = ents.Create( "ent_gauto_repair" )
 			e:SetPos( self:GetPos() + Vector( 0, 0, 15 ) )
 			e:Spawn()
 			e:CPPISetOwner( ply )

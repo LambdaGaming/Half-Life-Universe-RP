@@ -63,6 +63,9 @@ local function SpawnVehicles()
 		car:SetPos( v )
 		car:Spawn()
 		car:Activate()
+		timer.Simple( 1, function()
+			GAuto.SetFuel( car, math.random( 0, 75 ) )
+		end )
 	end
 end
 

@@ -266,7 +266,7 @@ HLU_JOB = {
 				"models/player/hdpp/male_06.mdl",
 				"models/player/hdpp/male_09.mdl"
 			},
-			Weapons = { "weapon_extinguisher", "weapon_crowbar_hl", "weapon_pipewrench", "trash_wep", "broom" },
+			Weapons = { "weapon_extinguisher", "weapon_crowbar_hl", "weapon_pipewrench", "trash_wep", "broom", "weapon_gauto_fuel", "weapon_gauto_repair" },
 			Max = 2,
 			Category = "Utility"
 		},
