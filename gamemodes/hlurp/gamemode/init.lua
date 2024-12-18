@@ -282,7 +282,7 @@ local function HLU_SpawnNPCs()
 			e2:ApplyType( 1 )
 		elseif map == "rp_mezs" then
 			local e = ents.Create( "npc_item" )
-			e:SetPos( Vector( -1648, -2761, 6828 ) )
+			e:SetPos( Vector( -1631, -2762, 6829 ) )
 			e:SetAngles( Angle( 0, 180, 0 ) )
 			e:Spawn()
 			e:ApplyType( 2 )

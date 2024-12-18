@@ -6,7 +6,7 @@ ENT.PrintName = "Rare Organic Matter"
 ENT.Author = "Lambda Gaming"
 ENT.Spawnable = true
 ENT.AdminOnly = true
-ENT.Category = "Superadmin Only"
+ENT.Category = "HLU RP"
 
 function ENT:Initialize()
     self:SetModel( "models/props_lab/petridish01d.mdl" )

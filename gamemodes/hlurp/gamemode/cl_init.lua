@@ -318,7 +318,7 @@ surface.CreateFont( "EntitySignFont", {
 } )
 local meta = FindMetaTable( "Entity" )
 local offset = Vector( 0, 0, 80 )
-function meta:DrawNPCText( text, offset )
+function meta:DrawNPCText( text, override )
 	local origin = self:GetPos()
 	local ply = LocalPlayer()
 	if ply:GetPos():DistToSqr( origin ) >= 589824 then return end
