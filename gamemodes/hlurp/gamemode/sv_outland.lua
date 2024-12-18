@@ -58,21 +58,8 @@ local function SpawnVehicles()
 	end
 end
 
-local function SpawnItems()
-	local position = {
-		// TODO: Revamp item system
-	}
-	for k,v in ipairs( position ) do
-		local e = ents.Create( "outland_item_spawner" )
-		e:SetPos( v )
-		e:Spawn()
-		e:SetMoveType( MOVETYPE_NONE )
-	end
-end
-
 hook.Add( "InitPostEntity", "OutlandItems", function()
 	SpawnVehicles()
-	SpawnItems()
 end )
 
 --Player spawn management

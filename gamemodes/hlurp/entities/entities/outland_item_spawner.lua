@@ -19,7 +19,7 @@ if SERVER then
 		if phys:IsValid() then
 			phys:Wake()
 		end
-		
+
 		local items = {
 			"ent_jack_gmod_ezammo",
 			"ent_jack_gmod_ezbattery",
@@ -27,9 +27,10 @@ if SERVER then
 			"ent_jack_gmod_ezmedsupplies"
 		}
 		
-		timer.Create( "ItemSpawner"..self:EntIndex(), 180, 0, function()
-			for k,v in pairs( ents.FindInSphere( self:GetPos(), 200 ) ) do
-				if table.HasValue( items, v:GetClass() ) then
+		timer.Create( "ItemSpawner"..self:EntIndex(), 300, 0, function()
+			local find = ents.FindInSphere( self:GetPos(), 1000 )
+			for k,v in ipairs( find ) do
+				if v:IsPlayer() or table.HasValue( items, v:GetClass() ) then
 					return
 				end
 			end
