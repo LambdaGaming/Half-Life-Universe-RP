@@ -10,7 +10,7 @@ ENT.Category = "HLU RP"
 
 if SERVER then
 	function ENT:Initialize()
-		self:SetModel( "models/props_lab/reciever01d.mdl" )
+		self:SetModel( "models/props_combine/combinebutton.mdl" )
 		self:PhysicsInit( SOLID_VPHYSICS )
 		self:SetMoveType( MOVETYPE_VPHYSICS )
 		self:SetSolid( SOLID_VPHYSICS )
@@ -18,21 +18,21 @@ if SERVER then
 		local phys = self:GetPhysicsObject()
 		phys:Wake()
 		
-		local greenlight = ents.Create( "light_dynamic" )
-		greenlight:SetPos( self:GetPos() )
-		greenlight:SetOwner( self:GetOwner() )
-		greenlight:SetParent( self )
-		greenlight:SetKeyValue( "_light", "0 255 0 255" )  
-		greenlight:SetKeyValue( "distance", "150" )
-		greenlight:Spawn()
+		self.light = ents.Create( "light_dynamic" )
+		self.light:SetPos( self:GetPos() )
+		self.light:SetOwner( self:GetOwner() )
+		self.light:SetParent( self )
+		self.light:SetKeyValue( "_light", "255 0 0 255" )
+		self.light:SetKeyValue( "distance", "150" )
+		self.light:Spawn()
 	end
 
 	function ENT:Use( ply )
+		if timer.Exists( "OutlandTimer" ) then
+			HLU_Notify( ply, "The rocket isn't ready to be launched yet!", 1, 6 )
+			return
+		end
 		if ply:GetJobCategory() == "Combine" then
-			if timer.Exists( "OutlandTimer" ) then
-				HLU_Notify( ply, "You must wait until the 30 minute ceasefire has ended.", 1, 6 )
-				return
-			end
 			if GetConVar( "blowout_enabled" ):GetInt() == 1 then
 				HLU_Notify( ply, "ERROR: Cancellation aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else.", 1, 6 )
 				return
@@ -46,15 +46,11 @@ if SERVER then
 				HLU_Notify( nil, "Rocket failed to successfully launch, emergency cancellation button was activated.", 0, 6, true )
 				HLU_Notify( nil, "There were "..math.Round( timer.TimeLeft( "rocketinit" ) ).." seconds left until the rocket launched.", 0, 6, true )
 				timer.Remove( "KickTimer" )
-				for k,v in pairs( ents.FindByClass( "gb5_proj_icbm_big" ) ) do
+				for k,v in ipairs( ents.FindByClass( "gb5_proj_icbm_big" ) ) do
 					v:Remove()
 				end
 			end
 		else
-			if timer.Exists( "OutlandTimer" ) then
-				HLU_Notify( ply, "ERROR: You must wait until the 30 minute ceasefire has ended.", 1, 6 )
-				return
-			end
 			if GetConVar( "blowout_enabled" ):GetInt() == 1 then
 				HLU_Notify( ply, "ERROR: Launch aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else.", 1, 6 )
 				return
@@ -71,15 +67,9 @@ if SERVER then
 				HLU_Notify( ply, "Wait "..math.Round( timer.TimeLeft( "rocket_timer" ) ).." seconds before activating the rocket again.", 1, 6 )
 				return
 			end
-			if game.GetMap() == "rp_ineu_valley2_v1a" then
-				local rocketspawn = ents.Create("gb5_proj_icbm_big")
-				rocketspawn:SetPos( Vector( -13185, 8374, -1216 ) )
-				rocketspawn:Spawn()
-			else
-				local rocketspawn = ents.Create("gb5_proj_icbm_big")
-				rocketspawn:SetPos( Vector( -79, 5578, -6102 ) )
-				rocketspawn:Spawn()
-			end
+			local rocketspawn = ents.Create( "gb5_proj_icbm_big" )
+			rocketspawn:SetPos( Vector( 14327, 8393, 244 ) )
+			rocketspawn:Spawn()
 		end
 	end
 end

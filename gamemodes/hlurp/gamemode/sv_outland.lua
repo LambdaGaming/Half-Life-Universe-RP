@@ -2,19 +2,11 @@ if GetGlobalInt( "CurrentGamemode" ) != 3 then return end
 
 --Ceasefire timers
 timer.Create( "OutlandTimer", 1800, 1, function()
-	local endmessage = "The ceasefire has ended!"
+	local endmessage = "The rocket is fully prepped and ready for launch!"
 	HLU_ChatNotifySystem( "Outland RP", color_green, endmessage )
 	HLU_Notify( nil, endmessage, 0, 6, true )
-end )
-
-hook.Add( "PlayerInitialSpawn", "OutlandCeasefireNotice", function( ply )
-	if timer.Exists( "OutlandTimer" ) then
-		timer.Simple( 10, function()
-			local ceasefiremessage = "The ceasefire is currently in effect. Use this time to set up a base."
-			HLU_ChatNotifySystem( "Outland RP", color_green, ceasefiremessage, true, ply )
-			HLU_Notify( ply, ceasefiremessage, 0, 6 )
-		end )
-	end
+	local button = ents.FindByClass( "rocket_launch_button" )[1]
+	button.light:SetKeyValue( "_light", "0 255 0 255" )
 end )
 
 --Vehicle and item spawners
@@ -25,8 +17,8 @@ local function SpawnVehicles()
 		Vector( 3633, 767, -2471 ),
 		Vector( -6483, 1438, -2808 ),
 		Vector( -4564, 5197, -2477 ),
-		Vector( 3340, 8278, -2900 ),
-		Vector( 12140, 12355, -865 ),
+		Vector( 3340, 8278, -2800 ),
+		Vector( 12140, 12355, -855 ),
 		Vector( 13474, 8589, -749 )
 	}
 
@@ -65,6 +57,7 @@ local function SpawnVehicles()
 		car:Activate()
 		timer.Simple( 1, function()
 			GAuto.SetFuel( car, math.random( 0, 75 ) )
+			GAuto.TakeDamage( car, math.random( 10, 70 ) )
 		end )
 	end
 end
@@ -84,49 +77,6 @@ end
 hook.Add( "InitPostEntity", "OutlandItems", function()
 	SpawnVehicles()
 	SpawnItems()
-end )
-
-
---Rebel codes chooser
---Run command if things go haywire:
---lua_run ents.FindByClass( [ENTCLASS] )[1].hascodes = true
-
-local combinejobs = {
-	[TEAM_COMBINESOLDIER] = true,
-	[TEAM_COMBINEGUARD] = true,
-	[TEAM_COMBINEELITE] = true
-}
-
-local outlandents = {
-	"out_crate",
-	"out_generator",
-	"out_log"
-}
-
-hook.Add( "InitPostEntity", "OutlandPostEnt", function()
-	for k,v in pairs( ents.FindByClass( table.Random( outlandents ) ) ) do
-		v.hascodes = true
-	end
-end )
-
-hook.Add( "PlayerDeath", "OutlandPlayerDeath", function( victim, inflictor, attacker )
-	if victim.hascodes then
-		victim.hascodes = nil
-		for k,v in pairs( ents.FindByClass( table.Random( outlandents ) ) ) do
-			v.hascodes = true
-		end
-		HLU_ChatNotifySystem( "Outland RP", color_green, victim:Nick().." has been killed and the portal codes are lost again!" )
-	end
-end )
-
-hook.Add( "OnPlayerChangedTeam", "OutlandPlayerChange", function( ply, before, after )
-	if ply.hascodes and combinejobs[after] then
-		ply.hascodes = nil
-		for k,v in pairs( ents.FindByClass( table.Random( outlandents ) ) ) do
-			v.hascodes = true
-		end
-		HLU_ChatNotifySystem( "Outland RP", color_green, ply:Nick().." has changed jobs and the portal codes are lost again!" )
-	end
 end )
 
 --Player spawn management
