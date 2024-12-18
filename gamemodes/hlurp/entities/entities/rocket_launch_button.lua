@@ -69,7 +69,7 @@ if SERVER then
 			local rocket = ents.Create( "gb5_proj_icbm_big" )
 			rocket:SetPos( Vector( 14360, 8068, 26 ) )
 			rocket:Spawn()
-			timer.Create( "rocketinit", 3, 1, function() rocket:Launch() end )
+			timer.Create( "rocketinit", 300, 1, function() rocket:Launch() end )
 			HLU_ChatNotifySystem( "Outland RP", color_green, "Launch sequence activated.......T minus 5 minutes until lift-off." )
 			HLU_Notify( nil, "Launch sequence activated.......T minus 5 minutes until lift-off.", 0, 10, true )
 		end

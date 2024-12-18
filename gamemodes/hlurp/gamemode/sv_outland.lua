@@ -36,10 +36,6 @@ local function SpawnVehicles()
 		{ "models/source_vehicles/car004b/vehicle.mdl", "scripts/vehicles/rubbishcar.txt" },
 		{ "models/source_vehicles/car005a.mdl", "scripts/vehicles/hl2_cars.txt" },
 		{ "models/source_vehicles/car005b/vehicle.mdl", "scripts/vehicles/rubbishcar.txt" },
-		{ "models/source_vehicles/truck001c_01.mdl", "scripts/vehicles/truck001c_01.txt" },
-		{ "models/source_vehicles/truck001c_02.mdl", "scripts/vehicles/truck001c_01.txt" },
-		{ "models/source_vehicles/truck002a_cab.mdl", "scripts/vehicles/truck002a_cab.txt" },
-		{ "models/source_vehicles/truck003a_01.mdl", "scripts/vehicles/truck003a_01.txt" },
 		{ "models/source_vehicles/van001a_01.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
 		{ "models/source_vehicles/van001a_01_nodoor.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
 		{ "models/source_vehicles/van001b_01.mdl", "scripts/vehicles/van001a-vehicle_van.txt" },
@@ -113,3 +109,20 @@ local function CombineSpawn( ply )
 	end
 end
 hook.Add( "PlayerSpawn", "CombineSpawn", CombineSpawn )
+
+--Cleanup abandoned combine vehicles
+hook.Add( "PlayerEnteredVehicle", "OutlandVehicleEnter", function( ply, veh )
+	if veh.aw2Ent or IsValid( veh:GetNWEntity( "GWEnt" ) ) then
+		local p = veh:GetParent()
+		timer.Remove( "CombineVehDespawn"..p:EntIndex() )
+	end
+end )
+
+hook.Add( "PlayerLeaveVehicle", "OutlandVehicleLeave", function( ply, veh )
+	if veh.aw2Ent or IsValid( veh:GetNWEntity( "GWEnt" ) ) then
+		local p = veh:GetParent()
+		timer.Create( "CombineVehDespawn"..p:EntIndex(), 300, 1, function()
+			if IsValid( p ) then p:Dissolve() end
+		end )
+	end
+end )
