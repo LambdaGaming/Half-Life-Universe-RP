@@ -40,7 +40,7 @@ if SERVER then
 		timer.Simple( 120, function() ents.GetMapCreatedEntity( 2677 ):Fire( "Press" ) end )
 		HLU_ChatNotifySystem( "Outland RP", color_green, "Combine base infilatrated......2 minutes until portal closes." )
 		HLU_Notify( nil, "Combine base infilatrated......2 minutes until portal closes.", 0, 10, true )
-		timer.Create( "KickTimer", 150, 1, function()
+		timer.Create( "KickTimer", 151, 1, function()
 			for k,v in ipairs( player.GetAll() ) do
 				v:Kick( "\n--END OF SESSION--\nBase destruction ending chosen, server shutting down.\nThanks for playing!" )
 			end

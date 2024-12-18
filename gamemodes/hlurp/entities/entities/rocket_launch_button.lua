@@ -33,11 +33,10 @@ if SERVER then
 			return
 		end
 		if ply:GetJobCategory() == "Combine" then
-			if GetConVar( "blowout_enabled" ):GetInt() == 1 then
+			if timer.Exists( "KickTimer" ) then
 				HLU_Notify( ply, "ERROR: Cancellation aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else.", 1, 6 )
 				return
-			end
-			if GetConVar( "blowout_enabled" ):GetInt() == 0 then
+			else
 				if !timer.Exists( "rocketinit" ) then
 					HLU_Notify( ply, "ERROR: No rocket detected to abort.", 1, 6 )
 					return
@@ -51,7 +50,7 @@ if SERVER then
 				end
 			end
 		else
-			if GetConVar( "blowout_enabled" ):GetInt() == 1 then
+			if timer.Exists( "KickTimer" ) then
 				HLU_Notify( ply, "ERROR: Launch aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else.", 1, 6 )
 				return
 			end
@@ -67,9 +66,12 @@ if SERVER then
 				HLU_Notify( ply, "Wait "..math.Round( timer.TimeLeft( "rocket_timer" ) ).." seconds before activating the rocket again.", 1, 6 )
 				return
 			end
-			local rocketspawn = ents.Create( "gb5_proj_icbm_big" )
-			rocketspawn:SetPos( Vector( 14327, 8393, 244 ) )
-			rocketspawn:Spawn()
+			local rocket = ents.Create( "gb5_proj_icbm_big" )
+			rocket:SetPos( Vector( 14360, 8068, 26 ) )
+			rocket:Spawn()
+			timer.Create( "rocketinit", 3, 1, function() rocket:Launch() end )
+			HLU_ChatNotifySystem( "Outland RP", color_green, "Launch sequence activated.......T minus 5 minutes until lift-off." )
+			HLU_Notify( nil, "Launch sequence activated.......T minus 5 minutes until lift-off.", 0, 10, true )
 		end
 	end
 end
