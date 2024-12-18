@@ -36,6 +36,7 @@ if SERVER then
 		e:SetPos( self:GetPos() )
 		e:Spawn()
 		e:Fire( "Explode" )
+		self:Remove()
 		timer.Simple( 120, function() ents.GetMapCreatedEntity( 2677 ):Fire( "Press" ) end )
 		HLU_ChatNotifySystem( "Outland RP", color_green, "Combine base infilatrated......2 minutes until portal closes." )
 		HLU_Notify( nil, "Combine base infilatrated......2 minutes until portal closes.", 0, 10, true )
@@ -47,6 +48,12 @@ if SERVER then
 	end
 
 	function ENT:OnTakeDamage( dmg )
+		local hp = self:Health()
+		if dmg:IsDamageType( DMG_BLAST ) then
+			self:SetHealth( hp - 500 )
+		else
+			self:SetHealth( hp - 2 )
+		end
 		if self:Health() <= 0 and !self.Destroyed then
 			self:Destroy()
 		end
