@@ -73,8 +73,9 @@ if SERVER then
 end
 
 if CLIENT then
+	local offset = Vector( 0, 0, 50 )
 	function ENT:Draw()
 		self:DrawModel()
-		self:DrawNPCText( "Ammo", 50 )
+		self:DrawNPCText( "Ammo", offset )
 	end
 end
