@@ -9,6 +9,19 @@ timer.Create( "OutlandTimer", 1800, 1, function()
 	button.light:SetKeyValue( "_light", "0 255 0 255" )
 end )
 
+timer.Create( "CombineVictory", 5400, 1, function()
+	local msg = "The rebels failed to close the portal in time! The Combine invasion has started!"
+	HLU_ChatNotifySystem( "Outland RP", color_green, msg )
+	HLU_Notify( nil, msg, 0, 6, true )
+	RunConsoleCommand( "blowout_enabled", "1" )
+	RunConsoleCommand( "blowout_trigger_delayed", 300 )
+	timer.Simple( 151, function()
+		for k,v in ipairs( player.GetAll() ) do
+			v:Kick( "\n--END OF SESSION--\nCombine victory ending chosen, server shutting down.\nThanks for playing!" )
+		end
+	end )
+end )
+
 --Vehicle and item spawners
 local function SpawnVehicles()
 	local carpos = {

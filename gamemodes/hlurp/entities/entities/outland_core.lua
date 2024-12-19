@@ -45,6 +45,7 @@ if SERVER then
 				v:Kick( "\n--END OF SESSION--\nBase destruction ending chosen, server shutting down.\nThanks for playing!" )
 			end
 		end )
+		timer.Remove( "CombineVictory" )
 	end
 
 	function ENT:OnTakeDamage( dmg )
