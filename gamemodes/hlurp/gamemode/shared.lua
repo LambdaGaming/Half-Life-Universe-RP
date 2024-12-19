@@ -253,7 +253,7 @@ HLU_JOB = {
 			Link = "biochemist",
 			Color = Color( 128, 0, 128, 255 ),
 			Models = { "models/hazmat/bmhaztechs.mdl" },
-			Weapons = {},
+			Weapons = { "weapon_possessor" },
 			Max = 0,
 			Category = "Science"
 		},

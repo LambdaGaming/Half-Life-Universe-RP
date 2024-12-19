@@ -946,23 +946,6 @@ CraftingTable["weapon_hornetgun"] = {
 	end
 }
 
-CraftingTable["weapon_possessor"] = {
-	Name = "Possessor",
-	Description = "Requires 2 organic matter, 2 xen iron, 1 rare organic matter, 1 refined xen iron, and 1 harvested crystal.",
-	Materials = {
-		organic_matter = 2,
-		crystal_harvested = 1,
-		xen_iron = 2,
-		organic_matter_rare = 1,
-		xen_iron_refined = 1
-	},
-	Type = 2,
-	Category = "Bioweapons",
-	SpawnFunction = function( ply, self )
-		ply:Give( "weapon_possessor" )
-	end
-}
-
 CraftingTable["weapon_shockrifle"] = {
 	Name = "Shock Rifle",
 	Description = "Requires 2 organic matter, 3 xen iron, 1 rare organic matter, and 1 harvested crystal.",
