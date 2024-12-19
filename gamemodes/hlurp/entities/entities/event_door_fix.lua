@@ -31,7 +31,7 @@ if SERVER then
 				HLU_Notify( caller, "You pull the cord and the generator starts right up. (+200)", 0, 6 )
 				caller:AddFunds( 200 )
 			else
-				HLU_Notify( caller, "The generator has stalled. Contact a service official to have it fixed.", 1, 6 )
+				HLU_Notify( caller, "The generator has stalled. Contact a custodian to have it fixed.", 1, 6 )
 			end
 		else
 			HLU_Notify( caller, "You listen to the generator. It sounds like it's running normally.", 0, 6 )

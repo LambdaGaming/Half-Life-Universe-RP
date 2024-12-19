@@ -258,8 +258,8 @@ HLU_JOB = {
 			Category = "Utility"
 		},
 		{
-			Name = "Service Official",
-			Link = "serviceofficial",
+			Name = "Custodian",
+			Link = "custodian",
 			Color = Color( 95, 158, 160, 255 ),
 			Models = {
 				"models/player/hdpp/male_05.mdl",

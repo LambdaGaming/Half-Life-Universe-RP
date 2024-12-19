@@ -33,7 +33,7 @@ function ENT:Use( caller, activator )
 		if caller:Team() != TEAM_SERVICE then
 			HLU_Notify( caller, "The portal is broken. Use your wrench to attempt repairs.", 1, 6 )
 		else
-			HLU_Notify( caller, "The portal is broken. Contact a service official to have it fixed.", 1, 6 )
+			HLU_Notify( caller, "The portal is broken. Contact a custodian to have it fixed.", 1, 6 )
 		end
 	else
 		HLU_Notify( caller, "You visually inspect the portal but find nothing out of the ordinary.", 0, 6 )

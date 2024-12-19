@@ -66,7 +66,7 @@ if SERVER then
 		for k,v in pairs( ents.FindByClass( "event_portal_fix" ) ) do
 			v.broke = true
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has malfunctioned! It won't be able to start up again until a service official fixes it!" )
+		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has malfunctioned! It won't be able to start up again until a custodian fixes it!" )
 		RunConsoleCommand( "vox", "deeoo deeoo alert main portal control failure" )
 		
 	end
@@ -332,7 +332,7 @@ if SERVER then
 		e:SetPos( randfire )
 		e:Spawn()
 		CreateVFireBall( 30, 15, e:GetPos(), Vector( 0, 50, 0 ), e )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "A fire has been detected by the facility smoke alarms! Evacuate while service officials contain it!" )
+		HLU_ChatNotifySystem( "BMRP", color_orange, "A fire has been detected by the facility smoke alarms! Evacuate while custodians contain it!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn warning _comma fire detected" )
 	end
 
@@ -349,13 +349,13 @@ end
 BMRP_EVENTS = {
 	{
 		Name = "Xen Portal Failure",
-		Description = "Prevents the Xen portal from being activated until a service official repairs a console near the portal controls.",
+		Description = "Prevents the Xen portal from being activated until a custodian repairs a console near the portal controls.",
 		Required = TEAM_SERVICE,
 		OnSelect = PortalBreakDown
 	},
 	{
 		Name = "Door Failure",
-		Description = "Prevents certain doors from being opened until a service official restarts the generator powering them.",
+		Description = "Prevents certain doors from being opened until a custodian restarts the generator powering them.",
 		Required = TEAM_SERVICE,
 		OnSelect = TramFailure
 	},
