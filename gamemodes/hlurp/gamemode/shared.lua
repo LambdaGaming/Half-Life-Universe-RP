@@ -88,6 +88,15 @@ local securitymodels = {
 	"models/player/hdpp/security/male_09.mdl"
 }
 
+local marinescimodels = {
+	"models/player/gasmask_hecu.mdl",
+	"models/player/hdpp/gordon.mdl",
+	"models/player/hdpp/male_01.mdl",
+	"models/player/hdpp/male_02.mdl",
+	"models/player/hdpp/male_03.mdl",
+	"models/player/hdpp/kleiner.mdl"
+}
+
 local leadermodels = {
 	"models/player/barney.mdl",
 	"models/player/alyx.mdl",
@@ -309,22 +318,9 @@ HLU_JOB = {
 			Name = "Weapon Specialist",
 			Link = "weaponspecialist",
 			Color = Color( 56, 118, 29, 255 ),
-			Models = securitymodels,
-			Weapons = { "weapon_shotgun_hl", "weapon_9mmhandgun" },
-			Max = 1,
-			Category = "Military",
-			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "Buckshot" )
-				ply:GiveAmmo( 25, "Pistol" )
-			end
-		},
-		{
-			Name = "Weapons Engineer",
-			Link = "weaponsengineer",
-			Color = Color( 128, 0, 128, 255 ),
-			Models = sciencemodels,
+			Models = marinescimodels,
 			Weapons = {},
-			Max = 0,
+			Max = 2,
 			Category = "Science"
 		},
 		{

@@ -16,7 +16,6 @@ local whitelist = {
 	[TEAM_MEDIC] = true,
 	[TEAM_SERVICE] = true,
 	[TEAM_WEPBOSS] = true,
-	[TEAM_WEPMAKER] = true,
 	[TEAM_SECURITYBOSS] = true,
 	[TEAM_SECURITY] = true
 }

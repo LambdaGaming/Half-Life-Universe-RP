@@ -467,17 +467,17 @@ BMRP_TASKS = {
 	{
 		Name = "Develop Normal Weapons",
 		Description = "Develop normal weapons that security can use as alternatives to their stock weapons.",
-		Required = { TEAM_WEPMAKER }
+		Required = { TEAM_WEPBOSS }
 	},
 	{
 		Name = "Develop Prototype Weapons",
 		Description = "Develop prototype weapons that the facility can sell to the military or use for advanced projects.",
-		Required = { TEAM_WEPMAKER }
+		Required = { TEAM_WEPBOSS }
 	},
 	{
 		Name = "Develop Unusual Weapons",
 		Description = "Develop unusual weapons that we can use for....something...",
-		Required = { TEAM_WEPMAKER },
+		Required = { TEAM_WEPBOSS },
 	},
 	{
 		Name = "Patrol Facility",

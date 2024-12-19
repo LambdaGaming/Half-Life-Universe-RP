@@ -12,7 +12,6 @@ TEAM_GMAN = 9
 TEAM_MARINE = 10
 TEAM_MARINEBOSS = 11
 TEAM_WEPBOSS = 12
-TEAM_WEPMAKER = 13
 TEAM_SECURITYBOSS = 14
 TEAM_SECURITY = 15
 
@@ -85,11 +84,11 @@ BuyMenuItems = {
 		end
 	},
 	["crafting_table_wep"] = {
-		Name = "Weapons Engineer Crafting Table",
-		Description = "Allows the weapons engineer to craft weapons, both normal and rare.",
+		Name = "Weapon Specialist Crafting Table",
+		Description = "Allows the weapon specialist to craft weapons, both normal and rare.",
 		Price = 500,
 		Max = 2,
-		Allowed = function( ply ) return ply:Team() == TEAM_WEPMAKER end,
+		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end,
 		SpawnFunction = function( ply, tr )
 			local e = ents.Create( "crafting_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
@@ -110,7 +109,7 @@ BuyMenuItems = {
 		Description = "Contains a high-powered laser that can cut through just about anything.",
 		Price = 1500,
 		Max = 5,
-		Allowed = function( ply ) return ply:Team() == TEAM_WEPMAKER end
+		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end
 	},
 	["lab_generator"] = {
 		Name = "Electric Generator",
@@ -246,19 +245,19 @@ BuyMenuItems = {
 
 local blockedtools = {
 	["wire_explosive"] = function( ply )
-		return ply:Team() == TEAM_WEPMAKER
+		return ply:Team() == TEAM_WEPBOSS
 	end,
 	["wire_turret"] = function( ply )
-		return ply:Team() == TEAM_WEPMAKER
+		return ply:Team() == TEAM_WEPBOSS
 	end,
 	["wire_detonator"] = function( ply )
-		return ply:Team() == TEAM_WEPMAKER
+		return ply:Team() == TEAM_WEPBOSS
 	end,
 	["wire_expression2"] = function( ply )
 		return ply:GetJobCategory() == "Science"
 	end,
 	["wire_simple_explosive"] = function( ply )
-		return ply:Team() == TEAM_WEPMAKER
+		return ply:Team() == TEAM_WEPBOSS
 	end,
 	["duplicator"] = function( ply )
 		return ply:GetJobCategory() == "Science"
