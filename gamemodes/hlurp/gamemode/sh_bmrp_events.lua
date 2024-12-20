@@ -10,11 +10,12 @@ if SERVER then
 	end
 
 	timer.Create( "EventLoop", 1200, 0, function()
+		if GetGlobalBool( "EventActive" ) then return end
 		local rand = math.random( 1, #BMRP_EVENTS )
 		local chosen = NudgedEvent > 0 and NudgedEvent or rand
 		local found = false
-		for a,b in ipairs( player.GetAll() ) do
-			if b:Team() == BMRP_EVENTS[key].Required then
+		for k,v in ipairs( player.GetAll() ) do
+			if v:Team() == BMRP_EVENTS[key].Required then
 				found = true
 			end
 		end
@@ -500,12 +501,12 @@ BMRP_TASKS = {
 	{
 		Name = "Patrol Facility",
 		Description = "Patrol the facility and notify personnel of any security risks.",
-		Required = { TEAM_SECURITYBOSS, TEAM_SECURITY },
+		Required = { TEAM_SECURITYBOSS, TEAM_SECURITY }
 	},
 	{
 		Name = "Setup Checkpoint",
 		Description = "Setup and man a security checkpoint to a restricted area. See facility admin for details.",
-		Required = { TEAM_SECURITYBOSS, TEAM_SECURITY },
+		Required = { TEAM_SECURITYBOSS, TEAM_SECURITY }
 	}
 }
 

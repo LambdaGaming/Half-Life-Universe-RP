@@ -193,40 +193,41 @@ local function DrawEventMenu()
 		tbl = BMRP_TASKS
 	end
 
-	local lastjob = {}
 	local listframe = vgui.Create( "DScrollPanel", mainframe )
 	listframe:Dock( FILL )
 
-	local mainbuttons = vgui.Create( "DButton", listframe )
-	mainbuttons:SetText( "Set Custom Task" )
-	mainbuttons:SetTextColor( color_white )
-	mainbuttons:SetFont( "JobTitle" )
-	mainbuttons:Dock( TOP )
-	mainbuttons:SetSize( 450, 50 )
-	mainbuttons:DockMargin( 0, 0, 0, 10 )
-	mainbuttons.Paint = function( self, w, h )
-		surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
-		surface.DrawRect( 0, 0, w, h )
-	end
-	mainbuttons.DoClick = function()
-		mainframe:Close()
-		DrawCustomTaskMenu()
-	end
+	if ply:Team() == admin then
+		local mainbuttons = vgui.Create( "DButton", listframe )
+		mainbuttons:SetText( "Set Custom Task" )
+		mainbuttons:SetTextColor( color_white )
+		mainbuttons:SetFont( "JobTitle" )
+		mainbuttons:Dock( TOP )
+		mainbuttons:SetSize( 450, 50 )
+		mainbuttons:DockMargin( 0, 0, 0, 10 )
+		mainbuttons.Paint = function( self, w, h )
+			surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
+			surface.DrawRect( 0, 0, w, h )
+		end
+		mainbuttons.DoClick = function()
+			mainframe:Close()
+			DrawCustomTaskMenu()
+		end
 
-	local mainbuttons = vgui.Create( "DButton", listframe )
-	mainbuttons:SetText( "Clear Task & Award Funds" )
-	mainbuttons:SetTextColor( color_white )
-	mainbuttons:SetFont( "JobTitle" )
-	mainbuttons:Dock( TOP )
-	mainbuttons:SetSize( 450, 50 )
-	mainbuttons:DockMargin( 0, 0, 0, 10 )
-	mainbuttons.Paint = function( self, w, h )
-		surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
-		surface.DrawRect( 0, 0, w, h )
-	end
-	mainbuttons.DoClick = function()
-		mainframe:Close()
-		DrawCustomTaskMenu( true )
+		local mainbuttons = vgui.Create( "DButton", listframe )
+		mainbuttons:SetText( "Clear Task & Award Funds" )
+		mainbuttons:SetTextColor( color_white )
+		mainbuttons:SetFont( "JobTitle" )
+		mainbuttons:Dock( TOP )
+		mainbuttons:SetSize( 450, 50 )
+		mainbuttons:DockMargin( 0, 0, 0, 10 )
+		mainbuttons.Paint = function( self, w, h )
+			surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
+			surface.DrawRect( 0, 0, w, h )
+		end
+		mainbuttons.DoClick = function()
+			mainframe:Close()
+			DrawCustomTaskMenu( true )
+		end
 	end
 	
 	for k,v in pairs( tbl ) do
@@ -234,11 +235,7 @@ local function DrawEventMenu()
 		itembackground:SetSize( 450, 100 )
 		itembackground:Dock( TOP )
 		itembackground:Center()
-		if table.concat( lastjob ) != table.concat( v.Required ) then
-			itembackground:DockMargin( 0, 20, 0, 10 )
-		else
-			itembackground:DockMargin( 0, 0, 0, 10 )
-		end
+		itembackground:DockMargin( 0, 0, 0, 10 )
 		itembackground.Paint = function( self, w, h )
 			surface.SetDrawColor( Color( 45, 45, 45 ) )
 			surface.DrawRect( 0, 0, w, h )
@@ -267,7 +264,6 @@ local function DrawEventMenu()
 			end
 			mainframe:Close()
 		end
-		lastjob = v.Required
 
 		local itemdesc = vgui.Create( "DLabel", itembackground )
 		itemdesc:SetFont( "Trebuchet18" )
