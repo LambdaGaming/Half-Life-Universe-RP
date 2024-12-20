@@ -99,15 +99,16 @@ local function C17PlayerDeath( ply, inflictor, attacker )
 	if attacker:IsPlayer() and ply:GetJobCategory() == "Combine" and attacker:GetJobCategory() == "Citizens" then
 		ResistanceStats[attacker:SteamID()].Killed = ResistanceStats[attacker:SteamID()].Killed + 1
 	end
-	if plyteam == TEAM_EARTHADMIN then
+
+	local demoteJobs = { TEAM_EARTHADMIN, TEAM_GMANCITY, TEAM_RESISTANCELEADER, TEAM_VORT }
+	if demoteJobs[plyteam] then
 		ChangeTeam( ply, 1, false, true )
-		HLU_Notify( nil, "The earth admin has been killed!", 0, 6, true )
-	elseif plyteam == TEAM_GMANCITY then
-		ChangeTeam( ply, 1, false, true )
-		HLU_Notify( nil, "The government man was caught spying and has been killed!", 0, 6, true )
-	elseif plyteam == TEAM_RESISTANCELEADER then
-		ChangeTeam( ply, 1, false, true )
-		HLU_Notify( nil, "A resistance leader has been killed!", 0, 6, true )
+		HLU_Notify( nil, ply:Nick().." has been killed!", 0, 6, true )
+		timer.Create( "JobCooldown"..plyteam..ply:SteamID(), 600, 1, function()
+			if IsValid( ply ) then
+				HLU_Notify( ply, "You can now play as the "..HLU_JOB[2][plyteam].Name.." job again.", 0, 6 )
+			end
+		end )
 	end
 end
 hook.Add( "PlayerDeath", "C17PlayerDeath", C17PlayerDeath )
@@ -167,5 +168,8 @@ hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 			HLU_Notify( ply, "Wait for the resistance to build up more before choosing this job", 1, 6 )
 			return false
 		end
+	elseif timer.Exists( "JobCooldown"..new..ply:SteamID() ) then
+		HLU_Notify( ply, "Wait for the cooldown to end before choosing this job again." )
+		return false
 	end
 end )
