@@ -250,15 +250,22 @@ local function DrawBuyMenu()
 		if v.Allowed and !v.Allowed( ply ) then
 			continue
 		end
-		local itembackground = vgui.Create( "DPanel", listframe )
+		local itembackground = vgui.Create( "DButton", listframe )
 		itembackground:SetPos( 0, 10 )
 		itembackground:SetSize( 450, 100 )
 		itembackground:Dock( TOP )
 		itembackground:DockMargin( 0, 0, 0, 10 )
 		itembackground:Center()
+		itembackground:SetText( "" )
 		itembackground.Paint = function( self, w, h )
 			surface.SetDrawColor( Color( 45, 45, 45 ) )
 			surface.DrawRect( 0, 0, w, h )
+		end
+		itembackground.DoClick = function()
+			net.Start( "BuyItemFromMenu" )
+			net.WriteString( k )
+			net.SendToServer()
+			mainframe:Close()
 		end
 
 		local mainbuttons = vgui.Create( "DButton", itembackground )
