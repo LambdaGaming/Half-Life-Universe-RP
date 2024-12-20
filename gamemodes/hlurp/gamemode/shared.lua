@@ -191,6 +191,10 @@ HLU_JOB_CATEGORY = {
 		{
 			Name = "Combine",
 			Color = Color( 5, 19, 30, 255 )
+		},
+		{
+			Name = "Neutral",
+			Color = color_green
 		}
 	}
 }
@@ -508,7 +512,7 @@ HLU_JOB = {
 			Models = civimodels,
 			Weapons = { "rphands", "mgs_pickaxe" },
 			Max = 0,
-			Category = "Rebels"
+			Category = "Neutral"
 		},
 		{
 			Name = "Resistance Leader",
