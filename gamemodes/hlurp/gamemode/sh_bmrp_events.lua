@@ -2,18 +2,37 @@ if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 
 if SERVER then
 	local NPCEventParticipants = {}
+	local NudgedEvent = 0
 
-	local function EndEvent( cooldown )
+	local function EndEvent()
 		SetGlobalBool( "EventActive", false )
-		SetGlobalBool( "EventCooldownActive", true )
-		timer.Simple( cooldown, function() SetGlobalBool( "EventCooldownActive", false ) end )
+		NudgedEvent = 0
 	end
 
-	util.AddNetworkString( "StartEvent" )
-	net.Receive( "StartEvent", function( len, ply )
+	timer.Create( "EventLoop", 1200, 0, function()
+		local rand = math.random( 1, #BMRP_EVENTS )
+		local chosen = NudgedEvent > 0 and NudgedEvent or rand
+		local found = false
+		for a,b in ipairs( player.GetAll() ) do
+			if b:Team() == BMRP_EVENTS[key].Required then
+				found = true
+			end
+		end
+		if found then
+			BMRP_EVENTS[key].OnSelect()
+			SetGlobalBool( "EventActive", true )
+		end
+	end )
+
+	util.AddNetworkString( "NudgeEvent" )
+	net.Receive( "NudgeEvent", function( len, ply )
 		local key = net.ReadInt( 8 )
-		BMRP_EVENTS[key].OnSelect()
-		SetGlobalBool( "EventActive", true )
+		if NudgedEvent > 0 then
+			HLU_Notify( ply, "Wait for the nudged event to happen before nudging another one.", 1, 6 )
+			return
+		end
+		NudgedEvent = key
+		HLU_Notify( ply, "You have nudged the "..BMRP_EVENTS[key].Name.." event.", 0, 6 )
 	end )
 
 	util.AddNetworkString( "GetTask" )
@@ -68,7 +87,6 @@ if SERVER then
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has malfunctioned! It won't be able to start up again until a custodian fixes it!" )
 		RunConsoleCommand( "vox", "deeoo deeoo alert main portal control failure" )
-		
 	end
 
 	function PortalFix()
@@ -103,7 +121,7 @@ if SERVER then
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator has been restarted!" )
 		RunConsoleCommand( "vox", "dadeda maintenance reports secondary _comma train power system inspection nominal" )
-		EndEvent( 1800 )
+		EndEvent()
 	end
 	-----------------------------------------------------------------
 	function MedicFaint()
@@ -138,7 +156,7 @@ if SERVER then
 		medic:AddFunds( 500 )
 		HLU_Notify( medic, "You have successfully revived your unresponsive colleague. (+500)", 0, 6 )
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The medical emergency has been located and dealt with!" )
-		EndEvent( 2700 )
+		EndEvent()
 	end
 	-----------------------------------------------------------------
 	local function XenBreachEndCheck()
@@ -153,7 +171,7 @@ if SERVER then
 		end
 		NPCEventParticipants = {}
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The security breach has been dealt with!" )
-		EndEvent( 2700 )
+		EndEvent()
 	end
 
 	function XenBreach()
@@ -214,7 +232,7 @@ if SERVER then
 			HLU_Notify( v, "You have been awarded $500 for helping cleanup the biohazard.", 0, 6 )
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The hazardous waste leak has been cleaned up!" )
-		EndEvent( 1800 )
+		EndEvent()
 	end
 
 	function Biohazard()
@@ -260,7 +278,7 @@ if SERVER then
 
 	function SecureCrystal()
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The lost crystal has been secured!" )
-		EndEvent( 1800 )
+		EndEvent()
 	end
 	-----------------------------------------------------------------
 	function ServerFailure()
@@ -282,7 +300,7 @@ if SERVER then
 	function FixServer()
 		hook.Remove( "BlockPCUsage" )
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The servers have been fixed and computers can be used again!" )
-		EndEvent( 1800 )
+		EndEvent()
 	end
 	-----------------------------------------------------------------
 	local bosses = {
@@ -301,7 +319,7 @@ if SERVER then
 		end
 		NPCEventParticipants = {}
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The large hostile life form has been killed!" )
-		EndEvent( 3600 )
+		EndEvent()
 	end
 
 	function Boss()
@@ -342,7 +360,7 @@ if SERVER then
 			HLU_Notify( v, "You have been awarded $500 for extinguishing a fire.", 0, 6 )
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The fire has been extinguished!" )
-		EndEvent( 1800 )
+		EndEvent()
 	end
 end
 

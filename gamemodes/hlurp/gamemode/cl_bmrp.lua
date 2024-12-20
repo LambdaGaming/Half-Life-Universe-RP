@@ -168,16 +168,7 @@ local function DrawEventMenu()
 	local gman = TEAM_GMAN
 	local admin = TEAM_ADMIN
 
-	if ply:Team() != TEAM_GMAN and ply:Team() != TEAM_ADMIN then return end
-	if plyteam == gman then
-		if GetGlobalBool( "EventActive" ) then
-			HLU_Notify( "Please wait until the current event ends before starting a new one.", 1, 6 )
-			return
-		elseif GetGlobalBool( "EventCooldownActive" ) then
-			HLU_Notify( "Please wait for the cooldown to end before starting a new event.", 1, 6 )
-			return
-		end
-	end
+	if ply:Team() != gman and ply:Team() != admin then return end
 
 	local mainframe = vgui.Create( "DFrame" )
 	if plyteam == gman then
@@ -266,19 +257,9 @@ local function DrawEventMenu()
 		end
 		mainbuttons.DoClick = function()
 			if plyteam == gman then
-				local found = false
-				for a,b in ipairs( player.GetAll() ) do
-					if b:Team() == v.Required then
-						found = true
-					end
-				end
-				if found then
-					net.Start( "StartEvent" )
-					net.WriteInt( k, 8 )
-					net.SendToServer()
-				else
-					HLU_Notify( "This event cannot be activated as there are no players currently working the affected job.", 1, 6 )
-				end
+				net.Start( "NudgeEvent" )
+				net.WriteInt( k, 8 )
+				net.SendToServer()
 			else
 				net.Start( "GetTask" )
 				net.WriteInt( k, 8 )
