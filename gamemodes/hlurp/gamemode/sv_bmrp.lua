@@ -125,11 +125,18 @@ local function MiscCommands( ply, text )
 end
 hook.Add( "PlayerSay", "BMRP_MiscCommands", MiscCommands )
 
---Remove Xen objects that trigger NPCs and cause other problems
 local function HairLoss()
 	if game.GetMap() == "rp_bmrf" then
+		--Remove Xen objects that trigger NPCs and cause other problems
 		for k,v in ipairs( ents.FindByClass( "xen_plantlight" ) ) do
 			v:Remove()
+		end
+
+		--Remove announcements that constantly repeat
+		local indexes = { 3345, 3346, 3347, 3348 }
+		for k,v in pairs( indexes ) do
+			local e = ents.GetMapCreatedEntity( v )
+			e:Remove()
 		end
 	end
 end
