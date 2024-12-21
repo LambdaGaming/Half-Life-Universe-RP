@@ -125,7 +125,7 @@ local function MiscCommands( ply, text )
 end
 hook.Add( "PlayerSay", "BMRP_MiscCommands", MiscCommands )
 
-local function HairLoss()
+local function MapMods()
 	if game.GetMap() == "rp_bmrf" then
 		--Remove Xen objects that trigger NPCs and cause other problems
 		for k,v in ipairs( ents.FindByClass( "xen_plantlight" ) ) do
@@ -140,7 +140,7 @@ local function HairLoss()
 		end
 	end
 end
-hook.Add( "InitPostEntity", "BMRP_HairLoss", HairLoss )
+hook.Add( "InitPostEntity", "BMRPMapMods", MapMods )
 
 function ToggleAlarm( forceon )
 	local alarmindex = {
@@ -344,5 +344,42 @@ hook.Add( "PlayerSpawn", "TeamSpawns", function( ply )
 	local spawns = TeamSpawns[map][category]
 	if spawns then
 		ply:SetPos( table.Random( spawns ) )
+	end
+end )
+
+--Start and stop AMS detection
+local offset = Vector( 0, 0, -50 )
+hook.Add( "AcceptInput", "AMSTrigger", function( ent, input, activator, caller, value )
+	if ent:MapCreationID() == 5243 then
+		if input == "Enable" then
+			timer.Create( "AMSTrigger", 0.5, 0, function()
+				local find = ents.FindInSphere( ent:GetPos() + offset, 100 )
+				for k,v in ipairs( find ) do
+					local c = v:GetClass()
+					if c == "crystal_pure" then
+						City17Map = v:GetNWString( "CType" )
+						local e = ents.Create( "env_explosion" )
+						e:SetPos( v:GetPos() )
+						e:Spawn()
+						e:Fire( "Explode" )
+						v:Remove()
+						Cascade()
+						break
+					elseif c == "bm_nuke" then
+						for k,v in ipairs( player.GetAll() ) do
+							v:SendLua( [[surface.PlaySound( "ambient/explosions/explode_6.wav" )]] )
+							v:ScreenFade( SCREENFADE.IN, color_white, 0.5, 10 )
+						end
+						timer.Simple( 5, function()
+							RunConsoleCommand( "changelevel", "gm_atomic" )
+						end )
+						v:Remove()
+						break
+					end
+				end
+			end )
+		elseif input == "Disable" then
+			timer.Remove( "AMSTrigger" )
+		end
 	end
 end )
