@@ -207,3 +207,7 @@ hook.Add( "EntityTakeDamage", "C17TakeDamage", function( ent, dmg )
 		SetLoyalty( ent, GetLoyalty( ent ) + 5 )
 	end
 end )
+
+hook.Add( "OnHandcuffed", "C17Handcuffed", function( ply, cuffedply, handcuffs )
+	SetLoyalty( cuffedply, GetLoyalty( cuffedply ) + 10 )
+end )
