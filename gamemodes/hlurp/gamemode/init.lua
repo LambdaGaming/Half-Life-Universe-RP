@@ -143,6 +143,7 @@ function ChangeTeam( ply, newteam, respawn, silent )
 			table.insert( ply.JModFriends, v )
 		end
 	end
+	hook.Run( "HLU_OnChangeJob", ply, newteam, oldteam )
 end
 
 util.AddNetworkString( "HLU_ChangeJob" )
@@ -317,6 +318,7 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 		HLU_Notify( ply, "Purchase failed. Maximum amount of this entity has been reached.", 1, 6 )
 		return
 	end
+	if item.SpawnCheck and item.SpawnCheck( ply ) == false then return end
 	if !item.SpawnFunction then
 		local e = ents.Create( key )
 		e:SetPos( tr.HitPos + tr.HitNormal )

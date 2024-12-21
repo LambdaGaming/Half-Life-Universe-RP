@@ -1,6 +1,21 @@
 if GetGlobalInt( "CurrentGamemode" ) != 2 then return end
 
-ResistanceStats = {}
+function SetLoyalty( ply, num )
+	local final = math.Clamp( num, 0, 100 )
+	ply:SetNWInt( "Loyalty", final )
+end
+
+function GetLoyalty( ply )
+	return ply:GetNWInt( "Loyalty" )
+end
+
+function AddKill( ply )
+	ply:SetNWInt( "Killed", ply:GetNWInt( "Killed" ) + 1 )
+end
+
+function GetKilled( ply )
+	return ply:GetNWInt( "Killed" )
+end
 
 --Restrictions for locked jobs
 hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
@@ -97,10 +112,13 @@ hook.Add( "InitPostEntity", "C17Generator", C17Generator )
 local function C17PlayerDeath( ply, inflictor, attacker )
 	local plyteam = ply:Team()
 	if attacker:IsPlayer() and ply:GetJobCategory() == "Combine" and attacker:GetJobCategory() == "Citizens" then
-		ResistanceStats[attacker:SteamID()].Killed = ResistanceStats[attacker:SteamID()].Killed + 1
+		AddKill( attacker )
+		SetLoyalty( attacker, GetLoyalty( attacker ) - 15 )
+	elseif ply:GetJobCategory() == "Citizens" then
+		SetLoyalty( ply, GetLoyalty( ply ) + 10 )
 	end
 
-	local demoteJobs = { TEAM_EARTHADMIN, TEAM_GMANCITY, TEAM_RESISTANCELEADER, TEAM_VORT }
+	local demoteJobs = { [TEAM_EARTHADMIN] = true, [TEAM_GMANCITY] = true, [TEAM_RESISTANCELEADER] = true, [TEAM_VORT] = true }
 	if demoteJobs[plyteam] then
 		ChangeTeam( ply, 1, false, true )
 		HLU_Notify( nil, ply:Nick().." has been killed!", 0, 6, true )
@@ -148,11 +166,12 @@ local function C17PlayerSpawn( ply )
 	if allowed[ply:Team()] then
 		ply:SetPos( table.Random( randpos ) )
 	end
-	if !ResistanceStats[ply:SteamID()] then
-		ResistanceStats[ply:SteamID()] = { Loyalty = 100, Killed = 0 }
-	end
 end
 hook.Add( "PlayerSpawn", "C17PlayerSpawn", C17PlayerSpawn )
+
+hook.Add( "PlayerInitialSpawn", "C17InitialSpawn", function( ply )
+	SetLoyalty( ply, 100 )
+end )
 
 hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 	local resistanceJobs = { [TEAM_RESISTANCELEADER] = true, [TEAM_COMBINEGUARD] = true, [TEAM_COMBINESOLDIER] = true }
@@ -161,15 +180,30 @@ hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 		return false
 	elseif resistanceJobs[new] then
 		local totalKilled = 0
-		for k,v in pairs( ResistanceStats ) do
-			totalKilled = totalKilled + v.Killed
+		for k,v in ipairs( player.GetAll() ) do
+			totalKilled = totalKilled + GetKilled( v )
 		end
 		if totalKilled < 5 then
 			HLU_Notify( ply, "Wait for the resistance to build up more before choosing this job", 1, 6 )
 			return false
 		end
+	elseif new == TEAM_RESISTANCELEADER and GetLoyalty( ply ) > 25 then
+		HLU_Notify( ply, "You need 25 loyalty or less to play as this job.", 1, 6 )
+		return false
 	elseif timer.Exists( "JobCooldown"..new..ply:SteamID() ) then
 		HLU_Notify( ply, "Wait for the cooldown to end before choosing this job again." )
 		return false
+	end
+end )
+
+hook.Add( "HLU_OnChangeJob", "C17ChangeJob", function( ply, new, old )
+	if ply:GetJobCategory() != "Citizens" then
+		SetLoyalty( ply, 100 )
+	end
+end )
+
+hook.Add( "EntityTakeDamage", "C17TakeDamage", function( ent, dmg )
+	if ent:IsPlayer() and dmg:GetAttacker():IsPlayer() and dmg:GetAttacker():GetActiveWeapon():GetClass() == "weapon_stunstick" and ent:GetJobCategory() == "Citizens" and dmg:GetAttacker():GetJobCategory() == "Combine" then
+		SetLoyalty( ent, GetLoyalty( ent ) + 5 )
 	end
 end )

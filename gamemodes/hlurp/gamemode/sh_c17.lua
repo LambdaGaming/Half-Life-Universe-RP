@@ -183,6 +183,12 @@ BuyMenuItems = {
 		Name = "Rebel Crafting Table",
 		Description = "Allows players to craft weapons, tools, traps, and ammo.",
 		Allowed = function( ply ) return ply:Team() == TEAM_CIVILIAN or ply:Team() == TEAM_RESISTANCELEADER end,
+		SpawnCheck = function( ply )
+			if GetLoyalty( ply ) > 90 then
+				HLU_Notify( ply, "You need to have no more than 90% loyalty to spawn the rebel crafting table.", 1, 6 )
+				return false
+			end
+		end,
 		SpawnFunction = function( ply, tr )
 			local e = ents.Create( "crafting_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
