@@ -354,6 +354,7 @@ hook.Add( "AcceptInput", "AMSTrigger", function( ent, input, activator, caller, 
 	if ent:MapCreationID() == 5243 then
 		if input == "Enable" then
 			timer.Create( "AMSTrigger", 0.5, 0, function()
+				if GetGlobalBool( "CascadeActive" ) then return end
 				local find = ents.FindInSphere( ent:GetPos() + offset, 100 )
 				for k,v in ipairs( find ) do
 					local c = v:GetClass()
