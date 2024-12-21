@@ -191,7 +191,7 @@ hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 		HLU_Notify( ply, "You need 25 loyalty or less to play as this job.", 1, 6 )
 		return false
 	elseif timer.Exists( "JobCooldown"..new..ply:SteamID() ) then
-		HLU_Notify( ply, "Wait for the cooldown to end before choosing this job again." )
+		HLU_Notify( ply, "Wait for the cooldown to end before choosing this job again.", 1, 6 )
 		return false
 	end
 end )
