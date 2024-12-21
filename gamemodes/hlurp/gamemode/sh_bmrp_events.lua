@@ -15,12 +15,12 @@ if SERVER then
 		local chosen = NudgedEvent > 0 and NudgedEvent or rand
 		local found = false
 		for k,v in ipairs( player.GetAll() ) do
-			if v:Team() == BMRP_EVENTS[key].Required then
+			if v:Team() == BMRP_EVENTS[chosen].Required then
 				found = true
 			end
 		end
 		if found then
-			BMRP_EVENTS[key].OnSelect()
+			BMRP_EVENTS[chosen].OnSelect()
 			SetGlobalBool( "EventActive", true )
 		end
 	end )
