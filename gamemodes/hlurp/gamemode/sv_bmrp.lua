@@ -303,8 +303,9 @@ local function Cascade() --Cascade activation function
 			e:SetAngles( rubblepos[i][2] )
 			e:Spawn()
 		end
-		Entity( 1153 ):Fire( "Press" )
-		Entity( 1155 ):Fire( "Press" )
+		ents.GetMapCreatedEntity( 3366 ):Fire( "Press" )
+		ents.GetMapCreatedEntity( 3364 ):Fire( "Press" )
+		ents.GetMapCreatedEntity( 3760 ):Fire( "Press" )
 	end
 	TramFailure( true )
 	SetGlobalBool( "CascadeActive", true )
