@@ -155,7 +155,7 @@ end
 hook.Add( "PlayerSpawn", "C17PlayerSpawn", C17PlayerSpawn )
 
 hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
-	local resistanceJobs = { TEAM_RESISTANCELEADER, TEAM_COMBINEGUARD, TEAM_COMBINESOLDIER }
+	local resistanceJobs = { [TEAM_RESISTANCELEADER] = true, [TEAM_COMBINEGUARD] = true, [TEAM_COMBINESOLDIER] = true }
 	if RestrictedJobs[new] then
 		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
 		return false
