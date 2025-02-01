@@ -214,11 +214,17 @@ hook.Add( "InitPostEntity", "BMRP_VehicleSpawn", BMRPVehicleSpawn )
 
 --Fund management functions
 local meta = FindMetaTable( "Player" )
+function meta:GetFunds()
+	return self:GetNWInt( "Funds" )
+end
+function meta:CanAfford( amount )
+	return self:GetFunds() >= amount
+end
 function meta:AddFunds( amount )
-	self:SetNWInt( "Funds", self:GetNWInt( "Funds" ) + amount )
+	self:SetNWInt( "Funds", self:GetFunds() + amount )
 end
 function meta:RemoveFunds( amount )
-	self:SetNWInt( "Funds", self:GetNWInt( "Funds" ) - amount )
+	self:SetNWInt( "Funds", self:GetFunds() - amount )
 end
 
 --Set initial player values
