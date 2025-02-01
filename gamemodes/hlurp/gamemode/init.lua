@@ -177,12 +177,12 @@ local function HLU_SpawnHook( ply )
 		ply:SetModel( table.Random( jobtable.Models ) )
 		if jobtable.IsCop then
 			ply:SetWalkSpeed( 200 )
-			ply:SetRunSpeed( 260 )
+			ply:SetRunSpeed( 270 )
 		else
 			ply:SetWalkSpeed( 180 )
-			ply:SetRunSpeed( 240 )
+			ply:SetRunSpeed( 250 )
 		end
-		ply:SetJumpPower( 150 )
+		ply:SetJumpPower( 170 )
 		if jobtable.SpawnFunction then
 			jobtable.SpawnFunction( ply )
 		end
