@@ -183,7 +183,7 @@ hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 		for k,v in ipairs( player.GetAll() ) do
 			totalKilled = totalKilled + GetKilled( v )
 		end
-		if totalKilled < 5 then
+		if totalKilled < 3 then
 			HLU_Notify( ply, "Wait for the resistance to build up more before choosing this job", 1, 6 )
 			return false
 		end
