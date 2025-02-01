@@ -218,13 +218,7 @@ function DropWeapon( ply )
 				HLU_Notify( ply, "You can't drop this weapon.", 1, 6 )
 				return
 			end
-			local model
-			local phys = wep:GetPhysicsObject()
-			if IsValid( phys ) then
-				model = wep:GetModel()
-			else
-				model = "models/weapons/w_rif_m4a1.mdl"
-			end
+			local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
 			local e = ents.Create( "hlu_dropped_weapon" )
 			e:SetPos( ply:GetPos() - Vector( forward.x, forward.y, -50 ) )
 			e:SetModel( model )
@@ -240,13 +234,7 @@ local function HLU_DropWeaponDeath( ply )
 		local wep = ply:GetActiveWeapon()
 		if IsValid( wep ) then
 			if DropBlacklist[wep:GetClass()] then return end
-			local model
-			local phys = wep:GetPhysicsObject()
-			if IsValid( phys ) then
-				model = wep:GetModel()
-			else
-				model = "models/weapons/w_rif_m4a1.mdl"
-			end
+			local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
 			local e = ents.Create( "hlu_dropped_weapon" )
 			e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )
 			e:SetModel( model )

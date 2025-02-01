@@ -16,6 +16,29 @@ if SERVER then
 		local phys = self:GetPhysicsObject()
 		if phys:IsValid() then
 			phys:Wake()
+		else
+			--Create a custom hitbox if the model doesnt have one (from gmod wiki)
+			local x0 = -20
+			local y0 = -10
+			local z0 = -1
+			local x1 = 20
+			local y1 = 10
+			local z1 = 1
+
+			self:PhysicsInitConvex( {
+				Vector( x0, y0, z0 ),
+				Vector( x0, y0, z1 ),
+				Vector( x0, y1, z0 ),
+				Vector( x0, y1, z1 ),
+				Vector( x1, y0, z0 ),
+				Vector( x1, y0, z1 ),
+				Vector( x1, y1, z0 ),
+				Vector( x1, y1, z1 )
+			} )
+			self:EnableCustomCollisions( true )
+
+			local phys = self:GetPhysicsObject()
+			phys:Wake()
 		end
 
 		self.DroppedClass = ""
