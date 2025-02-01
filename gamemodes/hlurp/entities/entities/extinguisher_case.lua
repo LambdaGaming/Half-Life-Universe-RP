@@ -22,19 +22,29 @@ function ENT:Initialize()
 	if phys:IsValid() then
 		phys:Wake()
 	end
+
+	--Fix for cases floating
+	self:SetPos( self:GetPos() + self:GetRight() * -10 )
 end
 
 function ENT:Use( ply )
 	if SERVER then
-		if self.used then
+		if ply:HasWeapon( "weapon_extinguisher" ) then
+			if self.used then
+				ply:StripWeapon( "weapon_extinguisher" )
+				HLU_Notify( ply, "You have placed the extinguisher back in the case.", 0, 6 )
+				self.used = false
+				return
+			else
+				HLU_Notify( ply, "You already have a fire extinguisher!", 1, 6 )
+				return
+			end
+		elseif self.used then
 			HLU_Notify( ply, "You open the extinguisher case but find nothing inside.", 1, 6 )
 			return
 		end
-		if ply:HasWeapon( "weapon_extinguisher" ) then
-			HLU_Notify( ply, "You already have a fire extinguisher!", 1, 6 )
-			return
-		end
 		ply:Give( "weapon_extinguisher" )
+		ply:SelectWeapon( "weapon_extinguisher" )
 		HLU_Notify( ply, "You have obtained a fire extinguisher.", 0, 6 )
 		self.used = true
 	end
