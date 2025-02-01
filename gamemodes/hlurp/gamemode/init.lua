@@ -197,15 +197,16 @@ local DropBlacklist = {
 	["weapon_keys"] = true,
 	["gmod_tool"] = true,
 	["gmod_camera"] = true,
-	["weapon_cuffed"] = true,
+	["weapon_handcuffed"] = true,
 	["swep_vortigaunt_beam"] = true,
 	["pocket"] = true,
 	["weapon_weapons_zombie"] = true,
-	["gman_teleporter"] = true,
+	["swep_gmanbriefcase"] = true,
 	["weapon_leash_police"] = true,
 	["trash_wep"] = true,
 	["broom"] = true,
-	["weapon_portal_pair"] = true
+	["weapon_portal_pair"] = true,
+	["weapon_ram"] = true
 }
 
 function DropWeapon( ply )

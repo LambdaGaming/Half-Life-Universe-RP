@@ -38,7 +38,11 @@ GLOBAL_WHITELIST = { --Global entity whitelist currently used by the trash swep 
 	["wrench"] = true,
 	["crystal_fragment"] = true,
 	["crystal_harvested"] = true,
-	["wood"] = true
+	["crystal_pure"] = true,
+	["wood"] = true,
+	["rp_food"] = true,
+	["rp_chips"] = true,
+	["rp_soda"] = true
 }
 
 HLU_GAMEMODE = {
