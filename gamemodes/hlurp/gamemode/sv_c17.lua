@@ -155,12 +155,12 @@ local function C17PlayerSpawn( ply )
 		}
 	elseif map == "rp_city24_v4" then
 		randpos = {
-			Vector( -812, 9107, -663 ),
-			Vector( -812, 8999, -663 ),
-			Vector( -922, 8998, -663 ),
-			Vector( -923, 9079, -663 ),
-			Vector( -1030, 9088, -663 ),
-			Vector( -1029, 8994, -663 )
+			Vector( 11826, 6758, 396 ),
+			Vector( 12797, 7408, 456 ),
+			Vector( 12787, 10481, 696 ),
+			Vector( 11644, 7893, 396 ),
+			Vector( 8935, 7139, 392 ),
+			Vector( 9234, 8502, 384 )
 		}
 	end
 	if allowed[ply:Team()] then
