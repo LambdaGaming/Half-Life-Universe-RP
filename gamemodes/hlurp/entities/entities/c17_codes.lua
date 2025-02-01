@@ -51,6 +51,7 @@ if SERVER then
 				RunConsoleCommand( "changelevel", "rp_mezs" )
 			end )
 			HLU_Notify( nil, "Codes uploading to core......2 minutes until citadel destruction.", 0, 10, true )
+			RestrictedJobs[TEAM_COMBINEELITE] = nil
 		end
 	end
 
