@@ -232,7 +232,7 @@ HLU_JOB = {
 			Max = 1,
 			Category = "Science",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "pistol" )
+				ply:GiveAmmo( 100, "pistol" )
 			end
 		},
 		{
@@ -244,7 +244,7 @@ HLU_JOB = {
 			Max = 3,
 			Category = "Science",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		},
 		{
@@ -306,7 +306,7 @@ HLU_JOB = {
 			Category = "Military",
 			SpawnFunction = function( ply )
 				ply:GiveAmmo( 50, "Buckshot" )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 30, "Pistol" )
 			end
 		},
 		{
@@ -318,8 +318,8 @@ HLU_JOB = {
 			Max = 1,
 			Category = "Military",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "Pistol" )
-				ply:GiveAmmo( 25, "357" )
+				ply:GiveAmmo( 100, "Pistol" )
+				ply:GiveAmmo( 20, "357" )
 			end
 		},
 		{
@@ -342,7 +342,7 @@ HLU_JOB = {
 			IsCop = true,
 			SpawnFunction = function( ply )
 				ply:GiveAmmo( 50, "Buckshot" )
-				ply:GiveAmmo( 25, "357" )
+				ply:GiveAmmo( 20, "357" )
 			end
 		},
 		{
@@ -355,7 +355,7 @@ HLU_JOB = {
 			Category = "Security",
 			IsCop = true,
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		}
 	},
@@ -378,7 +378,7 @@ HLU_JOB = {
 			Max = 1,
 			Category = "Citizens",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "smg1" )
+				ply:GiveAmmo( 100, "smg1" )
 			end
 		},
 		{
@@ -426,7 +426,7 @@ HLU_JOB = {
 			Max = 2,
 			Category = "Combine",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "AR2" )
+				ply:GiveAmmo( 100, "AR2" )
 			end
 		},
 		{
@@ -450,8 +450,8 @@ HLU_JOB = {
 			Max = 3,
 			Category = "Combine",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "bp_sniper" )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 25, "bp_sniper" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		},
 		{
@@ -477,7 +477,7 @@ HLU_JOB = {
 			Max = 4,
 			Category = "Combine",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "SMG1" )
+				ply:GiveAmmo( 100, "SMG1" )
 				ply:SetSkin( 0 )
 			end
 		},
@@ -491,7 +491,7 @@ HLU_JOB = {
 			Category = "Combine",
 			IsCop = true,
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		},
 		{
@@ -504,7 +504,7 @@ HLU_JOB = {
 			Category = "Combine",
 			IsCop = true,
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		}
 	},
@@ -528,7 +528,7 @@ HLU_JOB = {
 			Category = "Rebels",
 			IsCop = true,
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "SMG1" )
+				ply:GiveAmmo( 100, "SMG1" )
 			end
 		},
 		{
@@ -557,7 +557,7 @@ HLU_JOB = {
 			Category = "Rebels",
 			IsCop = true,
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "SMG1" )
+				ply:GiveAmmo( 100, "SMG1" )
 			end
 		},
 		{
@@ -585,7 +585,7 @@ HLU_JOB = {
 			Max = 3,
 			Category = "Rebels",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		},
 		{
@@ -597,7 +597,7 @@ HLU_JOB = {
 			Max = 2,
 			Category = "Combine",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "AR2" )
+				ply:GiveAmmo( 100, "AR2" )
 			end
 		},
 		{
@@ -609,8 +609,8 @@ HLU_JOB = {
 			Max = 3,
 			Category = "Combine",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "bp_sniper" )
-				ply:GiveAmmo( 25, "Pistol" )
+				ply:GiveAmmo( 25, "bp_sniper" )
+				ply:GiveAmmo( 50, "Pistol" )
 			end
 		},
 		{
@@ -622,7 +622,7 @@ HLU_JOB = {
 			Max = 0,
 			Category = "Combine",
 			SpawnFunction = function( ply )
-				ply:GiveAmmo( 50, "SMG1" )
+				ply:GiveAmmo( 100, "SMG1" )
 				ply:SetSkin( 0 )
 			end
 		},
