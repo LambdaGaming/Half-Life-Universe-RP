@@ -126,3 +126,12 @@ hook.Add( "PlayerLeaveVehicle", "OutlandVehicleLeave", function( ply, veh )
 		end )
 	end
 end )
+
+hook.Add( "OnEntityCreated", "OutlandEntityCreated", function( ent )
+	timer.Simple( 1, function()
+		if IsValid( ent ) and ent:GetClass() == "ent_jack_gmod_ezsentry" then
+			ent.MaxDurability = 50
+			ent.Durability = 50
+		end
+	end )
+end )
