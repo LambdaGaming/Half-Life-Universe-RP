@@ -65,7 +65,8 @@ if SERVER then
 else
 	local offset = Vector( -6, 0, -30 )
 	function ENT:Draw()
+		local p = ( self:Health() / 5000 ) * 100
 		self:DrawModel()
-		self:DrawNPCText( "Central Core", offset )
+		self:DrawNPCText( "Central Core - "..p.."%", offset )
 	end
 end
