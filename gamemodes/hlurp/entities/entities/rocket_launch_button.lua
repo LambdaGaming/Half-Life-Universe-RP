@@ -15,8 +15,7 @@ if SERVER then
 		self:SetMoveType( MOVETYPE_VPHYSICS )
 		self:SetSolid( SOLID_VPHYSICS )
 		self:SetUseType( SIMPLE_USE )
-		local phys = self:GetPhysicsObject()
-		phys:Wake()
+		self:PhysWake()
 		
 		self.light = ents.Create( "light_dynamic" )
 		self.light:SetPos( self:GetPos() )
@@ -28,8 +27,8 @@ if SERVER then
 	end
 
 	function ENT:Use( ply )
-		if timer.Exists( "OutlandTimer" ) then
-			HLU_Notify( ply, "The rocket isn't ready to be launched yet!", 1, 6 )
+		if !self.HasKey then
+			HLU_Notify( ply, "You need to craft a key and insert it here to be able to launch the rocket!", 1, 6 )
 			return
 		end
 		if ply:GetJobCategory() == "Combine" then

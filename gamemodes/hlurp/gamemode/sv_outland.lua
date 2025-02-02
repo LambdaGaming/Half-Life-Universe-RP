@@ -1,14 +1,5 @@
 if GetGlobalInt( "CurrentGamemode" ) != 3 then return end
 
---Ceasefire timers
-timer.Create( "OutlandTimer", 1800, 1, function()
-	local endmessage = "The rocket is fully prepped and ready for launch!"
-	HLU_ChatNotifySystem( "Outland RP", color_green, endmessage )
-	HLU_Notify( nil, endmessage, 0, 6, true )
-	local button = ents.FindByClass( "rocket_launch_button" )[1]
-	button.light:SetKeyValue( "_light", "0 255 0 255" )
-end )
-
 timer.Create( "CombineVictory", 5400, 1, function()
 	local msg = "The rebels failed to close the portal in time! The Combine invasion has started!"
 	HLU_ChatNotifySystem( "Outland RP", color_green, msg )
