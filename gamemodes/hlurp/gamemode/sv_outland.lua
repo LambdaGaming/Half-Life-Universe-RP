@@ -16,9 +16,12 @@ timer.Create( "CombineVictory", 5400, 1, function()
 	RunConsoleCommand( "blowout_enabled", "1" )
 	RunConsoleCommand( "blowout_trigger_delayed", 300 )
 	timer.Simple( 151, function()
-		for k,v in ipairs( player.GetAll() ) do
-			v:Kick( "\n--END OF SESSION--\nCombine victory ending chosen, server shutting down.\nThanks for playing!" )
-		end
+		HLU_ChatNotifySystem( "Outland RP", color_green, "The session has ended in Combine victory! The server will close in 1 minute. Thanks for playing!" )
+		timer.Simple( 60, function()
+			for k,v in ipairs( player.GetAll() ) do
+				v:Kick( "\n--END OF SESSION--\nThe Combine successfully re-opened the portal and Earth was invaded once again. The remaining rebels stood little chance, and humanity was wiped out for good.\nThanks for playing!" )
+			end
+		end )
 	end )
 end )
 

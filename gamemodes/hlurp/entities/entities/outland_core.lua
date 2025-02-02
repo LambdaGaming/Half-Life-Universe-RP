@@ -41,9 +41,12 @@ if SERVER then
 		HLU_ChatNotifySystem( "Outland RP", color_green, "Combine base infilatrated......2 minutes until portal closes." )
 		HLU_Notify( nil, "Combine base infilatrated......2 minutes until portal closes.", 0, 10, true )
 		timer.Create( "KickTimer", 151, 1, function()
-			for k,v in ipairs( player.GetAll() ) do
-				v:Kick( "\n--END OF SESSION--\nBase destruction ending chosen, server shutting down.\nThanks for playing!" )
-			end
+			HLU_ChatNotifySystem( "Outland RP", color_green, "The session has ended in Rebel victory! The server will close in 1 minute. Thanks for playing!" )
+			timer.Simple( 60, function()
+				for k,v in ipairs( player.GetAll() ) do
+					v:Kick( "\n--END OF SESSION--\nThe rebels have destroyed the Combine base and wiped out its remaining forces. There's nobody left to call for help. Humanity has won.\nThanks for playing!" )
+				end
+			end )
 		end )
 		timer.Remove( "CombineVictory" )
 	end
