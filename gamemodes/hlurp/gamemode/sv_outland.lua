@@ -1,5 +1,9 @@
 if GetGlobalInt( "CurrentGamemode" ) != 3 then return end
 
+timer.Create( "CombineCooldown", 1800, 1, function()
+	HLU_ChatNotifySystem( "Outland RP", color_green, "The Combine have obtained more powerful vehicles!" )
+end )
+
 timer.Create( "CombineVictory", 5400, 1, function()
 	local msg = "The rebels failed to close the portal in time! The Combine invasion has started!"
 	HLU_ChatNotifySystem( "Outland RP", color_green, msg )
