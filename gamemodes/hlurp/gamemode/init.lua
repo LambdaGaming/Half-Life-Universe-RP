@@ -116,6 +116,10 @@ function ChangeTeam( ply, newteam, respawn, silent )
 		HLU_Notify( ply, "All slots are filled for this job.", 1, 6 )
 		return
 	end
+	if ply:GetNWBool( "GMAN_BF" ) then
+		HLU_Notify( ply, "Exit your Gman state before changing jobs.", 1, 6 )
+		return
+	end
 	if hook.Run( "HLU_CanChangeJobs", ply, newteam, oldteam ) == false then return end
 
 	ply:SetNWString( "RPJob", false )
