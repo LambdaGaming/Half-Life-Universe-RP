@@ -107,14 +107,16 @@ hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
 	if split[1]:lower() == "/y" then
 		for k,v in ipairs( ents.FindInSphere( ply:GetPos(), 500 ) ) do
 			if v:IsPlayer() then
-				HLU_ChatNotify( v, "Yell", ply:GetJobColor(), string.Right( text, 4 ), false, ply )
+				local msg = string.Right( string.len( text ) - 3 )
+				HLU_ChatNotify( v, "Yell", ply:GetJobColor(), msg, false, ply )
 			end
 		end
 		return ""
 	elseif split[1]:lower() == "/w" then
 		for k,v in ipairs( ents.FindInSphere( ply:GetPos(), 100 ) ) do
 			if v:IsPlayer() then
-				HLU_ChatNotify( v, "Whisper", ply:GetJobColor(), string.Right( text, 4 ), false, ply )
+				local msg = string.Right( string.len( text ) - 3 )
+				HLU_ChatNotify( v, "Whisper", ply:GetJobColor(), msg, false, ply )
 			end
 		end
 		return ""
