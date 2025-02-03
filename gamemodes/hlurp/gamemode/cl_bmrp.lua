@@ -172,7 +172,7 @@ local function DrawEventMenu()
 
 	local mainframe = vgui.Create( "DFrame" )
 	if plyteam == gman then
-		mainframe:SetTitle( "Select an event to start:" )
+		mainframe:SetTitle( "Select an event to nudge:" )
 	else
 		mainframe:SetTitle( "Select a task to assign:" )
 	end
@@ -304,3 +304,49 @@ local function HLUButtons( ply, button )
 	end
 end
 hook.Add( "PlayerButtonDown", "OpenEventMenu", HLUButtons )
+
+local spawns = {
+	{ "Remain at Main Entrance", color_white },
+	{ "Level 1 Facility Entrance", Color( 127, 0, 95 ) },
+	{ "Level 3 Dormitories", color_blue },
+	{ "Area 3 Security", Color( 180, 180, 0 ) },
+	{ "Sector C Test Labs", Color( 0, 127, 31 ) },
+	{ "Sector D Administration", Color( 180, 0, 0 ) },
+	{ "Sector E Biodome Complex", color_cyan },
+	{ "Sector F Lambda Complex", color_orange }
+}
+local function ChangeSpawn( index )
+	net.Start( "SelectSpawnMenu" )
+	net.WriteInt( index, 6 )
+	net.SendToServer()
+end
+
+net.Receive( "SelectSpawnMenu", function()
+	local main = vgui.Create( "DFrame" )
+	main:SetTitle( "Select Spawn Point" )
+	main:SetSize( 300, 505 )
+	main:Center()
+	main:MakePopup()
+	main.Paint = function( self, w, h )
+		draw.RoundedBox( 5, 0, 0, w, h, themecolor )
+	end
+
+	for k,v in ipairs( spawns ) do
+		local btn = vgui.Create( "DButton", main )
+		btn:SetText( v[1] )
+		btn:SetTextColor( IsDarkColor( v[2] ) and color_white or color_black )
+		btn:SetFont( "JobTitle" )
+		btn:Dock( TOP )
+		btn:SetSize( nil, 50 )
+		btn:DockMargin( 0, 0, 0, 10 )
+		btn.Paint = function( self, w, h )
+			draw.RoundedBox( 10, 0, 0, w, h, v[2] )
+		end
+		btn.DoClick = function()
+			main:Close()
+			if k > 1 then
+				ChangeSpawn( k )
+			end
+		end
+	end
+end )

@@ -30,7 +30,7 @@ function GM:DrawDeathNotice()
 end
 
 --Luminance calculator
-local function IsDarkColor( color )
+function IsDarkColor( color )
 	return 0.2126 * color.r + 0.7152 * color.g + 0.0722 * color.b < 255 / 3
 end
 

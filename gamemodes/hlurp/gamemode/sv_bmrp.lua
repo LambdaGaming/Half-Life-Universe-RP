@@ -318,40 +318,34 @@ local function Cascade() --Cascade activation function
 end
 concommand.Add( "cascade", Cascade )
 
+--Spawn selection
 local TeamSpawns = {
 	["rp_bmrf"] = {
-		["Administration"] = {
-			Vector( 271, 2724, -64 ),
-			Vector( 802, -3720, 400 )
-		},
-		["Science"] = {
-			Vector( -4295, 2539, -63 ),
-			Vector( -964, -3816, -1440 ),
-			Vector( -1697, -992, 352 ),
-			Vector( 730, 228, -64 ),
-			Vector( -9260, -1520, -64 )
-		},
-		["Security"] = {
-			Vector( 3789, -509, -64 ),
-			Vector( 5194, 344, 0 )
-		},
-		["Military"] = {
-			Vector( 3772, -1268, 701 ),
-			Vector( 4418, -910, 704 )
-		},
-		["Utility"] = {
-			Vector( 5572, -4657, 64 ),
-			Vector( -6032, -102, -112 )
-		}
+		Vector( -7783, -1857, -64 ), --Level 1 Facility Entrance
+		Vector( 5282, -5531, 352 ), --Level 3 Dormitories
+		Vector( 3384, -333, -64 ), --Area 3 Security
+		Vector( -4301, 3371, -64 ), --Sector C Test Labs
+		Vector( -947, 2752, -64 ), --Sector D Administration
+		Vector( 940, 623, -64 ), --Sector E Biodome Complex
+		Vector( -963, -3618, -1440 ), --Sector F Lambda Complex
+		Vector( 4265, -550, 704 ) --HECU spawn during cascade, should always be last
 	}
 }
+util.AddNetworkString( "SelectSpawnMenu" )
 hook.Add( "PlayerSpawn", "TeamSpawns", function( ply )
 	local map = game.GetMap()
 	local category = ply:GetJobCategory()
-	local spawns = TeamSpawns[map][category]
-	if spawns then
-		ply:SetPos( table.Random( spawns ) )
+	if category == "Military" then
+		ply:SetPos( TeamSpawns[map][#TeamSpawns[map]] )
+		return
 	end
+	net.Start( "SelectSpawnMenu" )
+	net.Send( ply )
+end )
+net.Receive( "SelectSpawnMenu", function( len, ply )
+	local index = net.ReadInt( 6 )
+	local map = game.GetMap()
+	ply:SetPos( TeamSpawns[map][index - 1] )
 end )
 
 --Start and stop AMS detection
