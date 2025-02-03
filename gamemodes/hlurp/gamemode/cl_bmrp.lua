@@ -343,6 +343,7 @@ net.Receive( "SelectSpawnMenu", function()
 			draw.RoundedBox( 10, 0, 0, w, h, v[2] )
 		end
 		btn.DoClick = function()
+			surface.PlaySound( "buttons/button16.wav" )
 			main:Close()
 			if k > 1 then
 				ChangeSpawn( k )
