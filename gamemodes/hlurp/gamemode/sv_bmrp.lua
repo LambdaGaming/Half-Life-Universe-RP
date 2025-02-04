@@ -386,6 +386,61 @@ hook.Add( "AcceptInput", "AMSTrigger", function( ent, input, activator, caller, 
 	end
 end )
 
+local positions = {
+	["rp_bmrf"] = {
+		Vector( 1002, -4873, 224 ), -- Main enterance S.F
+		Vector( -460, -4292, 352 ), -----------------------------------
+		Vector( -173, -6046, 352 ), -- Vending machines outside tram S.F
+		Vector( -566, -3710, 352 ), -- S.F Interior Hallway
+		Vector( -1147, -3717, 352 ), -- S.F Fountain
+		Vector( -1471, -2581, 352 ), -- S.F Labs
+		Vector( -1793, -2400, 352 ),
+		Vector( -986, -1188, 352 ),
+		Vector( -425, -952, 352 ), -------------------------------------
+		Vector( -2639, -1352, 496 ), -- S.F, S.E Stairwell
+		Vector( -2064, -1327, 64 ), ------------------------------------
+		Vector( -1712, -1507, 64 ), -- S.E Labs
+		Vector( -1069, -1321, 64 ),
+		Vector( 94, -1657, 64 ),
+		Vector( -86, -1014, 64 ),
+		Vector( 220, -604, 64 ), ---------------------------------------
+		Vector( 14, 414, 0 ), -- S.E Tram
+		Vector( 3319, -592, -64 ), -- A3 Tram
+		Vector( 4295, -428, -64 ), -- A3
+		Vector( 5395, -5341, 352 ), -- L3 Dorms Tram
+		Vector( 5674, -5813, 352 ), -- L3D Main Area
+		Vector( 6241, -5817, 352 ),
+		Vector( 7710, -5472, 352 ), --------------------------------------
+		Vector( 8850, -4831, 192 ), -- L3 Dorms
+		Vector( 8618, -4811, 176 ), ---------------------------------------
+		Vector( -929, 3215, -64 ), -- S.D Tram
+		Vector( -957, 2522, -64 ), -----------------------------------------
+		Vector( -4480, 2604, -64 ), -- S.C Main
+		Vector( -4050, 2420, -64 ),
+		Vector( -5705, -815, -112 ),
+		Vector( -5000, -897, -112 ), ----------------------------------------
+		Vector( -9155, -1780, 704 ), -- Surface LVL1
+		Vector( -9350, -1826, -64 ), -- LVL1
+		Vector( -7761, -2135, -64 )
+
+	}
+}
+
+local currentMap = game.GetMap()
+
+local function spawnTrash() -- Thank you OP for tidying this up!
+	for k,v in ipairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
+		--Make sure no players, NPCs, or trash_ents are nearby
+		if v:IsPlayer() or v:IsNPC() or v:GetClass() == "trash_ent" then
+			return
+		end
+	end
+
+	local e = ents.Create( "trash_ent" ) --Initializes a new entity, but does not spawn it by itself
+	e:SetPos( table.Random( positions[currentMap] ) )
+	e:Spawn()
+end
+
 hook.Add( "InitPostEntity", "bTrashEnt", function()
 	timer.Create( "ItemSpawner"..self:EntIndex(), 300, 0, spawnTrash )
 end )
