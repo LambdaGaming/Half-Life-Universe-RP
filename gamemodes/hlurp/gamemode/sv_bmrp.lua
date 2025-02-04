@@ -385,3 +385,7 @@ hook.Add( "AcceptInput", "AMSTrigger", function( ent, input, activator, caller, 
 		end
 	end
 end )
+
+hook.Add( "InitPostEntity", "bTrashEnt", function()
+	timer.Create( "ItemSpawner"..self:EntIndex(), 300, 0, spawnTrash )
+end )
