@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
-ENT.PrintName = "Trash Entity"
+ENT.PrintName = "Trash Spawn"
 ENT.Author = "Brill Baker"
 ENT.Spawnable = true
 ENT.AdminOnly = true
@@ -38,10 +38,9 @@ if SERVER then
 		self:EmitSound( table.Random(sound) )
 
 		local phys = self:GetPhysicsObject()
-			if phys:IsValid() then
+		if phys:IsValid() then
 			phys:Wake()
-			end
-
+		end
 	end
     
 	function ENT:Use( activator, caller )
@@ -51,7 +50,7 @@ if SERVER then
 	function ENT:OnTakeDamage( dmg )
 		if dmg:GetAttacker():IsPlayer() then
 			local wep = dmg:GetAttacker():GetActiveWeapon()
-			if wep:GetClass() == "Trash Bag" then
+			if wep:GetClass() == "trash_wep" then
 				self:SetHealth( self:Health() - 3 )
 			end
 			if self:Health() <= 0 or dmg:IsDamageType( DMG_BLAST ) then
