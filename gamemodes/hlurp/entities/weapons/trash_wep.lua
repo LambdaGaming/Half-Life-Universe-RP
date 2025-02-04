@@ -35,3 +35,11 @@ function SWEP:PrimaryAttack()
 	end
     self:SetNextPrimaryFire( CurTime() + 1 )
 end
+
+function SWEP:SecondaryAttack() -- For spawnTrash functionality
+	if !IsFirstTimePredicted() or CLIENT then return end
+	local tr = self.Owner:GetEyeTrace().Entity
+	if self.Owner:GetPos():DistToSqr( tr:GetPos()) > 90000 then return end
+	if tr:GetClass() == "spawnTrash" then tr:TakeDamage(10) end
+	self:SetNextSecondaryFire( CurTime() + 1 )
+end
