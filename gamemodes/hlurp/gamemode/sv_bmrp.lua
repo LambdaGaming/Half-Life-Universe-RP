@@ -431,12 +431,12 @@ local currentMap = game.GetMap()
 local function spawnTrash() -- Thank you OP for tidying this up!
 	for k,v in ipairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
 		--Make sure no players, NPCs, or trash_ents are nearby
-		if v:IsPlayer() or v:IsNPC() or v:GetClass() == "trashSpawn" then
+		if v:IsPlayer() or v:IsNPC() or v:GetClass() == "spawnTrash" then
 			return
 		end
 	end
 
-	local e = ents.Create( "trashSpawn" ) --Initializes a new entity, but does not spawn it by itself
+	local e = ents.Create( "spawnTrash" ) --Initializes a new entity, but does not spawn it by itself
 	e:SetPos( table.Random( positions[currentMap] ) )
 	e:Spawn()
 end
