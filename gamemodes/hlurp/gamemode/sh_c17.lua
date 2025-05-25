@@ -167,15 +167,13 @@ BuyMenuItems = {
 	},
 	["crafting_table_combine"] = {
 		Name = "Combine Crafting Table",
-		RealClass = "crafting_table",
 		Description = "Allows players to craft turrets and science locker keys.",
 		Allowed = function( ply ) return ply:Team() == TEAM_EARTHADMIN or ply:Team() == TEAM_SCIENTIST end,
 		SpawnFunction = function( ply, tr )
-			local e = ents.Create( "crafting_table" )
+			local e = ents.Create( "ucs_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
+			e:SetTableType( "combine" )
 			e:Spawn()
-			e:SetTableType( 4 )
-			e:SetMaterial( "phoenix_storms/FuturisticTrackRamp_1-2" )
 			return e
 		end
 	},
@@ -190,10 +188,10 @@ BuyMenuItems = {
 			end
 		end,
 		SpawnFunction = function( ply, tr )
-			local e = ents.Create( "crafting_table" )
+			local e = ents.Create( "ucs_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
 			e:Spawn()
-			e:SetTableType( 1 )
+			e:SetTableType( "rebel" )
 			return e
 		end
 	}

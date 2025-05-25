@@ -34,12 +34,11 @@ GLOBAL_WHITELIST = { --Global entity whitelist currently used by the trash swep 
 	["organic_matter_rare"] = true,
 	["xen_iron"] = true,
 	["xen_iron_refined"] = true,
-	["ironbar"] = true,
-	["wrench"] = true,
+	["ucs_iron"] = true,
 	["crystal_fragment"] = true,
 	["crystal_harvested"] = true,
 	["crystal_pure"] = true,
-	["wood"] = true,
+	["ucs_wood"] = true,
 	["rp_food"] = true,
 	["rp_chips"] = true,
 	["rp_soda"] = true
@@ -228,7 +227,7 @@ HLU_JOB = {
 			Link = "headofsurveyteam",
 			Color = color_orange,
 			Models = { "models/jheviv/jhevmk4.mdl" },
-			Weapons = { "weapon_stunstick", "weapon_9mmar", "mgs_pickaxe" },
+			Weapons = { "weapon_stunstick", "weapon_9mmar", "weapon_hl2pickaxe" },
 			Max = 1,
 			Category = "Science",
 			SpawnFunction = function( ply )
@@ -240,7 +239,7 @@ HLU_JOB = {
 			Link = "surveymember",
 			Color = color_orange,
 			Models = { "models/jheviv/jhevmk4.mdl" },
-			Weapons = { "weapon_stunstick", "weapon_9mmhandgun", "mgs_pickaxe" },
+			Weapons = { "weapon_stunstick", "weapon_9mmhandgun", "weapon_hl2pickaxe" },
 			Max = 3,
 			Category = "Science",
 			SpawnFunction = function( ply )
@@ -365,7 +364,7 @@ HLU_JOB = {
 			Link = "citizen",
 			Color = color_green,
 			Models = civimodels,
-			Weapons = { "rphands", "mgs_pickaxe" },
+			Weapons = { "rphands", "weapon_hl2pickaxe" },
 			Max = 0,
 			Category = "Citizens"
 		},
@@ -395,7 +394,7 @@ HLU_JOB = {
 			Link = "vortigaunt",
 			Color = Color( 83, 107, 47, 255 ),
 			Models = { "models/CS/Playermodels/vortigaunt.mdl" },
-			Weapons = { "swep_vortigaunt_beam", "mgs_pickaxe" },
+			Weapons = { "swep_vortigaunt_beam", "weapon_hl2pickaxe" },
 			Max = 2,
 			Category = "Neutral"
 		},
@@ -514,7 +513,7 @@ HLU_JOB = {
 			Link = "refugee",
 			Color = Color( 28, 54, 9, 255 ),
 			Models = civimodels,
-			Weapons = { "rphands", "mgs_pickaxe" },
+			Weapons = { "rphands", "weapon_hl2pickaxe" },
 			Max = 0,
 			Category = "Neutral"
 		},
@@ -552,7 +551,7 @@ HLU_JOB = {
 				"models/player/Group03/male_08.mdl",
 				"models/player/Group03/male_09.mdl"
 			},
-			Weapons = { "rphands", "weapon_smg1", "mgs_pickaxe" },
+			Weapons = { "rphands", "weapon_smg1", "weapon_hl2pickaxe" },
 			Max = 0,
 			Category = "Rebels",
 			IsCop = true,
@@ -581,7 +580,7 @@ HLU_JOB = {
 				"models/player/Group03m/female_05.mdl",
 				"models/player/Group03m/female_06.mdl"
 			},
-			Weapons = { "weapon_pistol", "rphands", "mgs_pickaxe", "weapon_medkit" },
+			Weapons = { "weapon_pistol", "rphands", "weapon_hl2pickaxe", "weapon_medkit" },
 			Max = 3,
 			Category = "Rebels",
 			SpawnFunction = function( ply )

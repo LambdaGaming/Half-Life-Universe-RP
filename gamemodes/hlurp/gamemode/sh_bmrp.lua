@@ -64,12 +64,10 @@ BuyMenuItems = {
 		Max = 2,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end,
 		SpawnFunction = function( ply, tr )
-			local e = ents.Create( "crafting_table" )
+			local e = ents.Create( "ucs_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
-			e:SetTableType( 2 )
+			e:SetTableType( "bio" )
 			e:Spawn()
-			e:SetModel( "models/props_phx/construct/windows/window_angle360.mdl" )
-			e.CraftSound = "debris/beamstart7.wav"
 			local portal = ents.Create("env_sprite")
 			portal:SetPos( e:GetPos() + Vector( 0, 0, 35 ) )
 			portal:SetKeyValue("model", "sprites/exit1_anim.vmt")
@@ -90,9 +88,9 @@ BuyMenuItems = {
 		Max = 2,
 		Allowed = function( ply ) return ply:Team() == TEAM_WEPBOSS end,
 		SpawnFunction = function( ply, tr )
-			local e = ents.Create( "crafting_table" )
+			local e = ents.Create( "ucs_table" )
 			e:SetPos( tr.HitPos + tr.HitNormal )
-			e:SetTableType( 3 )
+			e:SetTableType( "wep" )
 			e:Spawn()
 			return e
 		end

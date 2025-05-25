@@ -18,7 +18,14 @@ BuyMenuItems = {
 	["crafting_table"] = {
 		Name = "Rebel Crafting Table",
 		Description = "Allows players to craft weapons, tools, traps, and ammo.",
-		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end
+		Allowed = function( ply ) return ply:GetJobCategory() == "Rebels" end,
+		SpawnFunction = function( ply, tr )
+			local e = ents.Create( "ucs_table" )
+			e:SetPos( tr.HitPos + tr.HitNormal )
+			e:SetTableType( "rebel" )
+			e:Spawn()
+			return e
+		end
 	},
 	["item_healthcharger"] = {
 		Name = "Mounted Healing Unit",
