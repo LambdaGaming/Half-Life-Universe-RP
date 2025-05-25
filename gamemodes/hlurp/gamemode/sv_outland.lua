@@ -1,5 +1,14 @@
 if GetGlobalInt( "CurrentGamemode" ) != 3 then return end
 
+function GetLoyalty( ply )
+	if ply:GetJobCategory() == "Combine" then
+		return 100
+	elseif ply:GetJobCategory() == "Rebels" then
+		return 0
+	end
+	return 50
+end
+
 timer.Create( "CombineCooldown", 1800, 1, function()
 	HLU_ChatNotifySystem( "Outland RP", color_green, "The Combine have obtained more powerful vehicles!" )
 end )
