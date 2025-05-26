@@ -18,7 +18,8 @@ MineableEntity["crystal"] = {
 	Models = { "models/decay/props/orange_crystal.mdl" },
 	Tools = { ["weapon_hl2pickaxe"] = 15, ["weapon_crowbar"] = 8 },
 	Drops = { ["xen_iron"] = 100, ["crystal_pure"] = 5, ["crystal_harvested"] = 40 },
-	MaxSpawn = 5
+	MaxSpawn = 5,
+	TextOffset = Vector( 0, 0, 50 )
 }
 
 MineableEntity["xen_tree"] = {
@@ -26,14 +27,16 @@ MineableEntity["xen_tree"] = {
 	Models = { "models/decay/props/alien_tree.mdl" },
 	Tools = { ["weapon_hl2pickaxe"] = 15, ["weapon_crowbar"] = 8 },
 	Drops = { ["organic_matter"] = 100, ["organic_matter_rare"] = 10 },
-	MaxSpawn = 1
+	MaxSpawn = 1,
+	TextOffset = Vector( 50, 0, 20 )
 }
 
 MineableEntity["tree"] = {
 	Name = "Tree",
 	Models = { "models/props/CS_militia/tree_large_militia.mdl" },
 	Tools = { ["weapon_hl2pickaxe"] = 15, ["weapon_crowbar"] = 8 },
-	Drops = { ["ucs_wood"] = 100 }
+	Drops = { ["ucs_wood"] = 100 },
+	TextOffset = Vector( 40, 0, -650 )
 }
 
 CraftingTable["rebel"] = {
@@ -129,6 +132,24 @@ CraftingRecipe["weapon_crowbar"] = {
 	Loyalty = 75,
 	Types = { ["rebel"] = true },
 	Materials = { ["ucs_iron"] = 2 }
+}
+
+CraftingRecipe["weapon_hl2pipe"] = {
+	Name = "Pipe",
+	Description = "Requires 2 iron and 75 or less Combine loyalty.",
+	Category = "Tools",
+	Loyalty = 75,
+	Types = { ["rebel"] = true },
+	Materials = { ["ucs_iron"] = 2 }
+}
+
+CraftingRecipe["weapon_hl2pan"] = {
+	Name = "Frying Pan",
+	Description = "Requires 5 iron and 75 or less Combine loyalty.",
+	Category = "Tools",
+	Loyalty = 75,
+	Types = { ["rebel"] = true },
+	Materials = { ["ucs_iron"] = 5 }
 }
 
 CraftingRecipe["weapon_smg1"] = {
