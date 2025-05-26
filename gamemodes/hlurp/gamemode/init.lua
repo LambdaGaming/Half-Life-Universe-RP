@@ -339,7 +339,8 @@ hook.Add( "PlayerDeath", "ZombifyPlayer", function( ply, inflictor, attacker )
 	local allowed = {
 		npc_headcrab = true,
 		npc_headcrab_fast = true,
-		npc_headcrab_black = true
+		npc_headcrab_black = true,
+		npc_vj_hlr1_headcrab = true
 	}
 	if allowed[attacker:GetClass()] and !ply.IsZombie then
 		timer.Simple( 1, function()

@@ -83,11 +83,11 @@ XenSpawn = function()
 	if game.GetMap() == "gm_atomic" then return end
 
 	local monsters = {
-		"monster_alien_slv",
-		"monster_agrunt",
-		"monster_controller",
-		"monster_bullsquid",
-		"monster_hound_eye"
+		"npc_vj_hlr1_alienslave",
+		"npc_vj_hlr1_aliengrunt",
+		"npc_vj_hlr1_aliencontroller",
+		"npc_vj_hlr1_bullsquid",
+		"npc_vj_hlr1_houndeye"
 	}
 
 	local NPCPosTable = {
@@ -271,20 +271,9 @@ local function Cascade() --Cascade activation function
 			Vector( -10420, -1537, -64 ),
 			Vector( -8774, -1859, 705 )
 		}
-		
-		local npcs = {
-			"monster_alien_slv",
-			"monster_agrunt",
-			"monster_controller",
-			"npc_headcrab",
-			"monster_bullsquid",
-			"monster_hound_eye",
-			"monster_zombie_barney",
-			"monster_zombie_scientist"
-		}
 	
 		for k,v in pairs( pos ) do
-			local e = ents.Create( table.Random( npcs ) )
+			local e = ents.Create( "sent_vj_hlr_alientp" )
 			e:SetPos( v )
 			e:Spawn()
 		end

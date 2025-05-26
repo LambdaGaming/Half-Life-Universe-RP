@@ -81,9 +81,9 @@ end
 function RaceX() --why did I agree to do this?
 	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Someone screwed up the lore and now Race X is invading the citadel!" )
 	local racexnpcs = {
-		"npc_pitdrone",
-		"monster_shocktrooper",
-		"monster_alien_babyvoltigore"
+		"npc_vj_hlrof_pitdrone",
+		"npc_vj_hlrof_shocktrooper",
+		"npc_vj_hlrof_voltigore_baby"
 	}
 	for k,v in ipairs( GetAttackPos() ) do
 		local zombie = ents.Create( tostring( table.Random( racexnpcs ) ) )

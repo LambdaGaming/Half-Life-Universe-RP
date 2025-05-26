@@ -58,7 +58,7 @@ end
 function ENT:OnTakeDamage( dmg )
 	if self.broke then
 		local ply = dmg:GetAttacker()
-		if ply:GetActiveWeapon():GetClass() == "weapon_pipewrench" then
+		if ply:GetActiveWeapon():GetClass() == "weapon_hlof_pipewrench_ch" then
 			self:SetHealth( self:Health() + 10 )
 			ply:ChatPrint( "Portal repairs: "..self:Health().."%" )
 			if self:Health() >= 100 then

@@ -87,7 +87,7 @@ function ENT:Touch( ent )
 				"npc_headcrab",
 				"npc_headcrab_black",
 				"npc_headcrab_fast",
-				"monster_hound_eye"
+				"npc_vj_hlr1_houndeye"
 			}
 			local e = ents.Create( table.Random( randnpcs ) )
 			e:SetPos( ent:GetPos() + Vector( 0, 0, 20 ) )

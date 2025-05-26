@@ -417,7 +417,7 @@ CraftingRecipe["npc_headcrab_fast"] = {
 	Materials = { ["organic_matter"] = 2 }
 }
 
-CraftingRecipe["monster_agrunt"] = {
+CraftingRecipe["npc_vj_hlr1_aliengrunt"] = {
 	Name = "Alien Grunt",
 	Description = "Requires 3 organic matter and 2 xen iron.",
 	Category = "Creatures",
@@ -425,7 +425,7 @@ CraftingRecipe["monster_agrunt"] = {
 	Materials = { ["organic_matter"] = 3, ["xen_iron"] = 2 }
 }
 
-CraftingRecipe["monster_controller"] = {
+CraftingRecipe["npc_vj_hlr1_aliencontroller"] = {
 	Name = "Alien Controller",
 	Description = "Requires 5 organic matter and 2 xen iron.",
 	Category = "Creatures",
@@ -433,7 +433,7 @@ CraftingRecipe["monster_controller"] = {
 	Materials = { ["organic_matter"] = 3, ["xen_iron"] = 2 }
 }
 
-CraftingRecipe["monster_bullsquid"] = {
+CraftingRecipe["npc_vj_hlr1_bullsquid"] = {
 	Name = "Bullsquid",
 	Description = "Requires 4 organic matter and 2 xen iron.",
 	Category = "Creatures",
@@ -441,7 +441,7 @@ CraftingRecipe["monster_bullsquid"] = {
 	Materials = { ["organic_matter"] = 4, ["xen_iron"] = 2 }
 }
 
-CraftingRecipe["monster_babyheadcrab"] = {
+CraftingRecipe["npc_vj_hlr1_headcrab_baby"] = {
 	Name = "Baby Headcrab",
 	Description = "Requires 1 organic matter.",
 	Category = "Creatures",
@@ -449,7 +449,7 @@ CraftingRecipe["monster_babyheadcrab"] = {
 	Materials = { ["organic_matter"] = 1 }
 }
 
-CraftingRecipe["monster_hound_eye"] = {
+CraftingRecipe["npc_vj_hlr1_houndeye"] = {
 	Name = "Houndeye",
 	Description = "Requires 3 organic matter and 2 xen iron.",
 	Category = "Creatures",
@@ -457,7 +457,7 @@ CraftingRecipe["monster_hound_eye"] = {
 	Materials = { ["organic_matter"] = 3, ["xen_iron"] = 2 }
 }
 
-CraftingRecipe["monster_alien_snark"] = {
+CraftingRecipe["npc_vj_hlr1_snark"] = {
 	Name = "Snark",
 	Description = "Requires 1 organic matter and 2 xen iron.",
 	Category = "Creatures",
@@ -465,7 +465,7 @@ CraftingRecipe["monster_alien_snark"] = {
 	Materials = { ["organic_matter"] = 1, ["xen_iron"] = 2 }
 }
 
-CraftingRecipe["monster_alien_slv"] = {
+CraftingRecipe["npc_vj_hlr1_alienslave"] = {
 	Name = "Vortigaunt",
 	Description = "Requires 4 organic matter and 3 xen iron.",
 	Category = "Creatures",
@@ -473,7 +473,7 @@ CraftingRecipe["monster_alien_slv"] = {
 	Materials = { ["organic_matter"] = 4, ["xen_iron"] = 3 }
 }
 
-CraftingRecipe["weapon_barnacle"] = {
+CraftingRecipe["weapon_hlof_barnacle"] = {
 	Name = "Handheld Barnacle",
 	Description = "Requires 3 organic matter and 1 harvested crystal.",
 	Category = "Bioweapons",
@@ -481,7 +481,7 @@ CraftingRecipe["weapon_barnacle"] = {
 	Materials = { ["organic_matter"] = 3, ["crystal_harvested"] = 1 }
 }
 
-CraftingRecipe["weapon_hornetgun"] = {
+CraftingRecipe["weapon_hlmmod_hornetgun"] = {
 	Name = "Hivehand",
 	Description = "Requires 2 organic matter and 1 harvested crystal.",
 	Category = "Bioweapons",
@@ -489,7 +489,7 @@ CraftingRecipe["weapon_hornetgun"] = {
 	Materials = { ["organic_matter"] = 2, ["crystal_harvested"] = 1 }
 }
 
-CraftingRecipe["weapon_shockrifle"] = {
+CraftingRecipe["weapon_hlof_shockrifle"] = {
 	Name = "Shock Rifle",
 	Description = "Requires 2 organic matter, 3 xen iron, 1 rare organic matter, and 1 harvested crystal.",
 	Category = "Bioweapons",
@@ -497,7 +497,7 @@ CraftingRecipe["weapon_shockrifle"] = {
 	Materials = { ["organic_matter"] = 2, ["xen_iron"] = 3, ["organic_matter_rare"] = 1, ["crystal_harvested"] = 1 }
 }
 
-CraftingRecipe["weapon_snark"] = {
+CraftingRecipe["weapon_hlmmod_c_snark"] = {
 	Name = "Snark",
 	Description = "Requires 3 organic matter, 3 xen iron, and 1 harvested crystal.",
 	Category = "Bioweapons",
@@ -505,7 +505,7 @@ CraftingRecipe["weapon_snark"] = {
 	Materials = { ["organic_matter"] = 3, ["xen_iron"] = 3, ["crystal_harvested"] = 1 }
 }
 
-CraftingRecipe["weapon_sporelauncher"] = {
+CraftingRecipe["weapon_hlof_sporelauncher_ch"] = {
 	Name = "Spore Launcher",
 	Description = "Requires 4 organic matter, 2 xen iron, 1 rare organic matter, and 1 harvested crystal.",
 	Category = "Bioweapons",
@@ -521,7 +521,7 @@ CraftingRecipe["zombie_serum"] = {
 	Materials = { ["organic_matter"] = 4, ["organic_matter_rare"] = 1 }
 }
 
-CraftingRecipe["weapon_357_hl"] = {
+CraftingRecipe["weapon_hlmmod_c_357"] = {
 	Name = "357 Magnum",
 	Description = "Requires 4 xen iron.",
 	Category = "Normal Weapons",
@@ -529,7 +529,7 @@ CraftingRecipe["weapon_357_hl"] = {
 	Materials = { ["xen_iron"] = 4 }
 }
 
-CraftingRecipe["weapon_crossbow_hl"] = {
+CraftingRecipe["weapon_hlmmod_c_crossbow"] = {
 	Name = "Crossbow",
 	Description = "Requires 4 xen iron and 1 refined xen iron.",
 	Category = "Normal Weapons",
@@ -537,7 +537,7 @@ CraftingRecipe["weapon_crossbow_hl"] = {
 	Materials = { ["xen_iron"] = 4, ["xen_iron_refined"] = 1 }
 }
 
-CraftingRecipe["weapon_egon"] = {
+CraftingRecipe["weapon_hlmmod_c_egon"] = {
 	Name = "Gluon Gun",
 	Description = "Requires 2 refined xen iron, 1 harvested crystal, and 1 crystal fragment.",
 	Category = "Prototype Weapons",
@@ -545,23 +545,15 @@ CraftingRecipe["weapon_egon"] = {
 	Materials = { ["xen_iron_refined"] = 2, ["crystal_harvested"] = 1, ["crystal_fragment"] = 1 }
 }
 
-CraftingRecipe["weapon_flechettegrenade"] = {
-	Name = "Flechette Grenade",
-	Description = "Requires 2 refined xen iron and 2 crystal fragments.",
+CraftingRecipe["weapon_hlof_displacer_ch"] = {
+	Name = "Displacer Cannon",
+	Description = "Requires 3 refined xen iron, 2 harvested crystals, and 2 crystal fragments.",
 	Category = "Prototype Weapons",
 	Types = { ["wep"] = true },
-	Materials = { ["xen_iron_refined"] = 2, ["crystal_fragment"] = 2 }
+	Materials = { ["xen_iron_refined"] = 3, ["crystal_harvested"] = 2, ["crystal_fragment"] = 2 }
 }
 
-CraftingRecipe["weapon_freezinggun"] = {
-	Name = "Freezing Gun",
-	Description = "Requires 2 refined xen iron, 2 xen iron, 1 harvested crystal, and 2 crystal fragments.",
-	Category = "Unusual Weapons",
-	Types = { ["wep"] = true },
-	Materials = { ["xen_iron_refined"] = 2, ["xen_iron"] = 2, ["crystal_harvested"] = 1, ["crystal_fragment"] = 2 }
-}
-
-CraftingRecipe["weapon_gauss"] = {
+CraftingRecipe["weapon_hlmmod_c_gauss"] = {
 	Name = "Tau Cannon",
 	Description = "Requires 2 refined xen iron, 2 xen iron, 2 harvested crystals, and 3 crystal fragments.",
 	Category = "Prototype Weapons",
@@ -569,7 +561,7 @@ CraftingRecipe["weapon_gauss"] = {
 	Materials = { ["xen_iron_refined"] = 2, ["xen_iron"] = 2, ["crystal_harvested"] = 2, ["crystal_fragment"] = 3 }
 }
 
-CraftingRecipe["weapon_knife"] = {
+CraftingRecipe["weapon_hlof_knife_ch"] = {
 	Name = "Combat Knife",
 	Description = "Requires 2 xen iron.",
 	Category = "Normal Weapons",
@@ -577,7 +569,7 @@ CraftingRecipe["weapon_knife"] = {
 	Materials = { ["xen_iron"] = 2 }
 }
 
-CraftingRecipe["weapon_penguin"] = {
+CraftingRecipe["weapon_hlof_penguin_ch"] = {
 	Name = "Penguin",
 	Description = "Requires 2 organic matter, 1 rare organic matter, 2 xen iron, 1 refined xen iron, 1 harvested crystal, and 1 crystal fragment.",
 	Category = "Unusual Weapons",
@@ -585,20 +577,12 @@ CraftingRecipe["weapon_penguin"] = {
 	Materials = { ["organic_matter"] = 2, ["organic_matter_rare"] = 1, ["xen_iron"] = 2, ["xen_iron_refined"] = 1, ["crystal_harvested"] = 1, ["crystal_fragment"] = 1 }
 }
 
-CraftingRecipe["weapon_rpg_hl"] = {
+CraftingRecipe["weapon_hlof_rpg_ch"] = {
 	Name = "RPG",
 	Description = "Requires 4 refined xen iron, 2 xen iron, and 1 harvested crystal.",
 	Category = "Normal Weapons",
 	Types = { ["wep"] = true },
 	Materials = { ["xen_iron_refined"] = 4, ["xen_iron"] = 2, ["crystal_harvested"] = 1 }
-}
-
-CraftingRecipe["weapon_rpg_hl"] = {
-	Name = "Tripmine",
-	Description = "Requires 3 refined xen iron, 1 xen iron, and 2 crystal fragments.",
-	Category = "Normal Weapons",
-	Types = { ["wep"] = true },
-	Materials = { ["xen_iron_refined"] = 3, ["xen_iron"] = 1, ["crystal_fragment"] = 2 }
 }
 
 CraftingRecipe["ent_jack_gmod_ezsentry"] = {

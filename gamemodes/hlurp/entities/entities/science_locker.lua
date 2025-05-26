@@ -65,20 +65,20 @@ local ScienceItems = {
 		HLU_Notify( ply, "The Overwatch Shotgun Guard job was already researched. Please choose another.", 1, 6 )
 	end,
 	["Gluon Gun"] = function( ply, ent )
-		if ply:HasWeapon( "weapon_egon" ) then
+		if ply:HasWeapon( "weapon_hlmmod_c_egon" ) then
 			HLU_Notify( ply, "You already have a Gluon Gun. Drop it to research another.", 1, 6 )
 			return
 		end
-		ply:Give( "weapon_egon" )
+		ply:Give( "weapon_hlmmod_c_egon" )
 		HLU_Notify( ply, "You have researched the Gluon Gun!", 0, 6 )
 		ent:SetKeys( ent:GetKeys() - 1 )
 	end,
 	["Tau Cannon"] = function( ply, ent )
-		if ply:HasWeapon( "weapon_gauss" ) then
+		if ply:HasWeapon( "weapon_hlmmod_c_gauss" ) then
 			HLU_Notify( ply, "You already have a Tau Cannon. Drop it to research another.", 1, 6 )
 			return
 		end
-		ply:Give( "weapon_gauss" )
+		ply:Give( "weapon_hlmmod_c_gauss" )
 		HLU_Notify( ply, "You have researched the Tau Cannon!", 0, 6 )
 		ent:SetKeys( ent:GetKeys() - 1 )
 	end

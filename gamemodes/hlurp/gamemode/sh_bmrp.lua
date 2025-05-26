@@ -155,7 +155,7 @@ BuyMenuItems = {
 			e:SetPos( tr.HitPos + tr.HitNormal )
 			e:Spawn()
 			e:SetNWString( "WepName", "Satchel Charge" )
-			e.WepClass = "weapon_satchel"
+			e.WepClass = "weapon_hlof_satchel_ch"
 			return e
 		end
 	},
@@ -170,7 +170,7 @@ BuyMenuItems = {
 			e:SetPos( tr.HitPos + tr.HitNormal )
 			e:Spawn()
 			e:SetNWString( "WepName", "M16" )
-			e.WepClass = "weapon_9mmar"
+			e.WepClass = "weapon_hlof_9mmar_ch"
 			return e
 		end
 	},
@@ -185,7 +185,7 @@ BuyMenuItems = {
 			e:SetPos( tr.HitPos + tr.HitNormal )
 			e:Spawn()
 			e:SetNWString( "WepName", "SPAS-12" )
-			e.WepClass = "weapon_shotgun_hl"
+			e.WepClass = "weapon_hlof_shotgun_ch"
 			return e
 		end
 	},
@@ -200,7 +200,7 @@ BuyMenuItems = {
 			e:SetPos( tr.HitPos + tr.HitNormal )
 			e:Spawn()
 			e:SetNWString( "WepName", "Desert Eagle" )
-			e.WepClass = "weapon_eagle"
+			e.WepClass = "weapon_hlof_eagle_ch"
 			return e
 		end
 	},
@@ -215,7 +215,7 @@ BuyMenuItems = {
 			e:SetPos( tr.HitPos + tr.HitNormal )
 			e:Spawn()
 			e:SetNWString( "WepName", "M40A1 Sniper" )
-			e.WepClass = "weapon_sniperrifle"
+			e.WepClass = "weapon_hlof_sniperrifle_ch"
 			return e
 		end
 	},

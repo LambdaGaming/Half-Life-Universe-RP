@@ -177,10 +177,10 @@ if SERVER then
 
 	function XenBreach()
 		local xenbreach_npcs = {
-			"monster_head_crab",
-			"monster_hound_eye",
-			"monster_bullsquid",
-			"monster_alien_slv"
+			"npc_vj_hlr1_headcrab",
+			"npc_vj_hlr1_houndeye",
+			"npc_vj_hlr1_bullsquid",
+			"npc_vj_hlr1_alienslave"
 		}
 	
 		local breach_maps = {
@@ -305,10 +305,10 @@ if SERVER then
 	end
 	-----------------------------------------------------------------
 	local bosses = {
-		{ "monster_garg", Vector( 2600, -2415, -131 ) },
-		{ "monster_geneworm", Vector( -1434, 1812, -1231 ) },
-		{ "monster_gonarch", Vector( -1855, -2631, -1375 ) },
-		{ "monster_pitworm_up", Vector( 2664, -2547, -255 ) }
+		{ "npc_vj_hlr1_garg", Vector( 2600, -2415, -131 ) },
+		{ "npc_vj_hlrof_geneworm", Vector( -1434, 1812, -1231 ) },
+		{ "npc_vj_hlr1_gonarch", Vector( -1855, -2631, -1375 ) },
+		{ "npc_vj_hlrof_pitworm", Vector( 2664, -2547, -255 ) }
 	}
 
 	local function KillBoss()

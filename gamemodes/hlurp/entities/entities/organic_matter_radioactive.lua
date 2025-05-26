@@ -124,11 +124,11 @@ function ENT:StartTouch( ent )
 		local randchance = math.random( 0, 100 )
 		if randchance >= 50 then
 			local randnpc = {
-				"monster_hound_eye",
-				"monster_bullsquid",
-				"npc_headcrab",
-				"monster_hwgrunt",
-				"monster_alien_slv"
+				"npc_vj_hlr1_houndeye",
+				"npc_vj_hlr1_bullsquid",
+				"npc_vj_hlr1_headcrab",
+				"npc_vj_hlr1_aliengrunt",
+				"npc_vj_hlr1_alienslave"
 			}
 			local e = ents.Create( table.Random( randnpc ) )
 			e:SetPos( ent:GetPos() )
