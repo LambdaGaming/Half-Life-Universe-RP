@@ -131,6 +131,11 @@ function ChangeTeam( ply, newteam, respawn, silent )
 	else
 		ply:SetModel( model )
 	end
+	if tbl.Bodygroups then
+		for _,v in pairs( tbl.Bodygroups ) do
+			ply:SetBodygroup( v[1], v[2] )
+		end
+	end
 	if !silent then
 		HLU_Notify( nil, ply:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
 	end

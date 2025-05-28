@@ -90,41 +90,37 @@ end
 
 local function SelectPlayermodel( num, job )
 	local ply = LocalPlayer()
-	local mainframe = vgui.Create( "DFrame" )
-	mainframe:SetTitle( "" )
-	mainframe:SetSize( 100, 450 )
-	mainframe:ShowCloseButton( false )
-	mainframe:Center()
-	mainframe:MakePopup()
-	mainframe.Paint = function( self, w, h )
-		surface.SetDrawColor( ColorAlpha( themecolor, 255 ) )
+	local main = vgui.Create( "DFrame" )
+	main:SetTitle( "Choose a new playermodel:" )
+	main:SetSize( 365, 240 )
+	main:Center()
+	main:MakePopup()
+	main.Paint = function( self, w, h )
+		surface.SetDrawColor( ColorAlpha( themecolor, 240 ) )
 		surface.DrawRect( 0, 0, w, h )
 	end
-	mainframe.OnClose = function()
+	main.OnClose = function()
 		ply.MenuOpen = false
 	end
-	local listframe = vgui.Create( "DScrollPanel", mainframe )
-	listframe:Dock( FILL )
-	for k,v in pairs( job.Models ) do
-		local itembackground = vgui.Create( "DPanel", listframe )
-		itembackground:SetSize( 450, 100 )
-		itembackground:Dock( TOP )
-		itembackground:Center()
-		itembackground.Paint = function( self, w, h )
-			surface.SetDrawColor( color_transparent )
-			surface.DrawRect( 0, 0, w, h )
-		end
-		local itemicon = vgui.Create( "SpawnIcon", itembackground )
-		itemicon:SetPos( 10, 30 )
-		itemicon:SetModel( v )
-		itemicon:SetToolTip( false )
-		itemicon:SetSize( 60, 60 )
-		itemicon.DoClick = function()
+	local scroll = vgui.Create( "DScrollPanel", main )
+	scroll:Dock( FILL )
+	local layout = vgui.Create( "DIconLayout", scroll )
+	layout:Dock( FILL )
+	layout:SetSpaceY( 5 )
+	layout:SetSpaceX( 5 )
+	for _,v in pairs( job.Models ) do
+		local icon = layout:Add( "SpawnIcon" )
+		icon:SetPos( 10, 30 )
+		icon:SetModel( v )
+		icon:SetToolTip( false )
+		icon:SetSize( 60, 60 )
+		icon.DoClick = function()
 			net.Start( "SetPlayermodel" )
 			net.WriteString( v )
 			net.WriteInt( num, 32 )
 			net.SendToServer()
-			mainframe:Close()
+			HLU_Notify( "Your playermodel will change when you respawn.", 0, 6 )
+			main:Close()
 		end
 	end
 	ply.MenuOpen = true
@@ -203,6 +199,10 @@ function DrawJobMenu()
 			playermodel:Dock( LEFT )
 			playermodel:SetModel( v.Models[1] )
 			playermodel.DoClick = function()
+				if table.Count( v.Models ) <= 1 then
+					HLU_Notify( "Only one playermodel is available for this job.", 1, 6 )
+					return
+				end
 				SelectPlayermodel( k, v )
 			end
 
