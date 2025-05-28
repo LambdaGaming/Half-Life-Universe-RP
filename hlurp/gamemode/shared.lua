@@ -149,7 +149,6 @@ local leadermodels = {
 	"models/player/barney.mdl",
 	"models/player/alyx.mdl",
 	"models/player/eli.mdl",
-	"models/player/kleiner.mdl",
 	"models/player/monk.mdl",
 	"models/player/mossman.mdl",
 	"models/player/odessa.mdl",
@@ -423,7 +422,7 @@ HLU_JOB = {
 			Name = "Scientist",
 			Link = "scientist",
 			Color = Color( 128, 0, 128, 255 ),
-			Models = sciencemodels,
+			Models = "models/player/kleiner.mdl",
 			Weapons = {},
 			Max = 1,
 			Category = "Neutral"
