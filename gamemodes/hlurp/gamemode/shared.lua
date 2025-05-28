@@ -60,11 +60,49 @@ HLU_GAMEMODE = {
 }
 
 local sciencemodels = {
-	"models/player/hdpp/gordon.mdl",
-	"models/player/hdpp/male_01.mdl",
-	"models/player/hdpp/male_02.mdl",
-	"models/player/hdpp/male_03.mdl",
-	"models/player/hdpp/kleiner.mdl"
+	"models/player/hlew/scientists/walter_scientist_extended.mdl",
+	"models/player/hlew/scientists/alfred_scientist_extended.mdl",
+	"models/player/hlew/scientists/boris_scientist_extended.mdl",
+	"models/player/hlew/scientists/colette_scientist_extended.mdl",
+	"models/player/hlew/scientists/edwart_scientist_extended.mdl",
+	"models/player/hlew/scientists/einstein_scientist_extended.mdl",
+	"models/player/hlew/scientists/eli_scientist_extended.mdl",
+	"models/player/hlew/scientists/gina_scientist_extended.mdl",
+	"models/player/hlew/scientists/gordon_scientist_extended.mdl",
+	"models/player/hlew/scientists/gus_scientist_extended.mdl",
+	"models/player/hlew/scientists/gustavo_scientist_extended.mdl",
+	"models/player/hlew/scientists/jay_scientist_extended.mdl",
+	"models/player/hlew/scientists/jonny_scientist_extended.mdl",
+	"models/player/hlew/scientists/kleiner_scientist_extended.mdl",
+	"models/player/hlew/scientists/kyle_scientist_extended.mdl",
+	"models/player/hlew/scientists/leonel_scientist_extended.mdl",
+	"models/player/hlew/scientists/lorena_scientist_extended.mdl",
+	"models/player/hlew/scientists/luther_scientist_extended.mdl",
+	"models/player/hlew/scientists/magnusson_scientist_extended.mdl",
+	"models/player/hlew/scientists/manuel_scientist_extended.mdl",
+	"models/player/hlew/scientists/marissa_scientist_extended.mdl",
+	"models/player/hlew/scientists/marley_scientist_extended.mdl",
+	"models/player/hlew/scientists/marvin_scientist_extended.mdl",
+	"models/player/hlew/scientists/michael_scientist_extended.mdl",
+	"models/player/hlew/scientists/poly_scientist_extended.mdl",
+	"models/player/hlew/scientists/rosenberg_scientist_extended.mdl",
+	"models/player/hlew/scientists/slick_scientist_extended.mdl",
+	"models/player/hlew/scientists/tim_scientist_extended.mdl",
+	"models/player/hlew/scientists/yelene_scientist_extended.mdl",
+	"models/player/hlew/scientists/alphafemales/scientist_esther_extended.mdl",
+	"models/player/hlew/scientists/alphafemales/scientist_gwen_extended.mdl",
+	"models/player/hlew/scientists/alphafemales/scientist_ptheresa_extended.mdl",
+	"models/player/hlew/scientists/alphafemales/scientist_scarlet_extended.mdl",
+	"models/player/hlew/scientists/fatsci/curtis_scientist_extended.mdl",
+	"models/player/hlew/scientists/fatsci/dario_scientist_extended.mdl",
+	"models/player/hlew/scientists/fatsci/franklin_scientist_extended.mdl",
+	"models/player/hlew/scientists/fatsci/harvey_scientist_extended.mdl",
+	"models/player/hlew/scientists/fatsci/lenny_scientist_extended.mdl",
+	"models/player/hlew/scientists/fatsci/murr_scientist_extended.mdl",
+	"models/player/hlew/scientists/survivors/einstein_survivor_extended.mdl",
+	"models/player/hlew/scientists/survivors/luther_survivor_extended.mdl",
+	"models/player/hlew/scientists/survivors/slick_survivor_extended.mdl",
+	"models/player/hlew/scientists/survivors/walter_survivor_extended.mdl"
 }
 
 local civimodels = {
@@ -85,19 +123,26 @@ local civimodels = {
 }
 
 local securitymodels = {
-	"models/player/hdpp/security/barney.mdl",
-	"models/player/hdpp/security/male_05.mdl",
-	"models/player/hdpp/security/male_06.mdl",
-	"models/player/hdpp/security/male_09.mdl"
+	"models/player/hlew/security/barney_security_extended.mdl",
+	"models/player/hlew/security/barniel_security_extended.mdl",
+	"models/player/hlew/security/bill_security_extended.mdl",
+	"models/player/hlew/security/calhoun_security_extended.mdl",
+	"models/player/hlew/security/clint_security_extended.mdl",
+	"models/player/hlew/security/leonel_security_extended.mdl",
+	"models/player/hlew/security/marley_security_extended.mdl",
+	"models/player/hlew/security/otis_security_extended.mdl",
+	"models/player/hlew/security/ted_security_extended.mdl",
+	"models/player/hlew/security/tommy_security_extended.mdl"
 }
 
-local marinescimodels = {
-	"models/player/gasmask_hecu.mdl",
-	"models/player/hdpp/gordon.mdl",
-	"models/player/hdpp/male_01.mdl",
-	"models/player/hdpp/male_02.mdl",
-	"models/player/hdpp/male_03.mdl",
-	"models/player/hdpp/kleiner.mdl"
+local janitormodels = {
+	"models/player/hlew/workers/janitor_classic_extended.mdl",
+	"models/player/hlew/workers/gus_worker_extended.mdl",
+	"models/player/hlew/workers/edwart_worker_extended.mdl",
+	"models/player/hlew/workers/paul_worker_extended.mdl",
+	"models/player/hlew/workers/robin_worker_extended.mdl",
+	"models/player/hlew/workers/wallace_worker_extended.mdl",
+	"models/player/hlew/workers/wexler_worker_extended.mdl"
 }
 
 local leadermodels = {
@@ -109,6 +154,13 @@ local leadermodels = {
 	"models/player/mossman.mdl",
 	"models/player/odessa.mdl",
 	"models/player/magnusson.mdl"
+}
+
+local hecumodels = {
+	"models/hlhgruntsplayermodels/hgrunt_mask.mdl",
+	"models/hlhgruntsplayermodels/hgrunt_cmdr.mdl",
+	"models/hlhgruntsplayermodels/hgrunt_cmdr_black.mdl",
+	"models/hlhgruntsplayermodels/hgrunt_hood.mdl"
 }
 
 local cpmodels = {
@@ -249,7 +301,7 @@ HLU_JOB = {
 			Name = "Biochemist",
 			Link = "biochemist",
 			Color = Color( 128, 0, 128, 255 ),
-			Models = { "models/hazmat/bmhaztechs.mdl" },
+			Models = sciencemodels,
 			Weapons = { "weapon_vj_controller" },
 			Max = 0,
 			Category = "Science"
@@ -258,7 +310,7 @@ HLU_JOB = {
 			Name = "Medic",
 			Link = "medic",
 			Color = Color( 47, 79, 79, 255 ),
-			Models = { "models/player/kleiner.mdl" },
+			Models = sciencemodels,
 			Weapons = { "weapon_medkit" },
 			Max = 2,
 			Category = "Utility"
@@ -267,11 +319,7 @@ HLU_JOB = {
 			Name = "Custodian",
 			Link = "custodian",
 			Color = Color( 95, 158, 160, 255 ),
-			Models = {
-				"models/player/hdpp/male_05.mdl",
-				"models/player/hdpp/male_06.mdl",
-				"models/player/hdpp/male_09.mdl"
-			},
+			Models = janitormodels,
 			Weapons = { "weapon_extinguisher", "weapon_hlmmod_c_crowbar", "weapon_hlof_pipewrench_ch", "trash_wep", "broom", "weapon_gauto_fuel", "weapon_gauto_repair" },
 			Max = 2,
 			Category = "Utility"
@@ -289,7 +337,7 @@ HLU_JOB = {
 			Name = "HECU Marine",
 			Link = "hecumarine",
 			Color = Color( 56, 118, 29, 255 ),
-			Models = { "models/player/gasmask_hecu.mdl" },
+			Models = hecumodels,
 			Weapons = { "weapon_hlof_shotgun_ch", "weapon_hlmmod_c_9mmhandgun", "weapon_ram" },
 			Max = 3,
 			Category = "Military",
@@ -302,7 +350,7 @@ HLU_JOB = {
 			Name = "HECU Captain",
 			Link = "hecucaptain",
 			Color = Color( 56, 118, 29, 255 ),
-			Models = { "models/player/gasmask_hecu.mdl" },
+			Models = hecumodels,
 			Weapons = { "weapon_hlof_9mmar_ch", "weapon_hlof_eagle_ch", "weapon_ram" },
 			Max = 1,
 			Category = "Military",
@@ -315,7 +363,7 @@ HLU_JOB = {
 			Name = "Weapon Specialist",
 			Link = "weaponspecialist",
 			Color = Color( 56, 118, 29, 255 ),
-			Models = marinescimodels,
+			Models = sciencemodels,
 			Weapons = {},
 			Max = 2,
 			Category = "Science"
