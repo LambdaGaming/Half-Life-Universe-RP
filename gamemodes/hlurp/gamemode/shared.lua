@@ -115,7 +115,6 @@ local cpmodels = {
 	"models/player/police.mdl",
 	"models/player/police_fem.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_arctic_police.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_badass_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_biopolice.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_c08cop.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_civil_medic.mdl",
@@ -130,19 +129,10 @@ local cpmodels = {
 	"models/DPFilms/Metropolice/Playermodels/pm_elite_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_rtb_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_female_police.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_police_fragger.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_policetrench.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_rogue_police.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_resistance_police.mdl",
 	"models/DPFilms/Metropolice/Playermodels/pm_retrocop.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_steampunk_police.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_tf2_metrocop_red.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_tf2_metrocop_blu.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_tribal_police.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_tron_police_cn.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_tron_police_or.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_urban_police.mdl",
-	"models/DPFilms/Metropolice/Playermodels/pm_zombie_police.mdl"
+	"models/DPFilms/Metropolice/Playermodels/pm_urban_police.mdl"
 }
 
 HLU_JOB_CATEGORY = {
