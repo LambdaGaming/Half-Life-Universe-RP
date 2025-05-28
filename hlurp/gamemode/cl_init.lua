@@ -313,6 +313,8 @@ local function HLUButtons( ply, button )
 			DrawJobMenu()
 		elseif button == KEY_F3 then
 			DrawBuyMenu()
+		elseif button == KEY_G then
+			RunConsoleCommand( "tfa_vox_callout_panel" )
 		end
 	end
 end
