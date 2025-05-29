@@ -183,7 +183,12 @@ local function HLU_SpawnHook( ply )
 	local curmode = GetGlobalInt( "CurrentGamemode" )
 	timer.Simple( 0, function()
 		local jobtable = HLU_JOB[curmode][ply:Team()]
-		ply:SetModel( table.Random( jobtable.Models ) )
+		local model = ply:GetNWString( "SetPlayermodel_"..ply:Team() )
+		if model == "" then
+			ply:SetModel( table.Random( jobtable.Models ) )
+		else
+			ply:SetModel( model )
+		end
 		if jobtable.IsCop then
 			ply:SetWalkSpeed( 200 )
 			ply:SetRunSpeed( 270 )
@@ -293,8 +298,11 @@ hook.Add( "InitPostEntity", "HLU_SpawnNPCs", HLU_SpawnNPCs )
 util.AddNetworkString( "SetPlayermodel" )
 net.Receive( "SetPlayermodel", function( len, ply )
 	local model = net.ReadString()
-	local job = net.ReadInt( 32 )
+	local job = net.ReadInt( 8 )
 	ply:SetNWString( "SetPlayermodel_"..job, model )
+	if ply:Team() == job then
+		ply:SetModel( model )
+	end
 end )
 
 util.AddNetworkString( "BuyItemFromMenu" )

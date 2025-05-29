@@ -117,9 +117,13 @@ local function SelectPlayermodel( num, job )
 		icon.DoClick = function()
 			net.Start( "SetPlayermodel" )
 			net.WriteString( v )
-			net.WriteInt( num, 32 )
+			net.WriteInt( num, 8 )
 			net.SendToServer()
-			HLU_Notify( "Your playermodel will change when you respawn.", 0, 6 )
+			if ply:Team() == num then
+				HLU_Notify( "Your playermodel has been updated.", 0, 6 )
+			else
+				HLU_Notify( ply, "This model will be used when you select this job.", 0, 6 )
+			end
 			main:Close()
 		end
 	end
