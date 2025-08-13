@@ -76,6 +76,6 @@ if CLIENT then
 	local offset = Vector( 0, 0, 50 )
 	function ENT:Draw()
 		self:DrawModel()
-		self:DrawNPCText( "Ammo", offset )
+		self:DrawOverheadText( "Ammo", offset )
 	end
 end

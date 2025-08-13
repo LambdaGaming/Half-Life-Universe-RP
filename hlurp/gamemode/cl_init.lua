@@ -331,7 +331,7 @@ surface.CreateFont( "EntitySignFont", {
 } )
 local meta = FindMetaTable( "Entity" )
 local offset = Vector( 0, 0, 80 )
-function meta:DrawNPCText( text, override )
+function meta:DrawOverheadText( text, override )
 	local origin = self:GetPos()
 	local ply = LocalPlayer()
 	if ply:GetPos():DistToSqr( origin ) >= 589824 then return end
@@ -346,10 +346,3 @@ function meta:DrawNPCText( text, override )
 		draw.SimpleText( text, "EntitySignFont", 0, 0, color_white, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP )
 	cam.End3D2D()
 end
-
---Draw text on item NPCs
-hook.Add( "ItemNPC_OnDraw", "ItemNPCDraw", function( npc )
-	local type = npc:GetNPCType()
-	local name = ItemNPCType[type].Name
-	npc:DrawNPCText( name )
-end )

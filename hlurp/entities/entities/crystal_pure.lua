@@ -35,6 +35,6 @@ if CLIENT then
     function ENT:Draw()
 		local type = self:GetNWString( "CType", "Error" )
 		self:DrawModel()
-		self:DrawNPCText( "Sample "..type, offset )
+		self:DrawOverheadText( "Sample "..type, offset )
     end
 end

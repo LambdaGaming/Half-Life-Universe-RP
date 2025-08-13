@@ -67,6 +67,6 @@ else
 	function ENT:Draw()
 		local p = ( self:Health() / 5000 ) * 100
 		self:DrawModel()
-		self:DrawNPCText( "Central Core - "..p.."%", offset )
+		self:DrawOverheadText( "Central Core - "..p.."%", offset )
 	end
 end
