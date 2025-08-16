@@ -10,18 +10,27 @@ ENT.Category = "HLU RP"
 
 if SERVER then
 	function ENT:Initialize()
-		local rand = math.random( 1, 2 )
-		if rand == 1 then
-			self:SetModel( "models/props/xenprops/crystal2.mdl" )
-			self:SetNWString( "CType", "C17" )
+		--Hacky fix for the pocket not saving the crystal type
+		if self:GetModel() == "models/error.mdl" then
+			local rand = math.random( 1, 2 )
+			if rand == 1 then
+				self:SetModel( "models/props/xenprops/crystal2.mdl" )
+				self:SetNWString( "CType", "C17" )
+			else
+				self:SetModel( "models/props/xenprops/crystal1.mdl" )
+				self:SetNWString( "CType", "C24" )
+			end
 		else
-			self:SetModel( "models/props/xenprops/crystal1.mdl" )
-			self:SetNWString( "CType", "C24" )
+			if self:GetModel() == "models/props/xenprops/crystal2.mdl" then
+				self:SetNWString( "CType", "C17" )
+			else
+				self:SetNWString( "CType", "C24" )
+			end
 		end
-		self:SetMoveType(MOVETYPE_VPHYSICS)
-		self:SetSolid(SOLID_VPHYSICS)
-		self:PhysicsInit(SOLID_VPHYSICS)
-		self:SetUseType(SIMPLE_USE)
+		self:SetMoveType( MOVETYPE_VPHYSICS )
+		self:SetSolid( SOLID_VPHYSICS )
+		self:PhysicsInit( SOLID_VPHYSICS )
+		self:SetUseType( SIMPLE_USE )
 		self:PhysWake()
 	end
 
