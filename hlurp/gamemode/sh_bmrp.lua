@@ -16,16 +16,51 @@ TEAM_SECURITYBOSS = 13
 TEAM_SECURITY = 14
 
 BuyMenuItems = {
-	["sent_computer"] = {
+	["sent_computerzanik"] = {
 		Name = "Office Terminal",
-		Description = "Terminal-based computer that allows for private messaging and file transfer through virtual servers.",
+		Description = "Standard user-level terminal for basic operations such as record keeping and messaging.",
 		Price = 100,
 		Max = 10
 	},
 	["sent_iodevice"] = {
 		Name = "Terminal I/O Device",
-		Description = "Device that allows you to link your office terminal to wiremod devices.",
+		Description = "Device that allows you to link your office terminal to Wiremod devices.",
+		Price = 50,
+		Max = 20,
+		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
+	},
+	["sent_computerzanik_root"] = {
+		Name = "Root Terminal",
+		Description = "Office terminal with root-level access. Don't forget to set a password!",
+		Price = 300,
+		Max = 1,
+		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
+	},
+	["sent_computer_projector"] = {
+		Name = "Holographic Terminal",
+		Description = "High-tech office terminal with a floating screen. Useful for fitting into small places.",
+		Price = 200,
+		Max = 3,
+		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
+	},
+	["sent_computer_tv"] = {
+		Name = "TV Terminal",
+		Description = "Office terminal with a TV screen. Provides a much higher resolution than the regular office terminal.",
 		Price = 150,
+		Max = 5,
+		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
+	},
+	["sent_pc_spk"] = {
+		Name = "Terminal Speaker",
+		Description = "Plays audio from terminals.",
+		Price = 50,
+		Max = 10,
+		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
+	},
+	["sent_disk"] = {
+		Name = "Floppy Disk",
+		Description = "Stores data from a terminal.",
+		Price = 50,
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_TECH end
 	},

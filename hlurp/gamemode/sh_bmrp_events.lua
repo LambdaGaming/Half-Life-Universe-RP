@@ -287,7 +287,7 @@ if SERVER then
 			v.broke = true
 		end
 		hook.Add( "PlayerUse", "BlockPCUsage", function( ply, ent )
-			if string.match( ent:GetClass(), "pcmod_" ) or ent:GetClass() == "sent_computer" then
+			if scripted_ents.IsBasedOn( ent:GetClass(), "sent_computer_base" ) then
 				if ply.MessageCooldown and ply.MessageCooldown > CurTime() then return end
 				HLU_ChatNotifySystem( "BMRP", color_orange, "The main server is currently down. You won't be able to use computers until a technician fixes it.", true, ply )
 				ply.MessageCooldown = CurTime() + 1
@@ -445,7 +445,7 @@ BMRP_TASKS = {
 	},
 	{
 		Name = "Create Local Server",
-		Description = "Create a local server using GTerminal, PCMod, and/or Wiremod so staff can remotely communicate with each other.",
+		Description = "Create a local server using GTerminals and/or Wiremod computers so staff can remotely communicate with each other.",
 		Required = { TEAM_TECH }
 	},
 	{
