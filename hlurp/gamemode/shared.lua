@@ -125,24 +125,27 @@ local civimodels = {
 local securitymodels = {
 	"models/player/hlew/security/barney_security_extended.mdl",
 	"models/player/hlew/security/barniel_security_extended.mdl",
+	"models/player/hlew/security/bernard_security_extended.mdl",
 	"models/player/hlew/security/bill_security_extended.mdl",
 	"models/player/hlew/security/calhoun_security_extended.mdl",
 	"models/player/hlew/security/clint_security_extended.mdl",
+	"models/player/hlew/security/dan_security_extended.mdl",
+	"models/player/hlew/security/jack_security_extended.mdl",
+	"models/player/hlew/security/jonny_security_extended.mdl",
+	"models/player/hlew/security/kate_security_extended.mdl",
 	"models/player/hlew/security/leonel_security_extended.mdl",
+	"models/player/hlew/security/louis_security_extended.mdl",
 	"models/player/hlew/security/marley_security_extended.mdl",
+	"models/player/hlew/security/mike_security_extended.mdl",
 	"models/player/hlew/security/otis_security_extended.mdl",
+	"models/player/hlew/security/phill_security_extended.mdl",
+	"models/player/hlew/security/roger_security_extended.mdl",
+	"models/player/hlew/security/steve_security_extended.mdl",
+	"models/player/hlew/security/susanne_security_extended.mdl",
 	"models/player/hlew/security/ted_security_extended.mdl",
-	"models/player/hlew/security/tommy_security_extended.mdl"
-}
-
-local janitormodels = {
-	"models/player/hlew/workers/janitor_classic_extended.mdl",
-	"models/player/hlew/workers/gus_worker_extended.mdl",
-	"models/player/hlew/workers/edwart_worker_extended.mdl",
-	"models/player/hlew/workers/paul_worker_extended.mdl",
-	"models/player/hlew/workers/robin_worker_extended.mdl",
-	"models/player/hlew/workers/wallace_worker_extended.mdl",
-	"models/player/hlew/workers/wexler_worker_extended.mdl"
+	"models/player/hlew/security/tex_security_extended.mdl",
+	"models/player/hlew/security/tommy_security_extended.mdl",
+	"models/player/hlew/security/tremors_security_extended.mdl"
 }
 
 local leadermodels = {
@@ -249,7 +252,26 @@ HLU_JOB = {
 			Name = "Visitor",
 			Link = "visitor",
 			Color = Color( 20, 150, 20, 255 ),
-			Models = civimodels,
+			Models = {
+				"models/player/hlew/others/bernard_visitor_alt_extended.mdl",
+				"models/player/hlew/others/dan_visitor_alt_extended.mdl",
+				"models/player/hlew/others/edwart_visitor_extended.mdl",
+				"models/player/hlew/others/franklin_visitor_fat_extended.mdl",
+				"models/player/hlew/others/harvey_visitor_fat_extended.mdl",
+				"models/player/hlew/others/jack_visitor_fat_extended.mdl",
+				"models/player/hlew/others/jay_visitor_extended.mdl",
+				"models/player/hlew/others/marley_visitor_extended.mdl",
+				"models/player/hlew/others/mike_visitor_alt_extended.mdl",
+				"models/player/hlew/others/paul_visitor_extended.mdl",
+				"models/player/hlew/others/poly_visitor_extended.mdl",
+				"models/player/hlew/others/robin_visitor_extended.mdl",
+				"models/player/hlew/others/ted_visitor_alt_extended.mdl",
+				"models/player/hlew/others/tex_visitor_fat_extended.mdl",
+				"models/player/hlew/others/tim_visitor_extended.mdl",
+				"models/player/hlew/others/tommy_visitor_alt_extended.mdl",
+				"models/player/hlew/others/wallace_visitor_extended.mdl",
+				"models/player/hlew/others/wexler_visitor_extended.mdl"
+			},
 			Weapons = {},
 			Max = 0,
 			Category = "Other"
@@ -258,7 +280,13 @@ HLU_JOB = {
 			Name = "Facility Administrator",
 			Link = "facilityadmin",
 			Color = color_red,
-			Models = { "models/player/breen.mdl" },
+			Models = {
+				"models/player/hlew/scientists/administrators/breen_administrator_extended.mdl",
+				"models/player/hlew/scientists/administrators/ernston_administrator_extended.mdl",
+				"models/player/hlew/scientists/administrators/lex_administrator_extended.mdl",
+				"models/player/hlew/scientists/administrators/simon_administrator_extended.mdl",
+				"models/player/hlew/scientists/administrators/wilson_administrator_extended.mdl"
+			},
 			Weapons = { "weapon_leash_police" },
 			Max = 1,
 			Category = "Administration"
@@ -319,7 +347,15 @@ HLU_JOB = {
 			Name = "Custodian",
 			Link = "custodian",
 			Color = Color( 95, 158, 160, 255 ),
-			Models = janitormodels,
+			Models = {
+				"models/player/hlew/workers/janitor_classic_extended.mdl",
+				"models/player/hlew/workers/gus_worker_extended.mdl",
+				"models/player/hlew/workers/edwart_worker_extended.mdl",
+				"models/player/hlew/workers/paul_worker_extended.mdl",
+				"models/player/hlew/workers/robin_worker_extended.mdl",
+				"models/player/hlew/workers/wallace_worker_extended.mdl",
+				"models/player/hlew/workers/wexler_worker_extended.mdl"
+			},
 			Weapons = { "weapon_extinguisher", "weapon_hlmmod_c_crowbar", "weapon_hlof_pipewrench_ch", "trash_wep", "broom", "weapon_gauto_fuel", "weapon_gauto_repair" },
 			Max = 2,
 			Category = "Utility"
