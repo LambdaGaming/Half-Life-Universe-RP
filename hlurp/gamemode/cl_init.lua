@@ -96,7 +96,7 @@ local function SelectPlayermodel( num, job )
 	main:Center()
 	main:MakePopup()
 	main.Paint = function( self, w, h )
-		surface.SetDrawColor( ColorAlpha( themecolor, 240 ) )
+		surface.SetDrawColor( ColorAlpha( themecolor, 200 ) )
 		surface.DrawRect( 0, 0, w, h )
 	end
 	main.OnClose = function()
@@ -148,7 +148,7 @@ function DrawJobMenu()
 	mainframescroll:Dock( FILL )
 	for a,b in ipairs( HLU_JOB_CATEGORY[GetGlobalInt( "CurrentGamemode" )] ) do
 		local categorybutton = vgui.Create( "DButton", mainframescroll )
-		categorybutton:SetSize( nil, 25 ) --X is ignored since it's docked to the frame already
+		categorybutton:SetSize( nil, 30 ) --X is ignored since it's docked to the frame already
 		categorybutton:SetText( b.Name )
 		categorybutton:SetFont( "JobCategory" )
 		categorybutton:SetTextColor( color_white )
@@ -159,8 +159,7 @@ function DrawJobMenu()
 			categorybutton:DockMargin( 0, 0, 0, 5 )
 		end
 		categorybutton.Paint = function( self, w, h )
-			surface.SetDrawColor( b.Color )
-			surface.DrawRect( 0, 0, w, h )
+			draw.RoundedBoxEx( 8, 0, 0, w, h, b.Color, true, true )
 		end
 		for k,v in ipairs( HLU_JOB[GetGlobalInt( "CurrentGamemode" )] ) do
 			if v.Category != b.Name then --Puts jobs into their respective categories
@@ -180,7 +179,7 @@ function DrawJobMenu()
 			mainbuttons:Dock( TOP )
 			mainbuttons:DockMargin( 0, 0, 0, 5 )
 			mainbuttons.Paint = function( self, w, h )
-				draw.RoundedBox( 8, 0, 0, w, h, v.Color )
+				draw.RoundedBoxEx( 8, 0, 0, w, h, v.Color, false, true, false, true )
 			end
 			mainbuttons.DoClick = function()
 				if ply.JobSelectCooldown and ply.JobSelectCooldown > CurTime() then
