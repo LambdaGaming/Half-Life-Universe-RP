@@ -1,10 +1,11 @@
 include( "shared.lua" )
-include( "cl_hlu_chat.lua" )
+include( "sh_jobs.lua" )
 include( "sh_bmrp.lua" )
-include( "cl_bmrp.lua" )
+include( "sh_bmrp_events.lua" )
 include( "sh_c17.lua" )
 include( "sh_outland.lua" )
-include( "sh_bmrp_events.lua" )
+include( "cl_hlu_chat.lua" )
+include( "cl_bmrp.lua" )
 
 local themecolor = ColorAlpha( HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Color, 40 )
 surface.CreateFont( "JobCategory", {
