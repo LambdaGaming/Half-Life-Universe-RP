@@ -365,3 +365,10 @@ hook.Add( "PlayerDeath", "ZombifyPlayer", function( ply, inflictor, attacker )
 		end )
 	end
 end )
+
+--Clear decals when players go in water
+hook.Add( "OnEntityWaterLevelChanged", "WaterClearDecals", function( ent, old, new )
+	if ent:IsPlayer() and new == 3 then
+		ent:RemoveAllDecals()
+	end
+end )
