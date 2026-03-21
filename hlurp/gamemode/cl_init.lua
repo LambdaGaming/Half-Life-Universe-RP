@@ -109,9 +109,25 @@ local function SelectPlayermodel( num, job )
 	layout:Dock( FILL )
 	layout:SetSpaceY( 5 )
 	layout:SetSpaceX( 5 )
+
+	local btn = layout:Add( "DButton" )
+	btn:SetSize( 60, 60 )
+	btn:SetText( "Random" )
+	btn.DoClick = function()
+		net.Start( "SetPlayermodel" )
+		net.WriteString( "" )
+		net.WriteInt( num, 8 )
+		net.SendToServer()
+		if ply:Team() == num then
+			HLU_Notify( "Your playermodel has been updated.", 0, 6 )
+		else
+			HLU_Notify( "Playermodels for this job will be randomly chosen.", 0, 6 )
+		end
+		main:Close()
+	end
+
 	for _,v in pairs( job.Models ) do
 		local icon = layout:Add( "SpawnIcon" )
-		icon:SetPos( 10, 30 )
 		icon:SetModel( v )
 		icon:SetToolTip( false )
 		icon:SetSize( 60, 60 )
@@ -123,7 +139,7 @@ local function SelectPlayermodel( num, job )
 			if ply:Team() == num then
 				HLU_Notify( "Your playermodel has been updated.", 0, 6 )
 			else
-				HLU_Notify( ply, "This model will be used when you select this job.", 0, 6 )
+				HLU_Notify( "This model will be used when you select this job.", 0, 6 )
 			end
 			main:Close()
 		end

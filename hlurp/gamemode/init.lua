@@ -302,6 +302,11 @@ net.Receive( "SetPlayermodel", function( len, ply )
 	local job = net.ReadInt( 8 )
 	ply:SetNWString( "SetPlayermodel_"..job, model )
 	if ply:Team() == job then
+		if model == "" then
+			local tbl = GetJobInfo( job )
+			ply:SetModel( table.Random( tbl.Models ) )
+			return
+		end
 		ply:SetModel( model )
 	end
 end )
