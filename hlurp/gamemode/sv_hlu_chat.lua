@@ -42,7 +42,7 @@ function HLU_ChatNotifySystem( header, headercolor, text, private, ply )
 end
 
 local function GetSameCategory( ply, listener )
-	local job = HLU_JOB[GetGlobalInt( "CurrentGamemode" )]
+	local job = GetJobList()
 	if job[ply:Team()].Category == job[listener:Team()].Category then
 		return true
 	end

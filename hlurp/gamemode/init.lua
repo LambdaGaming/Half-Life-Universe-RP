@@ -74,7 +74,7 @@ function GM:PlayerLoadout( ply )
     for k,v in pairs( DefaultWeps ) do
         ply:Give( v )
     end
-    for k,v in pairs( HLU_JOB[GetGlobalInt( "CurrentGamemode" )][PlyTeam].Weapons ) do
+    for k,v in pairs( GetJobInfo( PlyTeam ).Weapons ) do
 		ply:Give( v )
     end
 	return true
@@ -103,10 +103,10 @@ end
 
 function ChangeTeam( ply, newteam, respawn, silent )
 	local gm = GetGlobalInt( "CurrentGamemode" )
-	local oldteam = HLU_JOB[gm][ply:Team()]
-	local tbl = HLU_JOB[gm][newteam]
+	local oldteam = GetJobInfo( ply:Team() )
+	local tbl = GetJobInfo( newteam )
 	local model = ply:GetNWString( "SetPlayermodel_"..newteam )
-	if !HLU_JOB[gm] or !HLU_JOB[gm][newteam] then
+	if !tbl then
 		HLU_Notify( ply, "Error changing jobs. Job does not exist.", 1, 6 )
 		return
 	end
@@ -165,7 +165,7 @@ end )
 
 function GM:PlayerInitialSpawn( ply )
 	ChangeTeam( ply, 1, false, true )
-	if HLU_JOB[GetGlobalInt( "CurrentGamemode" )][ply:Team()].IsCop then
+	if GetJobInfo( ply:Team() ).IsCop then
 		ply:SetWalkSpeed( 200 )
 		ply:SetRunSpeed( 270 )
 	else
@@ -182,9 +182,8 @@ function GM:PlayerInitialSpawn( ply )
 end
 
 local function HLU_SpawnHook( ply )
-	local curmode = GetGlobalInt( "CurrentGamemode" )
 	timer.Simple( 0, function()
-		local jobtable = HLU_JOB[curmode][ply:Team()]
+		local jobtable = GetJobInfo( ply:Team() )
 		local model = ply:GetNWString( "SetPlayermodel_"..ply:Team() )
 		if model == "" then
 			ply:SetModel( table.Random( jobtable.Models ) )

@@ -162,7 +162,7 @@ function DrawJobMenu()
 		categorybutton.Paint = function( self, w, h )
 			draw.RoundedBoxEx( 8, 0, 0, w, h, b.Color, true, true )
 		end
-		for k,v in ipairs( HLU_JOB[GetGlobalInt( "CurrentGamemode" )] ) do
+		for k,v in ipairs( GetJobList() ) do
 			if v.Category != b.Name then --Puts jobs into their respective categories
 				continue
 			end

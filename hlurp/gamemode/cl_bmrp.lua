@@ -4,7 +4,8 @@ net.Receive( "SendID", function()
 	local ply = net.ReadEntity()
 	local plyteam = ply:Team()
 	local teamcolor = team.GetColor( plyteam )
-	chat.AddText( teamcolor, ply:Nick(), color_white, " presents their identification. It reads: ", teamcolor, HLU_JOB[1][plyteam].Name )
+	local info = GetJobInfo( plyteam )
+	chat.AddText( teamcolor, ply:Nick(), color_white, " presents their identification. It reads: ", teamcolor, info.Name )
 end )
 
 local themecolor = ColorAlpha( HLU_GAMEMODE[1].Color, 40 )
@@ -25,7 +26,7 @@ surface.CreateFont( "TaskFont", {
 	size = 16,
 } )
 
---Text wrap functions for HUD elements, credit goes to the DarkRP developers
+--Text wrap functions for HUD elements, from https://github.com/FPtje/DarkRP
 local function safeText( text )
     return string.match( text, "^#([a-zA-Z_]+)$" ) and text .. " " or text
 end
@@ -112,7 +113,7 @@ local function DrawCustomTaskMenu( finish )
 	local jobs = vgui.Create( "DComboBox", mainframe )
 	jobs:Dock( TOP )
 	jobs:SetText( "Choose target job" )
-	for k,v in pairs( HLU_JOB[1] ) do
+	for k,v in pairs( GetJobList() ) do
 		if whitelist[k] then
 			jobs:AddChoice( v.Name, k )
 		end
@@ -162,7 +163,6 @@ local function DrawCustomTaskMenu( finish )
 end
 
 local function DrawEventMenu()
-	if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 	local ply = LocalPlayer()
 	local plyteam = ply:Team()
 	local gman = TEAM_GMAN
@@ -269,12 +269,12 @@ local function DrawEventMenu()
 		itemdesc:SetFont( "Trebuchet18" )
 		itemdesc:SetColor( color_white )
 		if plyteam == gman then
-			itemdesc:SetText( "Affected Job: "..HLU_JOB[1][v.Required].Name.."\n"..v.Description )
+			itemdesc:SetText( "Affected Job: "..GetJobInfo( v.Required ).Name.."\n"..v.Description )
 		else
 			local affected = ""
 			local first = true
 			for k,v in pairs( v.Required ) do
-				local name = HLU_JOB[1][v].Name
+				local name = GetJobInfo( v ).Name
 				if first then
 					affected = name
 				else

@@ -59,10 +59,19 @@ HLU_GAMEMODE = {
     }
 }
 
+function GetJobList()
+	local gm = GetGlobalInt( "CurrentGamemode" )
+	return HLU_JOB[gm]
+end
+
+function GetJobInfo( job )
+	local list = GetJobList()
+	return list[job]
+end
+
 function FindTeamByName( name )
-	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local inputlower = string.lower( name )
-	for k,v in pairs( HLU_JOB[curgame] ) do
+	for k,v in pairs( GetJobList() ) do
 		local outputlower = string.lower( v.Name )
 		if outputlower == inputlower then return k end
 	end
@@ -71,26 +80,23 @@ end
 local meta = FindMetaTable( "Player" )
 function meta:GetJobCategory()
 	if !IsValid( self ) then return "Unknown" end
-	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
-	local jobtable = HLU_JOB[curgame][job]
-	return jobtable.Category
+	local tbl = GetJobInfo( job )
+	return tbl.Category
 end
 
 function meta:GetJobName()
 	if !IsValid( self ) then return "Unknown" end
-	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
-	local jobtable = HLU_JOB[curgame][job]
-	return self:GetNWString( "RPJob", false ) or jobtable.Name
+	local tbl = GetJobInfo( job )
+	return self:GetNWString( "RPJob", false ) or tbl.Name
 end
 
 function meta:GetJobColor()
 	if !IsValid( self ) then return color_transparent end
-	local curgame = GetGlobalInt( "CurrentGamemode" )
 	local job = self:Team()
-	local jobtable = HLU_JOB[curgame][job]
-	return jobtable.Color
+	local tbl = GetJobInfo( job )
+	return tbl.Color
 end
 
 --Similar to what DarkRP does for overriding player names
@@ -102,8 +108,7 @@ meta.GetName = meta.Name
 meta.Nick = meta.Name
 
 function GM:Initialize()
-	local curgame = GetGlobalInt( "CurrentGamemode" )
-	for k,v in pairs( HLU_JOB[curgame] ) do
+	for k,v in pairs( GetJobList() ) do
 		team.SetUp( k, v.Name, v.Color )
 	end
 	if curgame == 1 then
