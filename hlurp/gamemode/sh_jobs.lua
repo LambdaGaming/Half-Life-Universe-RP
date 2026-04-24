@@ -635,7 +635,7 @@ HLU_JOB = {
 			Category = "Combine",
 			SpawnFunction = function( ply )
 				ply:GiveAmmo( 100, "SMG1" )
-				ply:SetSkin( 0 )
+				ply:SetSkin( 2 )
 			end
 		},
 		{
