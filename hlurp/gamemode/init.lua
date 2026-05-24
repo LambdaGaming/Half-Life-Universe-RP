@@ -347,8 +347,8 @@ end )
 local cooldown = 0
 util.AddNetworkString( "PlayAnnouncement" )
 net.Receive( "PlayAnnouncement", function( len, ply )
-	local msg = net.ReadUInt( 6 )
-	if msg == 0 then
+	local msg = net.ReadString()
+	if msg == "" then
 		ToggleAlarm()
 		return
 	end
@@ -359,10 +359,10 @@ net.Receive( "PlayAnnouncement", function( len, ply )
 	
 	local tbl = ply:Team() == TEAM_MARINEBOSS and ANNOUNCEMENTS_HECU or ANNOUNCEMENTS_ADMIN
 	if current == 1 then
-		RunConsoleCommand( "vox", tbl[msg] )
+		RunConsoleCommand( "vox", msg )
 	else
 		for k,v in ipairs( player.GetHumans() ) do
-			v:ConCommand( "play "..tbl[msg] )
+			v:ConCommand( "play "..msg )
 		end
 	end
 	cooldown = CurTime() + 10

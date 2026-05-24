@@ -35,56 +35,83 @@ local function DrawUtilityMenu()
 	if plyTeam == TEAM_ADMIN or plyTeam == TEAM_MARINEBOSS or plyTeam == TEAM_EARTHADMIN then
 		local panel = vgui.Create( "DScrollPanel", sheet )
 		panel:Dock( FILL )
-		local layout = vgui.Create( "DIconLayout", panel )
-		layout:Dock( TOP )
-		layout:SetSize( nil, 100 )
-		local label = layout:Add( "DLabel" )
-		label.OwnLine = true
-		if plyTeam == TEAM_EARTHADMIN then
-			label:SetText( "Overwatch Announcements" )
-		else
-			label:SetText( "Black Mesa Announcement System" )
+		panel.Paint = function( self, w, h )
+			surface.SetDrawColor( ColorAlpha( color_darkgray, 200 ) )
+			surface.DrawRect( 0, 0, w, h )
 		end
 
-        local btn = layout:Add( "DButton" )
-        btn:SetSize( 100, 40 )
-        btn:SetText( "Toggle Facility Alarm" )
-        btn.DoClick = function()
-            net.Start( "PlayAnnouncement" )
-            net.WriteUInt( 0, 6 )
-            net.SendToServer()
+		local label = vgui.Create( "DLabel", panel )
+		label:Dock( TOP )
+		label:DockMargin( 0, 10, 0, 0 )
+		label:SetFont( "JobCategory" )
+		label:SetAutoStretchVertical( true )
+		if current == 1 then
+			label:SetText( "Black Mesa Announcement System" )
+		else
+			label:SetText( "Overwatch Announcements" )
+		end
+
+		local label = vgui.Create( "DLabel", panel )
+		label:Dock( TOP )
+		label:DockMargin( 0, 10, 0, 0 )
+		label:SetFont( "TaskFont" )
+		label:SetAutoStretchVertical( true )
+		if current == 1 then
+			label:SetText( "Press a button to insert a preset Vox announcement into the box, or type your own announcement. Press enter when you're ready to broadcast." )
+		else
+			label:SetText( "Press a button to play an Overwatch announcement." )
+		end
+
+		local entry
+		if current == 1 then
+			entry = vgui.Create( "DTextEntry", panel )
+			entry:Dock( TOP )
+			entry.OnEnter = function( self )
+				net.Start( "PlayAnnouncement" )
+				net.WriteString( self:GetValue() )
+				net.SendToServer()
+				self:SetText( "" )
+				main:Close()
+			end
+		end
+
+		local layout = vgui.Create( "DIconLayout", panel )
+		layout:Dock( TOP )
+		layout:SetSize( nil, 300 )
+		layout:SetSpaceX( 5 )
+		layout:SetSpaceY( 5 )
+		layout:DockMargin( 0, 15, 0, 15 )
+
+		if current == 1 then
+			local btn = layout:Add( "DButton" )
+			btn:SetSize( 110, 30 )
+			btn:SetText( "Toggle Facility Alarm" )
+			btn.DoClick = function()
+				net.Start( "PlayAnnouncement" )
+				net.SendToServer()
+				surface.PlaySound( "buttons/button17.wav" )
+			end
         end
 
 		local tbl = plyTeam == TEAM_MARINEBOSS and ANNOUNCEMENTS_HECU or ANNOUNCEMENTS_ADMIN
 		for k,v in pairs( tbl ) do
 			local btn = layout:Add( "DButton" )
-			btn:SetSize( 100, 40 )
 			btn:SetText( v[1] )
 			btn.DoClick = function()
-				net.Start( "PlayAnnouncement" )
-				net.WriteUInt( k, 6 )
-				net.SendToServer()
-			end
-		end
-
-		if plyTeam != TEAM_EARTHADMIN then
-			local find = file.Find( "sound/vox/*", "GAME", "nameasc" )
-			local str = "Available Vox keywords:"
-			for k,v in pairs( find ) do
-				local name = string.StripExtension( v )
-				str = str.." "..name
-				if k < #find then
-					str = str..","
+				if current == 1 then
+					entry:SetText( v[2] )
+				else
+					net.Start( "PlayAnnouncement" )
+					net.WriteString( v[2] )
+					net.SendToServer()
+					main:Close()
 				end
 			end
-			local label = layout:Add( "DLabel" )
-			label.OwnLine = true
-			label:SetText( str )
+			local w, h = btn:GetTextSize()
+			btn:SetSize( w + 10, 30 )
 		end
-
 		sheet:AddSheet( "Announcement System", panel )
 	end
-
 	ply.MenuOpen = true
 end
 
