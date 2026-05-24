@@ -70,7 +70,7 @@ local chatcommands = {
 		return ""
 	end,
 	["/drop"] = function( ply )
-		DropWeapon( ply )
+		ply:DropWeapon()
 		return ""
 	end,
 	["/job"] = function( ply, text )

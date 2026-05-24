@@ -131,16 +131,16 @@ if CLIENT then
 	net.Receive( "ScienceLocker", function()
 		local ent = net.ReadEntity()
 		local ply = LocalPlayer()
-		local mainframe = vgui.Create( "DFrame" )
-		mainframe:SetTitle( "Select an item to research:" )
-		mainframe:SetSize( 300, 300 )
-		mainframe:Center()
-		mainframe:MakePopup()
-		mainframe.Paint = function( self, w, h )
+		local main = vgui.Create( "DFrame" )
+		main:SetTitle( "Select an item to research:" )
+		main:SetSize( 300, 300 )
+		main:Center()
+		main:MakePopup()
+		main.Paint = function( self, w, h )
 			draw.RoundedBox( 0, 0, 0, w, h, background )
 		end
 
-		local listframe = vgui.Create( "DScrollPanel", mainframe )
+		local listframe = vgui.Create( "DScrollPanel", main )
 		listframe:Dock( FILL )
 		for k,v in pairs( ScienceItems ) do
 			local buttons = vgui.Create( "DButton", listframe )
@@ -158,7 +158,7 @@ if CLIENT then
 				net.WriteEntity( ent )
 				net.WriteString( k )
 				net.SendToServer()
-				mainframe:Close()
+				main:Close()
 			end
 		end
 	end )

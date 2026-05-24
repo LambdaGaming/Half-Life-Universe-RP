@@ -1,73 +1,5 @@
 if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 
---Vox chat commands for facility administrator and HECU captain
-local cooldown
-local BMRPCommandsAdmin = {
-	["damage"] = "bizwarn bizwarn bizwarn _comma any damage control team to sector c immediately",
-	["evacuate"] = "buzwarn buzwarn administration _comma personnel evacuate _comma sector d immediately",
-	["report"] = "deeoo deeoo attention _comma any sector c science personnel please report status",
-	["reportviolation"] = "bloop attention _comma report _comma any security violation _comma to administration _comma _comma sub level one",
-	["scientistevacuate"] = "buzwarn attention _comma any sector c science personnel evacuate _comma area immediately",
-	["security"] = "deeoo deeoo attention security personnel _comma to sector d",
-	["biohazard"] = "bizwarn bizwarn bizwarn biohazard _comma warning in sector b and c",
-	["inspection"] = "dadeda inspection _comma team to radioactive materials handling bay",
-	["hallaccess"] = "bloop maintenance _comma area access granted",
-	["reportams"] = "dadeda sector c science personnel report _comma to anomalous materials test lab",
-	["mendown"] = "deeoo deeoo security officer reports _comma men down in sector c medical help required",
-	["checkelevator"] = "deeoo service team check elevator one sector c",
-	["tram"] = "bloop transportation _comma control reports _comma all systems on time",
-	["energy"] = "bizwarn bizwarn bizwarn warning anomalous energy field detected _comma in administration _comma center",
-	["detonations"] = "bizwarn bizwarn bizwarn warning high energy detonation detected _comma in materials lab",
-	["elevator"] = "buzwarn warning sector c elevator failure _comma do not use",
-	["aliens"] = "bizwarn bizwarn warning unauthorized biological _comma forms detected _comma in sector c"
-}
-local BMRPCommandsHECU = {
-	["command"] = "bizwarn bizwarn bizwarn attention _comma this announcement system _comma now under military _comma command",
-	["kos"] = "buzwarn buzwarn alert military personnel _comma you are authorized _comma to shoot the renegade on sight",
-	["security"] = "buzwarn buzwarn attention _comma all security personnel wanted for immediate questioning",
-	["science"] = "buzwarn buzwarn attention _comma all science personnel report topside _comma for immediate questioning",
-	["force"] = "buzwarn buzwarn military personnel prosecute _comma delta alpha bravo _comma with extreme force",
-	["backup"] = "buzwarn buzwarn search _comma and destroy force reports _comma back up required engaged _comma with extreme resistance"
-}
-
-local function CommandSound( ply, text )
-	local commands
-	if ply:Team() == TEAM_ADMIN or ply:Team() == TEAM_MARINEBOSS then
-		if cooldown and cooldown > CurTime() then
-			HLU_Notify( ply, "Please wait before using this command again.", 1, 6 )
-			return ""
-		end
-
-		if ply:Team() == TEAM_ADMIN then
-			commands = BMRPCommandsAdmin
-		else
-			commands = BMRPCommandsHECU
-		end
-
-		if text == "/fatboy" and ply:Team() == TEAM_ADMIN then
-			for k,v in ipairs( player.GetHumans() ) do
-				v:ConCommand( "play admin/fat_boy.ogg" )
-				cooldown = CurTime() + 10
-			end
-			return ""
-		end
-
-		local split = string.Split( text, " " )
-		if split[1] == "!announce" then
-			if !split[2] or !commands[split[2]] then
-				HLU_Notify( ply, "Please provide a valid argument. https://lambdagaming.github.io/hlurp/commands.html", 1, 6 )
-				return ""
-			end
-			for k,v in ipairs( player.GetHumans() ) do
-				v:ConCommand( "vox "..commands[split[2]] )
-			end
-			cooldown = CurTime() + 10
-			return ""
-		end
-	end
-end
-hook.Add( "PlayerSay", "BMRPCommandSounds", CommandSound )
-
 --Functions for spawning and respawning NPCs in Xen
 local XenSpawn, XenRespawn
 XenRespawn = function()
@@ -142,22 +74,14 @@ local function MapMods()
 end
 hook.Add( "InitPostEntity", "BMRPMapMods", MapMods )
 
-function ToggleAlarm( forceon )
-	local alarmindex = {
+--Remotely toggle the facility alarm
+function ToggleAlarm( force )
+	local index = {
 		["rp_bmrf"] = 3364
 	}
-	local ent = ents.GetMapCreatedEntity( alarmindex[game.GetMap()] )
-	ent:Fire( forceon and "PressIn" or "Press" )
+	local ent = ents.GetMapCreatedEntity( index[game.GetMap()] )
+	ent:Fire( force and "PressIn" or "Press" )
 end
-
---Alarm chat command for the facility admin to remotely activate the alarm system
-local function AdminAlarm( ply, text )
-	if text == "!alarm" and ply:Team() == TEAM_ADMIN then
-		ToggleAlarm()
-		return ""
-	end
-end
-hook.Add( "PlayerSay", "BMRP_Alarm", AdminAlarm )
 
 --Vehicle spawn function
 local function BMRPVehicleSpawn()

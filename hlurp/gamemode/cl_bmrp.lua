@@ -98,19 +98,19 @@ end )
 local function DrawCustomTaskMenu( finish )
 	local ply = LocalPlayer()
 	local job = 0
-	local mainframe = vgui.Create( "DFrame" )
-	mainframe:SetTitle( "Enter custom task:" )
-	mainframe:SetSize( 500, 100 )
-	mainframe:Center()
-	mainframe:MakePopup()
-	mainframe.Paint = function( self, w, h )
+	local main = vgui.Create( "DFrame" )
+	main:SetTitle( "Enter custom task:" )
+	main:SetSize( 500, 100 )
+	main:Center()
+	main:MakePopup()
+	main.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, themecolor )
 	end
-	mainframe.OnClose = function()
+	main.OnClose = function()
 		ply.MenuOpen = false
 	end
 
-	local jobs = vgui.Create( "DComboBox", mainframe )
+	local jobs = vgui.Create( "DComboBox", main )
 	jobs:Dock( TOP )
 	jobs:SetText( "Choose target job" )
 	for k,v in pairs( GetJobList() ) do
@@ -123,19 +123,19 @@ local function DrawCustomTaskMenu( finish )
 	end
 
 	if finish then
-		mainframe:SetSize( 500, 150 )
-		local label = vgui.Create( "DLabel", mainframe )
+		main:SetSize( 500, 150 )
+		local label = vgui.Create( "DLabel", main )
 		label:SetFont( "Trebuchet18" )
 		label:SetColor( color_white )
 		label:SetText( "Enter the amount of funds you would like to award: (Max 1000)" )
 		label:Dock( TOP )
 		label:DockMargin( 0, 10, 0, 0 )
-		local wang = vgui.Create( "DNumberWang", mainframe )
+		local wang = vgui.Create( "DNumberWang", main )
 		wang:SetMin( 1 )
 		wang:SetMax( 1000 )
 		wang:Dock( TOP )
 		wang:SetSize( nil, 26 )
-		local button = vgui.Create( "DButton", mainframe )
+		local button = vgui.Create( "DButton", main )
 		button:SetText( "Submit" )
 		button:SetSize( nil, 26 )
 		button:Dock( TOP )
@@ -148,7 +148,7 @@ local function DrawCustomTaskMenu( finish )
 			net.SendToServer()
 		end
 	else
-		local txt = vgui.Create( "DTextEntry", mainframe )
+		local txt = vgui.Create( "DTextEntry", main )
 		txt:Dock( FILL )
 		txt:SetMaximumCharCount( 300 )
 		txt:SetPlaceholderText( "Enter custom task" )
@@ -170,19 +170,19 @@ local function DrawEventMenu()
 
 	if ply:Team() != gman and ply:Team() != admin then return end
 
-	local mainframe = vgui.Create( "DFrame" )
+	local main = vgui.Create( "DFrame" )
 	if plyteam == gman then
-		mainframe:SetTitle( "Select an event to nudge:" )
+		main:SetTitle( "Select an event to nudge:" )
 	else
-		mainframe:SetTitle( "Select a task to assign:" )
+		main:SetTitle( "Select a task to assign:" )
 	end
-	mainframe:SetSize( 500, 500 )
-	mainframe:Center()
-	mainframe:MakePopup()
-	mainframe.Paint = function( self, w, h )
+	main:SetSize( 500, 500 )
+	main:Center()
+	main:MakePopup()
+	main.Paint = function( self, w, h )
 		draw.RoundedBox( 0, 0, 0, w, h, themecolor )
 	end
-	mainframe.OnClose = function()
+	main.OnClose = function()
 		ply.MenuOpen = false
 	end
 
@@ -193,7 +193,7 @@ local function DrawEventMenu()
 		tbl = BMRP_TASKS
 	end
 
-	local listframe = vgui.Create( "DScrollPanel", mainframe )
+	local listframe = vgui.Create( "DScrollPanel", main )
 	listframe:Dock( FILL )
 
 	if ply:Team() == admin then
@@ -209,7 +209,7 @@ local function DrawEventMenu()
 			surface.DrawRect( 0, 0, w, h )
 		end
 		mainbuttons.DoClick = function()
-			mainframe:Close()
+			main:Close()
 			DrawCustomTaskMenu()
 		end
 
@@ -225,7 +225,7 @@ local function DrawEventMenu()
 			surface.DrawRect( 0, 0, w, h )
 		end
 		mainbuttons.DoClick = function()
-			mainframe:Close()
+			main:Close()
 			DrawCustomTaskMenu( true )
 		end
 	end
@@ -262,7 +262,7 @@ local function DrawEventMenu()
 				net.WriteInt( k, 8 )
 				net.SendToServer()
 			end
-			mainframe:Close()
+			main:Close()
 		end
 
 		local itemdesc = vgui.Create( "DLabel", itembackground )
@@ -296,14 +296,11 @@ net.Receive( "UpdateTask", function()
 	BMRP_CURRENT_TASKS = tbl
 end )
 
-local function HLUButtons( ply, button )
-	if IsFirstTimePredicted() and !ply.MenuOpen then
-		if button == KEY_F1 then
-			DrawEventMenu()
-		end
+hook.Add( "PlayerButtonDown", "OpenEventMenu", function( ply, button )
+	if IsFirstTimePredicted() and !ply.MenuOpen and button == KEY_F2 then
+		DrawEventMenu()
 	end
-end
-hook.Add( "PlayerButtonDown", "OpenEventMenu", HLUButtons )
+end )
 
 local spawns = {
 	{ "Remain at Main Entrance", color_white },

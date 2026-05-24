@@ -197,6 +197,42 @@ BuyMenuItems = {
 	}
 }
 
+ANNOUNCEMENTS_ADMIN = {
+	{ "Illegal Weapon Detected", "npc/overwatch/cityvoice/fcitadel_deploy.wav" },
+	{ "Airwatch Dispatched", "npc/overwatch/cityvoice/fprison_airwatchdispatched.wav" },
+	{ "Lost Contact With Intercept Team", "npc/overwatch/cityvoice/fprison_contactlostlandsea.wav" },
+	{ "Contain Exogen Incursion", "npc/overwatch/cityvoice/fprison_containexogens.wav" },
+	{ "Contact Lost in Block B2", "npc/overwatch/cityvoice/fprison_deployinb4.wav" },
+	{ "Deservice All Political Conscripts", "npc/overwatch/cityvoice/fprison_deservicepoliticalconscripts.wav" },
+	{ "Surveillance Systems Inactive", "npc/overwatch/cityvoice/fprison_detectionsystemsout.wav" },
+	{ "Containment Field May Be Compromised", "npc/overwatch/cityvoice/fprison_dropforcesixandeight.wav" },
+	{ "Nova Prospekt Exogen Breach", "npc/overwatch/cityvoice/fprison_exogenbreach.wav" },
+	{ "Interface Bypass Detected", "npc/overwatch/cityvoice/fprison_interfacebypass.wav" },
+	{ "Permanent Off-World Assignment", "npc/overwatch/cityvoice/fprison_missionfailurereminder.wav" },
+	{ "Non-Standard Exogen Activity", "npc/overwatch/cityvoice/fprison_nonstandardexogen.wav" },
+	{ "Perimeter Restrictors Disengaged", "npc/overwatch/cityvoice/fprison_restrictorsdisengaged.wav" },
+	{ "Anti-Citizen Reported", "npc/overwatch/cityvoice/f_anticitizenreport_spkr.wav" },
+	{ "Charged With Anti-Civil Activity", "npc/overwatch/cityvoice/f_anticivil1_5_spkr.wav" },
+	{ "Evidence of Anti-Civil Activity", "npc/overwatch/cityvoice/f_anticivilevidence_3_spkr.wav" },
+	{ "Charged With Capital Malcompliance", "npc/overwatch/cityvoice/f_capitalmalcompliance_spkr.wav" },
+	{ "Charged With Socio-Endangerment", "npc/overwatch/cityvoice/f_ceaseevasionlevelfive_spkr.wav" },
+	{ "Citizenship Revoked", "npc/overwatch/cityvoice/f_citizenshiprevoked_6_spkr.wav" },
+	{ "Confirm Your Civil Status", "npc/overwatch/cityvoice/f_confirmcivilstatus_1_spkr.wav" },
+	{ "Malcompliant Defendent", "npc/overwatch/cityvoice/f_evasionbehavior_2_spkr.wav" },
+	{ "Inaction is Conspiracy", "npc/overwatch/cityvoice/f_innactionisconspiracy_spkr.wav" },
+	{ "Local Unrest Detected", "npc/overwatch/cityvoice/f_localunrest_spkr.wav" },
+	{ "Status Evasion in Progress", "npc/overwatch/cityvoice/f_protectionresponse_1_spkr.wav" },
+	{ "Autonomous Judgement", "npc/overwatch/cityvoice/f_protectionresponse_4_spkr.wav" },
+	{ "Judgement Waiver", "npc/overwatch/cityvoice/f_protectionresponse_5_spkr.wav" },
+	{ "Ration Units Deducted", "npc/overwatch/cityvoice/f_rationunitsdeduct_3_spkr.wav" },
+	{ "Identity Check in Progress", "npc/overwatch/cityvoice/f_trainstation_assemble_spkr.wav" },
+	{ "Assume Inspection Positions", "npc/overwatch/cityvoice/f_trainstation_assumepositions_spkr.wav" },
+	{ "Miscount Detected", "npc/overwatch/cityvoice/f_trainstation_cooperation_spkr.wav" },
+	{ "Potential Civil Infection", "npc/overwatch/cityvoice/f_trainstation_inform_spkr.wav" },
+	{ "Permanent Off-World Relocation", "npc/overwatch/cityvoice/f_trainstation_offworldrelocation_spkr.wav" },
+	{ "Unrest Procedures in Effect", "npc/overwatch/cityvoice/f_unrestprocedure1_spkr.wav" }
+}
+
 local blockedtools = {
 	["wire_explosive"] = function( ply, tool )
 		return false

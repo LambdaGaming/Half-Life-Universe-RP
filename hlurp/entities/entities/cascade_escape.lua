@@ -28,11 +28,11 @@ if SERVER then
 			return
 		end
 		if team.NumPlayers( TEAM_MARINEBOSS ) == 0 then
-			ChangeTeam( ply, TEAM_MARINEBOSS, false, true )
+			ply:ChangeTeam( TEAM_MARINEBOSS, false, true )
 			HLU_Notify( ply, "You have successfully escaped the facility! You are now the HECU Captain.", 0, 6 )
 			return
 		end
-		ChangeTeam( ply, TEAM_MARINE, false, true )
+		ply:ChangeTeam( TEAM_MARINE, false, true )
 		HLU_Notify( ply, "You have successfully escaped the facility! You are now an HECU Marine.", 0, 6 )
 	end
 end

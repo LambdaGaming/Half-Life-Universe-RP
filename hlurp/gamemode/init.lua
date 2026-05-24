@@ -2,6 +2,7 @@ AddCSLuaFile( "shared.lua" )
 AddCSLuaFile( "cl_init.lua" )
 AddCSLuaFile( "cl_hlu_chat.lua" )
 AddCSLuaFile( "cl_bmrp.lua" )
+AddCSLuaFile( "cl_menus.lua" )
 AddCSLuaFile( "sh_jobs.lua" )
 AddCSLuaFile( "sh_bmrp.lua" )
 AddCSLuaFile( "sh_bmrp_events.lua" )
@@ -20,8 +21,9 @@ include( "sv_c17.lua" )
 include( "sv_outland.lua" )
 include( "sv_c17_events.lua" )
 
+local current = GetGlobalInt( "CurrentGamemode" )
 RunConsoleCommand( "sv_alltalk", "0" )
-if GetGlobalInt( "CurrentGamemode" ) == 1 then
+if current == 1 then
 	RunConsoleCommand( "vfire_spread_delay", "5" )
 	RunConsoleCommand( "vfire_decay_rate", "0" )
 	RunConsoleCommand( "vfire_spread_boost", "10" )
@@ -52,10 +54,7 @@ function GM:PlayerSpawnVehicle( ply )
 end
 
 function GM:PlayerNoClip( ply, on )
-	if !on then
-		return true
-	end
-	return ply:IsSuperAdmin()
+	return ply:IsSuperAdmin() or !on
 end
 
 function GM:ShowHelp() end
@@ -101,70 +100,69 @@ function meta:MakeZombie()
 	end )
 end
 
-function ChangeTeam( ply, newteam, respawn, silent )
-	local gm = GetGlobalInt( "CurrentGamemode" )
-	local oldteam = GetJobInfo( ply:Team() )
-	local tbl = GetJobInfo( newteam )
-	local model = ply:GetNWString( "SetPlayermodel_"..newteam )
+function meta:ChangeTeam( new, respawn, silent )
+	local old = GetJobInfo( self:Team() )
+	local tbl = GetJobInfo( new )
+	local model = self:GetNWString( "SetPlayermodel_"..new )
 	if !tbl then
-		HLU_Notify( ply, "Error changing jobs. Job does not exist.", 1, 6 )
+		HLU_Notify( self, "Error changing jobs. Job does not exist.", 1, 6 )
 		return
 	end
-	if newteam == ply:Team() then
-		HLU_Notify( ply, "You are already playing as this job.", 1, 6 )
+	if new == self:Team() then
+		HLU_Notify( self, "You are already playing as this job.", 1, 6 )
 		return
 	end
-	if team.NumPlayers( newteam ) >= tbl.Max and tbl.Max > 0 then
-		HLU_Notify( ply, "All slots are filled for this job.", 1, 6 )
+	if team.NumPlayers( new ) >= tbl.Max and tbl.Max > 0 then
+		HLU_Notify( self, "All slots are filled for this job.", 1, 6 )
 		return
 	end
-	if ply:GetNWBool( "GMAN_BF" ) then
-		HLU_Notify( ply, "Exit your Gman state before changing jobs.", 1, 6 )
+	if self:GetNWBool( "GMAN_BF" ) then
+		HLU_Notify( self, "Exit your Gman state before changing jobs.", 1, 6 )
 		return
 	end
-	if hook.Run( "HLU_CanChangeJobs", ply, newteam, oldteam ) == false then return end
+	if hook.Run( "HLU_CanChangeJobs", self, new, old ) == false then return end
 
-	ply:SetNWString( "RPJob", false )
-	ply:StripWeapons()
-	ply:StripAmmo()
-	ply:SetTeam( newteam )
+	self:SetNWString( "RPJob", false )
+	self:StripWeapons()
+	self:StripAmmo()
+	self:SetTeam( new )
 	if model == "" then
-		ply:SetModel( table.Random( tbl.Models ) )
+		self:SetModel( table.Random( tbl.Models ) )
 	else
-		ply:SetModel( model )
+		self:SetModel( model )
 	end
 	if tbl.Bodygroups then
 		for _,v in pairs( tbl.Bodygroups ) do
-			ply:SetBodygroup( v[1], v[2] )
+			self:SetBodygroup( v[1], v[2] )
 		end
 	end
 	if !silent then
-		HLU_Notify( nil, ply:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
+		HLU_Notify( nil, self:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
 	end
 	if tbl.SpawnFunction then
-		tbl.SpawnFunction( ply )
+		tbl.SpawnFunction( self )
 	end
-	hook.Run( "PlayerLoadout", ply )
-	if respawn or ( gm == 3 and oldteam and oldteam.Category != tbl.Category ) then
-		ply:Spawn()
+	hook.Run( "PlayerLoadout", self )
+	if respawn or ( current == 3 and old and old.Category != tbl.Category ) then
+		self:Spawn()
 	end
-	ply.JModFriends = {}
+	self.JModFriends = {}
 	for k,v in ipairs( player.GetAll() ) do
-		if v:GetJobCategory() == ply:GetJobCategory() then
-			table.insert( ply.JModFriends, v )
+		if v:GetJobCategory() == self:GetJobCategory() then
+			table.insert( self.JModFriends, v )
 		end
 	end
-	hook.Run( "HLU_OnChangeJob", ply, newteam, oldteam )
+	hook.Run( "HLU_OnChangeJob", self, new, old )
 end
 
 util.AddNetworkString( "HLU_ChangeJob" )
 net.Receive( "HLU_ChangeJob", function( len, ply )
-	local newteam = net.ReadInt( 32 )
-	ChangeTeam( ply, newteam )
+	local new = net.ReadInt( 32 )
+	ply:ChangeTeam( new )
 end )
 
 function GM:PlayerInitialSpawn( ply )
-	ChangeTeam( ply, 1, false, true )
+	ply:ChangeTeam( 1, false, true )
 	if GetJobInfo( ply:Team() ).IsCop then
 		ply:SetWalkSpeed( 200 )
 		ply:SetRunSpeed( 270 )
@@ -173,7 +171,7 @@ function GM:PlayerInitialSpawn( ply )
 		ply:SetRunSpeed( 250 )
 	end
 	ply:SetJumpPower( 170 )
-	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[GetGlobalInt( "CurrentGamemode" )].Name.." gamemode." )
+	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[current].Name.." gamemode." )
 
 	local rpname = ply:GetPData( "RPName" )
 	if rpname then
@@ -224,23 +222,22 @@ local DropBlacklist = {
 	["weapon_ram"] = true
 }
 
-function DropWeapon( ply )
-	if IsValid( ply ) then
-		local wep = ply:GetActiveWeapon()
-		local forward = ply:GetForward()
-		if IsValid( wep ) then
-			if DropBlacklist[wep:GetClass()] then
-				HLU_Notify( ply, "You can't drop this weapon.", 1, 6 )
-				return
-			end
-			local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
-			local e = ents.Create( "hlu_dropped_weapon" )
-			e:SetPos( ply:GetPos() - Vector( forward.x, forward.y, -50 ) )
-			e:SetModel( model )
-			e:Spawn()
-			e.DroppedClass = wep:GetClass()
-			wep:Remove()
+--Overrides default function
+function meta:DropWeapon()
+	local wep = self:GetActiveWeapon()
+	local forward = self:GetForward()
+	if IsValid( wep ) then
+		if DropBlacklist[wep:GetClass()] then
+			HLU_Notify( self, "You can't drop this weapon.", 1, 6 )
+			return
 		end
+		local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
+		local e = ents.Create( "hlu_dropped_weapon" )
+		e:SetPos( self:GetPos() - Vector( forward.x, forward.y, -50 ) )
+		e:SetModel( model )
+		e:Spawn()
+		e.DroppedClass = wep:GetClass()
+		wep:Remove()
 	end
 end
 
@@ -345,6 +342,30 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 	end
 	HLU_Notify( ply, "You have purchased a "..item.Name, 0, 6 )
 	ply.BuyCooldown = CurTime() + 10
+end )
+
+local cooldown = 0
+util.AddNetworkString( "PlayAnnouncement" )
+net.Receive( "PlayAnnouncement", function( len, ply )
+	local msg = net.ReadUInt( 6 )
+	if msg == 0 then
+		ToggleAlarm()
+		return
+	end
+	if cooldown > CurTime() then
+		HLU_Notify( ply, "Please wait before sending another announcement.", 1, 6 )
+		return
+	end
+	
+	local tbl = ply:Team() == TEAM_MARINEBOSS and ANNOUNCEMENTS_HECU or ANNOUNCEMENTS_ADMIN
+	if current == 1 then
+		RunConsoleCommand( "vox", tbl[msg] )
+	else
+		for k,v in ipairs( player.GetHumans() ) do
+			v:ConCommand( "play "..tbl[msg] )
+		end
+	end
+	cooldown = CurTime() + 10
 end )
 
 hook.Add( "PlayerCanPickupWeapon", "NoDoublePickup", function( ply, wep )
