@@ -26,7 +26,7 @@ if SERVER then
 
 	function ENT:Use( ply )
 		if ply:GetJobCategory() == "Combine" then
-			if !GetGlobalBool( "BlowoutActive" ) then
+			if !timer.Exists( "changelevel" ) then
 				HLU_Notify( ply, "Cancellation aborted, there is nothing to cancel.", 1, 6 )
 				return
 			end
@@ -39,18 +39,31 @@ if SERVER then
 				HLU_Notify( ply, "Insert a detonation code decrypter to use this console.", 1, 6 )
 				return
 			end
-			if GetGlobalBool( "BlowoutActive" ) then
+			if timer.Exists( "changelevel" ) then
 				HLU_Notify( ply, "The codes are already being uploaded.", 1, 6 )
 				return
 			end
 			RunConsoleCommand( "blowout_enabled", 1 )
 			ply:EmitSound("buttons/button19.wav", 50, 100)
-			timer.Create( "blowout", 2, 0, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
-			timer.Create( "changelevel", 150, 0, function()
-				RunConsoleCommand( "gamemode", "outlandrp" )
-				RunConsoleCommand( "changelevel", "rp_mezs" )
+			timer.Create( "blowout", 2, 0, function()
+				RunConsoleCommand( "blowout_trigger_delayed", 300 )
+			end )
+			timer.Create( "changelevel", 1, 150, function()
+				local reps = timer.RepsLeft( "changelevel" )
+				if reps == 70 then
+					BroadcastSound( "npc/overwatch/cityvoice/fcitadel_1minutetosingularity.wav" )
+				elseif reps == 55 then
+					BroadcastSound( "npc/overwatch/cityvoice/fcitadel_45sectosingularity.wav" )
+				elseif reps == 40 then
+					BroadcastSound( "npc/overwatch/cityvoice/fcitadel_30sectosingularity.wav" )
+				elseif reps == 20 then
+					BroadcastSound( "npc/overwatch/cityvoice/fcitadel_10sectosingularity.wav" )
+				elseif reps == 0 then
+					RunConsoleCommand( "changelevel", "rp_mezs" )
+				end
 			end )
 			HLU_Notify( nil, "Codes uploading to core......2 minutes until citadel destruction.", 0, 10, true )
+			BroadcastSound( "npc/overwatch/cityvoice/fcitadel_2minutestosingularity.wav" )
 			RestrictedJobs[TEAM_COMBINEELITE] = nil
 		end
 	end

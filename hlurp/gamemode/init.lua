@@ -89,6 +89,12 @@ function GM:PlayerSetHandsModel( ply, ent )
 	end
 end
 
+function BroadcastSound( snd )
+	for k,v in ipairs( player.GetHumans() ) do
+		v:ConCommand( "play "..snd )
+	end
+end
+
 local meta = FindMetaTable( "Player" )
 function meta:MakeZombie()
 	self:StripWeapons()
@@ -361,9 +367,7 @@ net.Receive( "PlayAnnouncement", function( len, ply )
 	if current == 1 then
 		RunConsoleCommand( "vox", msg )
 	else
-		for k,v in ipairs( player.GetHumans() ) do
-			v:ConCommand( "play "..msg )
-		end
+		BroadcastSound( msg )
 	end
 	cooldown = CurTime() + 10
 end )

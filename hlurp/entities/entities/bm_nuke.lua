@@ -51,9 +51,7 @@ if SERVER then
 		timer.Simple( 150, function() RunConsoleCommand ( "changelevel", map ) end )
 
 		HLU_Notify( nil, "Nuke activated. 2 minutes until detonation.", 1, 6, true )
-		for k,v in ipairs( player.GetHumans() ) do
-			v:ConCommand( "play bmrp_nuke.mp3" )
-		end
+		BroadcastSound( "bmrp_nuke.mp3" )
 		ToggleAlarm( true )
 	end
 end
