@@ -297,7 +297,7 @@ net.Receive( "UpdateTask", function()
 end )
 
 hook.Add( "PlayerButtonDown", "OpenEventMenu", function( ply, button )
-	if IsFirstTimePredicted() and !ply.MenuOpen and button == KEY_F2 then
+	if IsFirstTimePredicted() and !ply.MenuOpen and button == KEY_F2 and !IsValid( ply:GetDoor() ) then
 		DrawEventMenu()
 	end
 end )
