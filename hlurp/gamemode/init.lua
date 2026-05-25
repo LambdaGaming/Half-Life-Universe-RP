@@ -231,7 +231,6 @@ local DropBlacklist = {
 --Overrides default function
 function meta:DropWeapon()
 	local wep = self:GetActiveWeapon()
-	local forward = self:GetForward()
 	if IsValid( wep ) then
 		if DropBlacklist[wep:GetClass()] then
 			HLU_Notify( self, "You can't drop this weapon.", 1, 6 )
@@ -239,7 +238,7 @@ function meta:DropWeapon()
 		end
 		local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
 		local e = ents.Create( "hlu_dropped_weapon" )
-		e:SetPos( self:GetPos() - Vector( forward.x, forward.y, -50 ) )
+		e:SetPos( self:GetPos() + self:GetForward() * 50 + self:GetUp() * 50 )
 		e:SetModel( model )
 		e:Spawn()
 		e.DroppedClass = wep:GetClass()
