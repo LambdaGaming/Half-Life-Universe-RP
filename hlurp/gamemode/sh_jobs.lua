@@ -94,7 +94,8 @@ local leadermodels = {
 	"models/player/monk.mdl",
 	"models/player/mossman.mdl",
 	"models/player/odessa.mdl",
-	"models/player/magnusson.mdl"
+	"models/player/magnusson.mdl",
+	"models/Inaki/Characters/gordon_freeman.mdl"
 }
 
 local hecumodels = {
