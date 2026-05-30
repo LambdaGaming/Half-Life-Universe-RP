@@ -37,6 +37,6 @@ function ENT:Use( ply )
 		timer.Simple( 5, function() self.ActiveLight:Remove() end )
 		self:EmitSound( "HL1/ambience/particle_suck2.wav" )
 		ply:AddFunds( totalmoney )
-		HLU_Notify( ply, "You have made $"..totalmoney.." disposing of "..totalbags.." trash bag(s).", 0, 6 )
+		ply:Notify( 0, 6, "You have made $"..totalmoney.." disposing of "..totalbags.." trash bag(s)." )
 	end
 end

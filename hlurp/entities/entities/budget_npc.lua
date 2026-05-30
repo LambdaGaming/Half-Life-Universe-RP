@@ -34,7 +34,7 @@ end
 if SERVER then
 	function ENT:AcceptInput( name, ply )
 		if ply:Team() == TEAM_ADMIN then
-			HLU_ChatNotifySystem( "Trader", color_red, "You cannot use the trader as Facility Admin.", true, ply )
+			ply:SystemChat( "Trader", color_red, "You cannot use the trader as Facility Admin." )
 			return
 		end
 		local amount = 0
@@ -54,10 +54,10 @@ if SERVER then
 			end
 		end
 		if amount > 0 then
-			HLU_ChatNotifySystem( "Trader", color_red, "You have sold "..amount.." items for $"..price..".", true, ply )
+			ply:SystemChat( "Trader", color_red, "You have sold "..amount.." items for $"..price.."." )
 			ply:AddFunds( price )
 		else
-			HLU_ChatNotifySystem( "Trader", color_red, "No items detected. Try moving them closer.", true, ply )
+			ply:SystemChat( "Trader", color_red, "No items detected. Try moving them closer." )
 		end
 	end
 

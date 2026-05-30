@@ -111,7 +111,7 @@ end
 --Job change handler
 util.AddNetworkString( "HLU_ChangeJob" )
 net.Receive( "HLU_ChangeJob", function( len, ply )
-	local new = net.ReadInt( 32 )
+	local new = net.ReadUInt( 8 )
 	ply:ChangeTeam( new )
 end )
 
@@ -212,7 +212,7 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 	local total = 0
 	local item = BuyMenuItems[key]
 	if ply.BuyCooldown and ply.BuyCooldown > CurTime() then
-		HLU_Notify( ply, "Please wait before purchasing another item.", 1, 6 )
+		ply:Notify( 1, 6, "Please wait before purchasing another item." )
 		return
 	end
 	for k,v in ipairs( ents.FindByClass( key ) ) do
@@ -221,7 +221,7 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 		end
 	end
 	if item.Max and total >= item.Max then
-		HLU_Notify( ply, "Purchase failed. Maximum amount of this entity has been reached.", 1, 6 )
+		ply:Notify( 1, 6, "Purchase failed. Maximum amount of this entity has been reached." )
 		return
 	end
 	if item.SpawnCheck and item.SpawnCheck( ply ) == false then return end
@@ -237,7 +237,7 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 	if item.Price then
 		ply:RemoveFunds( item.Price )
 	end
-	HLU_Notify( ply, "You have purchased a "..item.Name, 0, 6 )
+	ply:Notify( 0, 6, "You have purchased a "..item.Name )
 	ply.BuyCooldown = CurTime() + 10
 end )
 
@@ -251,7 +251,7 @@ net.Receive( "PlayAnnouncement", function( len, ply )
 		return
 	end
 	if cooldown > CurTime() then
-		HLU_Notify( ply, "Please wait before sending another announcement.", 1, 6 )
+		ply:Notify( 1, 6, "Please wait before sending another announcement." )
 		return
 	end
 	

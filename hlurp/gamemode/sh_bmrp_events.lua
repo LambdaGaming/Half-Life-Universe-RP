@@ -29,11 +29,11 @@ if SERVER then
 	net.Receive( "NudgeEvent", function( len, ply )
 		local key = net.ReadInt( 8 )
 		if NudgedEvent > 0 then
-			HLU_Notify( ply, "Wait for the nudged event to happen before nudging another one.", 1, 6 )
+			ply:Notify( 1, 6, "Wait for the nudged event to happen before nudging another one." )
 			return
 		end
 		NudgedEvent = key
-		HLU_Notify( ply, "You have nudged the "..BMRP_EVENTS[key].Name.." event.", 0, 6 )
+		ply:Notify( 0, 6, "You have nudged the "..BMRP_EVENTS[key].Name.." event." )
 	end )
 
 	util.AddNetworkString( "GetTask" )
@@ -47,17 +47,17 @@ if SERVER then
 				for a,b in ipairs( team.GetPlayers( v ) ) do
 					if pay > 0 then
 						if BMRP_TASK_COOLDOWN[key] then
-							HLU_Notify( ply, "Please wait before ending another task for this job.", 1, 6 )
+							ply:Notify( 1, 6, "Please wait before ending another task for this job." )
 							return
 						end
 						b:AddFunds( pay )
-						HLU_Notify( b, "The facility admin has given you $"..pay.." for completing a task.", 0, 6 )
+						b:Notify( 0, 6, "The facility admin has given you $"..pay.." for completing a task." )
 						BMRP_TASK_COOLDOWN[key] = true
 						timer.Simple( 600, function() BMRP_TASK_COOLDOWN[key] = nil end )
-						HLU_Notify( ply, "Task reset and funds given!", 0, 6 )
+						ply:Notify( 0, 6, "Task reset and funds given!" )
 					else
-						HLU_Notify( b, "Your task has been updated.", 0, 6 )
-						HLU_Notify( ply, "Task assigned!", 0, 6 )
+						b:Notify( 0, 6, "Your task has been updated." )
+						ply:Notify( 0, 6, "Task assigned!" )
 					end
 					BMRP_CURRENT_TASKS[key] = custom
 				end
@@ -65,8 +65,8 @@ if SERVER then
 		else
 			for k,v in pairs( BMRP_TASKS[key].Required ) do
 				for a,b in ipairs( team.GetPlayers( v ) ) do
-					HLU_Notify( b, "Your task has been updated.", 0, 6 )
-					HLU_Notify( ply, "Task assigned!", 0, 6 )
+					b:Notify( 0, 6, "Your task has been updated." )
+					ply:Notify( 0, 6, "Task assigned!" )
 				end
 				BMRP_CURRENT_TASKS[v] = BMRP_TASKS[key].Description
 			end
@@ -86,7 +86,7 @@ if SERVER then
 		for k,v in ipairs( ents.FindByClass( "event_portal_fix" ) ) do
 			v.broke = true
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has malfunctioned! It won't be able to start up again until a custodian fixes it!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The portal has malfunctioned! It won't be able to start up again until a custodian fixes it!" )
 		RunConsoleCommand( "vox", "deeoo deeoo alert main portal control failure" )
 	end
 
@@ -97,7 +97,7 @@ if SERVER then
 				v:Fire( "Unlock" )
 			end
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has been repaired!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The portal has been repaired!" )
 		RunConsoleCommand( "vox", "dadeda maintenance reports main portal control inspection nominal" )
 		EndEvent( 1800 )
 	end
@@ -111,7 +111,7 @@ if SERVER then
 			v:EmitSound( "vehicles/Airboat/fan_motor_shut_off1.wav" )
 		end
 		if !suppress then
-			HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator powering the trams has stalled!" )
+			BroadcastSystemChat( "BMRP", color_orange, "The secondary generator powering the trams has stalled!" )
 			RunConsoleCommand( "vox", "bizwarn warning secondary _comma train power system failure" )
 		end
 	end
@@ -120,7 +120,7 @@ if SERVER then
 		for k,v in ipairs( ents.FindByClass( "func_tracktrain" ) ) do
 			v:Fire( "Resume" )
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator has been restarted!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The secondary generator has been restarted!" )
 		RunConsoleCommand( "vox", "dadeda maintenance reports secondary _comma train power system inspection nominal" )
 		EndEvent()
 	end
@@ -144,7 +144,7 @@ if SERVER then
 		victim:SpectateEntity( body )
 		victim:SetActiveWeapon( "pocket" )
 		victim.Fainted = true
-		HLU_ChatNotifySystem( "BMRP", color_orange, "A medical emergency has been reported! Current location unknown!" )
+		BroadcastSystemChat( "BMRP", color_orange, "A medical emergency has been reported! Current location unknown!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn medical emergency in the facility" )
 	end
 
@@ -155,8 +155,8 @@ if SERVER then
 		victim.Fainted = false
 		body:Remove()
 		medic:AddFunds( 500 )
-		HLU_Notify( medic, "You have successfully revived your unresponsive colleague. (+500)", 0, 6 )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The medical emergency has been located and dealt with!" )
+		medic:Notify( 0, 6, "You have successfully revived your unresponsive colleague. (+500)" )
+		BroadcastSystemChat( "BMRP", color_orange, "The medical emergency has been located and dealt with!" )
 		EndEvent()
 	end
 	-----------------------------------------------------------------
@@ -167,11 +167,11 @@ if SERVER then
 		for k,v in pairs( NPCEventParticipants ) do
 			if IsValid( v ) then
 				v:AddFunds( 500 )
-				HLU_Notify( v, "You have been awarded $500 for helping defend the facility." )
+				v:Notify( 0, 6, "You have been awarded $500 for helping defend the facility." )
 			end
 		end
 		NPCEventParticipants = {}
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The security breach has been dealt with!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The security breach has been dealt with!" )
 		EndEvent()
 	end
 
@@ -213,7 +213,7 @@ if SERVER then
 		portal:Spawn()
 		portal:Activate()
 		timer.Simple( 3, function() portal:Remove() end )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "Security breach detected! Alien life has been spotted loose in the facility!" )
+		BroadcastSystemChat( "BMRP", color_orange, "Security breach detected! Alien life has been spotted loose in the facility!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn warning _comma security _comma breach _comma unauthorized biological _comma forms detected" )
 	end
 
@@ -230,9 +230,9 @@ if SERVER then
 		end
 		for k,v in ipairs( team.GetPlayers( TEAM_BIO ) ) do
 			v:AddFunds( 500 )
-			HLU_Notify( v, "You have been awarded $500 for helping cleanup the biohazard.", 0, 6 )
+			v:Notify( 0, 6, "You have been awarded $500 for helping cleanup the biohazard." )
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The hazardous waste leak has been cleaned up!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The hazardous waste leak has been cleaned up!" )
 		EndEvent()
 	end
 
@@ -255,7 +255,7 @@ if SERVER then
 			waste:Spawn()
 			waste:CallOnRemove( "BiohazardCleanup", BiohazardCleanup )
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "A hazardous waste leak has been detected!" )
+		BroadcastSystemChat( "BMRP", color_orange, "A hazardous waste leak has been detected!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn biohazard _comma warning _comma biological _comma team report to location immediately" )
 	end
 	-----------------------------------------------------------------
@@ -272,13 +272,13 @@ if SERVER then
 		local crystal = ents.Create( "event_crystal" )
 		crystal:SetPos( table.Random( crystalpos ) )
 		crystal:Spawn()
-		HLU_ChatNotifySystem( "BMRP", color_orange, "A crystal has been accidently teleported to a random location in the facility!" )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The survey team should find it before it gets into the wrong hands!" )
+		BroadcastSystemChat( "BMRP", color_orange, "A crystal has been accidently teleported to a random location in the facility!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The survey team should find it before it gets into the wrong hands!" )
 		RunConsoleCommand( "vox", "bizwarn _comma alert _comma containment _comma crew detain target delta alpha bravo immediately" )
 	end
 
 	function SecureCrystal()
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The lost crystal has been secured!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The lost crystal has been secured!" )
 		EndEvent()
 	end
 	-----------------------------------------------------------------
@@ -289,18 +289,18 @@ if SERVER then
 		hook.Add( "PlayerUse", "BlockPCUsage", function( ply, ent )
 			if scripted_ents.IsBasedOn( ent:GetClass(), "sent_computer_base" ) then
 				if ply.MessageCooldown and ply.MessageCooldown > CurTime() then return end
-				HLU_ChatNotifySystem( "BMRP", color_orange, "The main server is currently down. You won't be able to use computers until a technician fixes it.", true, ply )
+				ply:SystemChat( "BMRP", color_orange, "The main server is currently down. You won't be able to use computers until a technician fixes it." )
 				ply.MessageCooldown = CurTime() + 1
 				return false
 			end
 		end )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The main server has overheated! Computers will not be able to be used until it is fixed!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The main server has overheated! Computers will not be able to be used until it is fixed!" )
 		RunConsoleCommand( "vox", "deeoo _comma superconducting _comma _comma dual core systems high temperature _comma warning" )
 	end
 
 	function FixServer()
 		hook.Remove( "BlockPCUsage" )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The servers have been fixed and computers can be used again!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The servers have been fixed and computers can be used again!" )
 		EndEvent()
 	end
 	-----------------------------------------------------------------
@@ -315,11 +315,11 @@ if SERVER then
 		for k,v in pairs( NPCEventParticipants ) do
 			if IsValid( v ) then
 				v:AddFunds( 500 )
-				HLU_Notify( v, "You have been awarded $500 for helping defend the facility." )
+				v:Notify( 0, 6, "You have been awarded $500 for helping defend the facility." )
 			end
 		end
 		NPCEventParticipants = {}
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The large hostile life form has been killed!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The large hostile life form has been killed!" )
 		EndEvent()
 	end
 
@@ -330,7 +330,7 @@ if SERVER then
 		boss:Spawn()
 		boss:CallOnRemove( "KillBoss", KillBoss )
 		boss.IsEventNPC = true
-		HLU_ChatNotifySystem( "BMRP", color_orange, "All hands on deck! A large hostile life form has teleported into the facility!" )
+		BroadcastSystemChat( "BMRP", color_orange, "All hands on deck! A large hostile life form has teleported into the facility!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn bizwarn attention _comma all personnel report _comma to containment zone immediately" )
 	end
 	-----------------------------------------------------------------
@@ -351,16 +351,16 @@ if SERVER then
 		e:SetPos( randfire )
 		e:Spawn()
 		CreateVFireBall( 30, 15, e:GetPos(), Vector( 0, 50, 0 ), e )
-		HLU_ChatNotifySystem( "BMRP", color_orange, "A fire has been detected by the facility smoke alarms! Evacuate while custodians contain it!" )
+		BroadcastSystemChat( "BMRP", color_orange, "A fire has been detected by the facility smoke alarms! Evacuate while custodians contain it!" )
 		RunConsoleCommand( "vox", "bizwarn bizwarn warning _comma fire detected" )
 	end
 
 	function ExtinguishFire()
 		for k,v in ipairs( team.GetPlayers( TEAM_SERVICE ) ) do
 			v:AddFunds( 500 )
-			HLU_Notify( v, "You have been awarded $500 for extinguishing a fire.", 0, 6 )
+			v:Notify( 0, 6, "You have been awarded $500 for extinguishing a fire." )
 		end
-		HLU_ChatNotifySystem( "BMRP", color_orange, "The fire has been extinguished!" )
+		BroadcastSystemChat( "BMRP", color_orange, "The fire has been extinguished!" )
 		EndEvent()
 	end
 end

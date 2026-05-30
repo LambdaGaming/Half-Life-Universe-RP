@@ -34,7 +34,7 @@ function ZombieInvasion()
 		"npc_fastzombie"
 	}
 
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Zombies From Ravenholm have ended up in the sewers! Please stay indoors until civil protection units deal with the situation." )
+	BroadcastSystemChat( "City 17 RP", color_theme, "Zombies From Ravenholm have ended up in the sewers! Please stay indoors until civil protection units deal with the situation." )
 	for k,v in ipairs( zombiepos[game.GetMap()] ) do
 		local zombie = ents.Create( table.Random( zombies ) )
 		zombie:SetPos( v )
@@ -48,7 +48,7 @@ function CoreFailure()
 		["rp_city24_v4"] = { 1940, 1780, 3901, 4498, 2074, 1620 }
 	}
 
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Power failure at the citadel has caused doors to malfunction! Some of the jail cells are now open!" )
+	BroadcastSystemChat( "City 17 RP", color_theme, "Power failure at the citadel has caused doors to malfunction! Some of the jail cells are now open!" )
 	for k,v in ipairs( ents.GetAll() ) do
 		if table.HasValue( doorindexes[game.GetMap()], v:EntIndex() ) then
 			v:Fire("Unlock")
@@ -79,7 +79,7 @@ local function GetAttackPos()
 end
 
 function RaceX() --why did I agree to do this?
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Someone screwed up the lore and now Race X is invading the citadel!" )
+	BroadcastSystemChat( "City 17 RP", color_theme, "Someone screwed up the lore and now Race X is invading the citadel!" )
 	local racexnpcs = {
 		"npc_vj_hlrof_pitdrone",
 		"npc_vj_hlrof_shocktrooper",
@@ -101,7 +101,7 @@ hook.Add( "PlayerSpawn", "ActiveShooterRelationship", function( ply )
 end )
 
 function RebelInvasion()
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Rebels have invaded the citadel!" )
+	BroadcastSystemChat( "City 17 RP", color_theme, "Rebels have invaded the citadel!" )
 	for k,v in ipairs( GetAttackPos() ) do
 		local rebel = ents.Create( "npc_citizen" )
 		rebel:SetPos( v )
@@ -119,7 +119,7 @@ function RebelInvasion()
 end
 
 function CanisterFail()
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, "A nearby canister launcher has failed and headcrab canisters are approaching the city!" )
+	BroadcastSystemChat( "City 17 RP", color_theme, "A nearby canister launcher has failed and headcrab canisters are approaching the city!" )
 	local canpos = {
 		["rp_city17_build210"] = {
 			Vector( -442, -290, 76 ),

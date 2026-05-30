@@ -18,18 +18,18 @@ function ENT:Initialize()
 	self.broke = false
 end
 
-function ENT:Use( caller, activator )
+function ENT:Use( ply )
 	if self.broke then
-		if caller:Team() == TEAM_SERVICE then
+		if ply:Team() == TEAM_SERVICE then
 			self:EmitSound( "vehicles/Airboat/fan_motor_start1.wav" )
 			TramFix()
 			self.broke = false
-			HLU_Notify( caller, "You pull the cord and the generator starts right up. (+200)", 0, 6 )
-			caller:AddFunds( 200 )
+			ply:Notify( 0, 6, "You pull the cord and the generator starts right up. (+200)" )
+			ply:AddFunds( 200 )
 		else
-			HLU_Notify( caller, "The generator has stalled. Contact a custodian to have it fixed.", 1, 6 )
+			ply:Notify( 1, 6, "The generator has stalled. Contact a custodian to have it fixed." )
 		end
 	else
-		HLU_Notify( caller, "You listen to the generator. It sounds like it's running normally.", 0, 6 )
+		ply:Notify( 0, 6, "You listen to the generator. It sounds like it's running normally." )
 	end
 end

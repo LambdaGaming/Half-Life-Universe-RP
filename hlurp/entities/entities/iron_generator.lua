@@ -31,7 +31,7 @@ end
 
 function ENT:Use( ply )
 	if self.Cooldown > CurTime() then
-		HLU_Notify( ply, "The generator is still in the process of producing the iron!", 1, 6 )
+		ply:Notify( 1, 6, "The generator is still in the process of producing the iron!" )
 		return
 	end
 	for i=1, 5 do

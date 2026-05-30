@@ -21,5 +21,5 @@ function ENT:Initialize()
 end
 
 function ENT:Use( ply )
-	HLU_ChatNotifySystem( "Code Decrypter", color_theme, "Touch this with the detonation console in the citadel to activate it.", true, ply )
+	ply:SystemChat( "Code Decrypter", color_theme, "Touch this with the detonation console in the citadel to activate it." )
 end

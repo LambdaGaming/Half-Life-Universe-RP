@@ -10,13 +10,13 @@ function GetLoyalty( ply )
 end
 
 function DeployRocket()
-	HLU_ChatNotifySystem( "Outland RP", color_green, "Tapping into Black Mesa satellite......2 minutes until portal closes." )
-	HLU_Notify( nil, "Tapping into Black Mesa satellite......2 minutes until portal closes.", 0, 10, true )
+	BroadcastSystemChat( "Outland RP", color_green, "Tapping into Black Mesa satellite......2 minutes until portal closes." )
+	BroadcastNotify( 0, 10, "Tapping into Black Mesa satellite......2 minutes until portal closes." )
 	timer.Create( "CombinePortalTimer", 120, 1, function()
 		ents.GetMapCreatedEntity( 2677 ):Fire( "Press" )
 	end )
 	timer.Create( "KickTimer", 151, 1, function()
-		HLU_ChatNotifySystem( "Outland RP", color_green, "The session has ended in Rebel victory! The server will close in 1 minute. Thanks for playing!" )
+		BroadcastSystemChat( "Outland RP", color_green, "The session has ended in Rebel victory! The server will close in 1 minute. Thanks for playing!" )
 		timer.Simple( 60, function()
 			for k,v in ipairs( player.GetAll() ) do
 				v:Kick( "\n--END OF SESSION--\nThe rebels have successfully launched the rocket and closed off the Combine's access to Earth for good. Humanity has been saved.\nThanks for playing!" )
@@ -27,17 +27,17 @@ function DeployRocket()
 end
 
 timer.Create( "CombineCooldown", 1800, 1, function()
-	HLU_ChatNotifySystem( "Outland RP", color_green, "The Combine have obtained more powerful vehicles!" )
+	BroadcastSystemChat( "Outland RP", color_green, "The Combine have obtained more powerful vehicles!" )
 end )
 
 timer.Create( "CombineVictory", 5400, 1, function()
 	local msg = "The rebels failed to close the portal in time! The Combine invasion has started!"
-	HLU_ChatNotifySystem( "Outland RP", color_green, msg )
-	HLU_Notify( nil, msg, 0, 6, true )
+	BroadcastSystemChat( "Outland RP", color_green, msg )
+	BroadcastNotify( 0, 6, msg )
 	RunConsoleCommand( "blowout_enabled", "1" )
 	RunConsoleCommand( "blowout_trigger_delayed", 300 )
 	timer.Simple( 151, function()
-		HLU_ChatNotifySystem( "Outland RP", color_green, "The session has ended in Combine victory! The server will close in 1 minute. Thanks for playing!" )
+		BroadcastSystemChat( "Outland RP", color_green, "The session has ended in Combine victory! The server will close in 1 minute. Thanks for playing!" )
 		timer.Simple( 60, function()
 			for k,v in ipairs( player.GetAll() ) do
 				v:Kick( "\n--END OF SESSION--\nThe Combine successfully re-opened the portal and Earth was invaded once again. The remaining rebels stood little chance, and humanity was wiped out for good.\nThanks for playing!" )

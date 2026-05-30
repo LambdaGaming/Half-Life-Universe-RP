@@ -21,15 +21,15 @@ function ENT:Initialize()
 	self.broke = false
 end
 
-function ENT:Use( caller, activator )
+function ENT:Use( ply )
 	if self.broke then
-		if caller:Team() != TEAM_SERVICE then
-			HLU_Notify( caller, "The portal is broken. Use your wrench to attempt repairs.", 1, 6 )
+		if ply:Team() != TEAM_SERVICE then
+			ply:Notify( 1, 6, "The portal is broken. Use your wrench to attempt repairs." )
 		else
-			HLU_Notify( caller, "The portal is broken. Contact a custodian to have it fixed.", 1, 6 )
+			ply:Notify( 1, 6, "The portal is broken. Contact a custodian to have it fixed." )
 		end
 	else
-		HLU_Notify( caller, "You visually inspect the portal but find nothing out of the ordinary.", 0, 6 )
+		ply:Notify( 0, 6, "You visually inspect the portal but find nothing out of the ordinary." )
 	end
 end
 
@@ -52,7 +52,7 @@ function ENT:OnTakeDamage( dmg )
 				self.broke = false
 				PortalFix()
 				self:SetHealth( 0 )
-				HLU_Notify( ply, "You rewire a few circuits and reboot the system, it appears to be working now. (+500)", 0, 6 )
+				ply:Notify( 0, 6, "You rewire a few circuits and reboot the system, it appears to be working now. (+500)" )
 				ply:AddFunds( 500 )
 			end
 		end

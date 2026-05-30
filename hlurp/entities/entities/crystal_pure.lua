@@ -35,7 +35,7 @@ if SERVER then
 	end
 
 	function ENT:Use( ply )
-		HLU_Notify( ply, "This is the purest sample we've seen yet! Take it to the AMS in Sector C so it can be tested!", 0, 6 )
+		ply:Notify( 0, 6, "This is the purest sample we've seen yet! Take it to the AMS in Sector C so it can be tested!" )
 	end
 end
 

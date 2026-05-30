@@ -5,7 +5,7 @@ SWEP.Category = "HLU RP"
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
 SWEP.Base = "weapon_base"
-SWEP.Author = "Lambda Gaming"
+SWEP.Author = "OPGman"
 SWEP.Slot = 3
 
 SWEP.ViewModel = "models/weapons/v_crowbar.mdl"
@@ -28,18 +28,18 @@ function SWEP:PrimaryAttack()
     if tr:GetClass() == "two_way_teleporter" then
     	if self.FirstPortal then
 			if tr == self.FirstPortal then
-				HLU_Notify( self.Owner, "ERROR: This portal is already selected to be linked.", 1, 6 )
+				self.Owner:Notify( 1, 6, "ERROR: This portal is already selected to be linked." )
 				return
 			end
 			self.SecondPortal = tr
 			self.FirstPortal:SetNWEntity( "PairedPortal", self.SecondPortal )
 			self.SecondPortal:SetNWEntity( "PairedPortal", self.FirstPortal )
-			HLU_Notify( self.Owner, "Portals linked.", 0, 6 )
+			self.Owner:Notify( 0, 6, "Portals linked." )
 			self.FirstPortal = nil 
 			self.SecondPortal = nil
 		else
 			self.FirstPortal = tr
-			HLU_Notify( self.Owner, "First portal info aquired.", 0, 6 )
+			self.Owner:Notify( 0, 6, "First portal info aquired." )
 		end
     end
     self:SetNextPrimaryFire( CurTime() + 1 )
@@ -51,7 +51,7 @@ function SWEP:SecondaryAttack()
 	if self.Owner:GetPos():DistToSqr( tr:GetPos() ) > 90000 then return end
     if tr:GetClass() == "two_way_teleporter" then
     	tr:SetNWEntity( "PairedPortal", nil )
-		HLU_Notify( self.Owner, "Portal successfully unpaired.", 0, 6 )
+		self.Owner:Notify( 0, 6, "Portal successfully unpaired." )
     end
     self:SetNextPrimaryFire( CurTime() + 1 )
 end

@@ -34,22 +34,22 @@ end
 
 function ENT:Use( ply )
 	if self.active then
-		HLU_Notify( ply, "The teleporter is currently in use.", 1, 6 )
+		ply:Notify( 1, 6, "The teleporter is currently in use." )
 		return
 	end
 	local pair = self:GetNWEntity( "PairedPortal" )
 	if pair == NULL or !IsValid( pair ) then
-		HLU_Notify( ply, "ERROR: Portal needs to be paired with a pairing tool. Contact a resistance leader for assistance.", 1, 6 )
+		ply:Notify( 1, 6, "ERROR: Portal needs to be paired with a pairing tool. Contact a resistance leader for assistance." )
 		return
 	end
 	if ply:Alive() then
 		timer.Simple( 1, function()
-			HLU_Notify( ply, "Teleport starting...", 0, 6 )
+			ply:Notify( 0, 6, "Teleport starting..." )
 		end )
 		self:EmitSound( "ambient/levels/labs/teleport_mechanism_windup"..math.random( 1, 5 )..".wav" )
 		local time = 5
 		timer.Create( "TeleportTimer", 1, 5, function()
-			HLU_Notify( ply, "Teleporting in: "..tostring( time ), 0, 6 )
+			ply:Notify( 0, 6, "Teleporting in: "..tostring( time ) )
 			time = time - 1
 		end )
 		timer.Simple( 7, function()

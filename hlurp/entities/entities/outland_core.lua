@@ -21,9 +21,9 @@ if SERVER then
 
 	function ENT:Use( ply )
 		if ply:GetJobCategory() == "Combine" then
-			HLU_Notify( ply, "This is the base's central core. It must be protected from the rebels at all costs.", 0, 6 )
+			ply:Notify( 0, 6, "This is the base's central core. It must be protected from the rebels at all costs." )
 		else
-			HLU_Notify( ply, "Damage the central core to destroy it and cripple the Combine!", 0, 6 )
+			ply:Notify( 0, 6, "Damage the central core to destroy it and cripple the Combine!" )
 		end
 	end
 
@@ -36,10 +36,10 @@ if SERVER then
 		e:Fire( "Explode" )
 		self:Remove()
 		timer.Simple( 120, function() ents.GetMapCreatedEntity( 2677 ):Fire( "Press" ) end )
-		HLU_ChatNotifySystem( "Outland RP", color_green, "Combine base infilatrated......2 minutes until portal closes." )
-		HLU_Notify( nil, "Combine base infilatrated......2 minutes until portal closes.", 0, 10, true )
+		BroadcastSystemChat( "Outland RP", color_green, "Combine base infilatrated......2 minutes until portal closes." )
+		BroadcastNotify( 0, 10, "Combine base infilatrated......2 minutes until portal closes." )
 		timer.Create( "KickTimer", 151, 1, function()
-			HLU_ChatNotifySystem( "Outland RP", color_green, "The session has ended in Rebel victory! The server will close in 1 minute. Thanks for playing!" )
+			BroadcastSystemChat( "Outland RP", color_green, "The session has ended in Rebel victory! The server will close in 1 minute. Thanks for playing!" )
 			timer.Simple( 60, function()
 				for k,v in ipairs( player.GetAll() ) do
 					v:Kick( "\n--END OF SESSION--\nThe rebels have destroyed the Combine base and wiped out its remaining forces. There's nobody left to call for help. Humanity has won.\nThanks for playing!" )

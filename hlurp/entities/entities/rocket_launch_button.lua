@@ -22,21 +22,21 @@ end
 
 function ENT:Use( ply )
 	if !self.HasKey then
-		HLU_Notify( ply, "You need to craft a key and insert it here to be able to launch the rocket!", 1, 6 )
+		plu:Notify( 1, 6, "You need to craft a key and insert it here to be able to launch the rocket!" )
 		return
 	end
 	if ply:GetJobCategory() == "Combine" then
 		if timer.Exists( "KickTimer" ) then
-			HLU_Notify( ply, "ERROR: Cancellation aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else.", 1, 6 )
+			ply:Notify( 1, 6, "ERROR: Cancellation aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else." )
 			return
 		else
 			if !timer.Exists( "rocketinit" ) then
-				HLU_Notify( ply, "ERROR: No rocket detected to abort.", 1, 6 )
+				ply:Notify( 1, 6, "ERROR: No rocket detected to abort." )
 				return
 			end
 			timer.Create( "rocket_timer", 600, 1, function() end )
-			HLU_Notify( nil, "Rocket failed to successfully launch, emergency cancellation button was activated.", 0, 6, true )
-			HLU_Notify( nil, "There were "..math.Round( timer.TimeLeft( "rocketinit" ) ).." seconds left until the rocket launched.", 0, 6, true )
+			BroadcastNotify( 0, 6, "Rocket failed to successfully launch, emergency cancellation button was activated." )
+			BroadcastNotify( 0, 6, "There were "..math.Round( timer.TimeLeft( "rocketinit" ) ).." seconds left until the rocket launched." )
 			timer.Remove( "CombinePortalTimer" )
 			timer.Remove( "KickTimer" )
 			for k,v in ipairs( ents.FindByClass( "gb5_proj_icbm_big" ) ) do
@@ -45,26 +45,26 @@ function ENT:Use( ply )
 		end
 	else
 		if timer.Exists( "KickTimer" ) then
-			HLU_Notify( ply, "ERROR: Launch aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else.", 1, 6 )
+			ply:Notify( 1, 6, "ERROR: Launch aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else." )
 			return
 		end
 		if #ents.FindByClass( "gb5_proj_icbm_big" ) >= 1 then
-			HLU_Notify( ply, "ERROR: The rocket was already spawned!", 1, 6 )
+			ply:Notify( 1, 6, "ERROR: The rocket was already spawned!" )
 			return
 		end
 		if ply:Team() != TEAM_RESISTANCELEADER then
-			HLU_Notify( ply, "ERROR: Only resistance leaders can launch the rocket!", 1, 6 )
+			ply:Notify( 1, 6, "ERROR: Only resistance leaders can launch the rocket!" )
 			return
 		end
 		if timer.Exists("rocket_timer") then
-			HLU_Notify( ply, "Wait "..math.Round( timer.TimeLeft( "rocket_timer" ) ).." seconds before activating the rocket again.", 1, 6 )
+			ply:Notify( 1, 6, "Wait "..math.Round( timer.TimeLeft( "rocket_timer" ) ).." seconds before activating the rocket again." )
 			return
 		end
 		local rocket = ents.Create( "gb5_proj_icbm_big" )
 		rocket:SetPos( Vector( 14360, 8068, 26 ) )
 		rocket:Spawn()
 		timer.Create( "rocketinit", 300, 1, function() rocket:Launch() end )
-		HLU_ChatNotifySystem( "Outland RP", color_green, "Launch sequence activated.......T minus 5 minutes until lift-off." )
-		HLU_Notify( nil, "Launch sequence activated.......T minus 5 minutes until lift-off.", 0, 10, true )
+		BroadcastSystemChat( "Outland RP", color_green, "Launch sequence activated.......T minus 5 minutes until lift-off." )
+		BroadcastNotify( 0, 10, "Launch sequence activated.......T minus 5 minutes until lift-off." )
 	end
 end

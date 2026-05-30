@@ -18,18 +18,18 @@ function ENT:Initialize()
 	self.broke = false
 end
 
-function ENT:Use( caller, activator )
+function ENT:Use( ply )
 	if self.broke then
-		if caller:Team() == TEAM_TECH then
+		if ply:Team() == TEAM_TECH then
 			self:EmitSound( "ambient/levels/citadel/zapper_warmup1.wav" )
 			FixServer()
 			self.broke = false
-			HLU_Notify( caller, "You clean out the dust and reboot the system. (+500)", 1, 6 )
-			caller:AddFunds( 500 )
+			ply:Notify( 0, 6, "You clean out the dust and reboot the system. (+500)" )
+			ply:AddFunds( 500 )
 		else
-			HLU_Notify( caller, "The server has overheated. Contact a technician to have it fixed.", 1, 6 )
+			ply:Notify( 1, 6, "The server has overheated. Contact a technician to have it fixed." )
 		end
 	else
-		HLU_Notify( caller, "You check the server stats. Everything looks good.", 1, 6 )
+		ply:Notify( 0, 6, "You check the server stats. Everything looks good." )
 	end
 end

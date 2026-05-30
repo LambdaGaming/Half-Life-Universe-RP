@@ -3,7 +3,7 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Combine Science Locker"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
@@ -28,55 +28,55 @@ local ScienceItems = {
 	["Manhack Metrocop"] = function( ply, ent )
 		if RestrictedJobs[TEAM_METROCOPMANHACK] then
 			RestrictedJobs[TEAM_METROCOPMANHACK] = false
-			HLU_Notify( nil, "The Combine has researched the Manhack Civil Protection job!", 0, 6, true )
+			BroadcastNotify( 0, 6, "The Combine has researched the Manhack Civil Protection job!" )
 			ent:SetKeys( ent:GetKeys() - 1 )
 			return
 		end
-		HLU_Notify( ply, "The Manhack Civil Protection job was already researched. Please choose another.", 1, 6 )
+		ply:Notify( 1, 6, "The Manhack Civil Protection job was already researched. Please choose another." )
 	end,
 	["Cremator"] = function( ply, ent )
 		if RestrictedJobs[TEAM_CREMATOR] then
 			RestrictedJobs[TEAM_CREMATOR] = false
-			HLU_Notify( nil, "The Combine has researched the Cremator job!", 0, 6, true )
+			BroadcastNotify( 0, 6, "The Combine has researched the Cremator job!" )
 			ent:SetKeys( ent:GetKeys() - 1 )
 			return
 		end
-		HLU_Notify( ply, "The Cremator job was already researched. Please choose another.", 1, 6 )
+		ply:Notify( 1, 6, "The Cremator job was already researched. Please choose another." )
 	end,
 	["Overwatch Elite"] = function( ply, ent )
 		if RestrictedJobs[TEAM_COMBINEELITE] then
 			RestrictedJobs[TEAM_COMBINEELITE] = false
-			HLU_Notify( nil, "The Combine has researched the Overwatch Elite job!", 0, 6, true )
+			BroadcastNotify( 0, 6, "The Combine has researched the Overwatch Elite job!" )
 			ent:SetKeys( ent:GetKeys() - 1 )
 			return
 		end
-		HLU_Notify( ply, "The Overwatch Elite job was already researched. Please choose another.", 1, 6 )
+		ply:Notify( 1, 6, "The Overwatch Elite job was already researched. Please choose another." )
 	end,
 	["Overwatch Shotgun Guard"] = function( ply, ent )
 		if RestrictedJobs[TEAM_COMBINEGUARDSHOTGUN] then
 			RestrictedJobs[TEAM_COMBINEGUARDSHOTGUN] = false
-			HLU_Notify( nil, "The Combine has researched the Overwatch Shotgun Guard job!", 0, 6, true )
+			BroadcastNotify( 0, 6, "The Combine has researched the Overwatch Shotgun Guard job!" )
 			ent:SetKeys( ent:GetKeys() - 1 )
 			return
 		end
-		HLU_Notify( ply, "The Overwatch Shotgun Guard job was already researched. Please choose another.", 1, 6 )
+		ply:Notify( 1, 6, "The Overwatch Shotgun Guard job was already researched. Please choose another." )
 	end,
 	["Gluon Gun"] = function( ply, ent )
 		if ply:HasWeapon( "weapon_hlmmod_c_egon" ) then
-			HLU_Notify( ply, "You already have a Gluon Gun. Drop it to research another.", 1, 6 )
+			ply:Notify( 1, 6, "You already have a Gluon Gun. Drop it to research another." )
 			return
 		end
 		ply:Give( "weapon_hlmmod_c_egon" )
-		HLU_Notify( ply, "You have researched the Gluon Gun!", 0, 6 )
+		ply:Notify( 0, 6, "You have researched the Gluon Gun!" )
 		ent:SetKeys( ent:GetKeys() - 1 )
 	end,
 	["Tau Cannon"] = function( ply, ent )
 		if ply:HasWeapon( "weapon_hlmmod_c_gauss" ) then
-			HLU_Notify( ply, "You already have a Tau Cannon. Drop it to research another.", 1, 6 )
+			ply:Notify( 1, 6, "You already have a Tau Cannon. Drop it to research another." )
 			return
 		end
 		ply:Give( "weapon_hlmmod_c_gauss" )
-		HLU_Notify( ply, "You have researched the Tau Cannon!", 0, 6 )
+		ply:Notify( 0, 6, "You have researched the Tau Cannon!" )
 		ent:SetKeys( ent:GetKeys() - 1 )
 	end
 }
@@ -85,7 +85,7 @@ if SERVER then
 	util.AddNetworkString( "ScienceLocker" )
 	function ENT:Use( ply )
 		if ply:Team() != TEAM_SCIENTIST then
-			HLU_Notify( ply, "Only scientists can access this locker!", 0, 6 )
+			ply:Notify( 0, 6, "Only scientists can access this locker!" )
 			return
 		end
 		for k,v in ipairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
@@ -101,7 +101,7 @@ if SERVER then
 			net.Send( ply )
 			return
 		end
-		HLU_Notify( ply, "Please insert a key to open the locker.", 1, 6 )
+		ply:Notify( 1, 6, "Please insert a key to open the locker." )
 	end
 	
 	function ENT:StartTouch( ent )

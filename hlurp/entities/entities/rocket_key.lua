@@ -22,7 +22,7 @@ function ENT:Initialize()
 end
 
 function ENT:Use( ply )
-	HLU_ChatNotifySystem( "Rocket Key", color_green, "Touch this with the rocket launch button.", true, ply )
+	ply:SystemChat( "Rocket Key", color_green, "Touch this with the rocket launch button." )
 end
 
 function ENT:StartTouch( ent )
@@ -31,6 +31,6 @@ function ENT:StartTouch( ent )
 		ent:EmitSound( "buttons/button5.wav" )
 		ent.light:SetKeyValue( "_light", "0 255 0 255" )
 		self:Remove()
-		HLU_ChatNotifySystem( "Outland RP", color_green, "The rocket is fully prepped and ready for launch!" )
+		BroadcastSystemChat( "Outland RP", color_green, "The rocket is fully prepped and ready for launch!" )
 	end
 end

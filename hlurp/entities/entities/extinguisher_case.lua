@@ -27,20 +27,20 @@ function ENT:Use( ply )
 	if ply:HasWeapon( "weapon_extinguisher" ) then
 		if self.used then
 			ply:StripWeapon( "weapon_extinguisher" )
-			HLU_Notify( ply, "You have placed the extinguisher back in the case.", 0, 6 )
+			ply:Notify( 0, 6, "You have placed the extinguisher back in the case." )
 			self.used = false
 			return
 		else
-			HLU_Notify( ply, "You already have a fire extinguisher!", 1, 6 )
+			ply:Notify( 1, 6, "You already have a fire extinguisher!" )
 			return
 		end
 	elseif self.used then
-		HLU_Notify( ply, "You open the extinguisher case but find nothing inside.", 1, 6 )
+		ply:Notify( 1, 6, "You open the extinguisher case but find nothing inside." )
 		return
 	end
 	ply:Give( "weapon_extinguisher" )
 	ply:SelectWeapon( "weapon_extinguisher" )
-	HLU_Notify( ply, "You have obtained a fire extinguisher.", 0, 6 )
+	ply:Notify( 0, 6, "You have obtained a fire extinguisher." )
 	self.used = true
 end
 

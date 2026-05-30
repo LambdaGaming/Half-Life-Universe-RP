@@ -3,7 +3,7 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Ammo Locker"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Category = "HLU RP"
 ENT.Spawnable = true
 ENT.AdminOnly = true
@@ -49,7 +49,7 @@ if SERVER then
 		local primaryName = game.GetAmmoName( primary )
 		local secondaryName = game.GetAmmoName( secondary )
 		if !AmmoTypes[primaryName] then
-			HLU_Notify( ply, "Ammo is not available for this weapon.", 1, 6 )
+			ply:Notify( 1, 6, "Ammo is not available for this weapon." )
 			return
 		end
 		self.Used = true

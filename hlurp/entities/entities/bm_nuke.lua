@@ -29,7 +29,7 @@ function ENT:Use( ply )
 	end
 
 	if !foundKey then
-		HLU_Notify( ply, "You must take the nuke to the detonator terminal before it can be activated!", 1, 6 )
+		ply:Notify( 1, 6, "You must take the nuke to the detonator terminal before it can be activated!" )
 		return
 	end
 
@@ -45,7 +45,7 @@ function ENT:Use( ply )
 	RunConsoleCommand( "blowout_enabled", 1 )
 	timer.Simple( 2, function() RunConsoleCommand( "blowout_trigger_delayed", 300 ) end )
 	timer.Simple( 150, function() RunConsoleCommand ( "changelevel", map ) end )
-	HLU_Notify( nil, "Nuke activated. 2 minutes until detonation.", 1, 6, true )
+	BroadcastNotify( 0, 6, "Nuke activated. 2 minutes until detonation." )
 	BroadcastSound( "bmrp_nuke.mp3" )
 	ToggleAlarm( true )
 end

@@ -24,20 +24,20 @@ end
 function ENT:Use( ply )
 	if ply:GetJobCategory() == "Combine" then
 		if !timer.Exists( "changelevel" ) then
-			HLU_Notify( ply, "All systems are operating normally.", 1, 6 )
+			ply:Notify( 0, 6, "All systems are operating normally." )
 			return
 		end
 		RunConsoleCommand( "blowout_enabled", 0 )
 		timer.Remove( "blowout" )
 		timer.Remove( "changelevel" )
-		HLU_Notify( nil, "Code upload failed, emergency cancellation button was activated.", 1, 10, true )
+		BroadcastNotify( 1, 10, "Code upload failed, emergency cancellation button was activated." )
 	else
 		if !self.Decrypted then
-			HLU_Notify( ply, "Insert a detonation code decrypter to use this console.", 1, 6 )
+			ply:Notify( 1, 6, "Insert a detonation code decrypter to use this console." )
 			return
 		end
 		if timer.Exists( "changelevel" ) then
-			HLU_Notify( ply, "The codes are already being uploaded.", 1, 6 )
+			ply:Notify( 1, 6, "The codes are already being uploaded." )
 			return
 		end
 		RunConsoleCommand( "blowout_enabled", 1 )
@@ -59,7 +59,7 @@ function ENT:Use( ply )
 				RunConsoleCommand( "changelevel", "rp_mezs" )
 			end
 		end )
-		HLU_Notify( nil, "Codes uploading to core......2 minutes until citadel destruction.", 0, 10, true )
+		BroadcastNotify( 0, 10, "Codes uploading to core......2 minutes until citadel destruction." )
 		BroadcastSound( "npc/overwatch/cityvoice/fcitadel_2minutestosingularity.wav" )
 		RestrictedJobs[TEAM_COMBINEELITE] = nil
 	end

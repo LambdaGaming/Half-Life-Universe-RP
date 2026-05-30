@@ -64,10 +64,10 @@ hook.Add( "PlayerDeath", "C17PlayerDeath", function( ply, inflictor, attacker )
 	local demoteJobs = { [TEAM_EARTHADMIN] = true, [TEAM_GMANCITY] = true, [TEAM_RESISTANCELEADER] = true, [TEAM_VORT] = true }
 	if demoteJobs[plyteam] then
 		ply:ChangeTeam( 1, false, true )
-		HLU_Notify( nil, ply:Nick().." has been killed!", 0, 6, true )
+		BroadcastNotify( 0, 6, ply:Nick().." has been killed!" )
 		timer.Create( "JobCooldown"..plyteam..ply:SteamID(), 600, 1, function()
 			if IsValid( ply ) then
-				HLU_Notify( ply, "You can now play as the "..HLU_JOB[2][plyteam].Name.." job again.", 0, 6 )
+				ply:Notify( 0, 6, "You can now play as the "..HLU_JOB[2][plyteam].Name.." job again." )
 			end
 		end )
 	end
@@ -117,7 +117,7 @@ end )
 hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 	local resistanceJobs = { [TEAM_RESISTANCELEADER] = true, [TEAM_COMBINEGUARD] = true, [TEAM_COMBINESOLDIER] = true }
 	if RestrictedJobs[new] then
-		HLU_Notify( ply, "This job must be unlocked via the Combine science locker.", 1, 6 )
+		ply:Notify( 1, 6, "This job must be unlocked via the Combine science locker." )
 		return false
 	elseif resistanceJobs[new] then
 		local totalKilled = 0
@@ -125,14 +125,14 @@ hook.Add( "HLU_CanChangeJobs", "C17JobCheck", function( ply, new, old )
 			totalKilled = totalKilled + GetKilled( v )
 		end
 		if totalKilled < 3 then
-			HLU_Notify( ply, "Wait for the resistance to build up more before choosing this job", 1, 6 )
+			ply:Notify( 1, 6, "Wait for the resistance to build up more before choosing this job" )
 			return false
 		end
 	elseif new == TEAM_RESISTANCELEADER and GetLoyalty( ply ) > 25 then
-		HLU_Notify( ply, "You need 25 loyalty or less to play as this job.", 1, 6 )
+		ply:Notify( 1, 6, "You need 25 loyalty or less to play as this job." )
 		return false
 	elseif timer.Exists( "JobCooldown"..new..ply:SteamID() ) then
-		HLU_Notify( ply, "Wait for the cooldown to end before choosing this job again.", 1, 6 )
+		ply:Notify( 1, 6, "Wait for the cooldown to end before choosing this job again." )
 		return false
 	end
 end )

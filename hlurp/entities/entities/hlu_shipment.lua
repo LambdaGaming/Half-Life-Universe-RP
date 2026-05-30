@@ -21,11 +21,11 @@ if SERVER then
 	function ENT:Use( ply )
 		local num = self:GetNWInt( "NumWeapons" )
 		if !self.WepClass then
-			HLU_Notify( ply, "This weapon box hasn't been properly initialized. Weapons will not spawn from it.", 1, 6 )
+			ply:Notify( 1, 6, "This weapon box hasn't been properly initialized. Weapons will not spawn from it." )
 			return
 		end
 		if ply:HasWeapon( self.WepClass ) then
-			HLU_Notify( ply, "You already have this weapon.", 1, 6 )
+			ply:Notify( 1, 6, "You already have this weapon." )
 			return
 		end
 		ply:Give( self.WepClass )

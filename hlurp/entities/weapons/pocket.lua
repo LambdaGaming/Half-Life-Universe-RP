@@ -136,7 +136,7 @@ if SERVER then
 		if not ply.darkRPPocket or not ply.darkRPPocket[item] then return end
 		local canPickup, message = hook.Call( "canDropPocketItem", nil, ply, item, ply.darkRPPocket[item] )
 		if canPickup == false then
-			if message then HLU_Notify( ply, message, 1, 6 ) end
+			if message then ply:Notify( 1, 6, message ) end
 			sendPocketItems( ply )
 			return
 		end
@@ -294,34 +294,36 @@ end
 function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire( CurTime() + 0.2 )
 	if !SERVER then return end
-	local ent = self:GetOwner():GetEyeTrace().Entity
-	local canPickup, message = hook.Call( "canPocket", GAMEMODE, self:GetOwner(), ent )
+	local ply = self:GetOwner()
+	local ent = ply:GetEyeTrace().Entity
+	local canPickup, message = hook.Call( "canPocket", GAMEMODE, ply, ent )
 	if !canPickup then
-		if message then HLU_Notify( self:GetOwner(), message, 1, 6 ) end
+		if message then ply:Notify( 1, 6, message ) end
 		return
 	end
-	self:GetOwner():addPocketItem( ent )
+	ply:addPocketItem( ent )
 end
 
 function SWEP:SecondaryAttack()
 	if !SERVER then return end
 
 	local maxK = 0
-	for k in pairs( self:GetOwner():getPocketItems() ) do
+	local ply = self:GetOwner()
+	for k in pairs( ply:getPocketItems() ) do
 		if k < maxK then continue end
 		maxK = k
 	end
 	if maxK == 0 then
-		HLU_Notify( self:GetOwner(), "Your pocket contains no items.", 1, 6 )
+		ply:Notify( 1, 6, "Your pocket contains no items." )
 		return
 	end
 
-	local canPickup, message = hook.Call( "canDropPocketItem", nil, self:GetOwner(), maxK, self:GetOwner().darkRPPocket[maxK] )
+	local canPickup, message = hook.Call( "canDropPocketItem", nil, ply, maxK, ply.darkRPPocket[maxK] )
 	if canPickup == false then
-		if message then HLU_Notify( self:GetOwner(), message, 1, 6 ) end
+		if message then ply:Notify( 1, 6, message ) end
 		return
 	end
-	self:GetOwner():dropPocketItem( maxK )
+	ply:dropPocketItem( maxK )
 end
 
 function SWEP:Reload()

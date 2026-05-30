@@ -18,5 +18,5 @@ function ENT:Initialize()
 end
 
 function ENT:Use( ply )
-	HLU_Notify( ply, "Place this near a trash compactor to dispose of it.", 0, 6 )
+	ply:Notify( 0, 6, "Place this near a trash compactor to dispose of it." )
 end

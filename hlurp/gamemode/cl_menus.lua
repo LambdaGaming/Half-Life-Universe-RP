@@ -145,9 +145,9 @@ local function SelectPlayermodel( num, job )
 		net.WriteInt( num, 8 )
 		net.SendToServer()
 		if ply:Team() == num then
-			HLU_Notify( "Your playermodel has been updated.", 0, 6 )
+			ply:Notify( 0, 6, "Your playermodel has been updated." )
 		else
-			HLU_Notify( "Playermodels for this job will be randomly chosen.", 0, 6 )
+			ply:Notify( 0, 6, "Playermodels for this job will be randomly chosen." )
 		end
 		main:Close()
 	end
@@ -163,9 +163,9 @@ local function SelectPlayermodel( num, job )
 			net.WriteInt( num, 8 )
 			net.SendToServer()
 			if ply:Team() == num then
-				HLU_Notify( "Your playermodel has been updated.", 0, 6 )
+				ply:Notify( 0, 6, "Your playermodel has been updated." )
 			else
-				HLU_Notify( "This model will be used when you select this job.", 0, 6 )
+				ply:Notify( 0, 6, "This model will be used when you select this job." )
 			end
 			main:Close()
 		end
@@ -226,15 +226,15 @@ local function DrawJobMenu()
 			end
 			mainbuttons.DoClick = function()
 				if ply.JobSelectCooldown and ply.JobSelectCooldown > CurTime() then
-					HLU_Notify( "Please wait a few seconds before changing jobs.", 1, 6 )
+					ply:Notify( 1, 6, "Please wait a few seconds before changing jobs." )
 					return
 				end
 				if k == TEAM_MARINEBOSS or k == TEAM_MARINE then
-					HLU_Notify( "Under normal circumstances, players can only become HECU by interacting with the escape truck during the cascade.", 1, 8 )
+					ply:Notify( 1, 8, "Under normal circumstances, players can only become HECU by interacting with the escape truck during the cascade." )
 					return
 				end
 				net.Start( "HLU_ChangeJob" )
-				net.WriteInt( k, 32 )
+				net.WriteUInt( k, 8 )
 				net.SendToServer()
 				ply.JobSelectCooldown = CurTime() + 5
 				main:Close()
@@ -246,7 +246,7 @@ local function DrawJobMenu()
 			playermodel:SetModel( v.Models[1] )
 			playermodel.DoClick = function()
 				if table.Count( v.Models ) <= 1 then
-					HLU_Notify( "Only one playermodel is available for this job.", 1, 6 )
+					ply:Notify( 1, 6, "Only one playermodel is available for this job." )
 					return
 				end
 				SelectPlayermodel( k, v )

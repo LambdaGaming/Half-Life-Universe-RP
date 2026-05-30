@@ -20,5 +20,5 @@ function ENT:Initialize()
 end
 
 function ENT:Use( ply )
-	HLU_ChatNotifySystem( "City 17 RP", color_theme, "Place this key near a science locker and press your use key on the locker to research something.", true, ply )
+	ply:SystemChat( "City 17 RP", color_theme, "Place this key near a science locker and press your use key on the locker to research something." )
 end

@@ -1,44 +1,59 @@
 util.AddNetworkString( "HLU_Notify" )
-function HLU_Notify( ply, text, type, len, broadcast )
+local meta = FindMetaTable( "Player" )
+function meta:Notify( type, len, text )
 	net.Start( "HLU_Notify" )
 	net.WriteString( text )
-	net.WriteInt( type, 32 )
-	net.WriteInt( len, 32 )
-	if broadcast then
-		net.Broadcast()
-	else
-		net.Send( ply )
-	end
+	net.WriteUInt( type, 3 )
+	net.WriteUInt( len, 6 )
+	net.Send( ply )
+end
+
+function BroadcastNotify( type, len, text )
+	net.Start( "HLU_Notify" )
+	net.WriteString( text )
+	net.WriteUInt( type, 3 )
+	net.WriteUInt( len, 6 )
+	net.Broadcast()
 end
 
 util.AddNetworkString( "HLU_ChatNotify" )
-function HLU_ChatNotify( ply, header, headercolor, text, broadcast, speaker )
+function meta:ChatNotify( header, color, text, speaker )
 	net.Start( "HLU_ChatNotify" )
-	net.WriteEntity( ply )
 	net.WriteString( header )
-	net.WriteColor( headercolor )
+	net.WriteColor( color )
 	net.WriteString( text )
 	if speaker then
 		net.WriteEntity( speaker )
 	end
-	if broadcast then
-		net.Broadcast()
-	else
-		net.Send( ply )
+	net.Send( ply )
+end
+
+function BroadcastChat( header, color, text, speaker )
+	net.Start( "HLU_ChatNotify" )
+	net.WriteString( header )
+	net.WriteColor( color )
+	net.WriteString( text )
+	if speaker then
+		net.WriteEntity( speaker )
 	end
+	net.Broadcast()
 end
 
 util.AddNetworkString( "HLU_ChatNotifySystem" )
-function HLU_ChatNotifySystem( header, headercolor, text, private, ply )
+function meta:SystemChat( header, color, text )
 	net.Start( "HLU_ChatNotifySystem" )
 	net.WriteString( header )
-	net.WriteColor( headercolor )
+	net.WriteColor( color )
 	net.WriteString( text )
-	if private and ply then
-		net.Send( ply )
-	else
-		net.Broadcast()
-	end
+	net.Send( ply )
+end
+
+function BroadcastSystemChat( header, color, text )
+	net.Start( "HLU_ChatNotifySystem" )
+	net.WriteString( header )
+	net.WriteColor( color )
+	net.WriteString( text )
+	net.Broadcast()
 end
 
 local function GetSameCategory( ply, listener )
@@ -58,15 +73,15 @@ end
 
 local chatcommands = {
 	["/ooc"] = function( ply, text )
-		HLU_ChatNotify( ply, "OOC", color_red, text, true )
+		BroadcastChat( "OOC", color_red, text )
 		return ""
 	end,
 	["//"] = function( ply, text )
-		HLU_ChatNotify( ply, "OOC", color_red, text, true )
+		BroadcastChat( "OOC", color_red, text )
 		return ""
 	end,
 	["/advert"] = function( ply, text )
-		HLU_ChatNotify( ply, "Announcement", color_red, text, true )
+		BroadcastChat( "Announcement", color_red, text )
 		return ""
 	end,
 	["/drop"] = function( ply )
@@ -75,13 +90,13 @@ local chatcommands = {
 	end,
 	["/job"] = function( ply, text )
 		ply:SetNWString( "RPJob", text )
-		HLU_Notify( ply, "Successfully applied custom job title.", 0, 6 )
+		ply:Notify( 0, 6, "Successfully applied custom job title." )
 		return ""
 	end,
 	["/name"] = function( ply, text )
 		ply:SetNWString( "RPName", text )
 		ply:SetPData( "RPName", text )
-		HLU_Notify( ply, "Successfully applied RP name.", 0, 6 )
+		ply:Notify( 0, 6, "Successfully applied RP name." )
 		return ""
 	end,
 	["!addons"] = function( ply )
@@ -98,11 +113,11 @@ local chatcommands = {
 	end,
 	["!fireoff"] = function( ply )
 		if !ply:IsSuperAdmin() then
-			HLU_Notify( ply, "Only superadmins can use this command.", 1, 6 )
+			ply:Notify( 1, 6, "Only superadmins can use this command." )
 			return ""
 		end
 		RunConsoleCommand( "vfire_remove_all" )
-		HLU_Notify( nil, ply:Nick().." turned off all fires.", 0, 6, true )
+		BroadcastNotify( 0, 6, ply:Nick().." turned off all fires." )
 		return ""
 	end
 }
@@ -129,7 +144,7 @@ hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
 		for k,v in ipairs( ents.FindInSphere( ply:GetPos(), 500 ) ) do
 			if v:IsPlayer() then
 				local msg = string.Right( string.len( text ) - 3 )
-				HLU_ChatNotify( v, "Yell", ply:GetJobColor(), msg, false, ply )
+				v:ChatNotify( "Yell", ply:GetJobColor(), msg, false, ply )
 			end
 		end
 		return ""
@@ -137,7 +152,7 @@ hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
 		for k,v in ipairs( ents.FindInSphere( ply:GetPos(), 100 ) ) do
 			if v:IsPlayer() then
 				local msg = string.Right( string.len( text ) - 3 )
-				HLU_ChatNotify( v, "Whisper", ply:GetJobColor(), msg, false, ply )
+				v:ChatNotify( "Whisper", ply:GetJobColor(), msg, false, ply )
 			end
 		end
 		return ""

@@ -29,26 +29,26 @@ end
 
 function ENT:Use( ply )
 	if self.active then
-		HLU_Notify( ply, "The teleporter is currently in use.", 1, 6 )
+		ply:Notify( 1, 6, "The teleporter is currently in use." )
 		return
 	end
 	if IsValid( ply ) and ply:Alive() then
 		self.active = true
 		timer.Simple( 1, function()
-			HLU_Notify( ply, "Teleport starting...", 0, 6 )
+			ply:Notify( 0, 6, "Teleport starting..." )
 		end )
 		self:EmitSound( "ambient/levels/labs/teleport_mechanism_windup"..math.random( 1, 5 )..".wav" )
 		
 		local time = 5
 		timer.Create( "TeleportTimer", 1, 5, function()
-			HLU_Notify( ply, "Teleporting in: "..tostring( time ), 0, 6 )
+			ply:Notify( 0, 6, "Teleporting in: "..tostring( time ) )
 			time = time - 1
 		end )
 
 		timer.Simple( 7, function()
 			local map = game.GetMap()
 			if !TeleCoords[map] then
-				HLU_Notify( ply, "ERROR: Current map detected as invalid.", 1, 6 )
+				ply:Notify( 1, 6, "ERROR: Current map detected as invalid." )
 				return
 			end
 			ply:SetPos( TeleCoords[map] )

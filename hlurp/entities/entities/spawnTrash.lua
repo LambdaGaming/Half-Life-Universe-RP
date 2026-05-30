@@ -40,7 +40,7 @@ function ENT:Initialize()
 end
 
 function ENT:Use( ply )
-	HLU_Notify( ply, "This place is filthy! Get someone from Service to clean it up.", 0, 6 )
+	ply:Notify( 0, 6, "This place is filthy! Get someone from Service to clean it up." )
 end
 
 function ENT:OnTakeDamage( dmg )

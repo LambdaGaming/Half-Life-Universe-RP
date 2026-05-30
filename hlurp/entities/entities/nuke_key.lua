@@ -20,6 +20,6 @@ function ENT:Initialize()
 end
 
 function ENT:Use( ply )
-	HLU_ChatNotifySystem( "Nuke Key", color_black, "Welcome to NukaSys version 42.0. Please place a nuclear device nearby to continue.", true, ply )
-	HLU_ChatNotifySystem( "Nuke Key", color_black, "Once a nuclear device is in place, press your use key on the device to activate it.", true, ply )
+	ply:SystemChat( "Nuke Key", color_black, "Welcome to NukaSys version 42.0. Please place a nuclear device nearby to continue." )
+	ply:SystemChat( "Nuke Key", color_black, "Once a nuclear device is in place, press your use key on the device to activate it." )
 end

@@ -183,7 +183,7 @@ BuyMenuItems = {
 		Allowed = function( ply ) return ply:Team() == TEAM_CIVILIAN or ply:Team() == TEAM_RESISTANCELEADER end,
 		SpawnCheck = function( ply )
 			if GetLoyalty( ply ) > 90 then
-				HLU_Notify( ply, "You need to have no more than 90% loyalty to spawn the rebel crafting table.", 1, 6 )
+				ply:Notify( 1, 6, "You need to have no more than 90% loyalty to spawn the rebel crafting table." )
 				return false
 			end
 		end,

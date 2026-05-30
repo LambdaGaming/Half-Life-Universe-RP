@@ -20,14 +20,14 @@ end
 
 function ENT:Use( ply )
 	if ply:GetJobCategory() == "Military" then
-		HLU_Notify( ply, "Lead Black Mesa staff to this truck to recruit them into the HECU.", 0, 6 )
+		ply:Notify( 0, 6, "Lead Black Mesa staff to this truck to recruit them into the HECU." )
 		return
 	end
 	if team.NumPlayers( TEAM_MARINEBOSS ) == 0 then
 		ply:ChangeTeam( TEAM_MARINEBOSS, false, true )
-		HLU_Notify( ply, "You have successfully escaped the facility! You are now the HECU Captain.", 0, 6 )
+		ply:Notify( 0, 6, "You have successfully escaped the facility! You are now the HECU Captain." )
 		return
 	end
 	ply:ChangeTeam( TEAM_MARINE, false, true )
-	HLU_Notify( ply, "You have successfully escaped the facility! You are now an HECU Marine.", 0, 6 )
+	ply:Notify( 0, 6, "You have successfully escaped the facility! You are now an HECU Marine." )
 end

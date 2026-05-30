@@ -23,7 +23,7 @@ end
 if SERVER then
 	function ENT:Use( ply )
 		if ply.IsZombie then
-			HLU_Notify( ply, "You are already a zombie!", 1, 6 )
+			ply:Notify( 1, 6, "You are already a zombie!" )
 			return
 		end
 		self:EmitSound( "physics/glass/glass_bottle_break1.wav" )

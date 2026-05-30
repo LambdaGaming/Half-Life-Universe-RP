@@ -3,7 +3,7 @@ local metaPly = FindMetaTable( "Player" )
 function metaPly:MakeZombie()
 	self:StripWeapons()
 	self.IsZombie = true
-	HLU_Notify( self, "You have been zombified!", 0, 6 )
+	self:Notify( 0, 6, "You have been zombified!" )
 	timer.Simple( 1, function()
 		self:EmitSound( "npc/zombie/zombie_voice_idle"..math.random( 1, 14 )..".wav" )
 		self:Give( "weapon_weapons_zombie" )
@@ -15,19 +15,19 @@ function metaPly:ChangeTeam( new, respawn, silent )
 	local tbl = GetJobInfo( new )
 	local model = self:GetNWString( "SetPlayermodel_"..new )
 	if !tbl then
-		HLU_Notify( self, "Error changing jobs. Job does not exist.", 1, 6 )
+		self:Notify( 1, 6, "Error changing jobs. Job does not exist." )
 		return
 	end
 	if new == self:Team() then
-		HLU_Notify( self, "You are already playing as this job.", 1, 6 )
+		self:Notify( 1, 6, "You are already playing as this job." )
 		return
 	end
 	if team.NumPlayers( new ) >= tbl.Max and tbl.Max > 0 then
-		HLU_Notify( self, "All slots are filled for this job.", 1, 6 )
+		self:Notify( 1, 6, "All slots are filled for this job." )
 		return
 	end
 	if self:GetNWBool( "GMAN_BF" ) then
-		HLU_Notify( self, "Exit your Gman state before changing jobs.", 1, 6 )
+		self:Notify( 1, 6, "Exit your Gman state before changing jobs." )
 		return
 	end
 	if hook.Run( "HLU_CanChangeJobs", self, new, old ) == false then return end
@@ -47,7 +47,7 @@ function metaPly:ChangeTeam( new, respawn, silent )
 		end
 	end
 	if !silent then
-		HLU_Notify( nil, self:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
+		BroadcastNotify( 0, 6, self:Nick().." has changed their job to "..tbl.Name.."." )
 	end
 	if tbl.SpawnFunction then
 		tbl.SpawnFunction( self )
@@ -70,7 +70,7 @@ function meta:DropWeapon()
 	local wep = self:GetActiveWeapon()
 	if IsValid( wep ) then
 		if DropBlacklist[wep:GetClass()] then
-			HLU_Notify( self, "You can't drop this weapon.", 1, 6 )
+			self:Notify( 1, 6, "You can't drop this weapon." )
 			return
 		end
 		local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
