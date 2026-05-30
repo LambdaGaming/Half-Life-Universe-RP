@@ -1,6 +1,6 @@
 AddCSLuaFile( "shared.lua" )
 AddCSLuaFile( "cl_init.lua" )
-AddCSLuaFile( "cl_hlu_chat.lua" )
+AddCSLuaFile( "cl_chat.lua" )
 AddCSLuaFile( "cl_bmrp.lua" )
 AddCSLuaFile( "cl_menus.lua" )
 AddCSLuaFile( "sh_jobs.lua" )
@@ -15,7 +15,7 @@ include( "sh_bmrp.lua" )
 include( "sh_bmrp_events.lua" )
 include( "sh_c17.lua" )
 include( "sh_outland.lua" )
-include( "sv_hlu_chat.lua" )
+include( "sv_chat.lua" )
 include( "sv_bmrp.lua" )
 include( "sv_c17.lua" )
 include( "sv_outland.lua" )
@@ -143,7 +143,7 @@ end )
 --Drop current weapon on death
 hook.Add( "DoPlayerDeath", "HLU_DropWeaponDeath", function( ply, attacker, dmg )
 	local wep = ply:GetActiveWeapon()
-	if !IsValid( wep ) or DropBlacklist[wep:GetClass()] then return end
+	if !IsValid( wep ) or DROP_BLACKLIST[wep:GetClass()] then return end
 	local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
 	local e = ents.Create( "hlu_dropped_weapon" )
 	e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )

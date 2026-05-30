@@ -66,10 +66,10 @@ function metaPly:ChangeTeam( new, respawn, silent )
 end
 
 --Overrides default function
-function meta:DropWeapon()
+function metaPly:DropWeapon()
 	local wep = self:GetActiveWeapon()
 	if IsValid( wep ) then
-		if DropBlacklist[wep:GetClass()] then
+		if DROP_BLACKLIST[wep:GetClass()] then
 			self:Notify( 1, 6, "You can't drop this weapon." )
 			return
 		end

@@ -5,7 +5,7 @@ function meta:Notify( type, len, text )
 	net.WriteString( text )
 	net.WriteUInt( type, 3 )
 	net.WriteUInt( len, 6 )
-	net.Send( ply )
+	net.Send( self )
 end
 
 function BroadcastNotify( type, len, text )
@@ -25,7 +25,7 @@ function meta:ChatNotify( header, color, text, speaker )
 	if speaker then
 		net.WriteEntity( speaker )
 	end
-	net.Send( ply )
+	net.Send( self )
 end
 
 function BroadcastChat( header, color, text, speaker )
@@ -45,7 +45,7 @@ function meta:SystemChat( header, color, text )
 	net.WriteString( header )
 	net.WriteColor( color )
 	net.WriteString( text )
-	net.Send( ply )
+	net.Send( self )
 end
 
 function BroadcastSystemChat( header, color, text )
