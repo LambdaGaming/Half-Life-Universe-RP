@@ -3,24 +3,22 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Combine Base Central Core"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
 
-function ENT:Initialize()
-	self:SetModel( "models/props_combine/combine_monitorbay.mdl" )
-	self:SetMoveType( MOVETYPE_NONE )
-	self:SetSolid( SOLID_VPHYSICS )
-	if SERVER then
+if SERVER then
+	function ENT:Initialize()
+		self:SetModel( "models/props_combine/combine_monitorbay.mdl" )
+		self:SetMoveType( MOVETYPE_NONE )
+		self:SetSolid( SOLID_VPHYSICS )
 		self:PhysicsInit( SOLID_VPHYSICS )
 		self:SetUseType( SIMPLE_USE )
 		self.Destroyed = false
 		self:SetHealth( 5000 )
 	end
-end
 
-if SERVER then
 	function ENT:Use( ply )
 		if ply:GetJobCategory() == "Combine" then
 			HLU_Notify( ply, "This is the base's central core. It must be protected from the rebels at all costs.", 0, 6 )

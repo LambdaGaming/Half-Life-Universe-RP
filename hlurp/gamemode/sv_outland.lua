@@ -9,6 +9,23 @@ function GetLoyalty( ply )
 	return 50
 end
 
+function DeployRocket()
+	HLU_ChatNotifySystem( "Outland RP", color_green, "Tapping into Black Mesa satellite......2 minutes until portal closes." )
+	HLU_Notify( nil, "Tapping into Black Mesa satellite......2 minutes until portal closes.", 0, 10, true )
+	timer.Create( "CombinePortalTimer", 120, 1, function()
+		ents.GetMapCreatedEntity( 2677 ):Fire( "Press" )
+	end )
+	timer.Create( "KickTimer", 151, 1, function()
+		HLU_ChatNotifySystem( "Outland RP", color_green, "The session has ended in Rebel victory! The server will close in 1 minute. Thanks for playing!" )
+		timer.Simple( 60, function()
+			for k,v in ipairs( player.GetAll() ) do
+				v:Kick( "\n--END OF SESSION--\nThe rebels have successfully launched the rocket and closed off the Combine's access to Earth for good. Humanity has been saved.\nThanks for playing!" )
+			end
+		end )
+	end )
+	timer.Remove( "CombineVictory" )
+end
+
 timer.Create( "CombineCooldown", 1800, 1, function()
 	HLU_ChatNotifySystem( "Outland RP", color_green, "The Combine have obtained more powerful vehicles!" )
 end )
@@ -83,7 +100,7 @@ hook.Add( "InitPostEntity", "OutlandItems", function()
 end )
 
 --Player spawn management
-local function CombineSpawn( ply )
+hook.Add( "PlayerSpawn", "CombineSpawn", function( ply )
 	local combine = {
 		[TEAM_COMBINEELITE] = true,
 		[TEAM_COMBINEGUARD] = true,
@@ -114,8 +131,7 @@ local function CombineSpawn( ply )
 	elseif rebels[ply:Team()] then
 		ply:SetPos( table.Random( randrebel ) )
 	end
-end
-hook.Add( "PlayerSpawn", "CombineSpawn", CombineSpawn )
+end )
 
 --Cleanup abandoned combine vehicles
 hook.Add( "PlayerEnteredVehicle", "OutlandVehicleEnter", function( ply, veh )

@@ -21,10 +21,7 @@ function ENT:Initialize()
 		self:PhysicsInit( SOLID_VPHYSICS )
 		self:SetUseType( SIMPLE_USE )
 	end
-    local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
+	self:PhysWake()
 end
 
 local ScienceItems = {
@@ -91,7 +88,7 @@ if SERVER then
 			HLU_Notify( ply, "Only scientists can access this locker!", 0, 6 )
 			return
 		end
-		for k,v in pairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
+		for k,v in ipairs( ents.FindInSphere( self:GetPos(), 100 ) ) do
 			if v:GetClass() == "locker_key" then
 				v:Remove()
 				self:SetKeys( self:GetKeys() + 1 )
@@ -122,10 +119,6 @@ if SERVER then
 end
 
 if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-    end
-
 	local background = Color( 49, 53, 61, 255 )
 	local button = Color( 230, 93, 80, 200 )
 	net.Receive( "ScienceLocker", function()

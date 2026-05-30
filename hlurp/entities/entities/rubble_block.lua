@@ -3,10 +3,12 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Rubble Obstruction"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
+
+if CLIENT then return end
 
 function ENT:SpawnFunction( ply, tr, name )
 	if !tr.Hit then return end
@@ -23,47 +25,40 @@ function ENT:Initialize()
 	self:SetMoveType( MOVETYPE_NONE )
 	self:SetSolid( SOLID_VPHYSICS )
 	self:SetHealth( 100 )
-	if SERVER then
-		self:SetUseType( SIMPLE_USE )
-		local e = EffectData()
-		e:SetOrigin( self:GetPos() )
-		e:SetScale( 1000 )
-		util.Effect( "ThumperDust", e )
-		self:EmitSound( "ambient/machines/wall_crash1.wav" )
+	self:SetUseType( SIMPLE_USE )
+	local e = EffectData()
+	e:SetOrigin( self:GetPos() )
+	e:SetScale( 1000 )
+	util.Effect( "ThumperDust", e )
+	self:EmitSound( "ambient/machines/wall_crash1.wav" )
 
-		for k,v in pairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
-			if v:IsPlayer() then
-				--v:Kill()
-			elseif v:IsNPC() then
-				v:TakeDamage( 10000, self, self )
-			end
+	for k,v in ipairs( ents.FindInSphere( self:GetPos(), 300 ) ) do
+		if v:IsPlayer() then
+			--v:Kill()
+		elseif v:IsNPC() then
+			v:TakeDamage( 10000, self, self )
 		end
 	end
-    local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
+	self:PhysWake()
 end
 
-if SERVER then
-	function ENT:Use( ply )
-		HLU_Notify( ply, "This wreckage cannot be cleared by hand. You will need a tool.", 0, 6 )
-	end
-	
-	function ENT:OnTakeDamage( dmg )
-		if dmg:GetAttacker():IsPlayer() then
-			local wep = dmg:GetAttacker():GetActiveWeapon()
-			if wep:GetClass() == "weapon_hl2pickaxe" then
-				self:SetHealth( self:Health() - 3 )
-			end
-			if self:Health() <= 0 or dmg:IsDamageType( DMG_BLAST ) then
-				local e = EffectData()
-				e:SetOrigin( self:GetPos() )
-				e:SetScale( 1000 )
-				util.Effect( "ThumperDust", e )
-				self:EmitSound( "physics/concrete/rock_impact_hard1.wav" )
-				self:Remove()
-			end
+function ENT:Use( ply )
+	HLU_Notify( ply, "This wreckage cannot be cleared by hand. You will need a tool.", 0, 6 )
+end
+
+function ENT:OnTakeDamage( dmg )
+	if dmg:GetAttacker():IsPlayer() then
+		local wep = dmg:GetAttacker():GetActiveWeapon()
+		if wep:GetClass() == "weapon_hl2pickaxe" then
+			self:SetHealth( self:Health() - 3 )
+		end
+		if self:Health() <= 0 or dmg:IsDamageType( DMG_BLAST ) then
+			local e = EffectData()
+			e:SetOrigin( self:GetPos() )
+			e:SetScale( 1000 )
+			util.Effect( "ThumperDust", e )
+			self:EmitSound( "physics/concrete/rock_impact_hard1.wav" )
+			self:Remove()
 		end
 	end
 end

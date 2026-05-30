@@ -83,6 +83,27 @@ local chatcommands = {
 		ply:SetPData( "RPName", text )
 		HLU_Notify( ply, "Successfully applied RP name.", 0, 6 )
 		return ""
+	end,
+	["!addons"] = function( ply )
+		ply:SendLua( [[gui.OpenURL( "https://steamcommunity.com/sharedfiles/filedetails/?id=587127431" )]] )
+		return ""
+	end,
+	["!help"] = function( ply )
+		ply:SendLua( [[gui.OpenURL( "https://lambdagaming.github.io/hlurp/main.html" )]] )
+		return ""
+	end,
+	["!discord"] = function( ply )
+		ply:ChatPrint( "https://discord.gg/9RGdUS2" )
+		return ""
+	end,
+	["!fireoff"] = function( ply )
+		if !ply:IsSuperAdmin() then
+			HLU_Notify( ply, "Only superadmins can use this command.", 1, 6 )
+			return ""
+		end
+		RunConsoleCommand( "vfire_remove_all" )
+		HLU_Notify( nil, ply:Nick().." turned off all fires.", 0, 6, true )
+		return ""
 	end
 }
 
@@ -123,11 +144,10 @@ hook.Add( "PlayerSay", "RangedChatCommands", function( ply, text )
 	end
 end )
 
-local function DetectChatCommand( ply, text )
+hook.Add( "PlayerSay", "DetectChatCommand", function( ply, text )
 	local split = string.Split( text, " " )
 	if chatcommands[split[1]:lower()] then
 		local trimmedtext = string.gsub( text, split[1], "" )
 		return chatcommands[split[1]:lower()]( ply, trimmedtext )
 	end
-end
-hook.Add( "PlayerSay", "DetectChatCommand", DetectChatCommand )
+end )

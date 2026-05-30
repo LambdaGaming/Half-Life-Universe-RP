@@ -28,7 +28,7 @@ hook.Add( "InitPostEntity", "C17InitJobRestrict", function()
 end )
 
 --Iron generator spawn function
-local function C17Generator()
+hook.Add( "InitPostEntity", "C17Generator", function()
 	local genpos
 	local map = game.GetMap()
 	if map == "rp_city17_build210" then
@@ -49,11 +49,10 @@ local function C17Generator()
 	local e = ents.Create( "iron_generator" )
 	e:SetPos( table.Random( genpos ) )
 	e:Spawn()
-end
-hook.Add( "InitPostEntity", "C17Generator", C17Generator )
+end )
 
 --Player death management
-local function C17PlayerDeath( ply, inflictor, attacker )
+hook.Add( "PlayerDeath", "C17PlayerDeath", function( ply, inflictor, attacker )
 	local plyteam = ply:Team()
 	if attacker:IsPlayer() and ply:GetJobCategory() == "Combine" and attacker:GetJobCategory() == "Citizens" then
 		AddKill( attacker )
@@ -72,11 +71,10 @@ local function C17PlayerDeath( ply, inflictor, attacker )
 			end
 		end )
 	end
-end
-hook.Add( "PlayerDeath", "C17PlayerDeath", C17PlayerDeath )
+end )
 
 --Player spawn management
-local function C17PlayerSpawn( ply )
+hook.Add( "PlayerSpawn", "C17PlayerSpawn", function( ply )
 	local map = game.GetMap()
 	local allowed = {
 		[TEAM_COMBINEELITE] = true,
@@ -110,8 +108,7 @@ local function C17PlayerSpawn( ply )
 	if allowed[ply:Team()] then
 		ply:SetPos( table.Random( randpos ) )
 	end
-end
-hook.Add( "PlayerSpawn", "C17PlayerSpawn", C17PlayerSpawn )
+end )
 
 hook.Add( "PlayerInitialSpawn", "C17InitialSpawn", function( ply )
 	SetLoyalty( ply, 100 )

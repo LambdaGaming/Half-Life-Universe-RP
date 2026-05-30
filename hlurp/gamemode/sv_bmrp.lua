@@ -3,7 +3,7 @@ if GetGlobalInt( "CurrentGamemode" ) != 1 then return end
 --Functions for spawning and respawning NPCs in Xen
 local XenSpawn, XenRespawn
 XenRespawn = function()
-	for k,v in pairs( ents.FindByClass( "monster_*" ) ) do
+	for k,v in ipairs( ents.FindByClass( "monster_*" ) ) do
 		if v.IsXenNPC then return end
 	end
 	timer.Simple( 600, function()
@@ -43,9 +43,9 @@ hook.Add( "InitPostEntity", "SpawnXenNPCs", function() XenSpawn() end )
 
 --Show ID chat command
 util.AddNetworkString( "SendID" )
-local function MiscCommands( ply, text )
+hook.Add( "PlayerSay", "BMRP_MiscCommands", function( ply, text )
 	if text == "/showid" then --Show the player's name and job to nearby players
-		for k,v in pairs( player.GetHumans() ) do
+		for k,v in ipairs( player.GetHumans() ) do
 			if v == ply or v:GetPos():DistToSqr( ply:GetPos() ) <= 10000 then
 				net.Start( "SendID" )
 				net.WriteEntity( ply )
@@ -54,10 +54,9 @@ local function MiscCommands( ply, text )
 		end
 		return ""
 	end
-end
-hook.Add( "PlayerSay", "BMRP_MiscCommands", MiscCommands )
+end )
 
-local function MapMods()
+hook.Add( "InitPostEntity", "BMRPMapMods", function()
 	if game.GetMap() == "rp_bmrf" then
 		--Remove Xen objects that trigger NPCs and cause other problems
 		for k,v in ipairs( ents.FindByClass( "xen_plantlight" ) ) do
@@ -71,8 +70,7 @@ local function MapMods()
 			e:Remove()
 		end
 	end
-end
-hook.Add( "InitPostEntity", "BMRPMapMods", MapMods )
+end )
 
 --Remotely toggle the facility alarm
 function ToggleAlarm( force )
@@ -84,7 +82,7 @@ function ToggleAlarm( force )
 end
 
 --Vehicle spawn function
-local function BMRPVehicleSpawn()
+hook.Add( "InitPostEntity", "BMRP_VehicleSpawn", function()
 	local spawnpos
 	local allowedmaps = {
 		["gm_atomic"] = true,
@@ -133,8 +131,7 @@ local function BMRPVehicleSpawn()
 			end )
 		end
 	end
-end
-hook.Add( "InitPostEntity", "BMRP_VehicleSpawn", BMRPVehicleSpawn )
+end )
 
 --Fund management functions
 local meta = FindMetaTable( "Player" )
@@ -152,14 +149,13 @@ function meta:RemoveFunds( amount )
 end
 
 --Set initial player values
-local function BMRPPlayerInit( ply )
+hook.Add( "PlayerInitialSpawn", "BMRPPlayerInit", function( ply )
 	ply:ConCommand( "say /setr 42.0" )
 	ply:AddFunds( 1000 )
 	net.Start( "UpdateTask" )
 	net.WriteTable( BMRP_CURRENT_TASKS )
 	net.Send( ply )
-end
-hook.Add( "PlayerInitialSpawn", "BMRPPlayerInit", BMRPPlayerInit )
+end )
 
 hook.Add( "InitPostEntity", "InitialEventCooldown", function()
 	SetGlobalBool( "EventCooldownActive", true )
@@ -264,38 +260,37 @@ end )
 --Start and stop AMS detection
 local offset = Vector( 0, 0, -50 )
 hook.Add( "AcceptInput", "AMSTrigger", function( ent, input, activator, caller, value )
-	if ent:MapCreationID() == 5243 then
-		if input == "Enable" then
-			timer.Create( "AMSTrigger", 0.5, 0, function()
-				if GetGlobalBool( "CascadeActive" ) then return end
-				local find = ents.FindInSphere( ent:GetPos() + offset, 100 )
-				for k,v in ipairs( find ) do
-					local c = v:GetClass()
-					if c == "crystal_pure" then
-						City17Map = v:GetNWString( "CType" )
-						local e = ents.Create( "env_explosion" )
-						e:SetPos( v:GetPos() )
-						e:Spawn()
-						e:Fire( "Explode" )
-						v:Remove()
-						Cascade()
-						break
-					elseif c == "bm_nuke" then
-						for k,v in ipairs( player.GetAll() ) do
-							v:SendLua( [[surface.PlaySound( "ambient/explosions/explode_6.wav" )]] )
-							v:ScreenFade( SCREENFADE.IN, color_white, 0.5, 10 )
-						end
-						timer.Simple( 5, function()
-							RunConsoleCommand( "changelevel", "gm_atomic" )
-						end )
-						v:Remove()
-						break
+	if ent:MapCreationID() != 5243 then return end
+	if input == "Enable" then
+		timer.Create( "AMSTrigger", 0.5, 0, function()
+			if GetGlobalBool( "CascadeActive" ) then return end
+			local find = ents.FindInSphere( ent:GetPos() + offset, 100 )
+			for k,v in ipairs( find ) do
+				local c = v:GetClass()
+				if c == "crystal_pure" then
+					City17Map = v:GetNWString( "CType" )
+					local e = ents.Create( "env_explosion" )
+					e:SetPos( v:GetPos() )
+					e:Spawn()
+					e:Fire( "Explode" )
+					v:Remove()
+					Cascade()
+					break
+				elseif c == "bm_nuke" then
+					for k,v in ipairs( player.GetAll() ) do
+						v:SendLua( [[surface.PlaySound( "ambient/explosions/explode_6.wav" )]] )
+						v:ScreenFade( SCREENFADE.IN, color_white, 0.5, 10 )
 					end
+					timer.Simple( 5, function()
+						RunConsoleCommand( "changelevel", "gm_atomic" )
+					end )
+					v:Remove()
+					break
 				end
-			end )
-		elseif input == "Disable" then
-			timer.Remove( "AMSTrigger" )
-		end
+			end
+		end )
+	elseif input == "Disable" then
+		timer.Remove( "AMSTrigger" )
 	end
 end )
 

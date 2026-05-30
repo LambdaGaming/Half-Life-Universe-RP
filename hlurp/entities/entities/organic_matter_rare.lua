@@ -3,36 +3,22 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Rare Organic Matter"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
 
+if CLIENT then return end
+
 function ENT:Initialize()
     self:SetModel( "models/props_lab/petridish01d.mdl" )
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	if SERVER then
-		self:PhysicsInit(SOLID_VPHYSICS)
-		self:SetUseType(SIMPLE_USE)
-		self:SetTrigger(true)
-	end
-    local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
-		phys:Wake()
-	end
-
+	self:SetMoveType( MOVETYPE_VPHYSICS )
+	self:SetSolid( SOLID_VPHYSICS )
+	self:PhysicsInit( SOLID_VPHYSICS )
+	self:SetUseType( SIMPLE_USE )
+	self:SetTrigger( true )
+	self:PhysWake()
 	self.IsFrozen = false
-end
-
-local function CreateEffect( ent, effect )
-	local effectdata = EffectData()
-	effectdata:SetOrigin( ent:GetPos() + ent:GetUp() * math.random( 10, 25 ) )
-	effectdata:SetNormal( VectorRand() )
-	effectdata:SetMagnitude( 3 )
-	effectdata:SetScale( 1 )
-	effectdata:SetRadius( 3 )
-	util.Effect( effect, effectdata, true, true )
 end
 
 function ENT:Touch( ent )
@@ -102,10 +88,4 @@ function ENT:Touch( ent )
 			self:Remove()
 		end
 	end
-end
-
-if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-    end
 end

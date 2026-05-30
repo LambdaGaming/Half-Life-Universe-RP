@@ -25,7 +25,7 @@ function SWEP:PrimaryAttack()
 	if !IsFirstTimePredicted() or CLIENT then return end
     local tr = self.Owner:GetEyeTrace().Entity
 	if self.Owner:GetPos():DistToSqr( tr:GetPos() ) > 90000 then return end
-	if GLOBAL_WHITELIST[tr:GetClass()] then
+	if PICKUP_WHITELIST[tr:GetClass()] then
 		local e = ents.Create( "trash_ent" )
 		e:SetPos( tr:GetPos() )
 		e:SetAngles( tr:GetAngles() )

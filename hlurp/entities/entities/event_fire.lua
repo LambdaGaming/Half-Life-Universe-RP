@@ -3,8 +3,10 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Fire Event"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = false
+
+if CLIENT then return end
 
 function ENT:Initialize()
     self:SetModel( "models/hunter/blocks/cube025x025x025.mdl" )
@@ -15,17 +17,16 @@ function ENT:Initialize()
 end
 
 function ENT:Think()
-	if SERVER then
-		local found = false
-		for k,v in pairs( ents.FindInSphere( self:GetPos(), 500 ) ) do
-			if string.match( v:GetClass(), "vfire" ) then
-				found = true
-			end
+	local found = false
+	for k,v in ipairs( ents.FindInSphere( self:GetPos(), 500 ) ) do
+		if string.match( v:GetClass(), "vfire" ) then
+			found = true
 		end
-		if !found then
-			ExtinguishFire()
-			self:Remove()
-		end
-		self:NextThink( CurTime() + 1 )
 	end
+	if !found then
+		ExtinguishFire()
+		self:Remove()
+	end
+	self:NextThink( CurTime() + 1 )
+	return true
 end

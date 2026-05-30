@@ -3,37 +3,24 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Xen Iron"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
 
+if CLIENT then return end
+
 function ENT:Initialize()
     self:SetModel( "models/Items/CrossbowRounds.mdl" )
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	if SERVER then
-		self:PhysicsInit(SOLID_VPHYSICS)
-		self:SetUseType(SIMPLE_USE)
-		self:SetTrigger(true)
-	end
-    local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
-		phys:Wake()
-	end
+	self:SetMoveType( MOVETYPE_VPHYSICS )
+	self:SetSolid( SOLID_VPHYSICS )
+	self:PhysicsInit( SOLID_VPHYSICS )
+	self:SetUseType( SIMPLE_USE )
+	self:SetTrigger( true )
+	self:PhysWake()
 end
 
-local function CreateEffect( ent, effect )
-	local effectdata = EffectData()
-	effectdata:SetOrigin( ent:GetPos() + ent:GetUp() * math.random( 10, 25 ) )
-	effectdata:SetNormal( VectorRand() )
-	effectdata:SetMagnitude( 3 )
-	effectdata:SetScale( 1 )
-	effectdata:SetRadius( 3 )
-	util.Effect( effect, effectdata, true, true )
-end
-
-function ENT:Touch( ent )
+function ENT:StartTouch( ent )
 	local class = ent:GetClass()
 	if class == "lab_burner" then
 		local e = ents.Create( "xen_iron_refined" )
@@ -47,10 +34,8 @@ function ENT:Touch( ent )
 			local e = ents.Create( "xen_iron" )
 			e:SetPos( self:GetPos() + Vector( 0, 0, 10 ) )
 			e:Spawn()
-			self:Remove()
-		else
-			self:Remove()
 		end
+		self:Remove()
 	elseif class == "lab_reactor" then
 		local e = ents.Create( "xen_iron_radioactive" )
 		e:SetPos( self:GetPos() )
@@ -66,26 +51,20 @@ end
 function ENT:Touch( ent )
 	local class = ent:GetClass()
 	if class == "lab_generator" then
-		CreateEffect( self, "Sparks" )
-		self:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav")
+		local pos = self:GetPos() + self:GetUp() * math.random( 10, 25 )
+		CreateEffect( "Sparks", pos )
+		self:EmitSound( "ambient/energy/spark"..math.random( 1, 6 )..".wav" )
 	end
 end
 
-local cooldown = CurTime()
 function ENT:Think()
-	for k,v in pairs( ents.FindInSphere( self:GetPos(), 200 ) ) do
+	for k,v in ipairs( ents.FindInSphere( self:GetPos(), 200 ) ) do
 		if v:GetClass() == "lab_generator" then
-			if cooldown < CurTime() then
-				CreateEffect( self, "Sparks" )
-				self:EmitSound("ambient/energy/spark"..math.random(1,6)..".wav")
-				cooldown = cooldown + math.random( 1, 8 )
-			end
+			local pos = self:GetPos() + self:GetUp() * math.random( 10, 25 )
+			CreateEffect( "Sparks", pos )
+			self:EmitSound( "ambient/energy/spark"..math.random( 1, 6 )..".wav" )
 		end
 	end
-end
-
-if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-    end
+	self:NextThink( CurTime() + math.random( 1, 8 ) )
+	return true
 end

@@ -20,10 +20,11 @@ include( "sv_bmrp.lua" )
 include( "sv_c17.lua" )
 include( "sv_outland.lua" )
 include( "sv_c17_events.lua" )
+include( "sv_utils.lua" )
 
-local current = GetGlobalInt( "CurrentGamemode" )
+local mode = GetGlobalInt( "CurrentGamemode" )
 RunConsoleCommand( "sv_alltalk", "0" )
-if current == 1 then
+if mode == 1 then
 	RunConsoleCommand( "vfire_spread_delay", "5" )
 	RunConsoleCommand( "vfire_decay_rate", "0" )
 	RunConsoleCommand( "vfire_spread_boost", "10" )
@@ -89,84 +90,6 @@ function GM:PlayerSetHandsModel( ply, ent )
 	end
 end
 
-function BroadcastSound( snd )
-	for k,v in ipairs( player.GetHumans() ) do
-		v:ConCommand( "play "..snd )
-	end
-end
-
-local meta = FindMetaTable( "Player" )
-function meta:MakeZombie()
-	self:StripWeapons()
-	self.IsZombie = true
-	HLU_Notify( self, "You have been zombified!", 0, 6 )
-	timer.Simple( 1, function()
-		self:EmitSound( "npc/zombie/zombie_voice_idle"..math.random( 1, 14 )..".wav" )
-		self:Give( "weapon_weapons_zombie" )
-	end )
-end
-
-function meta:ChangeTeam( new, respawn, silent )
-	local old = GetJobInfo( self:Team() )
-	local tbl = GetJobInfo( new )
-	local model = self:GetNWString( "SetPlayermodel_"..new )
-	if !tbl then
-		HLU_Notify( self, "Error changing jobs. Job does not exist.", 1, 6 )
-		return
-	end
-	if new == self:Team() then
-		HLU_Notify( self, "You are already playing as this job.", 1, 6 )
-		return
-	end
-	if team.NumPlayers( new ) >= tbl.Max and tbl.Max > 0 then
-		HLU_Notify( self, "All slots are filled for this job.", 1, 6 )
-		return
-	end
-	if self:GetNWBool( "GMAN_BF" ) then
-		HLU_Notify( self, "Exit your Gman state before changing jobs.", 1, 6 )
-		return
-	end
-	if hook.Run( "HLU_CanChangeJobs", self, new, old ) == false then return end
-
-	self:SetNWString( "RPJob", false )
-	self:StripWeapons()
-	self:StripAmmo()
-	self:SetTeam( new )
-	if model == "" then
-		self:SetModel( table.Random( tbl.Models ) )
-	else
-		self:SetModel( model )
-	end
-	if tbl.Bodygroups then
-		for _,v in pairs( tbl.Bodygroups ) do
-			self:SetBodygroup( v[1], v[2] )
-		end
-	end
-	if !silent then
-		HLU_Notify( nil, self:Nick().." has changed their job to "..tbl.Name..".", 0, 6, true )
-	end
-	if tbl.SpawnFunction then
-		tbl.SpawnFunction( self )
-	end
-	hook.Run( "PlayerLoadout", self )
-	if respawn or ( current == 3 and old and old.Category != tbl.Category ) then
-		self:Spawn()
-	end
-	self.JModFriends = {}
-	for k,v in ipairs( player.GetAll() ) do
-		if v:GetJobCategory() == self:GetJobCategory() then
-			table.insert( self.JModFriends, v )
-		end
-	end
-	hook.Run( "HLU_OnChangeJob", self, new, old )
-end
-
-util.AddNetworkString( "HLU_ChangeJob" )
-net.Receive( "HLU_ChangeJob", function( len, ply )
-	local new = net.ReadInt( 32 )
-	ply:ChangeTeam( new )
-end )
-
 function GM:PlayerInitialSpawn( ply )
 	ply:ChangeTeam( 1, false, true )
 	if GetJobInfo( ply:Team() ).IsCop then
@@ -177,7 +100,7 @@ function GM:PlayerInitialSpawn( ply )
 		ply:SetRunSpeed( 250 )
 	end
 	ply:SetJumpPower( 170 )
-	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[current].Name.." gamemode." )
+	ply:ChatPrint( "Welcome, "..ply:Nick().."! We're currently playing on the "..HLU_GAMEMODE[mode].Name.." gamemode." )
 
 	local rpname = ply:GetPData( "RPName" )
 	if rpname then
@@ -185,7 +108,15 @@ function GM:PlayerInitialSpawn( ply )
 	end
 end
 
-local function HLU_SpawnHook( ply )
+--Job change handler
+util.AddNetworkString( "HLU_ChangeJob" )
+net.Receive( "HLU_ChangeJob", function( len, ply )
+	local new = net.ReadInt( 32 )
+	ply:ChangeTeam( new )
+end )
+
+--Player spawn handler
+hook.Add( "PlayerSpawn", "HLU_SpawnHook", function( ply )
 	timer.Simple( 0, function()
 		local jobtable = GetJobInfo( ply:Team() )
 		local model = ply:GetNWString( "SetPlayermodel_"..ply:Team() )
@@ -207,63 +138,23 @@ local function HLU_SpawnHook( ply )
 		end
 		ply.IsZombie = false
 	end )
-end
-hook.Add( "PlayerSpawn", "HLU_SpawnHook", HLU_SpawnHook )
+end )
 
-local DropBlacklist = {
-	["weapon_physgun"] = true,
-	["weapon_physcannon"] = true,
-	["weapon_keys"] = true,
-	["gmod_tool"] = true,
-	["gmod_camera"] = true,
-	["weapon_handcuffed"] = true,
-	["swep_vortigaunt_beam"] = true,
-	["pocket"] = true,
-	["weapon_weapons_zombie"] = true,
-	["swep_gmanbriefcase"] = true,
-	["weapon_leash_police"] = true,
-	["trash_wep"] = true,
-	["broom"] = true,
-	["weapon_portal_pair"] = true,
-	["weapon_ram"] = true
-}
+--Drop current weapon on death
+hook.Add( "DoPlayerDeath", "HLU_DropWeaponDeath", function( ply, attacker, dmg )
+	local wep = ply:GetActiveWeapon()
+	if !IsValid( wep ) or DropBlacklist[wep:GetClass()] then return end
+	local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
+	local e = ents.Create( "hlu_dropped_weapon" )
+	e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )
+	e:SetModel( model )
+	e:Spawn()
+	e.DroppedClass = wep:GetClass()
+	wep:Remove()
+end )
 
---Overrides default function
-function meta:DropWeapon()
-	local wep = self:GetActiveWeapon()
-	if IsValid( wep ) then
-		if DropBlacklist[wep:GetClass()] then
-			HLU_Notify( self, "You can't drop this weapon.", 1, 6 )
-			return
-		end
-		local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
-		local e = ents.Create( "hlu_dropped_weapon" )
-		e:SetPos( self:GetPos() + self:GetForward() * 50 + self:GetUp() * 50 )
-		e:SetModel( model )
-		e:Spawn()
-		e.DroppedClass = wep:GetClass()
-		wep:Remove()
-	end
-end
-
-local function HLU_DropWeaponDeath( ply )
-	if IsValid( ply ) then
-		local wep = ply:GetActiveWeapon()
-		if IsValid( wep ) then
-			if DropBlacklist[wep:GetClass()] then return end
-			local model = wep:GetWeaponWorldModel() or "models/weapons/w_rif_m4a1.mdl"
-			local e = ents.Create( "hlu_dropped_weapon" )
-			e:SetPos( ply:GetPos() + Vector( 0, 0, 30 ) )
-			e:SetModel( model )
-			e:Spawn()
-			e.DroppedClass = wep:GetClass()
-			wep:Remove()
-		end
-	end
-end
-hook.Add( "DoPlayerDeath", "HLU_DropWeaponDeath", HLU_DropWeaponDeath )
-
-local function HLU_SpawnNPCs()
+--Spawn interactive NPCs
+hook.Add( "InitPostEntity", "HLU_SpawnNPCs", function()
 	timer.Simple( 10, function()
 		local map = game.GetMap()
 		if map == "rp_bmrf" then
@@ -295,9 +186,9 @@ local function HLU_SpawnNPCs()
 			e:ApplyType( 2 )
 		end
 	end )
-end
-hook.Add( "InitPostEntity", "HLU_SpawnNPCs", HLU_SpawnNPCs )
+end )
 
+--Playermodel change handler
 util.AddNetworkString( "SetPlayermodel" )
 net.Receive( "SetPlayermodel", function( len, ply )
 	local model = net.ReadString()
@@ -313,6 +204,7 @@ net.Receive( "SetPlayermodel", function( len, ply )
 	end
 end )
 
+--F3 menu item purchase handler
 util.AddNetworkString( "BuyItemFromMenu" )
 net.Receive( "BuyItemFromMenu", function( len, ply )
 	local key = net.ReadString()
@@ -349,6 +241,7 @@ net.Receive( "BuyItemFromMenu", function( len, ply )
 	ply.BuyCooldown = CurTime() + 10
 end )
 
+--Vox/Overwatch announcement handler
 local cooldown = 0
 util.AddNetworkString( "PlayAnnouncement" )
 net.Receive( "PlayAnnouncement", function( len, ply )
@@ -363,7 +256,7 @@ net.Receive( "PlayAnnouncement", function( len, ply )
 	end
 	
 	local tbl = ply:Team() == TEAM_MARINEBOSS and ANNOUNCEMENTS_HECU or ANNOUNCEMENTS_ADMIN
-	if current == 1 then
+	if mode == 1 then
 		RunConsoleCommand( "vox", msg )
 	else
 		BroadcastSound( msg )
@@ -371,12 +264,14 @@ net.Receive( "PlayAnnouncement", function( len, ply )
 	cooldown = CurTime() + 10
 end )
 
+--Prevent players from picking up same weapon twice, and prevent zombified players from picking up any weapons
 hook.Add( "PlayerCanPickupWeapon", "NoDoublePickup", function( ply, wep )
 	if ply:HasWeapon( wep:GetClass() ) or ( ply.IsZombie and wep:GetClass() != "weapon_weapons_zombie" ) then
 		return false
 	end
 end )
 
+--Turn player into zombie when killed by a headcrab
 hook.Add( "PlayerDeath", "ZombifyPlayer", function( ply, inflictor, attacker )
 	local pos = ply:GetPos()
 	local allowed = {
@@ -385,13 +280,14 @@ hook.Add( "PlayerDeath", "ZombifyPlayer", function( ply, inflictor, attacker )
 		npc_headcrab_black = true,
 		npc_vj_hlr1_headcrab = true
 	}
+
 	if allowed[attacker:GetClass()] and !ply.IsZombie then
+		attacker:Remove()
 		timer.Simple( 1, function()
-			if IsValid( ply ) then
-				ply:Spawn()
-				ply:SetPos( pos )
-				ply:MakeZombie()
-			end
+			if !IsValid( ply ) then return end
+			ply:Spawn()
+			ply:SetPos( pos )
+			ply:MakeZombie()
 		end )
 	end
 end )

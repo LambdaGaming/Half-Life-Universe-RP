@@ -93,7 +93,7 @@ function RaceX() --why did I agree to do this?
 end
 
 hook.Add( "PlayerSpawn", "ActiveShooterRelationship", function( ply )
-	for k,v in pairs( ents.FindByClass( "npc_citizen" ) ) do
+	for k,v in ipairs( ents.FindByClass( "npc_citizen" ) ) do
 		if ply:isCP() then
 			v:AddEntityRelationship( ply, D_HT, 99 )
 		end

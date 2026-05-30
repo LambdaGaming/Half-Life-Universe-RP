@@ -44,7 +44,7 @@ if SERVER then
 		local pay = net.ReadInt( 11 )
 		if custom != "" then
 			for k,v in pairs( BMRP_TASKS[key].Required ) do
-				for a,b in pairs( team.GetPlayers( v ) ) do
+				for a,b in ipairs( team.GetPlayers( v ) ) do
 					if pay > 0 then
 						if BMRP_TASK_COOLDOWN[key] then
 							HLU_Notify( ply, "Please wait before ending another task for this job.", 1, 6 )
@@ -64,7 +64,7 @@ if SERVER then
 			end
 		else
 			for k,v in pairs( BMRP_TASKS[key].Required ) do
-				for a,b in pairs( team.GetPlayers( v ) ) do
+				for a,b in ipairs( team.GetPlayers( v ) ) do
 					HLU_Notify( b, "Your task has been updated.", 0, 6 )
 					HLU_Notify( ply, "Task assigned!", 0, 6 )
 				end
@@ -78,12 +78,12 @@ if SERVER then
 	-----------------------------------------------------------------
 	function PortalBreakDown()
 		local button = 1523
-		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
+		for k,v in ipairs( ents.FindByClass( "func_button" ) ) do
 			if v:EntIndex() == button then
 				v:Fire( "Lock" )
 			end
 		end
-		for k,v in pairs( ents.FindByClass( "event_portal_fix" ) ) do
+		for k,v in ipairs( ents.FindByClass( "event_portal_fix" ) ) do
 			v.broke = true
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The portal has malfunctioned! It won't be able to start up again until a custodian fixes it!" )
@@ -92,7 +92,7 @@ if SERVER then
 
 	function PortalFix()
 		local button = 1523
-		for k,v in pairs( ents.FindByClass( "func_button" ) ) do
+		for k,v in ipairs( ents.FindByClass( "func_button" ) ) do
 			if v:EntIndex() == button then
 				v:Fire( "Unlock" )
 			end
@@ -103,10 +103,10 @@ if SERVER then
 	end
 	-----------------------------------------------------------------
 	function TramFailure( suppress )
-		for k,v in pairs( ents.FindByClass( "func_tracktrain" ) ) do
+		for k,v in ipairs( ents.FindByClass( "func_tracktrain" ) ) do
 			v:Fire( "Stop" )
 		end
-		for k,v in pairs( ents.FindByClass( "event_door_fix" ) ) do
+		for k,v in ipairs( ents.FindByClass( "event_door_fix" ) ) do
 			v.broke = true
 			v:EmitSound( "vehicles/Airboat/fan_motor_shut_off1.wav" )
 		end
@@ -117,7 +117,7 @@ if SERVER then
 	end
 
 	function TramFix()
-		for k,v in pairs( ents.FindByClass( "func_tracktrain" ) ) do
+		for k,v in ipairs( ents.FindByClass( "func_tracktrain" ) ) do
 			v:Fire( "Resume" )
 		end
 		HLU_ChatNotifySystem( "BMRP", color_orange, "The secondary generator has been restarted!" )
@@ -161,7 +161,7 @@ if SERVER then
 	end
 	-----------------------------------------------------------------
 	local function XenBreachEndCheck()
-		for k,v in pairs( ents.FindByClass( "monster_*" ) ) do
+		for k,v in ipairs( ents.FindByClass( "monster_*" ) ) do
 			if v.IsEventNPC then return end
 		end
 		for k,v in pairs( NPCEventParticipants ) do
@@ -228,7 +228,7 @@ if SERVER then
 		if #ents.FindByClass( "*ium_ent" ) > 0 then
 			return
 		end
-		for k,v in pairs( team.GetPlayers( TEAM_BIO ) ) do
+		for k,v in ipairs( team.GetPlayers( TEAM_BIO ) ) do
 			v:AddFunds( 500 )
 			HLU_Notify( v, "You have been awarded $500 for helping cleanup the biohazard.", 0, 6 )
 		end
@@ -283,7 +283,7 @@ if SERVER then
 	end
 	-----------------------------------------------------------------
 	function ServerFailure()
-		for k,v in pairs( ents.FindByClass( "event_server" ) ) do
+		for k,v in ipairs( ents.FindByClass( "event_server" ) ) do
 			v.broke = true
 		end
 		hook.Add( "PlayerUse", "BlockPCUsage", function( ply, ent )
@@ -356,7 +356,7 @@ if SERVER then
 	end
 
 	function ExtinguishFire()
-		for k,v in pairs( team.GetPlayers( TEAM_SERVICE ) ) do
+		for k,v in ipairs( team.GetPlayers( TEAM_SERVICE ) ) do
 			v:AddFunds( 500 )
 			HLU_Notify( v, "You have been awarded $500 for extinguishing a fire.", 0, 6 )
 		end

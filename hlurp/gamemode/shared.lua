@@ -27,21 +27,53 @@ elseif outlandmaps[game.GetMap()] then
 	SetGlobalInt( "CurrentGamemode", 3 )
 end
 
-GLOBAL_WHITELIST = { --Global entity whitelist currently used by the trash swep and the pocket
-	["organic_matter"] = true,
-	["organic_matter_cooked"] = true,
-	["mediaplayer_tv"] = true,
-	["organic_matter_rare"] = true,
-	["xen_iron"] = true,
-	["xen_iron_refined"] = true,
-	["ucs_iron"] = true,
-	["crystal_fragment"] = true,
-	["crystal_harvested"] = true,
-	["crystal_pure"] = true,
-	["ucs_wood"] = true,
-	["rp_food"] = true,
-	["rp_chips"] = true,
-	["rp_soda"] = true
+--Color globals
+color_red = Color( 255, 0, 0 )
+color_green = Color( 0, 255, 0 )
+color_blue = Color( 0, 0, 255 )
+color_orange = Color( 255, 89, 0 )
+color_lightgray = Color( 160, 160, 160 )
+color_darkgray = Color( 64, 64, 64 )
+color_yellow = Color( 255, 255, 0 )
+color_cyan = Color( 0, 255, 255 )
+color_magenta = Color( 255, 0, 255 )
+color_theme = Color( 38, 41, 49 )
+
+--Entities that players are allowed to pick up; used by the pocket and trash bag
+PICKUP_WHITELIST = {
+	organic_matter = true,
+	organic_matter_cooked = true,
+	mediaplayer_tv = true,
+	organic_matter_rare = true,
+	xen_iron = true,
+	xen_iron_refined = true,
+	ucs_iron = true,
+	crystal_fragment = true,
+	crystal_harvested = true,
+	crystal_pure = true,
+	ucs_wood = true,
+	rp_food = true,
+	rp_chips = true,
+	rp_soda = true
+}
+
+--Weapons that players are not allowed to drop when dying or using the /drop command
+DROP_BLACKLIST = {
+	weapon_physgun = true,
+	weapon_physcannon = true,
+	weapon_keys = true,
+	gmod_tool = true,
+	gmod_camera = true,
+	weapon_handcuffed = true,
+	swep_vortigaunt_beam = true,
+	pocket = true,
+	weapon_weapons_zombie = true,
+	swep_gmanbriefcase = true,
+	weapon_leash_police = true,
+	trash_wep = true,
+	broom = true,
+	weapon_portal_pair = true,
+	weapon_ram = true
 }
 
 HLU_GAMEMODE = {

@@ -3,28 +3,21 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Portal Event Fixer"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = false
+
+if CLIENT then return end
 
 function ENT:Initialize()
     self:SetModel( "models/props/hl10props/amsmachine02.mdl" )
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	if SERVER then
-		self:PhysicsInit(SOLID_VPHYSICS)
-		self:SetUseType(SIMPLE_USE)
-		self:SetTrigger( true )
-	end
- 
-    local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
-	
-	if SERVER then
-		self:SetHealth( 0 )
-		self:SetMaxHealth( 100 )
-	end
+	self:SetMoveType( MOVETYPE_VPHYSICS )
+	self:SetSolid( SOLID_VPHYSICS )
+	self:PhysicsInit( SOLID_VPHYSICS )
+	self:SetUseType( SIMPLE_USE )
+	self:SetTrigger( true )
+	self:PhysWake()
+	self:SetHealth( 0 )
+	self:SetMaxHealth( 100 )
 	self.broke = false
 end
 
@@ -41,17 +34,11 @@ function ENT:Use( caller, activator )
 end
 
 function ENT:Think()
-	if self.broke then
-		if math.random( 1, 8 ) == 7 then
-			local effectdata = EffectData()
-			effectdata:SetOrigin( self:GetPos() + self:GetUp() * math.random( 10, 25 ) )
-			effectdata:SetNormal( VectorRand() )
-			effectdata:SetMagnitude( 3 )
-			effectdata:SetScale( 1 )
-			effectdata:SetRadius( 3 )
-			util.Effect( "Sparks", effectdata, true, true )
-			self:EmitSound( "ambient/energy/spark"..math.random( 1, 6 )..".wav" )
-		end
+	local rand = math.random( 1, 8 )
+	if self.broke and rand == 7 then
+		local pos = self:GetPos() + self:GetUp() * math.random( 10, 25 )
+		CreateEffect( "Sparks", pos )
+		self:EmitSound( "ambient/energy/spark"..math.random( 1, 6 )..".wav" )
 	end
 end
 
@@ -70,10 +57,4 @@ function ENT:OnTakeDamage( dmg )
 			end
 		end
 	end
-end
-
-if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-    end
 end

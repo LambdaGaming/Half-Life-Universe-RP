@@ -173,12 +173,11 @@ local blockedtools = {
 	end
 }
 
-local function RestrictTool( ply, tr, tool )
+hook.Add( "CanTool", "RestrictTool", function( ply, tr, tool )
 	if blockedtools[tool] then
 		return blockedtools[tool]( ply, tool )
 	end
 	if string.find( tool, "pcspawn_" ) then
 		return false
 	end
-end
-hook.Add( "CanTool", "RestrictTool", RestrictTool )
+end )

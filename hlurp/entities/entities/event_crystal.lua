@@ -3,8 +3,10 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Crystal Event"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = false
+
+if CLIENT then return end
 
 local models = {
 	"models/props/bm/crystalstrappedroom2.mdl",
@@ -20,29 +22,18 @@ function ENT:Initialize()
     self:SetModel( table.Random( models ) )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
-	if SERVER then
-		self:PhysicsInit( SOLID_VPHYSICS )
-		self:SetUseType( SIMPLE_USE )
-	end
-    local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
+	self:PhysicsInit( SOLID_VPHYSICS )
+	self:SetUseType( SIMPLE_USE )
+	self:PhysWake()
 end
 
-function ENT:Use( caller, activator )
-	if caller:Team() == TEAM_SURVEYBOSS or caller:Team() == TEAM_SURVEY then
-		caller:AddFunds( 200 )
-		HLU_Notify( caller, "You have been awarded $200 for securing the lost crystal.", 0, 6 )
+function ENT:Use( ply )
+	if ply:Team() == TEAM_SURVEYBOSS or ply:Team() == TEAM_SURVEY then
+		ply:AddFunds( 200 )
+		HLU_Notify( ply, "You have been awarded $200 for securing the lost crystal.", 0, 6 )
 		SecureCrystal()
 		self:Remove()
 	else
-		HLU_Notify( caller, "The crystal appears as if it doesn't belong here. Contacting the survey team would be a good idea.", 0, 6 )
+		HLU_Notify( ply, "The crystal appears as if it doesn't belong here. Contacting the survey team would be a good idea.", 0, 6 )
 	end
-end
-
-if CLIENT then
-    function ENT:Draw()
-        self:DrawModel()
-    end
 end

@@ -3,7 +3,7 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Zombie Serum"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
@@ -17,10 +17,7 @@ function ENT:Initialize()
 		self:PhysicsInit( SOLID_VPHYSICS )
 		self:SetUseType( SIMPLE_USE )
 	end
-    local phys = self:GetPhysicsObject()
-	if phys:IsValid() then
-		phys:Wake()
-	end
+	self:PhysWake()
 end
 
 if SERVER then
@@ -32,6 +29,9 @@ if SERVER then
 		self:EmitSound( "physics/glass/glass_bottle_break1.wav" )
 		ply:MakeZombie()
 		self:Remove()
+		timer.Simple( 2, function()
+			ply:EmitSound( "npc/zombie_poison/pz_alert1.wav" )
+		end )
 	end
 else
 	local smokevelocity = Vector( 0, 0, 5 )

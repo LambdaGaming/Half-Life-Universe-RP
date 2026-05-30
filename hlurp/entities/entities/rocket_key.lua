@@ -3,21 +3,21 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Rocket Key"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = true
 ENT.AdminOnly = true
 ENT.Category = "HLU RP"
+
+if CLIENT then return end
 
 function ENT:Initialize()
 	self:SetModel( "models/props_c17/TrapPropeller_Lever.mdl" )
 	self:SetMaterial( "models/weapons/v_slam/new light2" )
 	self:SetMoveType( MOVETYPE_VPHYSICS )
 	self:SetSolid( SOLID_VPHYSICS )
-	if SERVER then
-		self:PhysicsInit( SOLID_VPHYSICS )
-		self:SetUseType( SIMPLE_USE )
-		self:SetTrigger( true )
-	end
+	self:PhysicsInit( SOLID_VPHYSICS )
+	self:SetUseType( SIMPLE_USE )
+	self:SetTrigger( true )
 	self:PhysWake()
 end
 

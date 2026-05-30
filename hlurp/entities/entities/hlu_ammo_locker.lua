@@ -43,12 +43,12 @@ if SERVER then
 
 	function ENT:Use( ply )
 		if self.Used then return end
-		local getwep = ply:GetActiveWeapon()
-		local primaryammo = getwep:GetPrimaryAmmoType()
-		local secondaryammo = getwep:GetSecondaryAmmoType()
-		local primaryname = game.GetAmmoName( primaryammo )
-		local secondaryname = game.GetAmmoName( secondaryammo )
-		if !AmmoTypes[primaryname] then
+		local wep = ply:GetActiveWeapon()
+		local primary = wep:GetPrimaryAmmoType()
+		local secondary = wep:GetSecondaryAmmoType()
+		local primaryName = game.GetAmmoName( primary )
+		local secondaryName = game.GetAmmoName( secondary )
+		if !AmmoTypes[primaryName] then
 			HLU_Notify( ply, "Ammo is not available for this weapon.", 1, 6 )
 			return
 		end
@@ -57,12 +57,12 @@ if SERVER then
 		timer.Simple( 1.5, function()
 			if !IsValid( self ) then return end
 			local pos, ang = LocalToWorld( Vector( 20, -5, -30 ), Angle( -90, -90, 0 ), self:GetPos(), self:GetAngles() )
-			local ammo = ents.Create( AmmoTypes[primaryname] )
+			local ammo = ents.Create( AmmoTypes[primaryName] )
 			ammo:SetPos( pos )
 			ammo:SetAngles( ang )
 			ammo:Spawn()
-			if AmmoTypes[secondaryname] then
-				local ammo2 = ents.Create( AmmoTypes[secondaryname] )
+			if AmmoTypes[secondaryName] then
+				local ammo2 = ents.Create( AmmoTypes[secondaryName] )
 				ammo2:SetPos( pos )
 				ammo2:SetAngles( ang )
 				ammo2:Spawn()

@@ -3,7 +3,7 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
 ENT.PrintName = "Weapon Box"
-ENT.Author = "Lambda Gaming"
+ENT.Author = "OPGman"
 ENT.Spawnable = false
 
 if SERVER then
@@ -15,26 +15,22 @@ if SERVER then
 		self:SetUseType( SIMPLE_USE )
 		self:SetNWString( "WepName", "None" )
 		self:SetNWInt( "NumWeapons", 10 )
-		
-		local phys = self:GetPhysicsObject()
-		if phys:IsValid() then
-			phys:Wake()
-		end
+		self:PhysWake()
 	end
 
-	function ENT:Use( activator, caller )
-		local numweapons = self:GetNWInt( "NumWeapons" )
+	function ENT:Use( ply )
+		local num = self:GetNWInt( "NumWeapons" )
 		if !self.WepClass then
-			HLU_Notify( activator, "This weapon box hasn't been properly initialized. Weapons will not spawn from it.", 1, 6 )
+			HLU_Notify( ply, "This weapon box hasn't been properly initialized. Weapons will not spawn from it.", 1, 6 )
 			return
 		end
-		if activator:HasWeapon( self.WepClass ) then
-			HLU_Notify( activator, "You already have this weapon.", 1, 6 )
+		if ply:HasWeapon( self.WepClass ) then
+			HLU_Notify( ply, "You already have this weapon.", 1, 6 )
 			return
 		end
-		activator:Give( self.WepClass )
-		self:SetNWInt( "NumWeapons", numweapons - 1 )
-		if numweapons <= 0 then
+		ply:Give( self.WepClass )
+		self:SetNWInt( "NumWeapons", num - 1 )
+		if num <= 0 then
 			self:Remove()
 		end
 	end
