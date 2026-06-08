@@ -104,7 +104,7 @@ local chatcommands = {
 		return ""
 	end,
 	["!help"] = function( ply )
-		ply:SendLua( [[gui.OpenURL( "https://lambdagaming.github.io/hlurp/main.html" )]] )
+		ply:SendLua( [[gui.OpenURL( "https://lambdagaming.github.io/hlurp/" )]] )
 		return ""
 	end,
 	["!discord"] = function( ply )
