@@ -296,7 +296,7 @@ HLU_JOB = {
 				"models/player/hlew/workers/wallace_worker_extended.mdl",
 				"models/player/hlew/workers/wexler_worker_extended.mdl"
 			},
-			Weapons = { "weapon_extinguisher", "weapon_hlmmod_c_crowbar", "weapon_hlof_pipewrench_ch", "trash_wep", "broom", "weapon_gauto_fuel", "weapon_gauto_repair" },
+			Weapons = { "weapon_extinguisher", "weapon_hlmmod_c_crowbar", "weapon_hlof_pipewrench_ch", "trash_wep", "weapon_cbroom", "weapon_gauto_fuel", "weapon_gauto_repair" },
 			Max = 2,
 			Category = "Utility"
 		},
@@ -408,7 +408,7 @@ HLU_JOB = {
 			Link = "vortigaunt",
 			Color = Color( 83, 107, 47, 255 ),
 			Models = { "models/CS/Playermodels/vortigaunt.mdl" },
-			Weapons = { "swep_vortigaunt_beam", "weapon_hl2pickaxe" },
+			Weapons = { "swep_vortigaunt_beam", "weapon_hl2pickaxe", "weapon_cbroom" },
 			Max = 2,
 			Category = "Neutral"
 		},

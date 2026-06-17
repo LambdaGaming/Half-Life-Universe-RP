@@ -71,7 +71,7 @@ DROP_BLACKLIST = {
 	swep_gmanbriefcase = true,
 	weapon_leash_police = true,
 	trash_wep = true,
-	broom = true,
+	weapon_cbroom = true,
 	weapon_portal_pair = true,
 	weapon_ram = true
 }
