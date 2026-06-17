@@ -1,7 +1,7 @@
 GM.Name = "Half-Life Universe RP"
 GM.Author = "Lambda Gaming"
 GM.Email = "N/A"
-GM.Website = "lambdagaming.github.io"
+GM.Website = "https://lambdagaming.github.io/"
 
 DeriveGamemode( "sandbox" )
 

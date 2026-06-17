@@ -261,7 +261,7 @@ local function DrawJobMenu()
 			end
 			info.DoClick = function()
 				local rpTypes = { "bmrp", "city17rp", "outandrp" }
-				gui.OpenURL( "https://lambdagaming.github.io/hlurp/jobs_"..rpTypes[current]..".html#"..v.Link )
+				gui.OpenURL( "https://lambdagaming.github.io/hlurp/jobs-"..rpTypes[current]..".html#"..v.Link )
 			end
 		end
 	end
