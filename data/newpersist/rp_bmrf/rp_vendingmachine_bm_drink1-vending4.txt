@@ -1,0 +1,1 @@
+["[344.4875 610.5472 -13.6292]","{0.0819 -0.1116 0.0069}","models/props/vendingmachines/sodapop.mdl",""]

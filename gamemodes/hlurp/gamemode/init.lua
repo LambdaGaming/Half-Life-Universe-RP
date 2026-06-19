@@ -8,6 +8,8 @@ AddCSLuaFile( "sh_bmrp.lua" )
 AddCSLuaFile( "sh_bmrp_events.lua" )
 AddCSLuaFile( "sh_c17.lua" )
 AddCSLuaFile( "sh_outland.lua" )
+AddCSLuaFile( "modules/sh_crafting_items.lua" )
+AddCSLuaFile( "modules/sh_npc_items.lua" )
 
 include( "shared.lua" )
 include( "sh_jobs.lua" )
@@ -21,6 +23,9 @@ include( "sv_c17.lua" )
 include( "sv_outland.lua" )
 include( "sv_c17_events.lua" )
 include( "sv_utils.lua" )
+include( "modules/sh_crafting_items.lua" )
+include( "modules/sh_npc_items.lua" )
+include( "modules/sv_persist.lua" )
 
 local mode = GetGlobalInt( "CurrentGamemode" )
 RunConsoleCommand( "sv_alltalk", "0" )
@@ -266,7 +271,7 @@ end )
 
 --Prevent players from picking up same weapon twice, and prevent zombified players from picking up any weapons
 hook.Add( "PlayerCanPickupWeapon", "NoDoublePickup", function( ply, wep )
-	if ply:HasWeapon( wep:GetClass() ) or ( ply.IsZombie and wep:GetClass() != "weapon_weapons_zombie" ) then
+	if ply:HasWeapon( wep:GetClass() ) or ( ply.IsZombie and wep:GetClass() != "weapon_zombie" ) then
 		return false
 	end
 end )

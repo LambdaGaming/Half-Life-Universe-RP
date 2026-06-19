@@ -6,7 +6,7 @@ function metaPly:MakeZombie()
 	self:Notify( 0, 6, "You have been zombified!" )
 	timer.Simple( 1, function()
 		self:EmitSound( "npc/zombie/zombie_voice_idle"..math.random( 1, 14 )..".wav" )
-		self:Give( "weapon_weapons_zombie" )
+		self:Give( "weapon_zombie" )
 	end )
 end
 

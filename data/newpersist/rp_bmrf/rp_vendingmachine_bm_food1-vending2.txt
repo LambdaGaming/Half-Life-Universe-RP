@@ -1,0 +1,1 @@
+["[-1063.5002 -6093.5703 399.4877]","{0.0002 -0.0002 0.0218}","models/props/vendingmachines/classicdispenser.mdl",""]

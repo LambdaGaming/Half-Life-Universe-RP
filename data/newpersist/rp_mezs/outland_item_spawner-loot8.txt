@@ -1,0 +1,1 @@
+["[-8286.9287 1973.1169 -2791.3274]","{0.0261 74.1246 -0.0133}","models/props_debris/concrete_spawnplug001a.mdl",""]

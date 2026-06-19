@@ -1,0 +1,1 @@
+["[-2109.8508 -467.1882 206.3337]","{0.0454 -0.028 0.0248}","models/props_c17/furniturewashingmachine001a.mdl",""]

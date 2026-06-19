@@ -1,0 +1,1 @@
+["[-9385.5283 -1426.2843 745.4478]","{0 90 0}","models/props/bmrf/bmrf_firexcase.mdl",""]

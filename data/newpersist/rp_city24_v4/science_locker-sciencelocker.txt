@@ -1,0 +1,1 @@
+["[12150.9277 9708.8672 495.9914]","{0.0431 180 -0.0138}","models/props_c17/lockers001a.mdl","models/props_combine/metal_combinebridge001"]

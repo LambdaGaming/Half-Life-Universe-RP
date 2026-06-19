@@ -1,0 +1,1 @@
+["[-2764.4849 -5254.8423 7052.3584]","{-0.0552 90.014 0.0098}","models/props_combine/combine_monitorbay.mdl",""]

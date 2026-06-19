@@ -1,0 +1,1 @@
+["[3414.2961 103.5002 -13.5002]","{0 -90 0}","models/props/vendingmachines/enjoy.mdl",""]
