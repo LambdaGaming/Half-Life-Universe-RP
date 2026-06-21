@@ -81,7 +81,7 @@ function ENT:Touch( ent )
 			ent:EmitSound( "ambient/levels/canals/toxic_slime_gurgle"..math.random( 2, 8 )..".wav" )
 			self:Remove()
 		else
-			local e = ents.Create( "uranium_ent" )
+			local e = ents.Create( "radioactive_blob" )
 			e:SetPos( ent:GetPos() + Vector( 0, 0, 20 ) )
 			e:Spawn()
 			ent:EmitSound( "ambient/levels/canals/toxic_slime_gurgle"..math.random( 2, 8 )..".wav" )

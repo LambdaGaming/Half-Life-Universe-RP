@@ -38,13 +38,8 @@ function ENT:StartTouch( ent )
 		self.IsTicking = true
 		local randchance = math.random( 0, 100 )
 		if randchance >= 95 then
-			local randents = {
-				"plutonium_ent",
-				"unubuntium_ent",
-				"uranium_ent"
-			}
 			for i=1, math.random( 3, 6 ) do
-				local e = ents.Create( table.Random( randents ) )
+				local e = ents.Create( "radioactive_blob" )
 				e:SetPos( self:GetPos() )
 				e:Spawn()
 				Explode( ent:GetPos(), 200, 0, false )

@@ -11,18 +11,15 @@ Alongside all of the content in this repo, the gamemode and server also rely on 
 - [Half-Life: Source](https://store.steampowered.com/app/280/HalfLife_Source/) (this might not actually be needed, need to do some testing)
 
 # Missing Content
-The following server-side content is currently missing because it cannot be redistributed:
-- Poly's Booby Traps - Modified to fix bugs that the author refuses to fix. Author seems to be okay with people forking it so I might do that.
-- Cuffs - Paid handcuffs addon that I can probably replace with an open source alternative.
+The gamemode also relies on modified versions of proprietary content that can't be redistributed. To run the gamemode without errors, you will need to find alternatives, make the modifications yourself, or edit the gamemode to not rely on these addons:
+- Cuffs - Paid handcuffs addon. Will be replaced with an alternative as soon as I find a decent one.
 - DarkRP Vending Machine - Heavily modified from the original, I can probably just make a new one from scratch at this point.
-- Advanced Disguise SWEP - Heavily modified to work with the gamemode. It's not open source so I'll probably replace it with a custom version at some point.
+- [Advanced Disguise SWEP](https://steamcommunity.com/sharedfiles/filedetails/?id=687912749) - Modified to work with HLU RP jobs rather than DarkRP.
 - Door System - This is my own door system thats been partially modified to work better with the gamemode. I'll merge those changes upstream or create a separate branch.
-- HL2 Beta Weapons - Modified to fix bugs and make the flare gun ignite players. The addon was last updated in 2021 so maybe these bugs are fixed and I can do something on the gamemode side with the flare gun.
-- Shrun's HUD - Modified to work with the gamemode. It seems to have disappeared from the workshop so I don't know if it was open source or not. It needs to be replaced anyway so I'll get around to that eventually.
-- Material URL Tool - Modified to fix a script error that appears for all clients when they first join. Unfortunately the author prohibits redistribution and has no interest in fixing this simple bug, so if you want to use it you will have to fix it yourself or deal with the error.
-- Player Notifications - Modified to remove the notification sounds and possibly other things. It can probably be easily replaced with a custom version.
-- Radioactive Ents - I don't remember what the original addon was called but it's been modified to work with the gamemode better. It can also probably be replaced with a custom version fairly easily.
-- Rebel Rocket - Modified rocket from GBombs 5. Should probably be replaced because it's current implementation is extremely hacky.
+- [Half-Life 2 Beta Weapons Pack V2](https://steamcommunity.com/sharedfiles/filedetails/?id=254077907) - Fixed the flare gun creating errors when used, fixed the sniper scope sometimes leaving the filter on, and made the flare gun ignite players.
+- Shrun's HUD - Changes colors based on the current stage. The money section displays loyalty level on City 17 RP and Outland RP. It seems to have disappeared without a trace so I can't link it here. I plan on eventually replacing it.
+- [Material URL Tool](https://steamcommunity.com/sharedfiles/filedetails/?id=2559426779) - Fixed a script error that appears for all clients when they first join.
+- Rebel Rocket - Modified rocket from GBombs 5; used for the rebel victory on Outland RP. It should probably be replaced because it's current implementation is extremely hacky.
 - Vox Announcements - Heavily modified to work with the new Vox interface, might just make a custom version at this point.
 
 # Credits

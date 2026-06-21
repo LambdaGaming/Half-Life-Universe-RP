@@ -172,12 +172,15 @@ BuyMenuItems = {
 		Max = 5,
 		Allowed = function( ply ) return ply:Team() == TEAM_BIO end
 	},
-	["container_ent"] = {
-		Name = "Radioactive Material Barrel",
-		Description = "Used to safely store radioactive materials.",
+	["radioactive_container"] = {
+		Name = "Radioactive Container",
+		Description = "Used to safely store up to 10 radioactive materials.",
 		Price = 200,
 		Max = 5,
-		Allowed = function( ply ) return ply:Team() == TEAM_BIO end
+		Allowed = function( ply )
+			local allowed = { [TEAM_BIO] = true, [TEAM_SURVEYBOSS] = true, [TEAM_SURVEY] = true }
+			return allowed[ply:Team()]
+		end
 	},
 	["satchel_shipment"] = {
 		Name = "Satchel Charge (Box)",

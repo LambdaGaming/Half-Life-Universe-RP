@@ -237,12 +237,6 @@ if SERVER then
 	end
 
 	function Biohazard()
-		local hazard = {
-			"uranium_ent",
-			"plutonium_ent",
-			"unubuntium_ent"
-		}
-	
 		local biopos = {
 			Vector( 2236, -4998, -1439 ),
 			Vector( 289, -2657, 96 ),
@@ -250,7 +244,7 @@ if SERVER then
 		}
 
 		for i=1, math.random( 1, 6 ) do
-			local waste = ents.Create( table.Random( hazard ) )
+			local waste = ents.Create( "radioactive_blob" )
 			waste:SetPos( table.Random( biopos ) )
 			waste:Spawn()
 			waste:CallOnRemove( "BiohazardCleanup", BiohazardCleanup )
