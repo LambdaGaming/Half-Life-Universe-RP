@@ -73,7 +73,8 @@ DROP_BLACKLIST = {
 	trash_wep = true,
 	weapon_cbroom = true,
 	weapon_portal_pair = true,
-	weapon_ram = true
+	weapon_ram = true,
+	weapon_ram_combine = true
 }
 
 HLU_GAMEMODE = {

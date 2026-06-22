@@ -325,7 +325,7 @@ CraftingRecipe["tripwireextender"] = {
 	Materials = { ["ucs_iron"] = 2 }
 }
 
-CraftingRecipe["weapon_ram"] = {
+CraftingRecipe["weapon_ram_combine"] = {
 	Name = "Combine Door Authorization",
 	Description = "Requires 40 iron and 5 or less Combine loyalty.",
 	Category = "Tools",

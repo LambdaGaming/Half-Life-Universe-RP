@@ -14,8 +14,6 @@ Alongside all of the content in this repo, the gamemode and server also rely on 
 The gamemode also relies on modified versions of proprietary content that can't be redistributed. To run the gamemode without errors, you will need to find alternatives, make the modifications yourself, or edit the gamemode to not rely on these addons:
 - Cuffs - Paid handcuffs addon. Will be replaced with an alternative as soon as I find a decent one.
 - DarkRP Vending Machine - Heavily modified from the original, I can probably just make a new one from scratch at this point.
-- [Advanced Disguise SWEP](https://steamcommunity.com/sharedfiles/filedetails/?id=687912749) - Modified to work with HLU RP jobs rather than DarkRP.
-- Door System - This is my own door system thats been partially modified to work better with the gamemode. I'll merge those changes upstream or create a separate branch.
 - [Half-Life 2 Beta Weapons Pack V2](https://steamcommunity.com/sharedfiles/filedetails/?id=254077907) - Fixed the flare gun creating errors when used, fixed the sniper scope sometimes leaving the filter on, and made the flare gun ignite players.
 - Shrun's HUD - Changes colors based on the current stage. The money section displays loyalty level on City 17 RP and Outland RP. It seems to have disappeared without a trace so I can't link it here. I plan on eventually replacing it.
 - [Material URL Tool](https://steamcommunity.com/sharedfiles/filedetails/?id=2559426779) - Fixed a script error that appears for all clients when they first join.

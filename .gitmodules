@@ -1,3 +1,6 @@
 [submodule "addons/Item_NPC"]
 	path = addons/Item_NPC
 	url = https://github.com/LambdaGaming/Item_NPC
+[submodule "addons/Door_System"]
+	path = addons/Door_System
+	url = https://github.com/LambdaGaming/Door_System

@@ -9,6 +9,7 @@ include( "cl_bmrp.lua" )
 include( "cl_menus.lua" )
 include( "modules/sh_crafting_items.lua" )
 include( "modules/sh_npc_items.lua" )
+include( "modules/sh_door_config.lua" )
 
 local current = GetGlobalInt( "CurrentGamemode" )
 local themecolor = ColorAlpha( HLU_GAMEMODE[current].Color, 40 )
