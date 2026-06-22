@@ -52,9 +52,7 @@ PICKUP_WHITELIST = {
 	crystal_harvested = true,
 	crystal_pure = true,
 	ucs_wood = true,
-	rp_food = true,
-	rp_chips = true,
-	rp_soda = true
+	vending_food = true
 }
 
 --Weapons that players are not allowed to drop when dying or using the /drop command

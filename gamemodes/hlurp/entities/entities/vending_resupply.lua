@@ -10,12 +10,6 @@ ENT.AdminOnly = true
 
 if CLIENT then return end
 
-local allowed = {
-	["rp_vendingmachine_bm_drink1"] = true,
-	["rp_vendingmachine_bm_drink2"] = true,
-	["rp_vendingmachine_bm_food1"] = true
-}
-
 function ENT:Initialize()
 	self:SetModel( "models/props/CS_militia/food_stack.mdl" )
 	self:PhysicsInit( SOLID_VPHYSICS )
@@ -26,7 +20,7 @@ function ENT:Initialize()
 end
 
 function ENT:StartTouch( ent )
-	if allowed[ent:GetClass()] then
+	if ent:GetClass() == "vending_machine" then
 		ent.Amount = 10
 		ent:EmitSound( "physics/cardboard/cardboard_box_break"..math.random( 1, 3 )..".wav" )
 		self:Remove()
