@@ -72,10 +72,10 @@ local types = {
 
 properties.Add( "vending_machine", {
 	MenuLabel = "Vending Type",
-	Order = 1000,
+	MenuIcon = "icon16/basket.png",
+	Order = 2500,
 	Filter = function( self, ent, ply )
-		if !IsValid( ent ) or !ply:IsSuperAdmin() then return false end
-		return true
+		return IsValid( ent ) and ent:GetClass() == "vending_machine" and ply:IsSuperAdmin()
 	end,
 	MenuOpen = function( self, option, ent, tr )
 		local sub = option:AddSubMenu()
