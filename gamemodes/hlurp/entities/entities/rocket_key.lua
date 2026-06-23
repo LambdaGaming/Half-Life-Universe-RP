@@ -29,7 +29,7 @@ function ENT:StartTouch( ent )
 	if ent:GetClass() == "rocket_launch_button" then
 		ent.HasKey = true
 		ent:EmitSound( "buttons/button5.wav" )
-		ent.light:SetKeyValue( "_light", "0 255 0 255" )
+		ent.ActiveLight:SetKeyValue( "_light", "0 255 0 255" )
 		self:Remove()
 		BroadcastSystemChat( "Outland RP", color_green, "The rocket is fully prepped and ready for launch!" )
 	end

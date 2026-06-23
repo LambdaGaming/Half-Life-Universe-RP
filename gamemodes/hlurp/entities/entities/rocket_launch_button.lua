@@ -22,7 +22,7 @@ end
 
 function ENT:Use( ply )
 	if !self.HasKey then
-		plu:Notify( 1, 6, "You need to craft a key and insert it here to be able to launch the rocket!" )
+		ply:Notify( 1, 6, "You need to craft a key and insert it here to be able to launch the rocket!" )
 		return
 	end
 	if ply:GetJobCategory() == "Combine" then
@@ -39,7 +39,7 @@ function ENT:Use( ply )
 			BroadcastNotify( 0, 6, "There were "..math.Round( timer.TimeLeft( "rocketinit" ) ).." seconds left until the rocket launched." )
 			timer.Remove( "CombinePortalTimer" )
 			timer.Remove( "KickTimer" )
-			for k,v in ipairs( ents.FindByClass( "gb5_proj_icbm_big" ) ) do
+			for k,v in ipairs( ents.FindByClass( "rebel_rocket" ) ) do
 				v:Remove()
 			end
 		end
@@ -48,7 +48,7 @@ function ENT:Use( ply )
 			ply:Notify( 1, 6, "ERROR: Launch aborted. Either the rocket was already put into orbit or the portal is being closed somewhere else." )
 			return
 		end
-		if #ents.FindByClass( "gb5_proj_icbm_big" ) >= 1 then
+		if #ents.FindByClass( "rebel_rocket" ) >= 1 then
 			ply:Notify( 1, 6, "ERROR: The rocket was already spawned!" )
 			return
 		end
@@ -56,12 +56,12 @@ function ENT:Use( ply )
 			ply:Notify( 1, 6, "ERROR: Only resistance leaders can launch the rocket!" )
 			return
 		end
-		if timer.Exists("rocket_timer") then
+		if timer.Exists( "rocket_timer" ) then
 			ply:Notify( 1, 6, "Wait "..math.Round( timer.TimeLeft( "rocket_timer" ) ).." seconds before activating the rocket again." )
 			return
 		end
-		local rocket = ents.Create( "gb5_proj_icbm_big" )
-		rocket:SetPos( Vector( 14360, 8068, 26 ) )
+		local rocket = ents.Create( "rebel_rocket" )
+		rocket:SetPos( Vector( 13103, 8531, -323 ) )
 		rocket:Spawn()
 		timer.Create( "rocketinit", 300, 1, function() rocket:Launch() end )
 		BroadcastSystemChat( "Outland RP", color_green, "Launch sequence activated.......T minus 5 minutes until lift-off." )
