@@ -149,6 +149,8 @@ hook.Add( "EntityTakeDamage", "C17TakeDamage", function( ent, dmg )
 	end
 end )
 
-hook.Add( "OnHandcuffed", "C17Handcuffed", function( ply, cuffedply, handcuffs )
-	SetLoyalty( cuffedply, GetLoyalty( cuffedply ) + 10 )
+hook.Add( "WeaponEquip", "C17Handcuffed", function( wep, ply )
+	if wep:GetClass() == "st_cuffed" and ply:GetJobCategory() == "Citizens" then
+		SetLoyalty( ply, GetLoyalty( ply ) + 10 )
+	end
 end )

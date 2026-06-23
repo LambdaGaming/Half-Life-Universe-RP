@@ -334,6 +334,15 @@ CraftingRecipe["weapon_ram_combine"] = {
 	Materials = { ["ucs_iron"] = 40 }
 }
 
+CraftingRecipe["st_elastic_cuffs"] = {
+	Name = "Elastic Handcuffs",
+	Description = "Requires 10 iron and 40 or less Combine loyalty.",
+	Category = "Tools",
+	Loyalty = 40,
+	Types = { ["rebel"] = true },
+	Materials = { ["ucs_iron"] = 10 }
+}
+
 if game.GetMap() == "rp_mezs" then
 	CraftingRecipe["ent_jack_sleepinbag_rebel"] = {
 		Name = "Sleeping Bag",
