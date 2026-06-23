@@ -290,39 +290,13 @@ CraftingRecipe["weapon_frag"] = {
 	Materials = { ["ucs_iron"] = 9 }
 }
 
-CraftingRecipe["weapon_grenadeplacer"] = {
-	Name = "Tripwire Grenade",
-	Description = "Requires 5 iron and 50 or less Combine loyalty.",
-	Category = "Traps",
-	Loyalty = 50,
+CraftingRecipe["weapon_slam"] = {
+	Name = "S.L.A.M. (Tripmine & Remote Explosive)",
+	Description = "Requires 15 iron and 35 or less Combine loyalty.",
+	Category = "Explosives",
+	Loyalty = 35,
 	Types = { ["rebel"] = true },
-	Materials = { ["ucs_iron"] = 5 }
-}
-
-CraftingRecipe["bouncingmine"] = {
-	Name = "Anti-Personnel Mine",
-	Description = "Requires 13 iron and 50 or less Combine loyalty.",
-	Category = "Traps",
-	Loyalty = 50,
-	Types = { ["rebel"] = true },
-	Materials = { ["ucs_iron"] = 13 }
-}
-
-CraftingRecipe["springgun"] = {
-	Name = "Tripwire Spring Gun",
-	Description = "Requires 9 iron and 50 or less Combine loyalty.",
-	Category = "Pistols",
-	Loyalty = 50,
-	Types = { ["rebel"] = true },
-	Materials = { ["ucs_iron"] = 9 }
-}
-
-CraftingRecipe["tripwireextender"] = {
-	Name = "Tripwire Extender",
-	Description = "Requires 2 iron.",
-	Category = "Traps",
-	Types = { ["rebel"] = true },
-	Materials = { ["ucs_iron"] = 2 }
+	Materials = { ["ucs_iron"] = 15 }
 }
 
 CraftingRecipe["weapon_ram_combine"] = {
