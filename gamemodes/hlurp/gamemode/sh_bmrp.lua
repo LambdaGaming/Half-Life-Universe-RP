@@ -307,6 +307,39 @@ ANNOUNCEMENTS_HECU = {
 	{ "Backup Required", "buzwarn buzwarn search _comma and destroy force reports _comma back up required engaged _comma with extreme resistance" }
 }
 
+--Vox announcement backend
+--Loosely based on this ancient addon: https://steamcommunity.com/sharedfiles/filedetails/?id=222457407
+local nextBroadcast = 0
+if SERVER then
+	util.AddNetworkString( "VOXBroadcast" )
+	concommand.Add( "vox", function( ply, cmd, args )
+		if nextBroadcast >= CurTime() then return end
+		local lines = table.concat( args, " " )
+		if !IsValid( ply ) or ply:IsAdmin() or ply:Team() == TEAM_ADMIN then
+			net.Start( "VOXBroadcast" )
+			net.WriteString( lines )
+			net.Broadcast()
+		end
+		nextBroadcast = CurTime() + 1
+	end )
+else
+	net.Receive( "VOXBroadcast", function()
+		local lines = net.ReadString()
+		local lineTbl = string.Explode( " ", lines )
+		local time = 0
+		for k,v in ipairs( lineTbl ) do
+			v = string.lower( v )
+			local dir = "vox/"..v..".wav"
+			if k != 1 then
+				time = time + SoundDuration( dir ) + 0.1
+			end
+			timer.Simple( time, function()
+				surface.PlaySound( dir )
+			end )
+		end
+	end )
+end
+
 local blockedtools = {
 	["wire_explosive"] = function( ply )
 		return ply:Team() == TEAM_WEPBOSS

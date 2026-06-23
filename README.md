@@ -8,7 +8,6 @@ If you have any suggestions or questions about the server or this repo, please d
 Alongside all of the content in this repo, the gamemode and server also rely on 3rd party addons and game content:
 - [Server Addon Collection](https://steamcommunity.com/sharedfiles/filedetails/?id=2512304430)
 - [Client Addon Collection](https://steamcommunity.com/sharedfiles/filedetails/?id=587127431)
-- [Half-Life: Source](https://store.steampowered.com/app/280/HalfLife_Source/) (this might not actually be needed, need to do some testing)
 
 # Missing Content
 The gamemode also relies on modified versions of proprietary content that can't be redistributed. To run the gamemode without errors, you will need to find alternatives, make the modifications yourself, or edit the gamemode to not rely on these addons:
@@ -16,7 +15,6 @@ The gamemode also relies on modified versions of proprietary content that can't 
 - Shrun's HUD - Changes colors based on the current stage. The money section displays loyalty level on City 17 RP and Outland RP. It seems to have disappeared without a trace so I can't link it here. I plan on eventually replacing it.
 - [Material URL Tool](https://steamcommunity.com/sharedfiles/filedetails/?id=2559426779) - Fixed a script error that appears for all clients when they first join.
 - Rebel Rocket - Modified rocket from GBombs 5; used for the rebel victory on Outland RP. It should probably be replaced because it's current implementation is extremely hacky.
-- Vox Announcements - Heavily modified to work with the new Vox interface, might just make a custom version at this point.
 
 # Credits
 - Brill Baker - BMRP trash spawning system
