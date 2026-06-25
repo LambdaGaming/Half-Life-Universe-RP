@@ -1,8 +1,8 @@
 # Contributing Guidelines
-Thanks for being interested in contributing! Before you start, please read through the following guidelines. Most of these are not strictly enforced, but following all of them would be greatly appreciated by myself and other contributors. I reserve the right to reject a pull request or ignore an issue for any reason, though this rarely happens.
+Thanks for being interested in contributing! Before you start, please read through the following guidelines. Most of these are not strict requirements, but each point not followed might increase the chance of your issue being ignored or your PR being rejected.
 
 ## AI Policy
-I expect your submissions to be authentic. Do not use any sort of generative AI to create issues, artwork, sounds, etc. Using AI tools to help you write code or documentation is acceptable, but only if you fully understand everything you're submitting. If I have reason to believe your submission violates this policy, it will be rejected without further discussion. Repeat offenders and bot accounts will be permanently banned from contributing to any of my repos.
+Use of AI-generated content of any kind in your issues or PRs will likely result in a rejection. I might make exceptions in certain cases, but for the most part there is no reason for you to being using AI-generated content in any of my repos. Repeat offenders and bot accounts will be permanently banned from contributing to all of my repos.
 
 ## Issues
 - All bug reports, feature requests, etc. should be discussed on our [Discord.](https://discord.gg/9RGdUS2)
