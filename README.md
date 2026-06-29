@@ -16,8 +16,8 @@ The server also uses modified versions of proprietary content that can't be redi
 
 # Credits
 - Brill Baker - BMRP trash spawning system
-- DarkRP Developers - Various pieces of DarkRP code used throughout the gamemode (Lockpick, Pocket, text wrapping)
-- William Moodhe - Zombie SWEP from the Zombie Survival gamemode
-- YuRaNnNzZZ - TFA VOX templates
-- ZeroXitreo - Original Galactic HUD
+- [DarkRP Developers](https://github.com/FPtje/DarkRP) - Various pieces of DarkRP code used throughout the gamemode (Lockpick, Pocket, text wrapping)
+- [William Moodhe](https://github.com/JetBoom/zombiesurvival) - Zombie SWEP from the Zombie Survival gamemode
+- [YuRaNnNzZZ](https://gist.github.com/YuRaNnNzZZ/8411ef8233714784c25b7dafd54104cb) - TFA VOX templates
+- [ZeroXitreo](https://github.com/ZeroXitreo/Galactic-HUD) - Original Galactic HUD
 - OPGman - Everything else
